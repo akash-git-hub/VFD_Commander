@@ -5,6 +5,7 @@ import { Headings } from '../../../components/Headings'
 import { SharedButton } from '../../../components/Button'
 import { useNavigate } from 'react-router-dom';
 import { Plans } from './Plans';
+import { Loader } from '../../../components/Loader';
 
 export const ListViewPlan = () => {
 
@@ -17,6 +18,7 @@ export const ListViewPlan = () => {
 
   return (
     <>
+      <Loader  show={false}/>
       <div className='CreateSubscription'>
         <Container fluid>
           <Row>

@@ -85,3 +85,10 @@ img.Avatar_img.rounded {
     background: #E7EAEE;
     border-radius: 10px;
 }
+
+.MainLoader {
+    height: 100vh;
+    background: #0000002e;
+    position: absolute;
+    width: 100%;
+}
