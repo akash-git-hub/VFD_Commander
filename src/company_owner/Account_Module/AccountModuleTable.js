@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { TablePagination } from '../../components/TablePagination';
+import { useNavigate } from 'react-router-dom';
 
 const sampleData = [
     {
@@ -57,6 +58,15 @@ const sampleData = [
 ];
 
 export const AccountModuleTable = () => {
+    const navigate = useNavigate();
+
+    const handleViewClick = () => {
+        navigate('/AccountDetail');
+    };
+    const handleEditClick = () => {
+        navigate('/editaccount');
+    };
+
     return (
         <>
             <div className='MainTable'>
@@ -89,14 +99,18 @@ export const AccountModuleTable = () => {
                                         color:'#064E3B',
                                         borderColor:'#ECFDF5',
                                         fontWeight:'500'
-                                    }}>View
+                                    }}
+                                    onClick={handleViewClick}
+                                    >View
                                     </Button>
                                     <Button variant="warning" size="sm" style={{
                                         background:'#FEF2F2',
                                         color:'#991B1B',
                                         borderColor:'#FEF2F2',
                                         fontWeight:'500'
-                                    }}>Edit
+                                    }}
+                                    onClick={handleEditClick}
+                                    >Edit
                                     </Button>
                                 </td>
                             </tr>

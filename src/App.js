@@ -4,6 +4,9 @@ import { Login } from './commonpages/Login';
 import { AccountModule } from './company_owner/Account_Module';
 import { AccountDetail } from './company_owner/Account_Module/accountDetail/AccountDetail';
 import { CreateAccountPage } from './company_owner/Account_Module/createAccount/CreateAccountPage';
+import { EditAccount } from './company_owner/Account_Module/editAccount/EditAccount';
+import { CreatePlan } from './company_owner/Subscriptions_Plan/createPlans/CreatePlan';
+import { ListViewPlan } from './company_owner/Subscriptions_Plan/viewPlans/ListViewPlan';
 
 function App() {
   return (
@@ -14,6 +17,9 @@ function App() {
           <Route path="/accountmodule" element={<AccountModule/>} />
           <Route path="/accountdetail" element={<AccountDetail/>} />
           <Route path="/createaccount" element={<CreateAccountPage/>} />
+          <Route path="/editaccount" element={<EditAccount/>} />
+          <Route path="/subscriptionplan" element={<CreatePlan/>} />
+          <Route path="/subscriptionview" element={<ListViewPlan/>} />
         </Routes>
       </BrowserRouter>
     </>

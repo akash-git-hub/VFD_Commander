@@ -5,7 +5,7 @@ import { SharedButton } from '../../../components/Button';
 import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 
 
-export const CreateForm = () => {
+export const EditForm = () => {
   const [fields, setFields] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
@@ -91,12 +91,12 @@ export const CreateForm = () => {
                 </Col>
               ))}
               <Col md={4}>
-                <SharedButton BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 mt-md-4"} onClick={handleShowModal} />
+                <SharedButton BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
               </Col>
             </Row>
             <Row className='mb-2'>
               <Col md={4}>
-                <SharedButton BtnLabel={"Create"} BtnVariant={'primary'} BtnClass={"w-100"} />
+                <SharedButton BtnLabel={"Update"} BtnVariant={'primary'} BtnClass={"w-100"} />
               </Col>
             </Row>
           </Form>

@@ -57,6 +57,11 @@ table.table th {
     --bs-btn-border-color: #00285d!important;
 }
 
+.btn-primary:hover {
+    background-color: #00234f !important;
+    border-color: #00234f !important;
+}
+
 img.Avatar_img.rounded {
     width: 80px;
 }
@@ -68,5 +73,15 @@ img.Avatar_img.rounded {
 .UseDetailPages {
     background: #F8F8F8;
     padding: 20px;
+    border-radius: 10px;
+}
+
+.AddFieldBtn {
+    margin-top: 1.9rem;
+}
+
+.Plans {
+    padding: 20px;
+    background: #E7EAEE;
     border-radius: 10px;
 }

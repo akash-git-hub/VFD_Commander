@@ -1,0 +1,59 @@
+import React, { useState } from 'react';
+import { Modal, Form, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+
+export const AddFieldModal = ({ show, handleClose, handleAddField }) => {
+  const [fieldTitle, setFieldTitle] = useState('');
+  const [fieldPlaceholder, setFieldPlaceholder] = useState('');
+
+  const handleSubmit = () => {
+    handleAddField(fieldTitle, fieldPlaceholder);
+    setFieldTitle('');
+    setFieldPlaceholder('');
+    handleClose();
+  };
+
+  return (
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Add New Field</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group className="mb-3">
+            <Form.Label>Field Title</Form.Label>
+            <Form.Control 
+              type="text" 
+              value={fieldTitle} 
+              onChange={(e) => setFieldTitle(e.target.value)} 
+              placeholder="Enter field title" 
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Placeholder</Form.Label>
+            <Form.Control 
+              type="text" 
+              value={fieldPlaceholder} 
+              onChange={(e) => setFieldPlaceholder(e.target.value)} 
+              placeholder="Enter placeholder" 
+            />
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleSubmit}>
+          Add Field
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
+AddFieldModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleAddField: PropTypes.func.isRequired,
+};

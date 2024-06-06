@@ -1,8 +1,15 @@
 import React from 'react'
 import { Container, Row, Col, Stack, Image, Button } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom';
 
 
 export const UserDetail = () => {
+    const navigate = useNavigate();
+
+    const handleEditClick = () => {
+        navigate('/editaccount');
+    };
+
     return (
         <>
             <div className='UseDetailPages'>
@@ -19,7 +26,7 @@ export const UserDetail = () => {
                                             <h4>Jenny Wilson</h4>
                                             <p>Account ID : 5146846548465</p>
                                         </Stack>
-                                        <Button variant="warning" size="sm" style={{
+                                        <Button variant="warning" size="sm" onClick={handleEditClick} style={{
                                             background: '#FEF2F2',
                                             color: '#991B1B',
                                             borderColor: '#FEF2F2',
