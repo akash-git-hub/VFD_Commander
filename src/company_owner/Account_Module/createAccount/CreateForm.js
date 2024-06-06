@@ -59,12 +59,12 @@ export const CreateForm = () => {
                 <InputField FormType={'text'} FormLabel={"Account Owner Email Address"} FormPlaceHolder={"Jenny@wilson.com"} />
               </Col>
               <Col md={4}>
-                <Form.Label>Subscription Name</Form.Label>
+                {/* <Form.Label>Subscription Name</Form.Label>
                 <Form.Select aria-label="Default select example">
                   <option value="" selected disabled>select</option>
                   <option value="3">Gold Plus</option>
                   <option value="2">Silver Plus</option>
-                </Form.Select>
+                </Form.Select> */}
               </Col>
               <Col md={4}>
                 <InputField FormType={'number'} FormLabel={"Subscription Amount"} FormPlaceHolder={"$ 599"} />

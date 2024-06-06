@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 
-export const Checkbox = ({ name, value, onChange }) => {
+export const Checkbox = ({ name, value, onChange=null }) => {
     return (
         <>
             <Form.Check // prettier-ignore

@@ -9,6 +9,7 @@ import Auth from './api_services/Auth';
 import { Accountmodule } from './company_owner/Account_Module/Accountmodule';
 import { Accountdetails } from './company_owner/Account_Module/accountDetail/Accountdetails';
 import { createContext, useState } from 'react';
+import { RoleAdminstrator } from './platform_owner/Role_Module/RoleAdminstrator';
 
 const Mycontext = createContext();
 
@@ -35,6 +36,8 @@ function App() {
             <Route path="/subscriptionplan" element={<CreatePlan />} />
             <Route path="/subscriptionview" element={<ListViewPlan />} />
           {/* </Route>           */}
+
+          <Route path="/roleadminstrator" element={<RoleAdminstrator/>} />
         </Routes>
         </Mycontext.Provider>
       </BrowserRouter>
