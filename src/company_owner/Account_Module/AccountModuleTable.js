@@ -61,7 +61,7 @@ export const AccountModuleTable = () => {
     const navigate = useNavigate();
 
     const handleViewClick = () => {
-        navigate('/AccountDetail');
+        navigate('/accountdetail');
     };
     const handleEditClick = () => {
         navigate('/editaccount');
@@ -70,7 +70,7 @@ export const AccountModuleTable = () => {
     return (
         <>
             <div className='MainTable'>
-                <Table responsive="md">
+                <Table responsive>
                     <thead>
                         <tr>
                             <th>ACCOUNT NAME</th>

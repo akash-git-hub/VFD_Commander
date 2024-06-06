@@ -1,7 +1,7 @@
 import React from 'react'
 import { Col, Container, Row, Spinner } from 'react-bootstrap'
 
-export const Loader = ({show}) => {
+export const Loader = ({show=false}) => {
     
     return (
         <>

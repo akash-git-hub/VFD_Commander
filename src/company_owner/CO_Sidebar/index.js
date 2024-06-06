@@ -7,8 +7,17 @@ import { LinkSidebar } from '../../components/LinkSidebar';
 import { Avatar } from '../../components/Avatar';
 import { SharedButton } from '../../components/Button';
 import { CgLogOut } from "react-icons/cg";
+import { useNavigate } from 'react-router-dom';
 
-export const CoSidebar = () => {
+export const Cosidebar = () => {
+    const navigate = useNavigate();
+
+    const logoutHandler = () =>{
+        localStorage.removeItem('id');
+        localStorage.removeItem('Authorization');
+        navigate('/');
+
+    }
     return (
         <>
             <div className='CO_Sidebar p-md-4' style={{}}>
@@ -60,7 +69,7 @@ export const CoSidebar = () => {
                                 <Avatar LinkLabel={'Jenny Wilson'} Description={'Jenny@wilsongmail.com'} />
                             </li>
                             <li>
-                                <SharedButton BtnLabel={"Logout"} BtnVariant={"light"} startIcon={<CgLogOut />} BtnClass={"w-100"} style={{
+                                <SharedButton BtnLabel={"Logout"} BtnVariant={"light"} startIcon={<CgLogOut />} onClick={logoutHandler} BtnClass={"w-100"} style={{
                                     background: '#F7F8F9'
                                 }} />
                             </li>

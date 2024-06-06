@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { CoSidebar } from '../../CO_Sidebar'
 import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
 import { Headings } from '../../../components/Headings'
 import { SubscriptionForm } from './SubscriptionForm'
+import { Cosidebar } from '../../CO_Sidebar';
 
 export const CreatePlan = () => {
   const [key, setKey] = useState('home');
@@ -12,7 +12,7 @@ export const CreatePlan = () => {
         <Container fluid>
           <Row>
             <Col md={3}>
-              <CoSidebar />
+              <Cosidebar />
             </Col>
             <Col md={9}>
               <Headings MainHeading={"Subscription Plan"} SubHeading={"Creating A New Subscription Plan"} />

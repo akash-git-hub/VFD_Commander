@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { CoSidebar } from '../CO_Sidebar'
 import { Row, Col, Tab, Tabs, Container } from 'react-bootstrap'
 import { Headings } from '../../components/Headings'
 import { SharedButton } from '../../components/Button'
@@ -7,8 +6,9 @@ import { SearchPanel } from '../../components/SearchPanel';
 import { IoSearchOutline } from "react-icons/io5";
 import { AccountModuleTable } from './AccountModuleTable';
 import { useNavigate } from 'react-router-dom';
+import { Cosidebar } from '../CO_Sidebar';
 
-export const AccountModule = () => {
+export const Accountmodule = () => {
     const navigate = useNavigate();
     const [key, setKey] = useState('home');
 
@@ -20,9 +20,9 @@ export const AccountModule = () => {
         <>
             <div className='AccountModulePage'>
                 <Container fluid>
-                    <Row>
+                    <Row >
                         <Col md={3}>
-                            <CoSidebar />
+                            <Cosidebar />
                         </Col>
                         <Col md={9}>
                             <Headings MainHeading={"Account Module"} SubHeading={"Manage your Manage Accounts"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Account"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>

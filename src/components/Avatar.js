@@ -6,7 +6,7 @@ export const Avatar = ({LinkLabel, LinkPath, Description}) => {
     return (
         <>
 
-            <Link className='SubMenu' to={LinkPath} alt style={{
+            <Link className='SubMenu' to={LinkPath} style={{
                 textDecoration: 'none',
                 color: '#000',
                 fontSize: '18px'

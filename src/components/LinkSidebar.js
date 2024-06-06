@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export const LinkSidebar = ({ LinkLabel, LinkIcon, LinkPath }) => {
     return (
         <>
-            <Link className='SubMenu' to={LinkPath} alt style={{
+            <Link className='SubMenu' to={LinkPath}  style={{
                 textDecoration: 'none',
                 color: '#000',
                 fontSize: '18px'

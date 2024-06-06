@@ -92,3 +92,21 @@ img.Avatar_img.rounded {
     position: absolute;
     width: 100%;
 }
+
+.bg-white{
+background-color: #fff;
+}
+
+.chiled-row{
+    justify-content: center;
+    align-items: center;
+    height:  100%;
+    width:100%;
+}
+.maindiv{
+    height: 100vh;
+    background: #E9EEED;
+}
+.error{
+    color: red;
+}

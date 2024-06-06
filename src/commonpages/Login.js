@@ -1,41 +1,110 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Row, Col, Stack, Form } from 'react-bootstrap'
 import { InputField } from '../components/InputField'
 import { Checkbox } from '../components/Checkbox'
 import { SharedButton } from '../components/Button'
+import { Loader } from '../components/Loader'
+import { emailPattern, msg } from '../helper/Helper'
+import { login } from '../api_services/Apiservices'
+import { errorAlert, successAlert } from '../components/Alert'
+import { useNavigate } from 'react-router-dom'
 
 
 export const Login = () => {
+    const [indata, setIndata] = useState({ "email": localStorage.getItem("myemail"), "password":   localStorage.getItem("mypassword"), "reminder": "" });
+    const [error, setError] = useState({ "email": "", "password": "" });
+    const navigate = useNavigate();
+    const [loder, setLoder] = useState(false);
+
+    const inputHandler = (e) => {
+        const { name, value } = e.target;
+        setIndata((pre) => ({ ...pre, [name]: value }));
+        setError((pre) => ({ ...pre, [name]: "" }));
+    }
+
+    const checkHenlder = (e) => {
+        const { name, checked } = e.target;
+        setIndata((pre) => ({ ...pre, [name]: checked }));
+    }
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        if (indata.reminder) {
+            localStorage.setItem("myemail", indata.email);
+            localStorage.setItem("mypassword", indata.password);
+        } else {
+            localStorage.removeItem("myemail");
+            localStorage.removeItem("mypassword");
+        }
+
+        let isvalid = 1;
+        if (!indata.email) {
+            setError((prev) => ({ ...prev, email: "Email is required *" }));
+            isvalid = 2;
+        } else if (!emailPattern.test(indata.email)) {
+            setError((prev) => ({ ...prev, email: "Invalid email format *" }));
+            isvalid = 3;
+        }
+        if (!indata.password) {
+            setError((pre) => ({ ...pre, 'password': "Password is Required *" }));
+            isvalid = 4;
+        }
+        if (isvalid === 1) {
+            setLoder(true);
+            const fdata = {
+                "email": indata.email,
+                "password": indata.password
+            }
+
+            const resp = await login(fdata);
+            if (resp && resp.success) {
+                setLoder(false);
+                successAlert(resp.message);
+                navigate("/accountmodule");
+            }
+            setLoder(false);
+        }
+
+    }
     return (
         <>
-            <div className='Login_Page' style={{
-                height: '100vh',
-                background: '#E9EEED',
-            }}>
-                <Row style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100%'
-                }}>
+            <Loader show={loder} />
+            <div className='Login_Page maindiv'>
+                <Row className="chiled-row">
                     <Col md="4">
-                        <div className='Login_Content p-md-5 p-sm-2 rounded' style={{
-                            background: '#fff',
-                        }}>
+                        <div className='Login_Content p-md-5 p-sm-2 rounded bg-white' >
                             <Stack direction='row' gap={3}>
                                 <img src='./assets/images/MainLogo.png' className='img-fluid w-50' alt='' />
                                 <div className=''>
                                     <h4>Login</h4>
-                                    <h6 style={{
+                                    <h6 className='text-center' style={{
                                         color: '#64748B'
                                     }}>Welcome back. Enter your credentials to access your account</h6>
                                 </div>
                             </Stack>
-                            <Form>
+                            <Form onSubmit={submitHandler}>
                                 <Stack className='mt-4' direction='row' gap={2}>
-                                    <InputField FormLabel={"User ID"} FormType={"email"} FormPlaceHolder={"Enter Your User ID"} />
-                                    <InputField FormLabel={"Password"} FormType={"password"} FormPlaceHolder={"Enter Your Password"} />
-                                    <Checkbox />
-                                    <SharedButton BtnLabel={"Continue"} BtnSize={"lg"} BtnClass={"W-100"} BtnVariant={"primary"} style={{
+                                    <InputField
+                                        FormLabel={"User ID"}
+                                        FormType={"email"}
+                                        FormPlaceHolder={"Enter Your User ID"}
+                                        name='email'
+                                        value={indata.email}
+                                        onChange={inputHandler}
+                                        error={error.email}
+                                    />
+                                    <InputField
+                                        FormLabel={"Password"}
+                                        FormType={"password"}
+                                        FormPlaceHolder={"Enter Your Password"}
+                                        name='password'
+                                        value={indata.password}
+                                        onChange={inputHandler}
+                                        error={error.password}
+                                    />
+                                    <Checkbox name="reminder" value={indata.reminder} onChange={checkHenlder} />
+                                    <SharedButton type={'submit'} BtnLabel={"Continue"} BtnSize={"lg"} BtnClass={"W-100"} BtnVariant={"primary"} style={{
                                         background: '#00285D'
                                     }} />
                                 </Stack>
