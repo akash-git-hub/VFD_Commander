@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Row, Col, Stack, Form } from 'react-bootstrap'
 import { InputField } from '../components/InputField'
 import { Checkbox } from '../components/Checkbox'
@@ -8,10 +8,12 @@ import { emailPattern, msg } from '../helper/Helper'
 import { login } from '../api_services/Apiservices'
 import { errorAlert, successAlert } from '../components/Alert'
 import { useNavigate } from 'react-router-dom'
+import { Mycontext } from '../App'
 
 
 export const Login = () => {
-    const [indata, setIndata] = useState({ "email": localStorage.getItem("myemail"), "password":   localStorage.getItem("mypassword"), "reminder": "" });
+    const { contaxtHandler } = useContext(Mycontext);
+    const [indata, setIndata] = useState({ "email": localStorage.getItem("myemail"), "password": localStorage.getItem("mypassword"), "reminder": localStorage.getItem("myreminder") });
     const [error, setError] = useState({ "email": "", "password": "" });
     const navigate = useNavigate();
     const [loder, setLoder] = useState(false);
@@ -31,9 +33,11 @@ export const Login = () => {
         e.preventDefault();
 
         if (indata.reminder) {
+            localStorage.setItem("myreminder", true);
             localStorage.setItem("myemail", indata.email);
             localStorage.setItem("mypassword", indata.password);
         } else {
+            localStorage.removeItem("myreminder");
             localStorage.removeItem("myemail");
             localStorage.removeItem("mypassword");
         }
@@ -59,6 +63,8 @@ export const Login = () => {
 
             const resp = await login(fdata);
             if (resp && resp.success) {
+                const data = resp.data;
+                contaxtHandler(data);
                 setLoder(false);
                 successAlert(resp.message);
                 navigate("/accountmodule");

@@ -61,7 +61,7 @@ export const CreateForm = () => {
               <Col md={4}>
                 <Form.Label>Subscription Name</Form.Label>
                 <Form.Select aria-label="Default select example">
-                  <option value="1">Premium Plus</option>
+                  <option value="" selected disabled>select</option>
                   <option value="3">Gold Plus</option>
                   <option value="2">Silver Plus</option>
                 </Form.Select>

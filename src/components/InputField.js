@@ -1,7 +1,7 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form';
 
-export const InputField = ({ FormLabel, FormType, FormPlaceHolder ,error,name,onChange,value=""}) => {
+export const InputField = ({ FormLabel="", FormType="", FormPlaceHolder="" ,error="",name="",onChange="",value=""}) => {
     return (
         <>
 

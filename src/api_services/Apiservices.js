@@ -12,7 +12,6 @@ export const login = async (data) => {
                 localStorage.setItem('Authorization', "Bearer " + tokwn);
                 localStorage.setItem('id', myid);
             }
-            console.log("------------>------", resp.data.data);
             return resp.data;
         }
     } catch (error) {

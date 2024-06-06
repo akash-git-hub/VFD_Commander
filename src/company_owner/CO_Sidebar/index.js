@@ -50,7 +50,7 @@ export const Cosidebar = () => {
                             <li style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<FiAward />} LinkLabel={'Subscriptions'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<FiAward />} LinkLabel={'Subscriptions'} LinkPath={'/subscriptionview'} />
                             </li>
                         </Stack>
                     </ul>
