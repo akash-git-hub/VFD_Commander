@@ -2,10 +2,17 @@ import { useState } from 'react';
 import { PoSidebar } from '../PO_Sidebar'
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { Headings } from '../../components/Headings'
-import { CreateRole } from './CreateRole';
+import { SharedButton } from '../../components/Button';
+import { useNavigate } from 'react-router-dom';
+import { RoleAdminstratorTable } from './RoleAdminstratorTable';
 
-export const RoleAdminstrator = () => {
+export const RoleList = () => {
+    const navigate = useNavigate();
     const [key, setKey] = useState('home');
+
+    const handleCreateAccount = () =>{
+        navigate('/roleadminstrator');
+    }
     return (
         <>
             <div className='RoleAdminstrator'>
@@ -15,7 +22,7 @@ export const RoleAdminstrator = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Role Administration"} SubHeading={"Role Account"}  />
+                            <Headings MainHeading={"Role Administration"} SubHeading={"Role Account"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Role"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}
@@ -23,7 +30,7 @@ export const RoleAdminstrator = () => {
                                 className="mb-3"
                             >
                                 <Tab eventKey="home" title="Role Administration">
-                                   <CreateRole/>
+                                    <RoleAdminstratorTable/>
                                 </Tab>
                             </Tabs>
                         </Col>

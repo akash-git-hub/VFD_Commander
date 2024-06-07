@@ -28,7 +28,7 @@ export const PoSidebar = () => {
                                 padding: '10px',
                                 position: 'relative'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/User.png' />} LinkLabel={'User Profile Module'} LinkPath={'/'} />  <Badge bg="secondary" style={{
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/User.svg' />} LinkLabel={'User Profile Module'} LinkPath={'/'} />  <Badge bg="secondary" style={{
                                     position: 'absolute',
                                     top: '2vh',
                                     right: '5vh'
@@ -38,27 +38,27 @@ export const PoSidebar = () => {
                             <li style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Text.png' />} LinkLabel={'Training Module'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Text.svg' />} LinkLabel={'Training Module'} LinkPath={'/'} />
                             </li>
                             <li style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Message.png' />} LinkLabel={'Messaging Module'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Message.svg' />} LinkLabel={'Messaging Module'} LinkPath={'/'} />
                             </li>
                             <li style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Icon.png' />} LinkLabel={'Inventory Module'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Icon.svg' />} LinkLabel={'Inventory Module'} LinkPath={'/'} />
                             </li>
                             <li style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Todo.png' />} LinkLabel={'Availability Module'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Todo.svg' />} LinkLabel={'Availability Module'} LinkPath={'/'} />
                             </li>
                             <li style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Qualification.png' />} LinkLabel={'Availability Module'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Qualification.svg' />} LinkLabel={'Qualifications Module'} LinkPath={'/'} />
                             </li>
                         </Stack>
                     </ul>

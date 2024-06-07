@@ -10,6 +10,8 @@ import { Accountmodule } from './company_owner/Account_Module/Accountmodule';
 import { Accountdetails } from './company_owner/Account_Module/accountDetail/Accountdetails';
 import { createContext, useState } from 'react';
 import { RoleAdminstrator } from './platform_owner/Role_Module/RoleAdminstrator';
+import { CreateRole } from './platform_owner/Role_Module/CreateRole';
+import { RoleList } from './platform_owner/Role_Module/RoleList';
 
 const Mycontext = createContext();
 
@@ -37,6 +39,7 @@ function App() {
             <Route path="/subscriptionview" element={<ListViewPlan />} />
           </Route>          
           <Route path="/roleadminstrator" element={<RoleAdminstrator/>} />
+          <Route path="/roleadminstratorlist" element={<RoleList/>} />
         </Routes>
         </Mycontext.Provider>
       </BrowserRouter>

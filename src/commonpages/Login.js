@@ -109,7 +109,7 @@ export const Login = () => {
                                         onChange={inputHandler}
                                         error={error.password}
                                     />
-                                    <Checkbox name="reminder" value={indata.reminder} onChange={checkHenlder} />
+                                    <Checkbox name="reminder" value={indata.reminder} onChange={checkHenlder} Checklabel={'"Keep me signed in"'} ID={'custom-check'}/>
                                     <SharedButton type={'submit'} BtnLabel={"Continue"} BtnSize={"lg"} BtnClass={"W-100"} BtnVariant={"primary"} style={{
                                         background: '#00285D'
                                     }} />

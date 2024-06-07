@@ -110,3 +110,45 @@ background-color: #fff;
 .error{
     color: red;
 }
+button.checked-btn {
+    width: 100%;
+    padding: 10px;
+    background: #F7F8F9;
+    border: 0px;
+    color: #6A6A6A;
+    border-radius: 4px;
+}
+
+button.checked-btn.checked {
+    background: #00285d !important;
+}
+
+.RoleModule {
+    padding: 20px;
+    border: 1px solid #E7EAEE;
+    border-radius: 4px;
+}
+.timezone-dropdown {
+    position: relative;
+}
+
+button.dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 38px;
+}
+button.dropdown-toggle:hover {
+   background: #fff!important;
+   color: #6c757d;
+}
+
+button.dropdown-toggle:focus{
+    background: #fff!important;
+
+}
+
+.timezone-dropdown .dropdown-menu.show {
+    width: 100%;
+    padding: 10px;
+}

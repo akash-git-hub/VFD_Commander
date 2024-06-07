@@ -1,16 +1,16 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 
-export const Checkbox = ({ name, value, onChange=null }) => {
+export const Checkbox = ({ name, value, onChange=null, Checklabel, ID }) => {
     return (
         <>
             <Form.Check // prettier-ignore
                 type="checkbox"
-                id="custom-check"
+                id={ID}
                 name={name}
                 checked={value ? true : false}
                 onChange={onChange}
-                label="Keep me signed in"
+                label={Checklabel}
             />
         </>
     )
