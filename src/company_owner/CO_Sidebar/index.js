@@ -40,7 +40,7 @@ export const Cosidebar = () => {
                                 padding: '10px',
                                 position: 'relative'
                             }}>
-                                <LinkSidebar LinkIcon={<SlBell />} LinkLabel={'Notifications'} LinkPath={'/'} />  <Badge bg="secondary" style={{
+                                <LinkSidebar LinkIcon={<SlBell />} LinkLabel={'Notifications'} LinkPath={'#'} />  <Badge bg="secondary" style={{
                                     position: 'absolute',
                                     top: '2vh',
                                     right: '5vh'

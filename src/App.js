@@ -28,15 +28,14 @@ function App() {
       <Mycontext.Provider value={{ pdata:pdata, contaxtHandler:contaxtHandler }}>
         <Routes>
           <Route path="/" element={<Login />} />
-          {/* <Route element={<Auth />} > */}
+          <Route element={<Auth />} >
             <Route path="/accountmodule" element={<Accountmodule />} />
             <Route path="/accountdetail" element={<Accountdetails />} />
             <Route path="/createaccount" element={<CreateAccountPage />} />
             <Route path="/editaccount" element={<EditAccount />} />
             <Route path="/subscriptionplan" element={<CreatePlan />} />
             <Route path="/subscriptionview" element={<ListViewPlan />} />
-          {/* </Route>           */}
-
+          </Route>          
           <Route path="/roleadminstrator" element={<RoleAdminstrator/>} />
         </Routes>
         </Mycontext.Provider>
