@@ -11,19 +11,32 @@ import { Accountdetails } from './company_owner/Account_Module/accountDetail/Acc
 import { createContext, useState } from 'react';
 import { RoleAdminstrator } from './platform_owner/Role_Module/RoleAdminstrator';
 import { RoleList } from './platform_owner/Role_Module/RoleList';
+import { AdminstratorProfileList } from './platform_owner/User_Profile_Adminstrator/AdminstratorProfileList';
+import { ProfileAdminstrator } from './platform_owner/User_Profile_Adminstrator/User_Profile/ProfileAdminstrator';
+import { Training } from './platform_owner/Training_Module/Training';
+import { TrainingList } from './platform_owner/Training_Module/TrainingList';
+import { InventoryModule } from './platform_owner/Inventory_Module/InventoryModule';
+import { InventoryModuleList } from './platform_owner/Inventory_Module/InventoryModuleList';
+import { UnavailabilityModule } from './platform_owner/Unavailability_Module/UnavailabilityModule';
+import { QualificationAdminstrator } from './platform_owner/Qualification_Module/QualificationAdminstrator';
+import { QualificationModuleList } from './platform_owner/Qualification_Module/QualificationModuleList';
+import { MyProfile } from './platform_owner/My_Profile/MyProfile';
 
 const Mycontext = createContext();
 
-function App() {  
-  const [predata, setPredata] = useState('');
+function App() {
+  
+  const [pdata, setPdata] = useState();
 
-  const contaxtHandler = (data) =>{if(data){setPredata(data);}}
+  const contaxtHandler = (data) =>{setPdata(data)}
   
 
+
   return (
-    <>   
+    <>
+   
       <BrowserRouter>
-      <Mycontext.Provider value={{ pdata:predata, contaxtHandler:contaxtHandler }}>
+      <Mycontext.Provider value={{ pdata:pdata, contaxtHandler:contaxtHandler }}>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route element={<Auth />} >
@@ -36,9 +49,20 @@ function App() {
           </Route>          
           <Route path="/roleadminstrator" element={<RoleAdminstrator/>} />
           <Route path="/roleadminstratorlist" element={<RoleList/>} />
+          <Route path="/adminstratorprofilelist" element={<AdminstratorProfileList/>} />
+          <Route path="/profileadminstrator" element={<ProfileAdminstrator/>} />
+          <Route path="/training" element={<Training/>} />
+          <Route path="/traininglist" element={<TrainingList/>} />
+          <Route path="/inventorymodule" element={<InventoryModule/>} />
+          <Route path="/inventorymodulelist" element={<InventoryModuleList/>} />
+          <Route path="/unavailability" element={<UnavailabilityModule/>} />
+          <Route path="/qualification" element={<QualificationAdminstrator/>} />
+          <Route path="/qualificationlist" element={<QualificationModuleList/>} />
+          <Route path="/myprofile" element={<MyProfile/>} />
         </Routes>
         </Mycontext.Provider>
-      </BrowserRouter>   
+      </BrowserRouter>
+   
     </>
   );
 }

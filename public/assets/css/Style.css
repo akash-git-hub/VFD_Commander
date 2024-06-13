@@ -12,6 +12,13 @@
     border-bottom: 3px solid #047857!important;
 }
 
+.nav-tabs .nav-link {
+    color: #000;
+}
+.nav-tabs .nav-link:hover {
+    color: #000;
+}
+
 .SearchBox {
     background: #F7F8F9;
 }

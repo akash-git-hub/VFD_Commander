@@ -25,7 +25,8 @@ export const InputField = ({
           onChange={onChange}
           readOnly={!!readOnly}
           className="custom-input"
-          rows={isTextArea ? 3 : undefined} // Set rows if textarea
+          rows={isTextArea ? 3 : undefined}
+           // Set rows if textarea
         />
         <small className='error'>{error}</small>
       </Form.Group>
