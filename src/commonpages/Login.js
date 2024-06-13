@@ -4,9 +4,9 @@ import { InputField } from '../components/InputField'
 import { Checkbox } from '../components/Checkbox'
 import { SharedButton } from '../components/Button'
 import { Loader } from '../components/Loader'
-import { emailPattern, msg } from '../helper/Helper'
-import { login } from '../api_services/Apiservices'
-import { errorAlert, successAlert } from '../components/Alert'
+import { emailPattern } from '../helper/Helper'
+import { login_API } from '../api_services/Apiservices'
+import { successAlert } from '../components/Alert'
 import { useNavigate } from 'react-router-dom'
 import { Mycontext } from '../App'
 
@@ -61,7 +61,7 @@ export const Login = () => {
                 "password": indata.password
             }
 
-            const resp = await login(fdata);
+            const resp = await login_API(fdata);
             if (resp && resp.success) {
                 const data = resp.data;
                 contaxtHandler(data);

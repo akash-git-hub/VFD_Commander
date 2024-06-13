@@ -1,38 +1,42 @@
+import moment from 'moment'
 import React from 'react'
 import { Col, Container, Row, Stack } from 'react-bootstrap'
 
-export const Plans = () => {
+export const Plans = ({ planList }) => {
     return (
         <>
             <div className='SubscriptionPlans'>
                 <Container>
                     <Row>
-                        <Col md={6}>
-                            <div className='Plans'>
-                                <Stack direction='vertical' gap={2}>
-                                    <Stack direction='horizontal' gap={2} style={{
-                                        justifyContent: 'space-between'
-                                    }}>
-                                        <h5>Premium Plan</h5>
-                                        <h6>10:00 AM</h6>
+                        {planList && planList.length > 0 && planList.map((e,i) => (
+                            <Col md={6} key={i} >
+                                <div className='Plans'>
+                                    <Stack direction='vertical' gap={2}>
+                                        <Stack direction='horizontal' gap={2} style={{
+                                            justifyContent: 'space-between'
+                                        }}>
+                                            <h5>{e.name}</h5>
+                                            <h6>10:00 AM</h6>
+                                        </Stack>
+                                        <p style={{
+                                            textAlign: 'justify'
+                                        }}><b>Descriptions : </b>{e.description}</p>
+                                        <Stack direction='horizontal' gap={2} style={{
+                                            justifyContent: 'space-between'
+                                        }}>
+                                            <h6>{moment.unix(e.start_date).format("DD-MM-YYYY")}</h6>
+                                            <h6>{moment.unix(e.end_date).format("DD-MM-YYYY")}</h6>
+                                        </Stack>
+                                        <Stack direction='horizontal' gap={2}>
+                                            <h4>INR {e.pricing} <sup style={{
+                                                color: 'green'
+                                            }}>{e.billing_interval}</sup></h4>
+                                        </Stack>
                                     </Stack>
-                                    <p style={{
-                                        textAlign: 'justify'
-                                    }}><b>Descriptions : </b>Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-                                    <Stack direction='horizontal' gap={2} style={{
-                                        justifyContent: 'space-between'
-                                    }}>
-                                        <h6>02/05/2024</h6>
-                                        <h6>02/06/2024</h6>
-                                    </Stack>
-                                    <Stack direction='horizontal' gap={2}>
-                                        <h4>INR 599 <sup style={{
-                                            color: 'green'
-                                        }}>Annual</sup></h4>
-                                    </Stack>
-                                </Stack>
-                            </div>
-                        </Col>
+                                </div>
+                            </Col>
+                        ))}
+
                     </Row>
                 </Container>
             </div>

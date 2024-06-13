@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Tab, Tabs, Container } from 'react-bootstrap'
 import { Headings } from '../../../components/Headings'
 import { SharedButton } from '../../../components/Button'
@@ -6,8 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { Plans } from './Plans';
 import { Loader } from '../../../components/Loader';
 import { Cosidebar } from '../../CO_Sidebar';
+import { getSubscriptionPlan_api } from '../../../api_services/Apiservices';
 
 export const ListViewPlan = () => {
+  const [planList, setPlanList] = useState([]);
+  const [loder, setLoder] = useState(false);
 
   const [key, setKey] = useState('home');
   const navigate = useNavigate();
@@ -15,10 +18,23 @@ export const ListViewPlan = () => {
     navigate('/subscriptionplan');
   }
 
+  const get_plan = async () => {
+    setLoder(true);
+    const resp = await getSubscriptionPlan_api();
+    if (resp && resp.data) {
+      setLoder(false);
+      const data = resp.data;
+      setPlanList(data);
+    } else { setPlanList([]); setLoder(false); }
+    setLoder(false);
+  }
+
+  useEffect(() => { get_plan(); }, [])
+
 
   return (
     <>
-      <Loader  show={false}/>
+      <Loader show={loder} />
       <div className='CreateSubscription'>
         <Container fluid>
           <Row>
@@ -34,7 +50,7 @@ export const ListViewPlan = () => {
                 className="mb-3"
               >
                 <Tab eventKey="home" title="Subscription Plan">
-                  <Plans />
+                  <Plans planList={planList}/>
                 </Tab>
               </Tabs>
             </Col>

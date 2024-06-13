@@ -2,7 +2,7 @@ import { errorAlert } from "../components/Alert";
 import http from "../http"
 
 
-export const login = async (data) => {
+export const login_API = async (data) => {
     try {
         const resp = await http.post("/login", data);
         if (resp) {
@@ -15,10 +15,105 @@ export const login = async (data) => {
             return resp.data;
         }
     } catch (error) {
-        errorAlert(error.response.data.message);
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
     }
+}
+
+export const create_plan_api = async (data) => {
+    try {
+        const resp = await http.post("/createSubscriptionPlan", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const create_modal_account_api = async (data) => {
+    try {
+        const resp = await http.post("/createAccount", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const update_modal_account_api = async (data) => {
+    try {
+        const resp = await http.post("/updateAccount", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
 
 
 
+export const getAccount_API = async (page) => {
+    try {
+        const resp = await http.get("/getAccount", { params: page });
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
 
+    }
+}
+
+export const getAccount_by_id_API = async (data) => {
+    try {
+        const resp = await http.post("/getAccountByID",data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const getSubscriptionPlan_api = async () => {
+    try {
+        const resp = await http.get("/getSubscriptionPlan");
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
 }

@@ -1,19 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Tab, Tabs, Container } from 'react-bootstrap'
 import { Headings } from '../../../components/Headings'
 import { SharedButton } from '../../../components/Button'
 import { UserDetail } from './UserDetail';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Cosidebar } from '../../CO_Sidebar';
 
 
 export const Accountdetails = () => {
     const [key, setKey] = useState('home');
-
+    const location = useLocation(); 
+    const [data ,setData] = useState();
     const navigate = useNavigate();
-    const handleCreateAccount = () =>{
-        navigate('/createaccount');
-    }
+
+    useEffect(()=>{
+        if(location && location.state && location.state.data){ setData(location.state.data); }
+    },[location])  
+
+    const handleCreateAccount = () =>{ navigate('/createaccount'); }
 
 
     return (
@@ -25,7 +29,7 @@ export const Accountdetails = () => {
                             <Cosidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Account Management"} SubHeading={"Manage your Manage Account"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Account"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>} />
+                            <Headings MainHeading={"Account Detail"} SubHeading={"Your Account Details"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>} />
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}
@@ -33,7 +37,7 @@ export const Accountdetails = () => {
                                 className="mb-3"
                             >
                                 <Tab eventKey="home" title="Details Overview">
-                                    <UserDetail />
+                                    <UserDetail data={data} />
                                 </Tab>
                             </Tabs>
                         </Col>

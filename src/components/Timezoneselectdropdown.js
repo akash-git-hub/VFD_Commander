@@ -3,7 +3,7 @@ import { Form, InputGroup, FormControl, Dropdown } from 'react-bootstrap';
 
 
 
-export const SelectDropdown = ({ FormLabel, placeholder,onChange,Array,name,error }) => {
+export const Timezoneselectdropdown = ({ FormLabel, placeholder,onChange,Array,name,error }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredOptions, setFilteredOptions] = useState(Array);
     const [selectedOption, setSelectedOption] = useState('');

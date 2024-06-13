@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Container, Form, InputGroup } from 'react-bootstrap'
 
-export const SearchPanel = ({ FormLabel, FormType, FormPlaceHolder, StartIcon}) => {
+export const SearchPanel = ({ FormLabel, FormType, FormPlaceHolder, StartIcon,onChange}) => {
     return (
         <>
             <div className='SearchBox'>
@@ -16,7 +16,7 @@ export const SearchPanel = ({ FormLabel, FormType, FormPlaceHolder, StartIcon}) 
                                             {StartIcon}
                                         </InputGroup.Text>
                                     )}
-                                    <Form.Control type={FormType} placeholder={FormPlaceHolder} />
+                                    <Form.Control type={FormType} placeholder={FormPlaceHolder} onChange={onChange} />
                                 </InputGroup>
                             </Form.Group>
                         </Col>

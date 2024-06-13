@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Badge, Stack } from 'react-bootstrap'
 import { TfiPieChart } from "react-icons/tfi";
 import { SlBell } from "react-icons/sl";
@@ -7,16 +7,25 @@ import { LinkSidebar } from '../../components/LinkSidebar';
 import { Avatar } from '../../components/Avatar';
 import { SharedButton } from '../../components/Button';
 import { CgLogOut } from "react-icons/cg";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Mycontext } from '../../App';
 
 export const Cosidebar = () => {
     const navigate = useNavigate();
+    const [host, setHost] = useState("accountmodule");
+    const path = useLocation().pathname;
+    const value = useContext(Mycontext);
 
-    const logoutHandler = () =>{
+    console.log("----value---",value);
+
+   
+
+    useEffect(() => { setHost(path); }, [path])
+
+    const logoutHandler = () => {
         localStorage.removeItem('id');
         localStorage.removeItem('Authorization');
         navigate('/');
-
     }
     return (
         <>
@@ -31,12 +40,12 @@ export const Cosidebar = () => {
                         padding: 0
                     }}>
                         <Stack direction='vertical' gap={3}>
-                            <li className='active' style={{
+                            <li className={host === "/accountmodule" ? "active" : ""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<TfiPieChart />} LinkLabel={'Account Module'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<TfiPieChart />} LinkLabel={'Account Module'} LinkPath={'/accountmodule'} />
                             </li>
-                            <li style={{
+                            <li className={host === "/#" ? "active" : ""} style={{
                                 padding: '10px',
                                 position: 'relative'
                             }}>
@@ -47,7 +56,7 @@ export const Cosidebar = () => {
 
                                 }}>14</Badge>
                             </li>
-                            <li style={{
+                            <li className={host === "/subscriptionview" ? "active" : ""} style={{
                                 padding: '10px'
                             }}>
                                 <LinkSidebar LinkIcon={<FiAward />} LinkLabel={'Subscriptions'} LinkPath={'/subscriptionview'} />

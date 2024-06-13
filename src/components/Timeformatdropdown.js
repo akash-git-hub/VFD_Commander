@@ -3,7 +3,7 @@ import { Form, InputGroup, FormControl, Dropdown } from 'react-bootstrap';
 
 
 
-export const SelectDropdown = ({ FormLabel, placeholder,onChange,Array,name,error }) => {
+export const Timeformatdropdown = ({ FormLabel, placeholder,onChange,Array,name,error ,value}) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredOptions, setFilteredOptions] = useState(Array);
     const [selectedOption, setSelectedOption] = useState('');
@@ -30,6 +30,17 @@ export const SelectDropdown = ({ FormLabel, placeholder,onChange,Array,name,erro
             setFilteredOptions(filtered);
         }
     };
+
+    useEffect(()=>{
+        if(value){
+         const e = Array.find((pre)=>pre.value===value);
+         if(e){
+            const fdata ={'name':name,'label':e.label,'value':e.value};
+            onChange(fdata);
+            setSelectedOption(fdata.label);
+         }
+        }
+    },[Array,value])
 
     const handleSelect = (option) => {
         onChange(option);

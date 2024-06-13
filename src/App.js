@@ -10,24 +10,20 @@ import { Accountmodule } from './company_owner/Account_Module/Accountmodule';
 import { Accountdetails } from './company_owner/Account_Module/accountDetail/Accountdetails';
 import { createContext, useState } from 'react';
 import { RoleAdminstrator } from './platform_owner/Role_Module/RoleAdminstrator';
-import { CreateRole } from './platform_owner/Role_Module/CreateRole';
 import { RoleList } from './platform_owner/Role_Module/RoleList';
 
 const Mycontext = createContext();
 
-function App() {
-  
-  const [pdata, setPdata] = useState();
+function App() {  
+  const [predata, setPredata] = useState('');
 
-  const contaxtHandler = (data) =>{setPdata(data)}
+  const contaxtHandler = (data) =>{if(data){setPredata(data);}}
   
-
 
   return (
-    <>
-   
+    <>   
       <BrowserRouter>
-      <Mycontext.Provider value={{ pdata:pdata, contaxtHandler:contaxtHandler }}>
+      <Mycontext.Provider value={{ pdata:predata, contaxtHandler:contaxtHandler }}>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route element={<Auth />} >
@@ -42,8 +38,7 @@ function App() {
           <Route path="/roleadminstratorlist" element={<RoleList/>} />
         </Routes>
         </Mycontext.Provider>
-      </BrowserRouter>
-   
+      </BrowserRouter>   
     </>
   );
 }
