@@ -22,13 +22,13 @@ export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) =
 
     return (
         <>
-            <div className='MainTable'>
-                <Table responsive>
+            <div className='MainTable' >
+                <Table responsive  style={{minHeight:"200px"}}>
                     <thead>
                         <tr>
                             <th>ACCOUNT NAME</th>
                             <th>ACCOUNT ID</th>
-                            <th>ACCOUNT OWNER ID</th>
+                            <th>OWNER ID</th>
                             <th>BILLING DATE</th>
                             <th>LOCATION</th>
                             <th>SUBSCRIPTION</th>
@@ -39,13 +39,13 @@ export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) =
                     <tbody>
                         {account_data.map((account, index) => (
                             <tr key={index}>
-                                <td>{account.accountName}</td>
-                                <td>{account.accountId}</td>
-                                <td>{account.accountOwnerId}</td>
-                                <td>{account.billingDate}</td>
-                                <td>{account.location}</td>
-                                <td>INR {account.subscription}</td>
-                                <td>{account.mobileNo}</td>
+                                <td style={{maxWidth:"99px"}}>{account.accountName}</td>
+                                <td style={{maxWidth:"99px"}}>{account.accountId}</td>
+                                <td style={{maxWidth:"99px"}}>{account.accountOwnerId}</td>
+                                <td style={{maxWidth:"99px"}}>{account.billingDate}</td>
+                                <td style={{maxWidth:"99px"}}>{account.location}</td>
+                                <td style={{maxWidth:"99px"}}>INR {account.subscription}</td>
+                                <td style={{maxWidth:"99px"}}>{account.mobileNo}</td>
                                 <td>
                                     <Button variant="info" size="sm" className="me-2" style={{
                                         background: '#ECFDF5',

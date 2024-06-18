@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import { Login } from './commonpages/Login';
 import { CreateAccountPage } from './company_owner/Account_Module/createAccount/CreateAccountPage';
 import { EditAccount } from './company_owner/Account_Module/editAccount/EditAccount';
@@ -21,50 +21,63 @@ import { UnavailabilityModule } from './platform_owner/Unavailability_Module/Una
 import { QualificationAdminstrator } from './platform_owner/Qualification_Module/QualificationAdminstrator';
 import { QualificationModuleList } from './platform_owner/Qualification_Module/QualificationModuleList';
 import { MyProfile } from './platform_owner/My_Profile/MyProfile';
+import ClientAuth from './api_services/ClientAuth';
 
 const Mycontext = createContext();
 
 function App() {
-  
-  const [pdata, setPdata] = useState();
 
-  const contaxtHandler = (data) =>{setPdata(data)}
-  
+  const [pdata, setPdata] = useState(localStorage.getItem("mydata"));
+
+  const contaxtHandler = (data) => {
+    if (data) {
+      localStorage.setItem("mydata", JSON.stringify(data));
+    }
+    setPdata(JSON.stringify(data))
+  }
 
 
   return (
     <>
-   
+
       <BrowserRouter>
-      <Mycontext.Provider value={{ pdata:pdata, contaxtHandler:contaxtHandler }}>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route element={<Auth />} >
-            <Route path="/accountmodule" element={<Accountmodule />} />
-            <Route path="/accountdetail" element={<Accountdetails />} />
-            <Route path="/createaccount" element={<CreateAccountPage />} />
-            <Route path="/editaccount" element={<EditAccount />} />
-            <Route path="/subscriptionplan" element={<CreatePlan />} />
-            <Route path="/subscriptionview" element={<ListViewPlan />} />
-          </Route>          
-          <Route path="/roleadminstrator" element={<RoleAdminstrator/>} />
-          <Route path="/roleadminstratorlist" element={<RoleList/>} />
-          <Route path="/adminstratorprofilelist" element={<AdminstratorProfileList/>} />
-          <Route path="/profileadminstrator" element={<ProfileAdminstrator/>} />
-          <Route path="/training" element={<Training/>} />
-          <Route path="/traininglist" element={<TrainingList/>} />
-          <Route path="/inventorymodule" element={<InventoryModule/>} />
-          <Route path="/inventorymodulelist" element={<InventoryModuleList/>} />
-          <Route path="/unavailability" element={<UnavailabilityModule/>} />
-          <Route path="/qualification" element={<QualificationAdminstrator/>} />
-          <Route path="/qualificationlist" element={<QualificationModuleList/>} />
-          <Route path="/myprofile" element={<MyProfile/>} />
-        </Routes>
+        <Mycontext.Provider value={{ pdata: pdata, contaxtHandler: contaxtHandler }}>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/roleadminstrator" element={<RoleAdminstrator />} />
+            <Route path="/roleadminstratorlist" element={<RoleList />} />
+            <Route path="/adminstratorprofilelist" element={<AdminstratorProfileList />} />
+            <Route path="/profileadminstrator" element={<ProfileAdminstrator />} />
+            <Route path="/training" element={<Training />} />
+            <Route path="/traininglist" element={<TrainingList />} />
+            <Route path="/inventorymodule" element={<InventoryModule />} />
+            <Route path="/inventorymodulelist" element={<InventoryModuleList />} />
+            <Route path="/unavailability" element={<UnavailabilityModule />} />
+            <Route path="/qualification" element={<QualificationAdminstrator />} />
+            <Route path="/qualificationlist" element={<QualificationModuleList />} />
+            <Route path="/myprofile" element={<MyProfile />} />
+
+            
+            <Route element={<Auth />} >
+              <Route path="/accountmodule" element={<Accountmodule />} />
+              <Route path="/accountdetail" element={<Accountdetails />} />
+              <Route path="/createaccount" element={<CreateAccountPage />} />
+              <Route path="/editaccount" element={<EditAccount />} />
+              <Route path="/subscriptionplan" element={<CreatePlan />} />
+              <Route path="/subscriptionview" element={<ListViewPlan />} />
+            </Route>
+
+            {/* Clinet Code */}
+            { /*} <Route element={<ClientAuth />} > */}
+
+            { /*</Route> */}
+
+          </Routes>
         </Mycontext.Provider>
       </BrowserRouter>
-   
+
     </>
   );
 }
 export default App;
-export  { Mycontext };
+export { Mycontext };

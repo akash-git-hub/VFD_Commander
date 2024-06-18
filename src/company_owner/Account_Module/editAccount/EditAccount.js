@@ -5,12 +5,14 @@ import { EditForm } from './EditForm';
 import { Cosidebar } from '../../CO_Sidebar';
 import { SharedButton } from '../../../components/Button';
 import { useLocation } from 'react-router-dom';
+import { Loader } from '../../../components/Loader';
 
 
 export const EditAccount = () => {
     const [key, setKey] = useState('home');
     const location = useLocation();
     const [data, setData] = useState();
+    const [loder,setLoder] = useState(false);
 
     useEffect(() => {
         if (location && location.state && location.state.data) {
@@ -20,6 +22,7 @@ export const EditAccount = () => {
     }, [location])
     return (
         <>
+          <Loader show={loder} />
             <div className='CreateAccount'>
                 <Container fluid>
                     <Row>
@@ -36,7 +39,7 @@ export const EditAccount = () => {
                                 className="mb-3"
                             >
                                 <Tab eventKey="home" title="Edit Account">
-                                    <EditForm mydata={data} />
+                                    <EditForm mydata={data} setLoder={setLoder} />
                                 </Tab>
                             </Tabs>
                         </Col>

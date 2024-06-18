@@ -29,7 +29,7 @@ export const Accountdetails = () => {
                             <Cosidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Account Detail"} SubHeading={"Your Account Details"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>} />
+                            <Headings MainHeading={"Account Detail"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>} />
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}

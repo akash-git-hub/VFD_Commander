@@ -1,4 +1,5 @@
 import moment from 'moment-timezone';
+
   
   // Email validation regex pattern
 export let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

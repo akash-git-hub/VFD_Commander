@@ -12,6 +12,7 @@ export const InputField = ({
     readOnly = false,
     isTextArea = false,
     max='',
+    min="",
     required=false,
 }) => {
     return (
@@ -28,6 +29,7 @@ export const InputField = ({
                     onChange={onChange}
                     readOnly={!!readOnly}
                     maxLength={max}
+                    min={min}
                     className="custom-input"
                     rows={isTextArea ? 3 : undefined}
                 />

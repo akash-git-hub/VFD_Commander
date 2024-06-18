@@ -16,13 +16,14 @@ export const CheckBoxButton = ({ onClick, BtnLabel, BtnSize, BtnVariant, BtnClas
     <>
       <Button
         onClick={handleClick}
-        className={`${BtnClass} ${isChecked ? 'checked' : ''}`}
+        className={`${BtnClass} ${isChecked ? 'checked mb-2' : 'mb-2'}`}
         type={type}
         variant={BtnVariant}
         size={BtnSize}
         style={{
           backgroundColor: isChecked ? '#0d6efd' : '',
           color: isChecked ? '#fff' : '',
+          
         }}
       >
         {BtnLabel}

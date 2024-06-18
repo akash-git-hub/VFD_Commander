@@ -5,7 +5,7 @@ import { Form, InputGroup, FormControl, Dropdown } from 'react-bootstrap';
 
 export const Timeformatdropdown = ({ FormLabel, placeholder,onChange,Array,name,error ,value}) => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredOptions, setFilteredOptions] = useState(Array);
+    const [filteredOptions, setFilteredOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
 
     useEffect(() => {
@@ -42,9 +42,9 @@ export const Timeformatdropdown = ({ FormLabel, placeholder,onChange,Array,name,
         }
     },[Array,value])
 
-    const handleSelect = (option) => {
-        onChange(option);
-        setSelectedOption(option.label);
+    const handleSelect = (data) => {
+        onChange(data);
+        setSelectedOption(data.label);
     };
 
     return (
@@ -62,9 +62,9 @@ export const Timeformatdropdown = ({ FormLabel, placeholder,onChange,Array,name,
                                 value={searchTerm}
                                 onChange={handleSearch}
                             />
-                            {filteredOptions.map(option => (
-                                <Dropdown.Item key={option.value} onClick={() => handleSelect(option)}>
-                                    {option.label}
+                            {filteredOptions.map(e => (
+                                <Dropdown.Item key={e.value} onClick={() => handleSelect(e)}>
+                                    {e.label}
                                 </Dropdown.Item>
                             ))}
                         </Dropdown.Menu>

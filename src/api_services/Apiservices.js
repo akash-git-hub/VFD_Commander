@@ -7,10 +7,12 @@ export const login_API = async (data) => {
         const resp = await http.post("/login", data);
         if (resp) {
             if (resp && resp.data && resp.data.data) {
+                const ur_type = resp.data.data.user_type_id;
                 const myid = resp.data.data.id;
                 const tokwn = resp.data.data.token;
                 localStorage.setItem('Authorization', "Bearer " + tokwn);
                 localStorage.setItem('id', myid);
+                localStorage.setItem('type',ur_type);
             }
             return resp.data;
         }
@@ -105,6 +107,40 @@ export const getAccount_by_id_API = async (data) => {
 export const getSubscriptionPlan_api = async () => {
     try {
         const resp = await http.get("/getSubscriptionPlan");
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+
+
+
+export const create_rolls = async (data) => {
+    try {
+        const resp = await http.post("/createRoll", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const getRolls = async (page) => {
+    try {
+        const resp = await http.get("/getRolls", { params: page });
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }

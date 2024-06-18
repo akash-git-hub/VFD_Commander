@@ -34,7 +34,7 @@ export const ProfileAdminstrator = () => {
                                     <AdminstratorForm />
                                 </Tab>
                                 <Tab eventKey="quali" title="Qualifications">
-                                    <AdminstratorTableList />
+                                    {/* <AdminstratorTableList /> */}
                                 </Tab>
                                 <Tab eventKey="gear" title="Gear">
                                     <GearForm />

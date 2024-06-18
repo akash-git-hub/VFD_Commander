@@ -83,7 +83,7 @@ export const Accountmodule = () => {
                             <Cosidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Account Module"} SubHeading={"Manage your Manage Accounts"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Account"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Account Module"}  HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Account"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}
@@ -91,7 +91,7 @@ export const Accountmodule = () => {
                                 className="mb-3"
                             >
                                 <Tab eventKey="home" title="Overview">
-                                    <SearchPanel StartIcon={<IoSearchOutline />} FormPlaceHolder={"Search by invoice number, name, amount..."} FormType={"search"} onChange={searchHanlder} />
+                                    <SearchPanel StartIcon={<IoSearchOutline />} FormPlaceHolder={"Search by name ..."} FormType={"search"} onChange={searchHanlder} />
                                     <AccountModuleTable setLoder={setLoder} mydata={account_data} pagination={pagination} pageHanlder={pageHanlder} />
                                 </Tab>
                             </Tabs>

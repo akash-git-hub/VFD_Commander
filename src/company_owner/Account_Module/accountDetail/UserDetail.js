@@ -13,7 +13,7 @@ export const UserDetail = ({ data }) => {
 
     return (
         <>
-            <div className='UseDetailPages'>
+            <div className='UseDetailPages' >
                 <Container>
                     <Row>
                         <Col md={12}>
@@ -24,7 +24,7 @@ export const UserDetail = ({ data }) => {
                                     <Stack direction='horizontal' gap={2}>
                                         <Image src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg?size=338&ext=jpg&ga=GA1.1.1518270500.1717459200&semt=ais_user" className='Avatar_img' rounded />
                                         <Stack direction='vertical' gap={1}>
-                                            <h4>Jenny Wilson</h4>
+                                            <h4>{pre && pre.first_name+" "}{pre && pre.last_name}</h4>
                                             <p>Account ID : {pre && pre._id}</p>
                                         </Stack>
                                         <Button variant="warning" size="sm" onClick={() => handleEditClick(pre)} style={{

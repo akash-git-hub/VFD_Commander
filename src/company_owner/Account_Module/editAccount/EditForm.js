@@ -7,15 +7,23 @@ import { Timeformatdropdown } from '../../../components/Timeformatdropdown';
 import { getAccount_by_id_API, update_modal_account_api } from '../../../api_services/Apiservices';
 import { Loader } from '../../../components/Loader';
 import { successAlert } from '../../../components/Alert';
+import { useNavigate } from 'react-router-dom';
 
 
-export const EditForm = ({ mydata }) => {
+export const EditForm = ({ mydata ,setLoder }) => {
   const [fields, setFields] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [timeFormate, setTimeFormate] = useState([{ 'label': '12-Hours', "value": 'hh:mm:ss A' }, { 'label': '24-Hours', "value": 'HH:mm:ss' }]);
-  const [loder, setLoder] = useState(false);
-  const [data, setData] = useState();
 
+  const [data, setData] = useState();
+  const navigate = useNavigate();
+
+  const handleAddField = (title, placeholder) => {
+    setFields([...fields, { title, placeholder }]);
+};
+
+const handleShowModal = () => setShowModal(true);
+const handleCloseModal = () => setShowModal(false);
 
 
 
@@ -83,6 +91,7 @@ export const EditForm = ({ mydata }) => {
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
+    console.log("----",name);
     setIndata((pre) => ({ ...pre, [name]: value }));
     setError((pre) => ({ ...pre, [name]: "" }));
   }
@@ -115,7 +124,7 @@ export const EditForm = ({ mydata }) => {
     if (!indata.first_name) { setError((e) => ({ ...e, "first_name": "* First name is required" })); isValid = 3; }
     if (!indata.last_name) { setError((e) => ({ ...e, "last_name": "* Last name is required" })); isValid = 4; }
     if (!indata.time_formate) { setError((e) => ({ ...e, "time_formate": "* Time format is required" })); isValid = 5; }
-    if (!indata.time_zone) { setError((e) => ({ ...e, "time_zone": "* Time zone is required" })); isValid = 6; }
+    // if (!indata.time_zone) { setError((e) => ({ ...e, "time_zone": "* Time zone is required" })); isValid = 6; }
     if (!indata.incentive_information) { setError((e) => ({ ...e, "incentive_information": "* Incentive information is required" })); isValid = 7; }
     if (!indata.renewal_date) { setError((e) => ({ ...e, "renewal_date": "* Renewal date is required" })); isValid = 8; }
     if (!indata.mobile_no) { setError((e) => ({ ...e, "mobile_no": "* Contact number is required" })); isValid = 9; }
@@ -150,6 +159,7 @@ export const EditForm = ({ mydata }) => {
         get_account_list_byid(indata.id);       
         setLoder(false);
         successAlert(resp.message);
+        navigate("/accountmodule");
       }
       setLoder(false);
     }
@@ -157,7 +167,7 @@ export const EditForm = ({ mydata }) => {
 
   return (
     <>
-      <Loader show={loder} />
+    
       <div className='CreateAccountForm'>
         <Container>
           <Form onSubmit={submitHandler}>
@@ -213,7 +223,7 @@ export const EditForm = ({ mydata }) => {
                 <InputField FormType={'text'} FormLabel={"Incentive Information"} value={indata.incentive_information} name="incentive_information" error={error.incentive_information} onChange={onChangeHandler} FormPlaceHolder={"Reward Details"} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'number'} FormLabel={"Time Zone"} value={indata.time_zone} name="time_zone" error={error.time_zone} onChange={onChangeHandler} FormPlaceHolder={"Central Time"} />
+                <InputField FormType={'text'} FormLabel={"Time Zone"} readOnly={true} value={indata.time_zone} name="time_zone" error={error.time_zone} onChange={onChangeHandler} FormPlaceHolder={"Central Time"} />
               </Col>
             </Row>
             <Row className='mb-2' >
@@ -226,7 +236,7 @@ export const EditForm = ({ mydata }) => {
                 </Col>
               ))}
               <Col md={4} className='mb-2'>
-                <SharedButton BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={() => setShowModal(true)} />
+                <SharedButton BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={() => handleShowModal()} />
               </Col>
             </Row>
             <Row className='mb-2'>
@@ -237,7 +247,8 @@ export const EditForm = ({ mydata }) => {
           </Form>
         </Container>
       </div>
-      <AddFieldModal show={showModal} setShowModal={setShowModal} fields={fields} setFields={setFields} />
+      <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />
+      {/* <AddFieldModal show={showModal} setShowModal={setShowModal} fields={fields} setFields={setFields} /> */}
     </>
   );
 };

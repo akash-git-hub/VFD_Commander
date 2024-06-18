@@ -20,7 +20,9 @@ export const CreateAccountPage = () => {
                             <Cosidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Create Account"} SubHeading={"Manage Account"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Create Account"} 
+                            // SubHeading={"Manage Account"}
+                             HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             {/* <Headings MainHeading={"Create Account"} SubHeading={"Manage Account"}/> */}
                             <Tabs
                                 id="controlled-tab-example"

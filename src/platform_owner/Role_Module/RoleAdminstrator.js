@@ -3,11 +3,14 @@ import { PoSidebar } from '../PO_Sidebar'
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { Headings } from '../../components/Headings'
 import { CreateRole } from './CreateRole';
+import { Loader } from '../../components/Loader';
 
 export const RoleAdminstrator = () => {
+    const [loder,setLoder] = useState(false);
     const [key, setKey] = useState('home');
     return (
         <>
+        <Loader show={loder} />
             <div className='RoleAdminstrator'>
                 <Container fluid>
                     <Row>
@@ -23,7 +26,7 @@ export const RoleAdminstrator = () => {
                                 className="mb-3"
                             >
                                 <Tab eventKey="home" title="Role Administration">
-                                   <CreateRole/>
+                                   <CreateRole setLoder={setLoder}/>
                                 </Tab>
                             </Tabs>
                         </Col>

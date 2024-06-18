@@ -4,8 +4,20 @@ import { LinkSidebar } from '../../components/LinkSidebar';
 import { Avatar } from '../../components/Avatar';
 import { SharedButton } from '../../components/Button';
 import { CgLogOut } from "react-icons/cg";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const PoSidebar = () => {
+    const navigate = useNavigate();
+    const pathname = useLocation().pathname;
+
+    const logoutClientHandler = () => {  
+        localStorage.setItem("mydata", "");
+        localStorage.removeItem("mydata");
+        localStorage.removeItem('id');
+        localStorage.removeItem('Authorization');
+        localStorage.removeItem('type');  
+        navigate('/');
+      };
     return (
         <>
             <div className='CO_Sidebar p-md-4' style={{}}>
@@ -19,46 +31,46 @@ export const PoSidebar = () => {
                         padding: 0
                     }}>
                         <Stack direction='vertical' gap={3}>    
-                            <li className='active' style={{
+                            <li className={pathname === "/roleadminstratorlist" || pathname === "/roleadminstrator" ? 'active' :""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Role.svg' />} LinkLabel={'Role Module'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Role.svg' />} LinkLabel={'Role Module'} LinkPath={'/roleadminstratorlist'} />
                             </li>
-                            <li style={{
+                            <li className={pathname === "/adminstratorprofilelist" ? 'active' :""}  style={{
                                 padding: '10px',
                                 position: 'relative'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/User.svg' />} LinkLabel={'User Profile Module'} LinkPath={'/'} />  <Badge bg="secondary" style={{
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/User.svg' />} LinkLabel={'User Profile Module'} LinkPath={'/adminstratorprofilelist'} />  <Badge bg="secondary" style={{
                                     position: 'absolute',
                                     top: '2vh',
                                     right: '5vh'
 
                                 }}>14</Badge>
                             </li>
-                            <li style={{
+                            <li className={pathname === "/traininglist" || pathname === "/training" ? 'active' :""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Text.svg' />} LinkLabel={'Training Module'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Text.svg' />} LinkLabel={'Training Module'} LinkPath={'/traininglist'} />
                             </li>
                             <li style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Message.svg' />} LinkLabel={'Messaging Module'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Message.svg' />} LinkLabel={'Messaging Module'} LinkPath={'#'} />
+                            </li>
+                            <li className={pathname === "/inventorymodulelist" ? 'active' :""} style={{
+                                padding: '10px'
+                            }}>
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Icon.svg' />} LinkLabel={'Inventory Module'} LinkPath={'/inventorymodulelist'} />
                             </li>
                             <li style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Icon.svg' />} LinkLabel={'Inventory Module'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Todo.svg' />} LinkLabel={'Availability Module'} LinkPath={'/unavailability'} />
                             </li>
-                            <li style={{
+                            <li className={pathname === "/qualificationlist" ? 'active' :""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Todo.svg' />} LinkLabel={'Availability Module'} LinkPath={'/'} />
-                            </li>
-                            <li style={{
-                                padding: '10px'
-                            }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Qualification.svg' />} LinkLabel={'Qualifications Module'} LinkPath={'/'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Qualification.svg' />} LinkLabel={'Qualifications Module'} LinkPath={'/qualificationlist'} />
                             </li>
                         </Stack>
                     </ul>
@@ -77,7 +89,7 @@ export const PoSidebar = () => {
                                 <Avatar LinkLabel={'Jenny Wilson'} Description={'Jenny@wilsongmail.com'} />
                             </li>
                             <li>
-                                <SharedButton BtnLabel={"Logout"} BtnVariant={"light"} startIcon={<CgLogOut />} BtnClass={"w-100"} style={{
+                                <SharedButton BtnLabel={"Logout"} onClick={logoutClientHandler} BtnVariant={"light"} startIcon={<CgLogOut />} BtnClass={"w-100"} style={{
                                     background: '#F7F8F9'
                                 }} />
                             </li>

@@ -5,7 +5,7 @@ export const TablePagination = ({ pagination, pageHanlder }) => {
     return (
         <>
             {pagination &&
-                <Pagination style={{ justifyContent: 'right', gap: '15px' }}>
+                <Pagination style={{ justifyContent: 'right', gap: '15px',marginTop:"15px" }}>
                     <Pagination.Prev 
                         style={{ cursor: "pointer", border: '1px solid #f7f9fc', marginRight: '5px' }} 
                         onClick={pagination.page > 1 ? () => pageHanlder(pagination.page - 1) : null}

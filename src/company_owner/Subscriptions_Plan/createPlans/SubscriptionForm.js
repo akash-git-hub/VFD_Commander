@@ -7,12 +7,15 @@ import moment from 'moment';
 import { create_plan_api } from '../../../api_services/Apiservices';
 import { errorAlert, successAlert } from '../../../components/Alert';
 import { Textarea } from '../../../components/Textarea';
+import { useNavigate } from 'react-router-dom';
 
 export const SubscriptionForm = ({ setLoder }) => {
     const [fields, setFields] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [indata, setIndata] = useState({ "billing_interval": "", "end_date": "", "start_date": "", "duration": "", "price": "", "plan_name": "", "discription": "", });
     const [error, setError] = useState({ "billing_interval": "", "end_date": "", "start_date": "", "duration": "", "price": "", "plan_name": "", "discription": "", });
+
+    const navigate = useNavigate();
 
     const addNewHandler = (e) => {
         const { name, value } = e.target;
@@ -26,6 +29,13 @@ export const SubscriptionForm = ({ setLoder }) => {
         }
         setFields(field);
     }
+
+    const handleAddField = (title, placeholder) => {
+        setFields([...fields, { title, placeholder }]);
+    };
+    
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
 
     const inHandler = (e) => {
         const { name, value } = e.target;
@@ -89,6 +99,7 @@ export const SubscriptionForm = ({ setLoder }) => {
                 setIndata((pre)=>({...pre, "billing_interval": "", "end_date": "", "start_date": "", "duration": "", "price": "", "plan_name": "", "discription": "", }));
                 setFields([]);
                 successAlert(resp.message);
+                navigate("/subscriptionview");
             }
             setLoder(false);
         }
@@ -128,7 +139,7 @@ export const SubscriptionForm = ({ setLoder }) => {
                                     onChange={inHandler} FormPlaceHolder={"DD/MM/YYYY"} />
                             </Col>
                             <Col md={6}>
-                                <InputField FormType={'date'} FormLabel={"End Date"} value={indata.end_date} name='end_date' error={error.end_date} onChange={inHandler} FormPlaceHolder={"DD/MM/YYYY"} />
+                                <InputField FormType={'date'} min={indata.start_date} FormLabel={"End Date"} value={indata.end_date} name='end_date' error={error.end_date} onChange={inHandler} FormPlaceHolder={"DD/MM/YYYY"} />
                             </Col>
                         </Row>
                         <Row>
@@ -143,7 +154,7 @@ export const SubscriptionForm = ({ setLoder }) => {
                                 </Col>
                             ))}
                             <Col md={6}>
-                                <SharedButton type="button" BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={() => setShowModal(true)} />
+                                <SharedButton type="button" BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={() => handleShowModal()} />
                             </Col>
                         </Row>
                         <Row className='mb-2 mt-5'>
@@ -154,7 +165,8 @@ export const SubscriptionForm = ({ setLoder }) => {
                     </Form>
                 </Container>
             </div>
-            <AddFieldModal show={showModal} setShowModal={setShowModal} fields={fields} setFields={setFields} />
+            <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />
+            {/* <AddFieldModal show={showModal} setShowModal={setShowModal} fields={fields} setFields={setFields} /> */}
         </>
     )
 }

@@ -60,14 +60,18 @@ export const Login = () => {
                 "email": indata.email,
                 "password": indata.password
             }
-
             const resp = await login_API(fdata);
             if (resp && resp.success) {
                 const data = resp.data;
                 contaxtHandler(data);
                 setLoder(false);
                 successAlert(resp.message);
-                navigate("/accountmodule");
+                const type = data.user_type_id;
+                if (parseInt(type) === 1) {
+                    navigate("/accountmodule");
+                } else if (parseInt(type) === 2) {
+                    navigate("/roleadminstratorlist");
+                }
             }
             setLoder(false);
         }
@@ -109,7 +113,7 @@ export const Login = () => {
                                         onChange={inputHandler}
                                         error={error.password}
                                     />
-                                    <Checkbox name="reminder" value={indata.reminder} onChange={checkHenlder} Checklabel={'"Keep me signed in"'} ID={'custom-check'}/>
+                                    <Checkbox name="reminder" value={indata.reminder} onChange={checkHenlder} Checklabel={'"Keep me signed in"'} ID={'custom-check'} />
                                     <SharedButton type={'submit'} BtnLabel={"Continue"} BtnSize={"lg"} BtnClass={"W-100"} BtnVariant={"primary"} style={{
                                         background: '#00285D'
                                     }} />

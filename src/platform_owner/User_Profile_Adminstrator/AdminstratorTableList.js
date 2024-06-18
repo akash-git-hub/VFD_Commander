@@ -67,7 +67,7 @@ const sampleData = [
       supervisor: 'Support',
       role: 'Administrator',
       position: 'Manage',
-      status: 'Active'
+      status: 'InActive'
   },
   {
       firstName: 'Jenny',
@@ -100,18 +100,20 @@ const sampleData = [
 
 export const AdminstratorTableList = () => {
   const navigate = useNavigate();
+  
 
-  const handleViewClick = () => {
-      navigate('/accountdetail');
-  };
+  const actionHandler = () =>{
+    alert();
+  }
+
   const handleEditClick = () => {
-      navigate('/editaccount');
+      navigate('/profileadminstrator');
   };
 
   return (
     <>
-      <div className='MainTable'>
-        <Table responsive>
+      <div className='MainTable '>
+        <Table responsive className='table table-hover'>
           <thead>
             <tr>
               <th>FIRST NAME</th>
@@ -140,25 +142,33 @@ export const AdminstratorTableList = () => {
                 <td>{account.supervisor}</td>
                 <td>{account.role}</td>
                 <td>{account.position}</td>
+             
                 <td>
+                {account.status  === "Active" ?
+
+
                   <Button variant="info" size="sm" className="me-2" style={{
                     background: '#ECFDF5',
                     color: '#064E3B',
                     borderColor: '#ECFDF5',
-                    fontWeight: '500'
+                    fontWeight: '500',
+                    minWidth:'70px'
                   }}
-                    onClick={handleViewClick}
+                    onClick={actionHandler}
                   >Active
                   </Button>
+                  :              
                   <Button variant="warning" size="sm" className="me-2" style={{
                     background: '#FEF2F2',
                     color: '#991B1B',
                     borderColor: '#FEF2F2',
-                    fontWeight: '500'
+                    fontWeight: '500',
+                    minWidth:"70px"
                   }}
-                    onClick={handleEditClick}
+                    onClick={actionHandler}
                   >Inactive
                   </Button>
+                    }
                   <Button variant="warning" size="sm" className="me-2" style={{
                     background: '#E3E7ED',
                     color: '#00285D',

@@ -7,9 +7,10 @@ import Select from '../../../components/Select';
 import { TimezoneList } from '../../../helper/Helper';
 import { SelectDropdown } from '../../../components/SelectDropdown';
 import { create_modal_account_api, getSubscriptionPlan_api } from '../../../api_services/Apiservices';
-import { successAlert } from '../../../components/Alert';
+import { errorAlert, successAlert } from '../../../components/Alert';
 import { Timezoneselectdropdown } from '../../../components/Timezoneselectdropdown';
 import { Timeformatdropdown } from '../../../components/Timeformatdropdown';
+import { useNavigate } from 'react-router-dom';
 
 
 export const CreateForm = ({ setLoder }) => {
@@ -20,6 +21,8 @@ export const CreateForm = ({ setLoder }) => {
   const [fullplandata, setFullplandata] = useState([]);
   const [timeFormate, setTimeFormate] = useState([{ 'label': '12-Hours', "value": 'hh:mm:ss A' }, { 'label': '24-Hours', "value": 'HH:mm:ss' }]);
 
+  const navigate = useNavigate();
+
   const [indata, setIndata] = useState(
     {
       "time_formate": "", "time_zone": "", "incentive_information": "",
@@ -29,6 +32,15 @@ export const CreateForm = ({ setLoder }) => {
       "first_name": "", "last_name": "",
     }
   );
+
+
+
+  const handleAddField = (title, placeholder) => {
+    if(!title){errorAlert("Please Enter Title");setShowModal(true);return}
+      setFields([...fields, { title, placeholder }]);
+  };
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
 
   const [error, setError] = useState(
     {
@@ -64,10 +76,11 @@ export const CreateForm = ({ setLoder }) => {
     setIndata((pre) => ({ ...pre, [name]: value }));
     setError((pre) => ({ ...pre, [name]: "" }));
   }
-  const onSelectHandler = (data) => {
-    const name = data.name;
-    const value = data.value;
-    console.log(name);
+  const onSelectHandler = (indata) => {
+    console.log(indata.name);
+    const name = indata.name;
+    const value = indata.value;
+
     if(name){
       setIndata((pre) => ({ ...pre, [name]: value }));
       setError((pre) => ({ ...pre, [name]: "" }));
@@ -144,6 +157,7 @@ export const CreateForm = ({ setLoder }) => {
         "billing_addres2": indata.billing_addres2,
         "add_field": fields
       }
+
       const resp = await create_modal_account_api(fdata);
       if (resp && resp.success) {
         e.target.reset();
@@ -151,6 +165,7 @@ export const CreateForm = ({ setLoder }) => {
         setFields([]);
         setLoder(false);
         successAlert(resp.message);
+        navigate("/accountmodule");
       }
       setLoder(false);
     }
@@ -163,63 +178,63 @@ export const CreateForm = ({ setLoder }) => {
           <Form onSubmit={submitHandler}>
             <Row className='mb-2'>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Account Name"} name="account_name" error={error.account_name} onChange={onChangeHandler} FormPlaceHolder={"Futurristic"} />
+                <InputField FormType={'text'} FormLabel={"Account Name"} name="account_name" error={error.account_name} onChange={onChangeHandler}  />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"First Name"} name="first_name" error={error.first_name} onChange={onChangeHandler} FormPlaceHolder={"Jenny"} />
+                <InputField FormType={'text'} FormLabel={"First Name"} name="first_name" error={error.first_name} onChange={onChangeHandler}  />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Last Name"} name='last_name' error={error.last_name} onChange={onChangeHandler} FormPlaceHolder={"Wilson"} />
-              </Col>
-            </Row>
-            <Row className='mb-2'>
-              <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Account Owner Email Address"} name='email' error={error.email} onChange={onChangeHandler} FormPlaceHolder={"Jenny@wilson.com"} />
-              </Col>
-              <Col md={4}>
-                <InputField FormType={'tel'} FormLabel={"Contact Phone"} max={10} name='contact_number' error={error.contact_number} onChange={onChangeHandler} FormPlaceHolder={"8989898989"} />
-              </Col>
-              <Col md={4}>
-                <Select FormLabel="Subscription Name" Array={planList} name="subscription_name" error={error.subscription_name} value={indata.subscription_name} onChange={onChangeHandler} />
+                <InputField FormType={'text'} FormLabel={"Last Name"} name='last_name' error={error.last_name} onChange={onChangeHandler}  />
               </Col>
             </Row>
             <Row className='mb-2'>
               <Col md={4}>
-                <InputField FormType={'number'} FormLabel={"Subscription Amount"} value={indata.subscription_amount} error={error.subscription_amount} name='subscription_amount' onChange={onChangeHandler} FormPlaceHolder={"$ 599"} readOnly="true" />
+                <InputField FormType={'text'} FormLabel={"Email Address"} name='email' error={error.email} onChange={onChangeHandler}  />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Billing Address 1"} name="billing_address" error={error.billing_address} onChange={onChangeHandler} FormPlaceHolder={"scheme 24 - Vijay Nagar"} />
+                <InputField FormType={'tel'} FormLabel={"Contact Phone"} max={10} name='contact_number' error={error.contact_number} onChange={onChangeHandler}  />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Billing Address 2"} name='billing_addres2' error={error.billing_addres2} onChange={onChangeHandler} FormPlaceHolder={"scheme 24 - Vijay Nagar"} />
-              </Col>
-            </Row>
-            <Row className='mb-2'>
-              <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"State"} name='state' error={error.state} onChange={onChangeHandler} FormPlaceHolder={"Madhya Pradesh"} />
-              </Col>
-              <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"City"} name='city' error={error.city} onChange={onChangeHandler} FormPlaceHolder={"Indore"} />
-              </Col>
-              <Col md={4}>
-                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={6} name='zip_code' error={error.zip_code} onChange={onChangeHandler} FormPlaceHolder={"452001"} />
+                <Select  Array={planList} name="subscription_name" FormLabel={"Subscription Name"} error={error.subscription_name} value={indata.subscription_name} onChange={onChangeHandler} />
               </Col>
             </Row>
             <Row className='mb-2'>
               <Col md={4}>
-                <InputField FormType={'date'} FormLabel={"Renewal Date"} name='renewal_date' error={error.renewal_date} onChange={onChangeHandler} FormPlaceHolder={"DD/MM/YYYY"} />
+                <InputField FormType={'number'} FormLabel={"Subscription Amount"} value={indata.subscription_amount} error={error.subscription_amount} name='subscription_amount' onChange={onChangeHandler}  readOnly="true" />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Incentive Information"} name='incentive_information' onChange={onChangeHandler} error={error.incentive_information} FormPlaceHolder={"Reward Details"} />
+                <InputField FormType={'text'} FormLabel={"Billing Address 1"} name="billing_address" error={error.billing_address} onChange={onChangeHandler}  />
               </Col>
               <Col md={4}>
-                <Timezoneselectdropdown Array={timezones} FormLabel="Time Zone" error={error.time_zone} name="time_zone" onChange={onSelectHandler} />
+                <InputField FormType={'text'} FormLabel={"Billing Address 2"} name='billing_addres2' error={error.billing_addres2} onChange={onChangeHandler}  />
+              </Col>
+            </Row>
+            <Row className='mb-2'>
+              <Col md={4}>
+                <InputField FormType={'text'} FormLabel={"State"} name='state' error={error.state} onChange={onChangeHandler} />
+              </Col>
+              <Col md={4}>
+                <InputField FormType={'text'} FormLabel={"City"} name='city' error={error.city} onChange={onChangeHandler} />
+              </Col>
+              <Col md={4}>
+                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={6} name='zip_code' error={error.zip_code} onChange={onChangeHandler}  />
+              </Col>
+            </Row>
+            <Row className='mb-2'>
+              <Col md={4}>
+                <InputField FormType={'date'} FormLabel={"Renewal Date"} name='renewal_date' error={error.renewal_date} onChange={onChangeHandler}  />
+              </Col>
+              <Col md={4}>
+                <InputField FormType={'text'} FormLabel={"Incentive Information"} name='incentive_information' onChange={onChangeHandler} error={error.incentive_information}  />
+              </Col>
+              <Col md={4}>
+                <Timezoneselectdropdown Array={timezones} FormLabel="Time Zone" error={error.time_zone} name="time_zone" onChange={(e)=>onSelectHandler(e)} />
                 {/* <Select  /> */}
               </Col>
             </Row>
             <Row className='mb-2'>
               <Col md={4}>
-                <Timeformatdropdown Array={timeFormate} FormLabel="Time Display" name="time_formate" error={error.time_formate} onChange={onSelectHandler} />
+                <Timeformatdropdown Array={timeFormate} FormLabel="Time Display" name="time_formate" error={error.time_formate} onChange={(e)=>onSelectHandler(e)} />
               </Col>
               {fields.map((e, i) => (
                 <Col md={4} key={i}>
@@ -227,7 +242,7 @@ export const CreateForm = ({ setLoder }) => {
                 </Col>
               ))}
               <Col md={4} className='pt-2'>
-                <SharedButton BtnLabel={"Add Field"} type={'button'} BtnVariant={'outline-dark'} BtnClass={"w-100 mt-md-4"} onClick={() => setShowModal(true)} />
+                <SharedButton BtnLabel={"Add Field"} type={'button'} BtnVariant={'outline-dark'} BtnClass={"w-100 mt-md-4"} onClick={() => handleShowModal()} />
               </Col>
             </Row>
             <Row className='mb-2'>
@@ -238,7 +253,8 @@ export const CreateForm = ({ setLoder }) => {
           </Form>
         </Container>
       </div>
-      <AddFieldModal show={showModal} setShowModal={setShowModal} fields={fields} setFields={setFields} />
+      <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />
+      {/* <AddFieldModal show={showModal} setShowModal={setShowModal} fields={fields} setFields={setFields} /> */}
     </>
   );
 };

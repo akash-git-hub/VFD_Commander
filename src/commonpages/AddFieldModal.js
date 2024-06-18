@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { errorAlert } from '../components/Alert';
 
 export const AddFieldModal = ({ show, handleClose, handleAddField }) => {
     const [fieldTitle, setFieldTitle] = useState('');
     const [fieldPlaceholder, setFieldPlaceholder] = useState('');
 
     const handleSubmit = () => {
+        if(!fieldTitle){errorAlert("Please Enter Title");return}
         handleAddField(fieldTitle, fieldPlaceholder);
         setFieldTitle('');
         setFieldPlaceholder('');

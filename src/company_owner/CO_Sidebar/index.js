@@ -14,19 +14,31 @@ export const Cosidebar = () => {
     const navigate = useNavigate();
     const [host, setHost] = useState("accountmodule");
     const path = useLocation().pathname;
-    const value = useContext(Mycontext);
+    const {pdata} = useContext(Mycontext);
+    const [mydata,setMydata] = useState();
 
-    console.log("----value---",value);
+    useEffect(()=>{
+        if(JSON.parse(pdata)){
+            setMydata(JSON.parse(pdata));
+        }
+
+    },[pdata])
 
    
 
-    useEffect(() => { setHost(path); }, [path])
+    useEffect(() => { setHost(path); }, [path]);
 
-    const logoutHandler = () => {
-        localStorage.removeItem('id');
-        localStorage.removeItem('Authorization');
-        navigate('/');
-    }
+   
+ const logoutHandler = () => {  
+    localStorage.setItem("mydata", "");
+    localStorage.removeItem("mydata");
+    localStorage.removeItem('id');
+    localStorage.removeItem('Authorization');
+    localStorage.removeItem('type');  
+    navigate('/');
+  };
+
+ 
     return (
         <>
             <div className='CO_Sidebar p-md-4' style={{}}>
@@ -75,7 +87,7 @@ export const Cosidebar = () => {
                             <li style={{
                                 padding: '10px'
                             }}>
-                                <Avatar LinkLabel={'Jenny Wilson'} Description={'Jenny@wilsongmail.com'} />
+                                <Avatar LinkLabel={mydata && mydata.accountName} Description={mydata && mydata.email} />
                             </li>
                             <li>
                                 <SharedButton BtnLabel={"Logout"} BtnVariant={"light"} startIcon={<CgLogOut />} onClick={logoutHandler} BtnClass={"w-100"} style={{
