@@ -107,7 +107,7 @@ export const AdminstratorTableList = () => {
   }
 
   const handleEditClick = () => {
-      navigate('/profileadminstrator');
+      navigate('/editprofileadminstrator');
   };
 
   return (

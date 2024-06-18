@@ -4,9 +4,16 @@ import { PoSidebar } from '../PO_Sidebar'
 import { Headings } from '../../components/Headings'
 import { GearInformationForm } from './Gear_Information/GearInformationForm'
 import {  ApparatusInformationForm } from './Apparatus_Information/ApparatusInformationForm'
+import { SharedButton } from '../../components/Button'
+import { useNavigate } from 'react-router-dom'
 
 export const InventoryModule = () => {
+
+      const navigate = useNavigate();
     const [key, setKey] = useState('gear');
+    const handleCreateAccount = () =>{
+        navigate('/inventorymodulelist');
+    }
 
     return (
         <>
@@ -17,17 +24,17 @@ export const InventoryModule = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Inventory Module"} SubHeading={"This module allows for data entry of Gear and Apparatus information"} />
+                            <Headings  MainHeading={"Create Inventory"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}
                                 onSelect={(k) => setKey(k)}
                                 className="mb-3"
                             >
-                                <Tab eventKey="gear" title="Gear Information">
+                                <Tab eventKey="gear" title="Create Gear">
                                     <GearInformationForm/>
                                 </Tab>
-                                <Tab eventKey="apparatus" title="Apparatus Information">
+                                <Tab eventKey="apparatus" title="Create Apparatus">
                                     <ApparatusInformationForm/>
                                 </Tab>
                             </Tabs>

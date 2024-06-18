@@ -2,17 +2,12 @@ import React, { useState } from 'react'
 import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
 import { Headings } from '../../../components/Headings'
 import { PoSidebar } from '../../PO_Sidebar'
-import { AdminstratorForm } from './AdminstratorForm'
 import { SharedButton } from '../../../components/Button'
-import { GearForm } from './GearForm'
-import { useNavigate } from 'react-router-dom'
+import { EditGearForm } from './EditGearForm'
+import { EditAdminstratorForm } from './EditAdminstratorForm'
 
-export const ProfileAdminstrator = () => {
-    const navigate = useNavigate();
+export const EditProfileAdminstrator = () => {
     const [key, setKey] = useState('home');
-    const handleCreateAccount = () =>{
-        navigate('/adminstratorprofilelist');
-    }
     return (
         <>
             <div className='RoleAdminstrator'>
@@ -22,7 +17,9 @@ export const ProfileAdminstrator = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Profile Administration"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
+                            <Headings MainHeading={"Profile Administration"} HeadButton={<SharedButton BtnLabel={"Back"} BtnVariant={'primary'} style={{
+                       
+                            }} />} />
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}
@@ -30,13 +27,13 @@ export const ProfileAdminstrator = () => {
                                 className="mb-3"
                             >
                                 <Tab eventKey="home" title="User Profile Module">
-                                    <AdminstratorForm />
+                                    <EditAdminstratorForm />
                                 </Tab>
                                 <Tab eventKey="quali" title="Qualifications">
                                     {/* <AdminstratorTableList /> */}
                                 </Tab>
                                 <Tab eventKey="gear" title="Gear">
-                                    <GearForm />
+                                    <EditGearForm />
                                 </Tab>
                             </Tabs>
                         </Col>
