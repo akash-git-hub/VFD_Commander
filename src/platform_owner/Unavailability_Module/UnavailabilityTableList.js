@@ -57,7 +57,7 @@ export const UnavailabilityTableList = () => {
         <Table responsive>
           <thead>
             <tr>
-              <th>ROLE NAME</th>
+              <th>USER NAME</th>
               <th>ROLE</th>
               <th style={{
                 textAlign: 'right'

@@ -1,5 +1,44 @@
 import React from 'react'
-import { Col, Container, Row, Stack } from 'react-bootstrap'
+import { Button, Container, Table } from 'react-bootstrap'
+import { SearchPanel } from '../../components/SearchPanel';
+import { TablePagination } from '../../components/TablePagination';
+import { IoSearch } from 'react-icons/io5';
+
+
+const sampleData = [
+    {
+        accountName: 'Firefighters',
+        accountId: 'Inventory Module, Availability Module,  Qualification Module, Message Module, Training Module..',
+    },
+    {
+        accountName: 'Administrative Staff',
+        accountId: 'Inventory Module, Availability Module,  Qualification Module, Message Module, Training Module..',
+    },
+    {
+        accountName: 'Volunteers',
+        accountId: 'Inventory Module, Availability Module,  Qualification Module, Message Module, Training Module..',
+    },
+    {
+        accountName: 'Command Staff,',
+        accountId: 'Inventory Module, Availability Module,  Qualification Module, Message Module, Training Module..',
+    },
+    {
+        accountName: 'Manager',
+        accountId: 'Inventory Module, Availability Module,  Qualification Module, Message Module, Training Module..',
+    },
+    {
+        accountName: 'Product Manager',
+        accountId: 'Inventory Module, Availability Module,  Qualification Module, Message Module, Training Module..',
+    },
+    {
+        accountName: 'CEO',
+        accountId: 'Inventory Module, Availability Module,  Qualification Module, Message Module, Training Module..',
+    },
+    {
+        accountName: 'Staff',
+        accountId: 'Inventory Module, Availability Module,  Qualification Module, Message Module, Training Module..',
+    },
+];
 
 
 export const ListView = () => {
@@ -7,39 +46,31 @@ export const ListView = () => {
         <>
             <div className='TrainingViewList'>
                 <Container>
-                    <Row>
-                        <Col md={6}>
-                            <div className='Plans'>
-                                <Stack direction='vertical' gap={2}>
-                                    <Stack direction='horizontal' gap={2} style={{
-                                        justifyContent: 'space-between'
-                                    }}>
-                                        <h5>User Profile Integration</h5>
-                                        <h6>Training Catalog</h6>
-                                    </Stack>
-                                    <p style={{
-                                        textAlign: 'justify'
-                                    }}>Training Completion Tracking</p>
-                                    <Stack direction='horizontal' gap={2} style={{
-                                        justifyContent: 'space-between'
-                                    }}>
-                                        <h6 style={{
-                                            color:'#919191'
-                                        }}>Training Totals</h6>
-                                        <h6 style={{
-                                            color:'#919191'
-                                        }}>User Enrolment</h6>
-                                    </Stack>
-                                    <Stack direction='horizontal' gap={2} style={{
-                                        justifyContent: 'space-between'
-                                    }}>
-                                        <h6>Scheduled Training</h6>
-                                        <h6>User Enrollment</h6>
-                                    </Stack>
-                                </Stack>
-                            </div>
-                        </Col>
-                    </Row>
+                    <SearchPanel StartIcon={<IoSearch />} FormPlaceHolder={"Search by Role Name"} />
+                    <div className='MainTable'>
+                        <Table responsive>
+                            <thead>
+                                <tr>
+                                    <th>TRAINING NAME</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {sampleData.map((account, index) => (
+                                    <tr key={index}>
+                                        <td>{account.accountName}</td>
+                                        <td>{account.accountId}</td>
+                                        <td>     <Button variant="success" size="sm" className="me-2" 
+                                            // onClick={handleEditClick}
+                                        >Detail
+                                        </Button></td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                            <TablePagination />
+                        </Table>
+                    </div>
                 </Container>
             </div>
         </>

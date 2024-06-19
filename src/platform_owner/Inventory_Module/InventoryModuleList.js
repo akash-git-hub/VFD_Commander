@@ -23,7 +23,8 @@ export const InventoryModuleList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                        <Headings MainHeading={"Inventory Module"} SubHeading={"This module allows for data entry of Gear and Apparatus information"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Inventory"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
+                        <Headings MainHeading={"Inventory Module"}  HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Inventory"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
+                         <div className='my-md-5'>
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}
@@ -37,6 +38,7 @@ export const InventoryModuleList = () => {
                                     <ApparatusList/>
                                 </Tab>
                             </Tabs>
+                         </div>
                         </Col>
                     </Row>
                 </Container>

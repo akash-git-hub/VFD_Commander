@@ -20,41 +20,25 @@ export const TrainingForm = () => {
             <div className='TrainingForm'>
                 <Container fluid>
                     <Row className='mb-2'>
-                        <Col md={5}>
-                            <InputField FormType={'text'} FormLabel={"User Profile Integration"} FormPlaceHolder={"User Profile Integration"} />
+                        <Col md={6}>
+                            <InputField FormType={'text'} FormLabel={"Training Name"} FormPlaceHolder={"Training Name"} />
                         </Col>
-                        <Col md={5}>
-                            <InputField FormType={'text'} FormLabel={"Training Catalog"} FormPlaceHolder={"Training Catalog"} />
-                        </Col>
-                    </Row>
-                    <Row className='mb-2'>
-                        <Col md={5}>
-                            <InputField FormType={'text'} FormLabel={"Training Completion Tracking"} FormPlaceHolder={"Training Completion Tracking"} />
-                        </Col>
-                        <Col md={5}>
-                            <InputField FormType={'text'} FormLabel={"Training Totals"} FormPlaceHolder={"Training Totals"} />
-                        </Col>
-                    </Row>
-                    <Row className='mb-2'>
-                        <Col md={5}>
-                            <InputField FormType={'text'} FormLabel={"Scheduled Training"} FormPlaceHolder={"Scheduled Training"} />
-                        </Col>
-                        <Col md={5}>
-                            <InputField FormType={'text'} FormLabel={"User Enrollment"} FormPlaceHolder={"User Enrollment"} />
+                        <Col md={6}>
+                            <InputField FormType={'text'} FormLabel={"Description"} FormPlaceHolder={"Description"} />
                         </Col>
                     </Row>
                     <Row className='mb-2'>
                         {fields.map((field, index) => (
-                            <Col md={5} key={index}>
+                            <Col md={6} key={index}>
                                 <InputField FormType={'text'} FormLabel={field.title} FormPlaceHolder={field.placeholder} />
                             </Col>
                         ))}
-                        <Col md={4}>
+                        <Col md={6}>
                             <SharedButton BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
                         </Col>
                     </Row>
-                    <Row className='mb-2'>
-                        <Col md={4}>
+                    <Row className='mt-4'>
+                        <Col md={6}>
                             <SharedButton BtnLabel={"Update"} BtnVariant={'primary'} BtnClass={"w-100"} />
                         </Col>
                     </Row>

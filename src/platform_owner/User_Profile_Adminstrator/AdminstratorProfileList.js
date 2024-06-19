@@ -21,17 +21,9 @@ export const AdminstratorProfileList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"User Profile Administration"} SubHeading={"Manage User Profiles"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create User Profile"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
-                            <Tabs
-                                id="controlled-tab-example"
-                                activeKey={key}
-                                onSelect={(k) => setKey(k)}
-                                className="mb-3"
-                            >
-                                <Tab eventKey="home" title="Overview">
-                                   <AdminstratorTableList/>
-                                </Tab>
-                            </Tabs>
+                            <Headings MainHeading={"User Profile Administration"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create User Profile"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
+                            <div className='my-md-5'></div>
+                            <AdminstratorTableList/>
                         </Col>
                     </Row>
                 </Container>

@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 export const ProfileAdminstrator = () => {
     const navigate = useNavigate();
     const [key, setKey] = useState('home');
-    const handleCreateAccount = () =>{
+    const handleCreateAccount = () => {
         navigate('/adminstratorprofilelist');
     }
     return (
@@ -22,17 +22,10 @@ export const ProfileAdminstrator = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Create User Profile"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
-                            <Tabs
-                                id="controlled-tab-example"
-                                activeKey={key}
-                                onSelect={(k) => setKey(k)}
-                                className="mb-3"
-                            >
-                                <Tab eventKey="home" title="Create User">
-                                    <AdminstratorForm />
-                                </Tab>   
-                            </Tabs>
+                            <Headings MainHeading={"Create User Profile"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <div className='my-md-5'>
+                                <AdminstratorForm />
+                            </div>
                         </Col>
                     </Row>
                 </Container>

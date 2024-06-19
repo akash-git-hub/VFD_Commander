@@ -43,14 +43,15 @@ export const CreateRole = ({ setLoder }) => {
                             <InputField FormLabel='Role Name' FormPlaceHolder='Enter Role Name' value={names} onChange={(e) => setNames(e.target.value)} />
                         </Col>
                     </Row>
+                    <h6>Select Module</h6>
                     <div className='RoleModule'>
                         <Row>
-                            {mylist && mylist.map((e,i) => (
+                            {mylist && mylist.map((e, i) => (
                                 <Col md={3} key={i} >
                                     <CheckBoxButton BtnLabel={e.name} BtnClass={'checked-btn'} type={'check'} />
                                 </Col>
-                            ))}                         
-                        </Row>                     
+                            ))}
+                        </Row>
                     </div>
                     <Row className='mt-3'>
                         <Col md={4}>

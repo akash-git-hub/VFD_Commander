@@ -4,6 +4,8 @@ import { InputField } from '../../../components/InputField';
 import { SharedButton } from '../../../components/Button';
 import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 import Select from '../../../components/Select';
+import { Radio } from '../../../components/Radio';
+import { Textareanew } from '../../../components/Textareanew';
 
 export const QualificationForm = () => {
     const [fields, setFields] = useState([]);
@@ -33,33 +35,41 @@ export const QualificationForm = () => {
                     </Row>
                     <Row className='mb-2'>
                         <Col md={4}>
-                            <Stack direction="horizontal" gap={2}>
-                                <InputField
-                                    FormType={'text'}
-                                    FormLabel={"Days"}
-                                    FormPlaceHolder={"days"}
-                                />
-                                <InputField
-                                    FormType={'text'}
-                                    FormLabel={"Weeks"}
-                                    FormPlaceHolder={"weeks"}
-                                />
-                                <InputField
-                                    FormType={'text'}
-                                    FormLabel={"Months"}
-                                    FormPlaceHolder={"months"}
-                                />
-                                <InputField
-                                    FormType={'text'}
-                                    FormLabel={"Years"}
-                                    FormPlaceHolder={"years"}
-                                />
+                            <InputField
+                                FormType={'tel'}
+                                FormLabel={"Count"}
+                                FormPlaceHolder={"Count"}
+                            />
+                        </Col>
+                        <Col md={8} id="RadioCol">
+                            <Stack direction="horizontal" gap={2} >
+                                    <Radio
+                                        type={'radio'}
+                                        label={"Days"}
+                                        id={"days"}
+                                    />
+                                    <Radio
+                                        type={'radio'}
+                                        label={"Weeks"}
+                                        id={"weeks"}
+                                    />
+                                    <Radio
+                                        type={'radio'}
+                                        label={"Months"}
+                                        id={"months"}
+                                    />
+                                    <Radio
+                                        type={'radio'}
+                                        label={"Years"}
+                                        id={"years"}
+                                    />
+                
                             </Stack>
                         </Col>
                     </Row>
                     <Row className='mb-2'>
                         <Col md={12}>
-                            <InputField FormLabel='Description'/>
+                            <Textareanew FormLabel='Description' />
                         </Col>
                     </Row>
                     <Row className='mb-2'>

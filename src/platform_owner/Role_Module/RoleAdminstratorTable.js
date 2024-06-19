@@ -1,11 +1,13 @@
 import React from 'react';
-import { Table} from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { TablePagination } from '../../components/TablePagination';
+import { SearchPanel } from '../../components/SearchPanel';
+import { IoSearch } from 'react-icons/io5';
 
 const sampleData = [
     {
         accountName: 'Firefighters',
-        accountId: 'Inventory Module, Availability Module,  Qualification Module, Message Module, Training Module..', 
+        accountId: 'Inventory Module, Availability Module,  Qualification Module, Message Module, Training Module..',
     },
     {
         accountName: 'Administrative Staff',
@@ -40,6 +42,7 @@ const sampleData = [
 export const RoleAdminstratorTable = () => {
     return (
         <>
+            <SearchPanel  StartIcon={<IoSearch />} FormPlaceHolder={"Search by Role Name"}/>
             <div className='MainTable'>
                 <Table responsive>
                     <thead>
@@ -56,8 +59,8 @@ export const RoleAdminstratorTable = () => {
                             </tr>
                         ))}
                     </tbody>
+                    <TablePagination />
                 </Table>
-                <TablePagination />
             </div>
         </>
     )

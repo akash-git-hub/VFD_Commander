@@ -1,173 +1,177 @@
 .CO_Sidebar li:hover {
-    background: #E7EAEE;
+  background: #e7eaee;
 }
 
 .CO_Sidebar li.active {
-    background: #E7EAEE;
+  background: #e7eaee;
 }
 
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    background-color: transparent!important;
-    border: 0px!important;
-    border-bottom: 3px solid #047857!important;
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  background-color: transparent !important;
+  border: 0px !important;
+  border-bottom: 3px solid #047857 !important;
 }
 
 .nav-tabs .nav-link {
-    color: #000;
+  color: #000;
 }
 .nav-tabs .nav-link:hover {
-    color: #000;
+  color: #000;
 }
 
 .SearchBox {
-    background: #F7F8F9;
+  background: #f7f8f9;
 }
 
 .MainTable {
-    padding: 0px 20px;
-    background: #fff;
-    border-radius: 10px;
-    margin: 10px 0px;
-    border: 1px solid #f7f8f9;
+  padding: 0px 20px;
+  background: #fff;
+  border-radius: 10px;
+  margin: 10px 0px;
+  border: 1px solid #f7f8f9;
 }
 
-.table>:not(caption)>*>* {
-    padding: .9rem .5rem!important;
-    font-weight: 400;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
+.table > :not(caption) > * > * {
+  padding: 0.9rem 0.5rem !important;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 table.table th {
-    font-weight: 400;
-    font-size: 14px;
+  font-weight: 400;
+  font-size: 14px;
 }
 
-.active>.page-link, .page-link.active {
-    z-index: 3;
-    color: #000!important;
-    background-color: #F7F9FC!important;
-    border-color: #F7F9FC!important;
+.active > .page-link,
+.page-link.active {
+  z-index: 3;
+  color: #000 !important;
+  background-color: #f7f9fc !important;
+  border-color: #f7f9fc !important;
 }
 
 .page-link {
-    padding: 8px 15px!important;
-    color: #858D9D!important;
-    border: 0px solid #000!important;
-    border-radius: 10px;
+  padding: 8px 15px !important;
+  color: #858d9d !important;
+  border: 0px solid #000 !important;
+  border-radius: 10px;
 }
 
 .btn-primary {
-    --bs-btn-bg: #00285d!important;
-    --bs-btn-border-color: #00285d!important;
+  --bs-btn-bg: #00285d !important;
+  --bs-btn-border-color: #00285d !important;
 }
 
 .btn-primary:hover {
-    background-color: #00234f !important;
-    border-color: #00234f !important;
+  background-color: #00234f !important;
+  border-color: #00234f !important;
 }
 
 img.Avatar_img.rounded {
-    width: 80px;
+  width: 80px;
 }
 
-.paraText{
-    color: #64748B;
+.paraText {
+  color: #64748b;
 }
 
 .UseDetailPages {
-    background: #F8F8F8;
-    padding: 20px;
-    border-radius: 10px;
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .AddFieldBtn {
-    margin-top: 1.9rem;
+  margin-top: 1.9rem;
 }
 
 .Plans {
-    padding: 20px;
-    background: #E7EAEE;
-    border-radius: 10px;
+  padding: 20px;
+  background: #e7eaee;
+  border-radius: 10px;
 }
 
 .MainLoader {
-    height: 100vh;
-    background: #0000002e;
-    position: fixed;
-    width: 100%;
+  height: 100vh;
+  background: #0000002e;
+  position: fixed;
+  width: 100%;
 }
 
-.bg-white{
-background-color: #fff;
+.bg-white {
+  background-color: #fff;
 }
 
-.chiled-row{
-    justify-content: center;
-    align-items: center;
-    height:  100%;
-    width:100%;
+.chiled-row {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
-.maindiv{
-    height: 100vh;
-    background: #E9EEED;
+.maindiv {
+  height: 100vh;
+  background: #e9eeed;
 }
-.error{
-    color: red;
+.error {
+  color: red;
 }
 button.checked-btn {
-    width: 100%;
-    padding: 10px;
-    background: #F7F8F9;
-    border: 0px;
-    color: #6A6A6A;
-    border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  background: #f7f8f9;
+  border: 0px;
+  color: #6a6a6a;
+  border-radius: 4px;
 }
 
 button.checked-btn.checked {
-    background: #00285d !important;
+  background: #00285d !important;
 }
 
 .RoleModule {
-    padding: 20px;
-    border: 1px solid #E7EAEE;
-    border-radius: 4px;
+  padding: 20px;
+  border: 1px solid #e7eaee;
+  border-radius: 4px;
 }
 .timezone-dropdown {
-    position: relative;
+  position: relative;
 }
 
 button.dropdown-toggle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 38px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 38px;
 }
 button.dropdown-toggle:hover {
-   background: #fff!important;
-   color: #6c757d;
+  background: #fff !important;
+  color: #6c757d;
 }
 
-button.dropdown-toggle:focus{
-    background: #fff!important;
-
+button.dropdown-toggle:focus {
+  background: #fff !important;
 }
 
 .timezone-dropdown .dropdown-menu.show {
-    width: 100%;
-    padding: 10px;
+  width: 100%;
+  padding: 10px;
 }
 .timezone-dropdown .dropdown-menu.show {
-    height: 150px;
-    overflow-y: scroll;
+  height: 150px;
+  overflow-y: scroll;
 }
 
 .form-control::placeholder {
-    color: #a9a9a9!important;
+  color: #a9a9a9 !important;
 }
-  
-  
-  
-  
+#RadioCol {
+  align-items: center;
+  display: flex;
+}
+
+#RadioCol .form-check-input {
+border: 1px solid #000;
+}

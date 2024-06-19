@@ -49,19 +49,12 @@ export const AdminstratorForm = () => {
                             <Col md={4}>
                                 <InputField FormType={'date'} FormLabel={"Start Date"} FormPlaceHolder={"DD/MM/YYYY"} />
                             </Col>
-                        </Row>
-                        <Row className='mb-2'>
-                            <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"ID"} FormPlaceHolder={"Enter ID"} />
-                            </Col>
                             <Col md={4}>
                                 <InputField FormType={'email'} FormLabel={"Email"} FormPlaceHolder={"example@gmail.com"} />
                             </Col>
                             <Col md={4}>
                                 <InputField FormType={'date'} FormLabel={"Term Date"} FormPlaceHolder={"DD/MM/YYYY"} />
                             </Col>
-                        </Row>
-                        <Row className='mb-2'>
                             <Col md={4}>
                                 <InputField FormType={'text'} FormLabel={"Supervisor"} FormPlaceHolder={"Enter Supervisor"} />
                             </Col>
@@ -71,8 +64,6 @@ export const AdminstratorForm = () => {
                             <Col md={4}>
                                 <Select FormLabel='Position' FormPlaceHolder='Software Employee' />
                             </Col>
-                        </Row>
-                        <Row className='mb-2'>
                             <Col md={4}>
                                 <InputField FormType={'text'} FormLabel={"Address 1"} FormPlaceHolder={"scheme 24 - Vijay Nagar"} />
                             </Col>
@@ -82,8 +73,6 @@ export const AdminstratorForm = () => {
                             <Col md={4}>
                                 <InputField FormType={'text'} FormLabel={"City"} FormPlaceHolder={"Indore"} />
                             </Col>
-                        </Row>
-                        <Row className='mb-2'>
                             <Col md={4}>
                                 <InputField FormType={'text'} FormLabel={"State"} FormPlaceHolder={"Madhya Pradesh"} />
                             </Col>
@@ -93,8 +82,6 @@ export const AdminstratorForm = () => {
                             <Col md={4}>
                                 <InputField FormType={'number'} FormLabel={"Contact Phone"} FormPlaceHolder={"+91 - 8989898989"} />
                             </Col>
-                        </Row>
-                        <Row className='mb-2'>
                             <Col md={4}>
                                 <InputField FormType={'text'} FormLabel={"Emergency Contact Name"} FormPlaceHolder={"Contact Name"} />
                             </Col>
@@ -104,8 +91,6 @@ export const AdminstratorForm = () => {
                             <Col md={4}>
                                 <Select FormLabel='Status' FormPlaceHolder='Software Employee' />
                             </Col>
-                        </Row>
-                        <Row className='mb-2'>
                             {fields.map((field, index) => (
                                 <Col md={4} key={index}>
                                     <InputField FormType={'text'} FormLabel={field.title} FormPlaceHolder={field.placeholder} />

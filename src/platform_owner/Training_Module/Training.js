@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 export const Training = () => {
     const navigate = useNavigate();
     const [key, setKey] = useState('home');
-    const handleCreateAccount = () =>{
+    const handleCreateAccount = () => {
         navigate('/traininglist');
     }
     return (
@@ -21,17 +21,10 @@ export const Training = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Training Module"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
-                            <Tabs
-                                id="controlled-tab-example"
-                                activeKey={key}
-                                onSelect={(k) => setKey(k)}
-                                className="mb-3"
-                            >
-                                <Tab eventKey="home" title="Create Training">
-                                    <TrainingForm />
-                                </Tab>
-                            </Tabs>
+                            <Headings MainHeading={"Create Training"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <div className='my-md-5'>
+                                <TrainingForm />
+                            </div>
                         </Col>
                     </Row>
                 </Container>

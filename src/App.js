@@ -23,6 +23,8 @@ import { QualificationModuleList } from './platform_owner/Qualification_Module/Q
 import { MyProfile } from './platform_owner/My_Profile/MyProfile';
 import ClientAuth from './api_services/ClientAuth';
 import { EditProfileAdminstrator } from './platform_owner/User_Profile_Adminstrator/Edit_Profile/EditProfileAdminstrator';
+import { TrainingDetail } from './platform_owner/Training_Module/TrainingDetail';
+import { UserTrainingDetail } from './platform_owner/Training_Module/UserTrainingDetail';
 
 const Mycontext = createContext();
 
@@ -64,6 +66,7 @@ function App() {
               <Route path="/editprofileadminstrator" element={<EditProfileAdminstrator />} />
               <Route path="/training" element={<Training />} />
               <Route path="/traininglist" element={<TrainingList />} />
+              <Route path="/usertrainingdetail" element={<UserTrainingDetail />} />
               <Route path="/inventorymodule" element={<InventoryModule />} />
               <Route path="/inventorymodulelist" element={<InventoryModuleList />} />
               <Route path="/unavailability" element={<UnavailabilityModule />} />

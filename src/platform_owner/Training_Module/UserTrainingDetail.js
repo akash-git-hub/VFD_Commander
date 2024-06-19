@@ -1,17 +1,24 @@
 import { useState } from 'react';
 import { PoSidebar } from '../PO_Sidebar'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { Headings } from '../../components/Headings'
-import { CreateRole } from './CreateRole';
-import { Loader } from '../../components/Loader';
+import { ListView } from './ListView';
 import { SharedButton } from '../../components/Button';
+import { useNavigate } from 'react-router-dom';
+import { TrackTraining } from './TrackTraining';
+import { TrainingDetail } from './TrainingDetail';
 
-export const RoleAdminstrator = () => {
-    const [loder,setLoder] = useState(false);
+export const UserTrainingDetail = () => {
     const [key, setKey] = useState('home');
+
+    const navigate = useNavigate();
+
+    const handleNavigation = () => {
+        navigate('/training');
+    };
+
     return (
         <>
-        <Loader show={loder} />
             <div className='RoleAdminstrator'>
                 <Container fluid>
                     <Row>
@@ -19,9 +26,9 @@ export const RoleAdminstrator = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Create Role"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />}/>
+                            <Headings MainHeading={"Training Module"} HeadButton={<SharedButton BtnLabel={"Create Training "} BtnVariant={'primary'} onClick={handleNavigation} />} />
                             <div className='my-md-5'>
-                            <CreateRole setLoder={setLoder}/>
+                                <TrainingDetail />
                             </div>
                         </Col>
                     </Row>

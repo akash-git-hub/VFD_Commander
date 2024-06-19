@@ -4,6 +4,7 @@ import { InputField } from '../../../components/InputField';
 import { SharedButton } from '../../../components/Button';
 import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 import Select from '../../../components/Select';
+import { Textareanew } from '../../../components/Textareanew';
 
 export const ApparatusInformationForm = () => {
     const [fields, setFields] = useState([]);
@@ -21,50 +22,39 @@ export const ApparatusInformationForm = () => {
             <div className='TrainingForm'>
                 <Container fluid>
                     <Row className='mb-2'>
-                        <Col md={5}>
-                            <Select FormLabel='Apparatus Type' FormPlaceHolder='Apparatus Type' />
+                        <Col md={6}>
+                            <InputField FormType={'text'} FormLabel={"Apparatus Type"} FormPlaceHolder={"Apparatus Type"} />
                         </Col>
-                        <Col md={5}>
-                            <InputField FormType={'text'} FormLabel={"Apparatus ID"} FormPlaceHolder={"Apparatus ID"} />
-                        </Col>
-                    </Row>
-                    <Row className='mb-2'>
-                        <Col md={5}>
+                        <Col md={6}>
                             <InputField FormType={'text'} FormLabel={"Apparatus Name"} FormPlaceHolder={"Apparatus Name"} />
                         </Col>
-                        <Col md={5}>
-                            <InputField FormType={'text'} FormLabel={"Apparatus Description"} FormPlaceHolder={"Apparatus Description"} />
-                        </Col>
-                    </Row>
-                    <Row className='mb-2'>
-                        <Col md={5}>
+                        <Col md={6}>
                             <InputField FormType={'text'} FormLabel={"In Service Date"} FormPlaceHolder={"In Service Date"} />
                         </Col>
-                        <Col md={5}>
+                        <Col md={6}>
                             <InputField FormType={'text'} FormLabel={"Replacement Date"} FormPlaceHolder={"Replacement Date"} />
                         </Col>
-                    </Row>
-                    <Row className='mb-2'>
-                        <Col md={5}>
+                        <Col md={6}>
                             <InputField FormType={'text'} FormLabel={"Item Cost"} FormPlaceHolder={"Item Cost"} />
                         </Col>
-                        <Col md={5}>
+                        <Col md={6}>
                             <Select FormLabel='Status' FormPlaceHolder='Status' />
                         </Col>
-                    </Row>
-                    <Row className='mb-2'>
+                        <Col md={12}>
+                            <Textareanew FormType={'text'} FormLabel={"Apparatus Description"} FormPlaceHolder={"Apparatus Description"} />
+                        </Col>
                         {fields.map((field, index) => (
-                            <Col md={5} key={index}>
+                            <Col md={6} key={index}>
                                 <InputField FormType={'text'} FormLabel={field.title} FormPlaceHolder={field.placeholder} />
                             </Col>
                         ))}
-                        <Col md={4}>
+                        <Col md={6}>
                             <SharedButton BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
                         </Col>
                     </Row>
-                    <Row className='mb-2'>
-                        <Col md={4}>
-                            <SharedButton BtnLabel={"Update"} BtnVariant={'primary'} BtnClass={"w-100"} />
+                    <Row>
+                        <Col md={6}>
+                            <SharedButton BtnLabel={"Create"} BtnVariant={'primary'} BtnClass={"w-100 mt-4"} />
                         </Col>
                     </Row>
                 </Container>

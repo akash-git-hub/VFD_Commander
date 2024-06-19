@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 export const QualificationModuleList = () => {
     const navigate = useNavigate();
     const [key, setKey] = useState('gear');
-    const handleCreateAccount = () =>{
+    const handleCreateAccount = () => {
         navigate('/qualification');
     }
     return (
@@ -22,17 +22,19 @@ export const QualificationModuleList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Qualifications Module"} SubHeading={"Manage all qualifications and proficiencies for each user."} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Qualification"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
-                            <Tabs
-                                id="controlled-tab-example"
-                                activeKey={key}
-                                onSelect={(k) => setKey(k)}
-                                className="mb-3"
-                            >
-                                <Tab eventKey="gear" title="Qualifications Data Elements">
-                                    <QualificationList/>
-                                </Tab>
-                            </Tabs>
+                            <Headings MainHeading={"Qualifications Module"} SubHeading={"Manage all qualifications and proficiencies for each user."} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Qualification"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <div className='my-md-5'>
+                                <Tabs
+                                    id="controlled-tab-example"
+                                    activeKey={key}
+                                    onSelect={(k) => setKey(k)}
+                                    className="mb-3"
+                                >
+                                    <Tab eventKey="gear" title="Qualifications Data Elements">
+                                        <QualificationList />
+                                    </Tab>
+                                </Tabs>
+                            </div>
                         </Col>
                     </Row>
                 </Container>
