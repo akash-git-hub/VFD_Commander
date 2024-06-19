@@ -28,9 +28,11 @@ export const CreateAccountPage = () => {
                                 id="controlled-tab-example"
                                 activeKey={key}
                                 onSelect={(k) => setKey(k)}
-                                className="mb-3"
+                                className="mb-3 mt-3"
                             >
-                                <Tab eventKey="home" title="Create Account">
+                                <Tab eventKey="home"
+                                //  title="Create Account"
+                                 >
                                     <CreateForm setLoder={setLoder} />
                                 </Tab>
                             </Tabs>

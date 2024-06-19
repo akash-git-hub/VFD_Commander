@@ -19,7 +19,9 @@ export const CreatePlan = () => {
               <Cosidebar />
             </Col>
             <Col md={9}>
-            <Headings MainHeading={"Subscription Plan"} SubHeading={"Creating A New Subscription Plan"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+            <Headings MainHeading={"Subscription Plan"} 
+            // SubHeading={"Creating A New Subscription Plan"}
+             HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
               {/* <Headings MainHeading={"Subscription Plan"} SubHeading={"Creating A New Subscription Plan"} /> */}
               <Tabs
                 id="controlled-tab-example"
@@ -27,7 +29,7 @@ export const CreatePlan = () => {
                 onSelect={(k) => setKey(k)}
                 className="mb-3"
               >
-                <Tab eventKey="home" title="Create a Subscription Plan">
+                <Tab eventKey="home" title="Create a Plan">
                   <SubscriptionForm setLoder={setLoder} />
                 </Tab>
               </Tabs>

@@ -88,9 +88,11 @@ export const Accountmodule = () => {
                                 id="controlled-tab-example"
                                 activeKey={key}
                                 onSelect={(k) => setKey(k)}
-                                className="mb-3"
+                                className="mb-3 mt-3"
                             >
-                                <Tab eventKey="home" title="Overview">
+                                <Tab eventKey="home" 
+                                // title="Overview"
+                                >
                                     <SearchPanel StartIcon={<IoSearchOutline />} FormPlaceHolder={"Search by name ..."} FormType={"search"} onChange={searchHanlder} />
                                     <AccountModuleTable setLoder={setLoder} mydata={account_data} pagination={pagination} pageHanlder={pageHanlder} />
                                 </Tab>

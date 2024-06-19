@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import { error } from 'toastr';
 
 export default function Select({ FormLabel = "", Array = [], FormPlaceHolder = "", name = "", onChange, value = "", error = "" }) {
     return (

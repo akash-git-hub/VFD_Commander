@@ -28,7 +28,7 @@ export const Training = () => {
                                 onSelect={(k) => setKey(k)}
                                 className="mb-3"
                             >
-                                <Tab eventKey="home" title="Create Training Module">
+                                <Tab eventKey="home" title="Create Training">
                                     <TrainingForm />
                                 </Tab>
                             </Tabs>

@@ -22,22 +22,16 @@ export const ProfileAdminstrator = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Profile Administration"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
+                            <Headings MainHeading={"Create User Profile"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}
                                 onSelect={(k) => setKey(k)}
                                 className="mb-3"
                             >
-                                <Tab eventKey="home" title="User Profile Module">
+                                <Tab eventKey="home" title="Create User">
                                     <AdminstratorForm />
-                                </Tab>
-                                <Tab eventKey="quali" title="Qualifications">
-                                    {/* <AdminstratorTableList /> */}
-                                </Tab>
-                                <Tab eventKey="gear" title="Gear">
-                                    <GearForm />
-                                </Tab>
+                                </Tab>   
                             </Tabs>
                         </Col>
                     </Row>

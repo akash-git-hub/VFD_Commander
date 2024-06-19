@@ -1,30 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Form, InputGroup, FormControl, Dropdown } from 'react-bootstrap';
+import { Form, InputGroup, Dropdown, FormControl } from 'react-bootstrap';
 
-
-
-export const SelectDropdown = ({ FormLabel, placeholder,onChange,Array,name,error }) => {
+export const SelectDropdown = ({ FormLabel, placeholder, onChange, options, name, error }) => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredOptions, setFilteredOptions] = useState(Array);
+    const [filteredOptions, setFilteredOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
 
     useEffect(() => {
-        const newArray = [];
-        if(Array && Array.length > 0) {           
-            Array.map((e)=>{
-                newArray.push({'name':name,'label':e.label,'value':e.value});
-            })
+        // Update filteredOptions when options or name change
+        if (options && options.length > 0) {
+            const newArray = options.map(option => ({
+                ...option,
+                name: name,
+                label: option.label,
+                value: option.value
+            }));
+            setFilteredOptions(newArray);
+        } else {
+            setFilteredOptions([]);
         }
-        setFilteredOptions(newArray);
-    }, [Array,name]);
+    }, [options, name]);
 
     const handleSearch = (e) => {
         const term = e.target.value;
         setSearchTerm(term);
         if (term === '') {
-            setFilteredOptions(Array);
+            setFilteredOptions(options);
         } else {
-            const filtered = Array.filter(option =>
+            const filtered = options.filter(option =>
                 option.label.toLowerCase().includes(term.toLowerCase())
             );
             setFilteredOptions(filtered);
@@ -34,6 +37,7 @@ export const SelectDropdown = ({ FormLabel, placeholder,onChange,Array,name,erro
     const handleSelect = (option) => {
         onChange(option);
         setSelectedOption(option.label);
+        setSearchTerm(''); // Clear search term after selection
     };
 
     return (
@@ -43,11 +47,11 @@ export const SelectDropdown = ({ FormLabel, placeholder,onChange,Array,name,erro
                 <InputGroup className='w-100'>
                     <Dropdown>
                         <Dropdown.Toggle variant="outline-secondary" className='w-100'>
-                            {selectedOption || 'select'}
+                            {selectedOption || 'Select'}
                         </Dropdown.Toggle>
-                        <Dropdown.Menu>
+                        <Dropdown.Menu className='w-100'>
                             <FormControl
-                                placeholder='Select'
+                                placeholder={placeholder || 'Search'}
                                 value={searchTerm}
                                 onChange={handleSearch}
                             />
@@ -57,7 +61,7 @@ export const SelectDropdown = ({ FormLabel, placeholder,onChange,Array,name,erro
                                 </Dropdown.Item>
                             ))}
                         </Dropdown.Menu>
-                        <small className='error'>{error}</small>
+                        {error && <small className='error'>{error}</small>}
                     </Dropdown>
                 </InputGroup>
             </div>

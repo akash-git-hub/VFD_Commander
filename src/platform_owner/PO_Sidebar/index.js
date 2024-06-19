@@ -36,7 +36,7 @@ export const PoSidebar = () => {
                             }}>
                                 <LinkSidebar LinkIcon={<Image src='./assets/images/Role.svg' />} LinkLabel={'Role Module'} LinkPath={'/roleadminstratorlist'} />
                             </li>
-                            <li className={pathname === "/adminstratorprofilelist" ? 'active' : ""} style={{
+                            <li className={pathname === "/adminstratorprofilelist" || pathname === "/profileadminstrator" ? 'active' : ""} style={{
                                 padding: '10px',
                                 position: 'relative'
                             }}>
@@ -62,7 +62,7 @@ export const PoSidebar = () => {
                             }}>
                                 <LinkSidebar LinkIcon={<Image src='./assets/images/Icon.svg' />} LinkLabel={'Inventory Module'} LinkPath={'/inventorymodulelist'} />
                             </li>
-                            <li style={{
+                            <li className={pathname === "/unavailability" ? 'active' : ""} style={{
                                 padding: '10px'
                             }}>
                                 <LinkSidebar LinkIcon={<Image src='./assets/images/Todo.svg' />} LinkLabel={'Availability Module'} LinkPath={'/unavailability'} />
@@ -83,18 +83,19 @@ export const PoSidebar = () => {
                         padding: 0
                     }}>
                         <Stack direction='vertical' gap={3}>
-                            <li style={{
-                                padding: '10px'
-                            }}>
-                                <Link to={'/myprofile'}>
+              
+                            <li style={{ padding: '10px' }} onClick={()=>navigate('/myprofile')} >
+                             
                                     <Avatar LinkLabel={'Jenny Wilson'} Description={'Jenny@wilsongmail.com'} />
-                                </Link>
+                        
                             </li>
+                       
                             <li>
                                 <SharedButton BtnLabel={"Logout"} onClick={logoutClientHandler} BtnVariant={"light"} startIcon={<CgLogOut />} BtnClass={"w-100"} style={{
                                     background: '#F7F8F9'
                                 }} />
                             </li>
+                          
                         </Stack>
                     </ul>
                 </Stack>

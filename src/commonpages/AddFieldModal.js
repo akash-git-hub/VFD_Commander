@@ -31,12 +31,12 @@ export const AddFieldModal = ({ show, handleClose, handleAddField }) => {
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Placeholder</Form.Label>
+                        <Form.Label>Description</Form.Label>
                         <Form.Control
                             type="text"
                             value={fieldPlaceholder}
                             onChange={(e) => setFieldPlaceholder(e.target.value)}
-                            placeholder="Enter placeholder"
+                            placeholder="Enter Description"
                         />
                     </Form.Group>
                 </Form>
@@ -45,7 +45,7 @@ export const AddFieldModal = ({ show, handleClose, handleAddField }) => {
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleSubmit}>
+                <Button type='button' variant="primary" onClick={handleSubmit}>
                     Add Field
                 </Button>
             </Modal.Footer>

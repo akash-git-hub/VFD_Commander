@@ -121,7 +121,7 @@ export const SubscriptionForm = ({ setLoder }) => {
                         </Row>
                         <Row className='mb-2'>
                             <Col md={6}>
-                                <InputField FormType={'tel'} FormLabel={"Duration"} value={indata.duration} name='duration' error={error.duration} onChange={inHandler} FormPlaceHolder={"90 minut"} />
+                                <InputField FormType={'tel'} FormLabel={"Duration"} value={indata.duration} name='duration' error={error.duration} onChange={inHandler}  />
                             </Col>
                             <Col md={6}>
                                 <Form.Label>Billing Interval</Form.Label>

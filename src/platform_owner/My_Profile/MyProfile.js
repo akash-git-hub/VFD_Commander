@@ -17,7 +17,8 @@ export const MyProfile = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"My Profile"} HeadButton={<SharedButton BtnLabel={"Edit"} BtnVariant={'danger'} style={{
+                            <Headings MainHeading={"My Profile"} HeadButton={
+                                <SharedButton BtnLabel={"Back"} BtnVariant={'primary'} onClick={()=>window.history.back()} style={{
                                 background: '#FEF2F2',
                                 color: '#991B1B',
                                 borderColor: '#FEF2F2',

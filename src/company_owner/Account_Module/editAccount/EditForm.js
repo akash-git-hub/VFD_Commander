@@ -235,9 +235,9 @@ const handleCloseModal = () => setShowModal(false);
                   <InputField FormType={'text'} FormLabel={e.title} value={e.value} name={e.title} onChange={addNewHandler} FormPlaceHolder={e.placeholder} />
                 </Col>
               ))}
-              <Col md={4} className='mb-2'>
-                <SharedButton BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={() => handleShowModal()} />
-              </Col>
+              {/* <Col md={4} className='mb-2'> */}
+                {/* <SharedButton type={'button'} BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={() => handleShowModal()} /> */}
+              {/* </Col> */}
             </Row>
             <Row className='mb-2'>
               <Col md={4}>

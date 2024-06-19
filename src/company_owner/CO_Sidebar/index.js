@@ -52,7 +52,7 @@ export const Cosidebar = () => {
                         padding: 0
                     }}>
                         <Stack direction='vertical' gap={3}>
-                            <li className={host === "/accountmodule" ? "active" : ""} style={{
+                            <li className={host === "/accountmodule" || host === "/createaccount" ? "active" : ""} style={{
                                 padding: '10px'
                             }}>
                                 <LinkSidebar LinkIcon={<TfiPieChart />} LinkLabel={'Account Module'} LinkPath={'/accountmodule'} />
@@ -68,7 +68,7 @@ export const Cosidebar = () => {
 
                                 }}>14</Badge>
                             </li>
-                            <li className={host === "/subscriptionview" ? "active" : ""} style={{
+                            <li className={host === "/subscriptionview" || host === "/subscriptionplan"? "active" : ""} style={{
                                 padding: '10px'
                             }}>
                                 <LinkSidebar LinkIcon={<FiAward />} LinkLabel={'Subscriptions'} LinkPath={'/subscriptionview'} />

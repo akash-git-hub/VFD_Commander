@@ -189,7 +189,7 @@ export const CreateForm = ({ setLoder }) => {
             </Row>
             <Row className='mb-2'>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Email Address"} name='email' error={error.email} onChange={onChangeHandler}  />
+                <InputField FormType={'text'} FormLabel={"Account Owner Email Address"} name='email' error={error.email} onChange={onChangeHandler}  />
               </Col>
               <Col md={4}>
                 <InputField FormType={'tel'} FormLabel={"Contact Phone"} max={10} name='contact_number' error={error.contact_number} onChange={onChangeHandler}  />

@@ -28,9 +28,9 @@ export const Plans = ({ planList }) => {
                                             <h6>{moment.unix(e.end_date).format("DD-MM-YYYY")}</h6>
                                         </Stack>
                                         <Stack direction='horizontal' gap={2}>
-                                            <h4>INR {e.pricing} <sup style={{
-                                                color: 'green'
-                                            }}>{e.billing_interval}</sup></h4>
+                                            <h4 style={{display:"flex",alignItems:"center"}}>INR {e.pricing}
+                                                 <span style={{  color: 'green', fontSize:"15px", marginLeft:"5px" }}>{e.billing_interval}</span>
+                                            </h4>
                                         </Stack>
                                     </Stack>
                                 </div>

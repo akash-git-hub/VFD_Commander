@@ -47,7 +47,7 @@ export const UnavailabilityTableList = () => {
   const navigate = useNavigate();
 
   const handleViewClick = () => {
-    navigate('/accountdetail');
+  alert("in progress");
   };
 
   return (

@@ -44,14 +44,16 @@ export const ListViewPlan = () => {
             <Col md={9}>
               <Headings MainHeading={"Subscription Plan"}
               //  SubHeading={"View Plans"}
-                HeadButton={<SharedButton onClick={handleSubscriptionPlan} BtnLabel={"Create Subscriptions"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                HeadButton={<SharedButton onClick={handleSubscriptionPlan} BtnLabel={"Create Plan"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
               <Tabs
                 id="controlled-tab-example"
                 activeKey={key}
                 onSelect={(k) => setKey(k)}
-                className="mb-3"
+                className="mb-3 mt-3"
               >
-                <Tab eventKey="home" title="Subscription Plan">
+                <Tab eventKey="home" 
+                // title="Subscription Plan"
+                >
                   <Plans planList={planList}/>
                 </Tab>
               </Tabs>

@@ -45,20 +45,6 @@ function App() {
         <Mycontext.Provider value={{ pdata: pdata, contaxtHandler: contaxtHandler }}>
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/roleadminstrator" element={<RoleAdminstrator />} />
-            <Route path="/roleadminstratorlist" element={<RoleList />} />
-            <Route path="/adminstratorprofilelist" element={<AdminstratorProfileList />} />
-            <Route path="/profileadminstrator" element={<ProfileAdminstrator />} />
-            <Route path="/editprofileadminstrator" element={<EditProfileAdminstrator />} />
-            <Route path="/training" element={<Training />} />
-            <Route path="/traininglist" element={<TrainingList />} />
-            <Route path="/inventorymodule" element={<InventoryModule />} />
-            <Route path="/inventorymodulelist" element={<InventoryModuleList />} />
-            <Route path="/unavailability" element={<UnavailabilityModule />} />
-            <Route path="/qualification" element={<QualificationAdminstrator />} />
-            <Route path="/qualificationlist" element={<QualificationModuleList />} />
-            <Route path="/myprofile" element={<MyProfile />} />
-
             
             <Route element={<Auth />} >
               <Route path="/accountmodule" element={<Accountmodule />} />
@@ -70,9 +56,21 @@ function App() {
             </Route>
 
             {/* Clinet Code */}
-            { /*} <Route element={<ClientAuth />} > */}
-
-            { /*</Route> */}
+            <Route element={<ClientAuth />} >
+              <Route path="/roleadminstrator" element={<RoleAdminstrator />} />
+              <Route path="/roleadminstratorlist" element={<RoleList />} />
+              <Route path="/adminstratorprofilelist" element={<AdminstratorProfileList />} />
+              <Route path="/profileadminstrator" element={<ProfileAdminstrator />} />
+              <Route path="/editprofileadminstrator" element={<EditProfileAdminstrator />} />
+              <Route path="/training" element={<Training />} />
+              <Route path="/traininglist" element={<TrainingList />} />
+              <Route path="/inventorymodule" element={<InventoryModule />} />
+              <Route path="/inventorymodulelist" element={<InventoryModuleList />} />
+              <Route path="/unavailability" element={<UnavailabilityModule />} />
+              <Route path="/qualification" element={<QualificationAdminstrator />} />
+              <Route path="/qualificationlist" element={<QualificationModuleList />} />
+              <Route path="/myprofile" element={<MyProfile />} />
+            </Route>
 
           </Routes>
         </Mycontext.Provider>

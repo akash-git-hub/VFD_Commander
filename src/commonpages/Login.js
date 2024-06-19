@@ -88,7 +88,7 @@ export const Login = () => {
                                 <img src='./assets/images/MainLogo.png' className='img-fluid w-50' alt='' />
                                 <div className=''>
                                     <h4>Login</h4>
-                                    <h6 className='text-center' style={{
+                                    <h6 style={{
                                         color: '#64748B'
                                     }}>Welcome back. Enter your credentials to access your account</h6>
                                 </div>
