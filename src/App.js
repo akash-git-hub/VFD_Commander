@@ -25,6 +25,7 @@ import ClientAuth from './api_services/ClientAuth';
 import { EditProfileAdminstrator } from './platform_owner/User_Profile_Adminstrator/Edit_Profile/EditProfileAdminstrator';
 import { TrainingDetail } from './platform_owner/Training_Module/TrainingDetail';
 import { UserTrainingDetail } from './platform_owner/Training_Module/UserTrainingDetail';
+import { UserUnavailabilityDetail } from './platform_owner/Unavailability_Module/UserUnavailabilityDetail';
 
 const Mycontext = createContext();
 
@@ -70,6 +71,7 @@ function App() {
               <Route path="/inventorymodule" element={<InventoryModule />} />
               <Route path="/inventorymodulelist" element={<InventoryModuleList />} />
               <Route path="/unavailability" element={<UnavailabilityModule />} />
+              <Route path="/userunavailability" element={<UserUnavailabilityDetail />} />
               <Route path="/qualification" element={<QualificationAdminstrator />} />
               <Route path="/qualificationlist" element={<QualificationModuleList />} />
               <Route path="/myprofile" element={<MyProfile />} />

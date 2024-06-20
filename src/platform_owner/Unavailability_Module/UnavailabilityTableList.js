@@ -47,8 +47,8 @@ export const UnavailabilityTableList = () => {
   const navigate = useNavigate();
 
   const handleViewClick = () => {
-  alert("in progress");
-  };
+      navigate('/userunavailability');
+  }
 
   return (
     <>
