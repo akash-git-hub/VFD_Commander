@@ -22,7 +22,7 @@ export const QualificationAdminstrator = () => {
                         </Col>
                         <Col md={9}>
                             <Headings MainHeading={"Qualifications Module"} SubHeading={"Manage all qualifications and proficiencies for each user."} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
-                            <div className='my-md-5'>
+                            <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
                                     activeKey={key}

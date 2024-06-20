@@ -8,7 +8,6 @@ import { SharedButton } from '../../components/Button';
 
 export const RoleAdminstrator = () => {
     const [loder,setLoder] = useState(false);
-    const [key, setKey] = useState('home');
     return (
         <>
         <Loader show={loder} />
@@ -20,7 +19,7 @@ export const RoleAdminstrator = () => {
                         </Col>
                         <Col md={9}>
                             <Headings MainHeading={"Create Role"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />}/>
-                            <div className='my-md-5'>
+                            <div className='my-md-4'>
                             <CreateRole setLoder={setLoder}/>
                             </div>
                         </Col>

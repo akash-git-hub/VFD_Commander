@@ -1,10 +1,10 @@
 import React from 'react'
-import { Badge, Image, Stack } from 'react-bootstrap'
+import { Image, Stack } from 'react-bootstrap'
 import { LinkSidebar } from '../../components/LinkSidebar';
 import { Avatar } from '../../components/Avatar';
 import { SharedButton } from '../../components/Button';
 import { CgLogOut } from "react-icons/cg";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const PoSidebar = () => {
     const navigate = useNavigate();
@@ -40,12 +40,13 @@ export const PoSidebar = () => {
                                 padding: '10px',
                                 position: 'relative'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/User.svg' />} LinkLabel={'User Profile Module'} LinkPath={'/adminstratorprofilelist'} />  <Badge bg="secondary" style={{
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/User.svg' />} LinkLabel={'User Profile Module'} LinkPath={'/adminstratorprofilelist'} /> 
+                                 {/* <Badge bg="secondary" style={{
                                     position: 'absolute',
                                     top: '2vh',
                                     right: '5vh'
 
-                                }}>14</Badge>
+                                }}>14</Badge> */}
                             </li>
                             <li className={pathname === "/traininglist" || pathname === "/training" ? 'active' : ""} style={{
                                 padding: '10px'

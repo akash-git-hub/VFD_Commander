@@ -138,7 +138,7 @@ export const create_rolls = async (data) => {
     }
 }
 
-export const getRolls = async (page) => {
+export const getRolls_API = async (page) => {
     try {
         const resp = await http.get("/getRolls", { params: page });
         if (resp && resp.data && resp.data.success) {

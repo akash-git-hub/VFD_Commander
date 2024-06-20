@@ -3,28 +3,29 @@ import { Form, InputGroup, FormControl, Dropdown } from 'react-bootstrap';
 
 
 
-export const Timeformatdropdown = ({ FormLabel, placeholder,onChange,Array,name,error ,value}) => {
+export const Timeformatdropdown = ({ FormLabel, placeholder,onChange,arraydata,name,error ,value}) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredOptions, setFilteredOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
+    const [maindata,setMaindata] = useState([])
 
     useEffect(() => {
-        const newArray = [];
-        if(Array && Array.length > 0) {           
-            Array.map((e)=>{
-                newArray.push({'name':name,'label':e.label,'value':e.value});
-            })
+        let newArray = [];
+        if(arraydata && arraydata.length > 0) {           
+          newArray = arraydata.map((e)=>({'name':name,'label':e.label,'value':e.value}))  
+
         }
         setFilteredOptions(newArray);
-    }, [Array,name]);
+        setMaindata(newArray);
+    }, [arraydata,name]);
 
     const handleSearch = (e) => {
         const term = e.target.value;
         setSearchTerm(term);
         if (term === '') {
-            setFilteredOptions(Array);
+            setFilteredOptions(maindata);
         } else {
-            const filtered = Array.filter(option =>
+            const filtered = maindata.filter(option =>
                 option.label.toLowerCase().includes(term.toLowerCase())
             );
             setFilteredOptions(filtered);
@@ -33,14 +34,14 @@ export const Timeformatdropdown = ({ FormLabel, placeholder,onChange,Array,name,
 
     useEffect(()=>{
         if(value){
-         const e = Array.find((pre)=>pre.value===value);
+         const e = maindata.find((pre)=>pre.value===value);
          if(e){
             const fdata ={'name':name,'label':e.label,'value':e.value};
             onChange(fdata);
             setSelectedOption(fdata.label);
          }
         }
-    },[Array,value])
+    },[maindata,value])
 
     const handleSelect = (data) => {
         onChange(data);

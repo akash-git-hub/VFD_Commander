@@ -234,7 +234,7 @@ export const CreateForm = ({ setLoder }) => {
             </Row>
             <Row className='mb-2'>
               <Col md={4}>
-                <Timeformatdropdown Array={timeFormate} FormLabel="Time Display" name="time_formate" error={error.time_formate} onChange={(e)=>onSelectHandler(e)} />
+                <Timeformatdropdown arraydata={timeFormate} FormLabel="Time Display" name="time_formate" error={error.time_formate} onChange={(e)=>onSelectHandler(e)} />
               </Col>
               {fields.map((e, i) => (
                 <Col md={4} key={i}>

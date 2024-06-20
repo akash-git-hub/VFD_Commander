@@ -20,7 +20,7 @@ export const EditProfileAdminstrator = () => {
                             <Headings MainHeading={"Profile Administration"} HeadButton={<SharedButton BtnLabel={"Back"} BtnVariant={'primary'} style={{
 
                             }} />} />
-                            <div className='my-md-5'>
+                            <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
                                     activeKey={key}

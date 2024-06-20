@@ -24,7 +24,7 @@ export const MyProfile = () => {
                                     borderColor: '#FEF2F2',
                                     fontWeight: '500'
                                 }} />} />
-                            <div className='my-md-5'>
+                            <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
                                     activeKey={key}

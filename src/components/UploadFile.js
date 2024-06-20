@@ -17,7 +17,7 @@ export const UploadFile = ({ FormLabel="", error="", name="", onChange=null, cla
         }
 
         if (onChange) {
-            onChange(e);
+            onChange(file);
         }
     };
 
@@ -47,7 +47,7 @@ export const UploadFile = ({ FormLabel="", error="", name="", onChange=null, cla
                         }}
                     />
                      {preview ? (
-                        <img src={preview} alt="Profile Preview" />
+                        <img src={preview} alt="Profile Preview" className='img-fluid'/>
                     ) : (
                         <CiCirclePlus  style={{
                             fontSize:'3rem'

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
+
+import { Container, Row, Col} from 'react-bootstrap'
 import { Headings } from '../../components/Headings'
 import { PoSidebar } from '../PO_Sidebar'
 import { AdminstratorTableList } from './AdminstratorTableList';
@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 export const AdminstratorProfileList = () => {
     const navigate = useNavigate();
-    const [key, setKey] = useState('home');
     const handleCreateAccount = () =>{
         navigate('/profileadminstrator');
     }

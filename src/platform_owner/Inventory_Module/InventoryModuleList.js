@@ -24,7 +24,7 @@ export const InventoryModuleList = () => {
                         </Col>
                         <Col md={9}>
                         <Headings MainHeading={"Inventory Module"}  HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Inventory"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
-                         <div className='my-md-5'>
+                         <div className='my-md-4'>
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}

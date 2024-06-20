@@ -5,7 +5,7 @@ import { SharedButton } from '../../../components/Button';
 import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 import { Timeformatdropdown } from '../../../components/Timeformatdropdown';
 import { getAccount_by_id_API, update_modal_account_api } from '../../../api_services/Apiservices';
-import { Loader } from '../../../components/Loader';
+
 import { successAlert } from '../../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,16 +13,18 @@ import { useNavigate } from 'react-router-dom';
 export const EditForm = ({ mydata ,setLoder }) => {
   const [fields, setFields] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [timeFormate, setTimeFormate] = useState([{ 'label': '12-Hours', "value": 'hh:mm:ss A' }, { 'label': '24-Hours', "value": 'HH:mm:ss' }]);
+
 
   const [data, setData] = useState();
   const navigate = useNavigate();
+
+  const timeFormate = [{ 'label': '12-Hours', "value": 'hh:mm:ss A' }, { 'label': '24-Hours', "value": 'HH:mm:ss' }]
 
   const handleAddField = (title, placeholder) => {
     setFields([...fields, { title, placeholder }]);
 };
 
-const handleShowModal = () => setShowModal(true);
+
 const handleCloseModal = () => setShowModal(false);
 
 
@@ -45,7 +47,7 @@ const handleCloseModal = () => setShowModal(false);
     setLoder(false);
   }
 
-  useEffect(() => { setData(mydata); get_account_list_byid(mydata); }, [mydata])
+  useEffect(() => { if(mydata){setData(mydata); get_account_list_byid(mydata);} }, [mydata])
 
 
 
@@ -228,7 +230,7 @@ const handleCloseModal = () => setShowModal(false);
             </Row>
             <Row className='mb-2' >
               <Col md={4} className='mb-2'>
-                <Timeformatdropdown Array={timeFormate} value={indata.time_formate} FormLabel="Time Display" name="time_formate" error={error.time_formate} onChange={onSelectHandler} />
+                <Timeformatdropdown arraydata={timeFormate} value={indata.time_formate} FormLabel="Time Display" name="time_formate" error={error.time_formate} onChange={onSelectHandler} />
               </Col>
               {indata && indata.add_field && (indata.add_field).map((e, i) => (
                 <Col md={4} key={i}>
