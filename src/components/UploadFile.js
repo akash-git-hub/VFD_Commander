@@ -40,14 +40,16 @@ export const UploadFile = ({ FormLabel="", error="", name="", onChange=null, cla
                         accept="image/*"
                         style={{
                             width:'100%',
-                            height:'90px',
+                            height:'100px',
                             position:'absolute',
                             left:'0',
                             opacity:'0'
                         }}
                     />
                      {preview ? (
-                        <img src={preview} alt="Profile Preview" className='img-fluid'/>
+                        <img src={preview} alt="Profile Preview" className='img-fluid' style={{
+                            height:'100px'
+                        }}/>
                     ) : (
                         <CiCirclePlus  style={{
                             fontSize:'3rem'
