@@ -7,7 +7,7 @@ import { SearchPanel } from '../../components/SearchPanel';
 import { IoSearch } from 'react-icons/io5';
 
 
-export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler }) => {
+export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler,pageHanlder }) => {
   const navigate = useNavigate();
 
 
@@ -77,7 +77,7 @@ export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler
             ))}
           </tbody>
         </Table>
-        <TablePagination />
+        <TablePagination pagination={pagination} pageHanlder={pageHanlder}/>
       </div>
     </>
   )

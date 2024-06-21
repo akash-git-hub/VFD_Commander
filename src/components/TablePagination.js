@@ -2,6 +2,7 @@ import React from 'react'
 import { Pagination } from 'react-bootstrap'
 
 export const TablePagination = ({ pagination, pageHanlder }) => {
+
     return (
         <>
             {pagination &&
