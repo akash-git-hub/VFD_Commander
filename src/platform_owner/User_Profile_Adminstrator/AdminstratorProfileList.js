@@ -81,6 +81,7 @@ export const AdminstratorProfileList = () => {
 
 
 
+    const pageHanlder =(pdata) =>{ get_account_list(pdata)}
 
     const handleCreateAccount = () => {
         navigate('/profileadminstrator');
@@ -97,7 +98,7 @@ export const AdminstratorProfileList = () => {
                         <Col md={9}>
                             <Headings MainHeading={"User Profile Administration"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create User Profile"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-5'></div>
-                            <AdminstratorTableList pagination={pagination} maindata={maindata} actionHandler={actionHandler} />
+                            <AdminstratorTableList pagination={pagination} maindata={maindata} actionHandler={actionHandler} pageHanlder={pageHanlder} />
                         </Col>
                     </Row>
                 </Container>

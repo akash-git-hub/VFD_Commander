@@ -168,14 +168,19 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
                             <Form onSubmit={handleSubmit}>
                                 <Row>
                                     <Col md={2}>
+                                        <img src={indata.image ? indata.image : 'assets/images/avatar.png'} alt="Profile Preview" className='img-fluid' style={{
+                                            height: '130px'
+                                        }} />
+                                    </Col>
+                                    <Col md={2}>
                                         <UploadFile
                                             FormLabel="Upload Profile"
-                                            value={indata}
                                             name="image"
                                             controlId="formProfilePic"
                                             onChange={imageHanlder}
                                         />
                                     </Col>
+
                                 </Row>
                                 <Row className='mb-2'>
                                     <Col md={4}>
@@ -232,15 +237,7 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
                                     <Col md={4}>
                                         <InputField FormType={'text'} FormLabel={"Status"} readOnly={true} value={indata.status} name="status" />
                                         {/* <Select FormLabel='Status' Array={statusArray} FormPlaceHolder='Status' onChange={inputHandler} error={error.status} value={indata.status} name='status' /> */}
-                                    </Col>
-                                    {fields.map((field, index) => (
-                                        <Col md={4} key={index}>
-                                            <InputField FormType={'text'} FormLabel={field.title} FormPlaceHolder={field.placeholder} />
-                                        </Col>
-                                    ))}
-                                    <Col md={4}>
-                                        <SharedButton type={'button'} BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
-                                    </Col>
+                                    </Col>                                  
                                 </Row>
                                 <Row className='mb-2'>
                                     <Col md={4}>
@@ -250,7 +247,6 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
                             </Form>
                         </Container>
                     </div>
-                    <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />
                 </>
                 :
 
@@ -259,21 +255,21 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
                         <Container>
                             <Row className="my-3">
                                 <Col md={12} style={{
-                                    display:'flex',
-                                    justifyContent:'space-between',
-                                    alignItems:'center'
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
                                 }}>
-                                    <img src={indata.image ? indata.image :'assets/images/avatar.png'} alt="Profile Preview" className='img-fluid' style={{
+                                    <img src={indata.image ? indata.image : 'assets/images/avatar.png'} alt="Profile Preview" className='img-fluid' style={{
                                         height: '100px'
                                     }} />
-                                      <Button variant="warning" size="sm" 
-                                      onClick={() => setIsedit(true)} style={{
+                                    <Button variant="warning" size="sm"
+                                        onClick={() => setIsedit(true)} style={{
                                             background: '#FEF2F2',
                                             color: '#991B1B',
                                             borderColor: '#FEF2F2',
                                             fontWeight: '500'
                                         }}>Edit
-                                        </Button>
+                                    </Button>
                                 </Col>
                             </Row>
                             <Row className='mb-2'>
