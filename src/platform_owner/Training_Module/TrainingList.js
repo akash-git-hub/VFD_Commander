@@ -6,6 +6,8 @@ import { ListView } from './ListView';
 import { SharedButton } from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { TrackTraining } from './TrackTraining';
+import { SearchPanel } from '../../components/SearchPanel';
+import { IoSearch } from 'react-icons/io5';
 
 export const TrainingList = () => {
     const [key, setKey] = useState('home');
@@ -16,35 +18,42 @@ export const TrainingList = () => {
         navigate('/training');
     };
 
-  return (
-    <>
-         <div className='RoleAdminstrator'>
+    return (
+        <>
+            <div className='RoleAdminstrator'>
                 <Container fluid>
                     <Row>
                         <Col md={3}>
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Training Module"} HeadButton={<SharedButton BtnLabel={"Create Training "} BtnVariant={'primary'} onClick={handleNavigation}/>}/>
+                            <Headings MainHeading={"Training Module"} HeadButton={<SharedButton BtnLabel={"Create Training "} BtnVariant={'primary'} onClick={handleNavigation} />} />
                             <div className='my-md-5'>
-                            <Tabs
-                                id="controlled-tab-example"
-                                activeKey={key}
-                                onSelect={(k) => setKey(k)}
-                                className="mb-3"
-                            >
-                                <Tab eventKey="home" title="Training List">
-                                   <ListView/>
-                                </Tab>
-                                <Tab eventKey="tracking" title="Track Trainy">
-                                   <TrackTraining/>
-                                </Tab>
-                            </Tabs>
+                                {key == "home" ?
+                                    <SearchPanel StartIcon={<IoSearch />} FormPlaceHolder={"Search by Name"} />
+                                    : 
+                                    <SearchPanel StartIcon={<IoSearch />} FormPlaceHolder={"Search by Name"} />
+
+                                }
+
+                                <Tabs
+                                    id="controlled-tab-example"
+                                    activeKey={key}
+                                    onSelect={(k) => setKey(k)}
+                                    className="mb-3"
+                                >
+                                    <Tab eventKey="home" title="Training List">
+                                        <ListView />
+                                    </Tab>
+                                    <Tab eventKey="tracking" title="Track Trainy">
+                                        <TrackTraining />
+                                    </Tab>
+                                </Tabs>
                             </div>
                         </Col>
                     </Row>
                 </Container>
             </div>
-    </>
-  )
+        </>
+    )
 }

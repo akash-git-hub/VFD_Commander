@@ -4,10 +4,10 @@ import { TablePagination } from '../../components/TablePagination';
 import { SearchPanel } from '../../components/SearchPanel';
 import { IoSearch } from 'react-icons/io5';
 
-export const RoleAdminstratorTable = ({rolldata,pagination,pageHanlder}) => {
+export const RoleAdminstratorTable = ({ rolldata, pagination, pageHanlder }) => {
     return (
         <>
-            <SearchPanel  StartIcon={<IoSearch />} FormPlaceHolder={"Search by Role Name"}/>
+            <SearchPanel StartIcon={<IoSearch />} FormPlaceHolder={"Search by Role Name"} />
             <div className='MainTable'>
                 <Table responsive>
                     <thead>
@@ -23,10 +23,10 @@ export const RoleAdminstratorTable = ({rolldata,pagination,pageHanlder}) => {
                                 <td>{e.modules}</td>
                             </tr>
                         ))}
-                    </tbody>                 
+                    </tbody>
                 </Table>
+                <TablePagination pagination={pagination} pageHanlder={pageHanlder} />
             </div>
-            <TablePagination pagination={pagination} pageHanlder={pageHanlder}/>
         </>
     )
 }

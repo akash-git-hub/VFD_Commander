@@ -72,6 +72,22 @@ export const update_modal_account_api = async (data) => {
 
 
 
+export const update_actice_inactive_API = async (data) => {
+    try {
+        const resp = await http.post("/activeInActive", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+
 export const getAccount_API = async (page) => {
     try {
         const resp = await http.get("/getAccount", { params: page });
@@ -141,6 +157,22 @@ export const create_rolls = async (data) => {
 export const getRolls_API = async (page) => {
     try {
         const resp = await http.get("/getRolls", { params: page });
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const getRollsAll_API = async () => {
+    try {
+        const resp = await http.get("/getRollsAll");
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }

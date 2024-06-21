@@ -6,17 +6,19 @@ export const SearchPanel = ({ FormLabel, FormType, FormPlaceHolder, StartIcon,on
         <>
             <div className='SearchBox'>
                 <Container>
-                    <Row>
+                    <Row style={{
+                        justifyContent:'end'
+                    }}>
                         <Col md={6}>
                             <Form.Group className="mb-3" controlId="formGroupEmail">
                                 <Form.Label>{FormLabel}</Form.Label>
                                 <InputGroup>
+                                <Form.Control type={FormType} placeholder={FormPlaceHolder} onChange={onChange} />
                                     {StartIcon && (
                                         <InputGroup.Text>
                                             {StartIcon}
                                         </InputGroup.Text>
                                     )}
-                                    <Form.Control type={FormType} placeholder={FormPlaceHolder} onChange={onChange} />
                                 </InputGroup>
                             </Form.Group>
                         </Col>

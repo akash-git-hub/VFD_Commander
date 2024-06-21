@@ -11,3 +11,7 @@ export const TimezoneList = () => {
   return tzNames ? tzNames : [];
  };
 
+ export const statusArray =[
+  {name:"Active",value:"Active"},
+  {name:"InActive",value:"Inactive"}
+]

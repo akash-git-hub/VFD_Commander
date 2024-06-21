@@ -17,7 +17,7 @@ export const UploadFile = ({ FormLabel="", error="", name="", onChange=null, cla
         }
 
         if (onChange) {
-            onChange(file);
+            onChange({"name":name,"value":file});
         }
     };
 

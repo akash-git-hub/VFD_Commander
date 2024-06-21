@@ -1,18 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Container, Row, Form, } from 'react-bootstrap';
 import { InputField } from '../../../components/InputField';
 import { SharedButton } from '../../../components/Button';
 import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 import Select from '../../../components/Select';
 import { UploadFile } from '../../../components/UploadFile';
+import { create_modal_account_api, getRollsAll_API } from '../../../api_services/Apiservices';
+import { successAlert } from '../../../components/Alert';
+import { useNavigate } from 'react-router-dom';
+import { statusArray } from '../../../helper/Helper';
 
 
-export const AdminstratorForm = () => {
+export const AdminstratorForm = ({ setLoder }) => {
     const [fields, setFields] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
+    const [rolelist,setRolelist] = useState([]);
+
+    const getrolls = async () => {
+        const resp = await getRollsAll_API();
+        if (resp) {
+            const findata = resp.data;
+            const mydata = findata.map(e => ({name: e.role, value: e._id  }));
+            setRolelist(mydata);
+        }
+    }
+
+    useEffect(() => { getrolls(); }, []);
 
     const [indata, setIndata] = useState({
-
         "first_name": "", "last_name": "",
         "start_date": "", "email": "",
         "supervisor": "", "role": "",
@@ -39,33 +55,23 @@ export const AdminstratorForm = () => {
         setFields([...fields, { title, placeholder }]);
     };
 
-    // const getUploadFileDetail = (event) => {
-    //     if (event.target.files.length > 0) {
-    //         setSelectedFile(event.target.files[0]);
-    //         var mimeType = event.target.files[0].type;
-    //         if (mimeType.match(/image\/*/) == null) {
-    //             errorAlert("Only images are supported.");
-    //             return;
-    //         }
-    //         const file = event.target.files[0];
-
-    //         if (file) {
-    //             const reader = new FileReader();
-    //             reader.readAsDataURL(file);
-
-    //             reader.onload = (e) => {
-    //                 const result = e.target.result;
-    //                 setImgURL(result);
-    //                 setImagePath(file);
-    //             };
-    //         }
-    //     }
-    // }
+    const imageHanlder = (data) => {
+        const { name, value } = data;
+        setIndata((pre) => ({ ...pre, [name]: value }));
+        setError((pre) => ({ ...pre, [name]: "" }));
+    }
+    const inputHandler = (e) => {
+        const { name, value } = e.target;
+        setIndata((pre) => ({ ...pre, [name]: value }));
+        setError((pre) => ({ ...pre, [name]: "" }));
+    }
+  
 
     const handleShowModal = () => setShowModal(true);
     const handleCloseModal = () => setShowModal(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        console.log(indata);
         e.preventDefault();
         // Validate each field
         let isValid = true;
@@ -89,7 +95,11 @@ export const AdminstratorForm = () => {
         // If all fields are valid, submit the form
         if (isValid) {
 
-            const formData = new formData();
+            setLoder(true);
+
+            const formData = new FormData();
+            formData.append('checkUserType', 2);
+            formData.append('create_by_id', localStorage.getItem('id'));
             formData.append('first_name', indata.first_name);
             formData.append('last_name', indata.last_name);
             formData.append('start_date', indata.start_date);
@@ -97,30 +107,34 @@ export const AdminstratorForm = () => {
             formData.append('supervisor', indata.supervisor);
             formData.append('role', indata.role);
             formData.append('position', indata.position);
-            formData.append('address_1', indata.address_1);
-            formData.append('address_2', indata.address_2);
+            formData.append('billing_address', indata.address_1);
+            formData.append('billing_addres2', indata.address_2);
             formData.append('city', indata.city);
             formData.append('state', indata.state);
             formData.append('zip_code', indata.zip_code);
             formData.append('term_date', indata.term_date);
             formData.append('image', indata.image);
-            formData.append('phone_no', indata.phone_no);
+            formData.append('mobile_no', indata.phone_no);
             formData.append('emergency_contact_name', indata.emergency_contact_name);
             formData.append('emergency_contact_number', indata.emergency_contact_number);
             formData.append('status', indata.status);
+            formData.append('add_field', fields);
 
-
-            // Perform form submission logic here
-            console.log("Form submitted successfully");
+            const resp = await create_modal_account_api(formData);
+            if (resp && resp.success) {
+                e.target.reset();
+                setFields([]);
+                setLoder(false);
+                successAlert(resp.message);
+                navigate("/adminstratorprofilelist");
+            }
+            setLoder(false);
         }
     };
 
 
 
-    const inputHandler = (e) => {
-        const { name, value } = e.target;
-        setIndata((pre) => ({ ...pre, [name]: value }));
-    }
+
     return (
         <>
             <div className='CreateAccountForm'>
@@ -130,63 +144,64 @@ export const AdminstratorForm = () => {
                             <Col md={2}>
                                 <UploadFile
                                     FormLabel="Upload Profile"
-                                    name="profilePic"
+                                    name="image"
                                     controlId="formProfilePic"
+                                    onChange={imageHanlder}
                                 />
                             </Col>
                         </Row>
                         <Row className='mb-2'>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"First Name"} onClick={inputHandler} error={error.first_name} name='first_name' FormPlaceHolder={"Jenny"} />
+                                <InputField FormType={'text'} FormLabel={"First Name"} onChange={inputHandler} error={error.first_name} name='first_name' FormPlaceHolder={"Jenny"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Last Name"} onClick={inputHandler} error={error.last_name} name='last_name' FormPlaceHolder={"Wilson"} />
+                                <InputField FormType={'text'} FormLabel={"Last Name"} onChange={inputHandler} error={error.last_name} name='last_name' FormPlaceHolder={"Wilson"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'date'} FormLabel={"Start Date"} onClick={inputHandler} error={error.start_date} name='start_date' FormPlaceHolder={"DD/MM/YYYY"} />
+                                <InputField FormType={'date'} FormLabel={"Start Date"} onChange={inputHandler} error={error.start_date} name='start_date' FormPlaceHolder={"DD/MM/YYYY"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'email'} FormLabel={"Email"} onClick={inputHandler} error={error.email} name='email' FormPlaceHolder={"example@gmail.com"} />
+                                <InputField FormType={'email'} FormLabel={"Email"} onChange={inputHandler} error={error.email} name='email' FormPlaceHolder={"example@gmail.com"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'date'} FormLabel={"Term Date"} onClick={inputHandler} error={error.term_date} name='term_date' FormPlaceHolder={"DD/MM/YYYY"} />
+                                <InputField FormType={'date'} FormLabel={"Term Date"} onChange={inputHandler} error={error.term_date} name='term_date' FormPlaceHolder={"DD/MM/YYYY"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Supervisor"} onClick={inputHandler} error={error.supervisor} name='supervisor' FormPlaceHolder={"Enter Supervisor"} />
+                                <InputField FormType={'text'} FormLabel={"Supervisor"} onChange={inputHandler} error={error.supervisor} name='supervisor' FormPlaceHolder={"Enter Supervisor"} />
                             </Col>
                             <Col md={4}>
-                                <Select FormLabel='Role' FormPlaceHolder='Adminstrator Staff' onClick={inputHandler} error={error.role} name='role' />
+                                <Select FormLabel='Role' Array={rolelist} FormPlaceHolder='Adminstrator Staff' onChange={inputHandler} error={error.role} name='role' />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Position"} onClick={inputHandler} error={error.position} name='position' FormPlaceHolder={"Enter Position"} />
+                                <InputField FormType={'text'} FormLabel={"Position"} onChange={inputHandler} error={error.position} name='position' FormPlaceHolder={"Enter Position"} />
                                 {/* <Select FormLabel='Position' FormPlaceHolder='Software Employee' /> */}
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Address 1"} onClick={inputHandler} error={error.address_1} name='address_1' FormPlaceHolder={"scheme 24 - Vijay Nagar"} />
+                                <InputField FormType={'text'} FormLabel={"Address 1"} onChange={inputHandler} error={error.address_1} name='address_1' FormPlaceHolder={"scheme 24 - Vijay Nagar"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Address 2"} onClick={inputHandler} error={error.address_2} name='address_2' FormPlaceHolder={"scheme 24 - Vijay Nagar"} />
+                                <InputField FormType={'text'} FormLabel={"Address 2"} onChange={inputHandler} error={error.address_2} name='address_2' FormPlaceHolder={"scheme 24 - Vijay Nagar"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"City"} onClick={inputHandler} error={error.city} name='city' FormPlaceHolder={"Indore"} />
+                                <InputField FormType={'text'} FormLabel={"City"} onChange={inputHandler} error={error.city} name='city' FormPlaceHolder={"Indore"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"State"} onClick={inputHandler} error={error.state} name='state' FormPlaceHolder={"Madhya Pradesh"} />
+                                <InputField FormType={'text'} FormLabel={"State"} onChange={inputHandler} error={error.state} name='state' FormPlaceHolder={"Madhya Pradesh"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Zip Code"} onClick={inputHandler} error={error.zip_code} name='zip_code' FormPlaceHolder={"452001"} />
+                                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={6} onChange={inputHandler} error={error.zip_code} name='zip_code' FormPlaceHolder={"452001"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'number'} FormLabel={"Phone No"} max='10' onClick={inputHandler} error={error.phone_no} name='phone_no' FormPlaceHolder={"+91 - 8989898989"} />
+                                <InputField FormType={'tel'} FormLabel={"Phone No"} max='10' onChange={inputHandler} error={error.phone_no} name='phone_no' FormPlaceHolder={"8989898989"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Emergency Contact Name"} onClick={inputHandler} error={error.emergency_contact_name} name='emergency_contact_name' FormPlaceHolder={"Contact Name"} />
+                                <InputField FormType={'text'} FormLabel={"Emergency Contact Name"} onChange={inputHandler} error={error.emergency_contact_name} name='emergency_contact_name' FormPlaceHolder={"Contact Name"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'number'} FormLabel={"Emergency Contact Number"} onClick={inputHandler} error={error.emergency_contact_number} name="emergency_contact_number" FormPlaceHolder={"Contact Number"} />
+                                <InputField FormType={'tel'} FormLabel={"Emergency Contact Number"} max='10' onChange={inputHandler} error={error.emergency_contact_number} name="emergency_contact_number" FormPlaceHolder={"Contact Number"} />
                             </Col>
                             <Col md={4}>
-                                <Select FormLabel='Status' FormPlaceHolder='Status' onClick={inputHandler} error={error.status} name='status' />
+                                <Select FormLabel='Status' Array={statusArray}  FormPlaceHolder='Status' onChange={inputHandler} error={error.status} name='status' />
                             </Col>
                             {fields.map((field, index) => (
                                 <Col md={4} key={index}>

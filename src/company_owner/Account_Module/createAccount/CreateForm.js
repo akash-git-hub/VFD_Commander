@@ -136,29 +136,29 @@ export const CreateForm = ({ setLoder }) => {
 
     if (isValid === 1) {
       setLoder(true);
-      const fdata = {
-        "checkUserType": 1,
-        "email": indata.email,
-        "create_by_id": "super_admin",
-        "first_name":indata.first_name,
-        "last_name":indata.last_name,
-        "account_name": indata.account_name,
-        "subscription_id": indata.subscription_name,
-        "mobile_no": indata.contact_number,
-        "time_zone": indata.time_zone,
-        "time_formate": indata.time_formate,
-        "incentive_information": indata.incentive_information,
-        "renewal_date": indata.renewal_date,
-        "subscription_amount": indata.subscription_amount,
-        "zip_code": indata.zip_code,
-        "state": indata.state,
-        "city": indata.city,
-        "billing_address": indata.billing_address,
-        "billing_addres2": indata.billing_addres2,
-        "add_field": fields
-      }
+      const formData = new FormData();
 
-      const resp = await create_modal_account_api(fdata);
+      formData.append('checkUserType', 1);
+      formData.append('email', indata.email);
+      formData.append('create_by_id', "super_admin");
+      formData.append('first_name', indata.first_name);
+      formData.append('last_name', indata.last_name);
+      formData.append('account_name', indata.account_name);
+      formData.append('subscription_id', indata.subscription_name);
+      formData.append('mobile_no', indata.contact_number);
+      formData.append('time_zone', indata.time_zone);
+      formData.append('time_formate', indata.time_formate);
+      formData.append('incentive_information', indata.incentive_information);
+      formData.append('renewal_date',  indata.renewal_date);
+      formData.append('subscription_amount', indata.subscription_amount);
+      formData.append('zip_code', indata.zip_code);
+      formData.append('state', indata.state);
+      formData.append('city',  indata.city);
+      formData.append('billing_address', indata.billing_address);
+      formData.append('billing_addres2', indata.billing_addres2);
+      formData.append('add_field', fields);    
+
+      const resp = await create_modal_account_api(formData);
       if (resp && resp.success) {
         e.target.reset();
         setIndata([]);

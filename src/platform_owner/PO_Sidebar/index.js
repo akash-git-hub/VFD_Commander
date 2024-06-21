@@ -20,7 +20,7 @@ export const PoSidebar = () => {
     };
     return (
         <>
-            <div className='CO_Sidebar p-md-4' style={{}}>
+            <div className='CO_Sidebar ps-md-2' style={{}}>
                 <Stack direction='vertical' gap={3}>
                     <img src='./assets/images/MainLogo.png' className='img-fluid w-75' alt='' />
                     <h6 style={{

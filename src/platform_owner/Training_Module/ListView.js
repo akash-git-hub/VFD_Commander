@@ -1,8 +1,7 @@
 import React from 'react'
 import { Button, Container, Table } from 'react-bootstrap'
-import { SearchPanel } from '../../components/SearchPanel';
 import { TablePagination } from '../../components/TablePagination';
-import { IoSearch } from 'react-icons/io5';
+
 
 
 const sampleData = [
@@ -46,7 +45,6 @@ export const ListView = () => {
         <>
             <div className='TrainingViewList'>
                 <Container>
-                    <SearchPanel StartIcon={<IoSearch />} FormPlaceHolder={"Search by Role Name"} />
                     <div className='MainTable'>
                         <Table responsive>
                             <thead>
