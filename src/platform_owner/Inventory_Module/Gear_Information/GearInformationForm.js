@@ -23,16 +23,11 @@ export const GearInformationForm = () => {
                 <Container fluid>
                     <Row className='mb-2'>
                         <Col md={6}>
-                        <Select FormLabel='Gear Type' FormPlaceHolder='Gear Type' />
-                        </Col>
-                        {/* <Col md={6}>
-                            <InputField FormType={'text'} FormLabel={"Gear Item ID"} FormPlaceHolder={"Gear Item ID"} />
-                        </Col> */}
-                        <Col md={6}>
                             <InputField FormType={'text'} FormLabel={"Gear Item Name"} FormPlaceHolder={"Gear Item Name"} />
                         </Col>
-             
-                    
+                        <Col md={6}>
+                        <Select FormLabel='Gear Type' FormPlaceHolder='Gear Type' />
+                        </Col>
                         <Col md={6}>
                             <InputField FormType={'text'} FormLabel={"Date Received"} FormPlaceHolder={"Date Received"} />
                         </Col>
@@ -42,8 +37,6 @@ export const GearInformationForm = () => {
                         <Col md={12}>
                             <Textareanew FormType={'text'} FormLabel={"Gear Item Description"} FormPlaceHolder={"Gear Item Description"} />
                         </Col>
-                 
-                   
                         {fields.map((field, index) => (
                             <Col md={6} key={index}>
                                 <InputField FormType={'text'} FormLabel={field.title} FormPlaceHolder={field.placeholder} />
@@ -53,8 +46,6 @@ export const GearInformationForm = () => {
                             <SharedButton BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
                         </Col>
                     </Row>
-           
-                    
                     <Row className='mb-2'>
                         <Col md={6}>
                             <SharedButton BtnLabel={"Create"} BtnVariant={'primary'} BtnClass={"w-100 mt-4"} />

@@ -23,48 +23,11 @@ export const QualificationForm = () => {
             <div className='TrainingForm'>
                 <Container fluid>
                     <Row className='mb-2'>
-                        <Col md={4}>
+                        <Col md={6}>
                             <InputField FormType={'text'} FormLabel={"Qualification Name"} FormPlaceHolder={"Qualification Name"} />
                         </Col>
-                        <Col md={4}>
-                            <Select FormLabel='Type' FormPlaceHolder='Type' />
-                        </Col>
-                        <Col md={4}>
-                            <InputField FormType={'text'} FormLabel={"Display Name"} FormPlaceHolder={"Display Name"} />
-                        </Col>
-                    </Row>
-                    <Row className='mb-2'>
-                        <Col md={4}>
-                            <InputField
-                                FormType={'tel'}
-                                FormLabel={"Count"}
-                                FormPlaceHolder={"Count"}
-                            />
-                        </Col>
-                        <Col md={8} id="RadioCol">
-                            <Stack direction="horizontal" gap={2} >
-                                    <Radio
-                                        type={'radio'}
-                                        label={"Days"}
-                                        id={"days"}
-                                    />
-                                    <Radio
-                                        type={'radio'}
-                                        label={"Weeks"}
-                                        id={"weeks"}
-                                    />
-                                    <Radio
-                                        type={'radio'}
-                                        label={"Months"}
-                                        id={"months"}
-                                    />
-                                    <Radio
-                                        type={'radio'}
-                                        label={"Years"}
-                                        id={"years"}
-                                    />
-                
-                            </Stack>
+                        <Col md={6}>
+                            <InputField FormType={'text'} FormLabel={"Type"} FormPlaceHolder={"Type"} />
                         </Col>
                     </Row>
                     <Row className='mb-2'>
@@ -74,16 +37,16 @@ export const QualificationForm = () => {
                     </Row>
                     <Row className='mb-2'>
                         {fields.map((field, index) => (
-                            <Col md={5} key={index}>
+                            <Col md={6} key={index}>
                                 <InputField FormType={'text'} FormLabel={field.title} FormPlaceHolder={field.placeholder} />
                             </Col>
                         ))}
-                        <Col md={4}>
+                        <Col md={6}>
                             <SharedButton BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
                         </Col>
                     </Row>
                     <Row className='mb-2'>
-                        <Col md={4}>
+                        <Col md={6}>
                             <SharedButton BtnLabel={"Create"} BtnVariant={'primary'} BtnClass={"w-100"} />
                         </Col>
                     </Row>
