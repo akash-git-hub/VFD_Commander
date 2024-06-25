@@ -202,3 +202,9 @@ a.page-link.currentPage {
 .table-responsive {
   scrollbar-width: thin;
 }
+
+.BoxBorder{
+  border: 1px solid #ddd;
+  padding: 1.5rem;
+  border-radius: 10px;
+}

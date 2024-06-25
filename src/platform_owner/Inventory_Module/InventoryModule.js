@@ -6,6 +6,7 @@ import { GearInformationForm } from './Gear_Information/GearInformationForm'
 import {  ApparatusInformationForm } from './Apparatus_Information/ApparatusInformationForm'
 import { SharedButton } from '../../components/Button'
 import { useNavigate } from 'react-router-dom'
+import { GearType } from './Gear_Information/GearType'
 
 export const InventoryModule = () => {
 
@@ -37,6 +38,9 @@ export const InventoryModule = () => {
                                 </Tab>
                                 <Tab eventKey="apparatus" title="Create Apparatus">
                                     <ApparatusInformationForm/>
+                                </Tab>
+                                <Tab eventKey="typegear" title="Create Gear Type">
+                                    <GearType/>
                                 </Tab>
                             </Tabs>
                             </div>

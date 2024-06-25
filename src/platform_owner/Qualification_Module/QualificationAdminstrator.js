@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import { PoSidebar } from '../PO_Sidebar'
 import { Headings } from '../../components/Headings'
 import { QualificationForm } from './Qualification_Information/QualificationForm';
