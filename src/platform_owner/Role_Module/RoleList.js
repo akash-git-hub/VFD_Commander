@@ -1,6 +1,6 @@
 
 import { PoSidebar } from '../PO_Sidebar'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
 import { Headings } from '../../components/Headings'
 import { SharedButton } from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
@@ -11,10 +11,10 @@ import { getRolls_API } from '../../api_services/Apiservices';
 export const RoleList = () => {
     const navigate = useNavigate();
     const [rolldata, setRolldata] = useState([]);
-    const [pagination,setPagination] = useState();
+    const [pagination, setPagination] = useState();
 
-    const getrolls = async (page=1) => {
-        const resp = await getRolls_API({ "page": page});
+    const getrolls = async (page = 1) => {
+        const resp = await getRolls_API({ "page": page });
         if (resp) {
             const findata = resp.data;
             setPagination(resp.pagination);
@@ -35,9 +35,9 @@ export const RoleList = () => {
         }
     }
 
-    useEffect(() => {getrolls();}, []);
+    useEffect(() => { getrolls(); }, []);
     const handleCreateAccount = () => { navigate('/roleadminstrator'); }
-    const pageHanlder = (page) =>{getrolls(page);}
+    const pageHanlder = (page) => { getrolls(page); }
     return (
         <>
             <div className='RoleAdminstrator'>
@@ -47,9 +47,17 @@ export const RoleList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Role Administration"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Role"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Role Module"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Role"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
-                                <RoleAdminstratorTable rolldata={rolldata} pagination={pagination} pageHanlder={pageHanlder} />
+                                <Tabs
+                                    id="controlled-tab-example"
+                                    activeKey={"home"}
+                                    className="mb-3"
+                                >
+                                    <Tab eventKey="home" title="Role Administration">
+                                        <RoleAdminstratorTable rolldata={rolldata} pagination={pagination} pageHanlder={pageHanlder} />
+                                    </Tab>
+                                </Tabs>
                             </div>
                         </Col>
                     </Row>

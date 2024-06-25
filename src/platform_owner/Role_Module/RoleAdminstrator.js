@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { PoSidebar } from '../PO_Sidebar'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
 import { Headings } from '../../components/Headings'
 import { CreateRole } from './CreateRole';
 import { Loader } from '../../components/Loader';
 import { SharedButton } from '../../components/Button';
 
 export const RoleAdminstrator = () => {
-    const [loder,setLoder] = useState(false);
+    const [loder, setLoder] = useState(false);
     return (
         <>
-        <Loader show={loder} />
+            <Loader show={loder} />
             <div className='RoleAdminstrator'>
                 <Container fluid>
                     <Row>
@@ -18,9 +18,17 @@ export const RoleAdminstrator = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Create Role"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />}/>
+                            <Headings MainHeading={"Role Module"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
-                            <CreateRole setLoder={setLoder}/>
+                                <Tabs
+                                    id="controlled-tab-example"
+                                    activeKey={"home"}
+                                    className="mb-3"
+                                >
+                                    <Tab eventKey="home" title="Create Role">
+                                        <CreateRole setLoder={setLoder} />
+                                    </Tab>
+                                </Tabs>
                             </div>
                         </Col>
                     </Row>

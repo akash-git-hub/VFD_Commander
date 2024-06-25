@@ -1,15 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
 import { Headings } from '../../components/Headings'
 import { PoSidebar } from '../PO_Sidebar'
 import { ProfileForm } from './ProfileForm'
 import { SharedButton } from '../../components/Button'
 import { MyPlans } from './MyPlans'
+import { getSubscriptonData_API } from '../../api_services/Apiservices'
+import { Loader } from '../../components/Loader'
 
 export const MyProfile = () => {
     const [key, setKey] = useState('home');
+    const [usedata, setUsedata] = useState(JSON.parse(localStorage.getItem('userData')));
+    const [plan, setPlan] = useState();
+    const [loder, setLoder] = useState(false);
+
+    const getplan = async () => {   
+        if (usedata && usedata.subscription_id) {
+            setLoder(true);
+            const resp = await getSubscriptonData_API({ "id": usedata.subscription_id });
+            if (resp && resp.success) {
+                setLoder(false);
+                const prefdata = resp.data;
+                setPlan(prefdata);
+            }
+            setLoder(false);
+        }
+    }
+    useEffect(() => { getplan() }, [])
+
     return (
         <>
+            <Loader show={loder} />
             <div className='RoleAdminstrator'>
                 <Container fluid>
                     <Row>
@@ -32,10 +53,10 @@ export const MyProfile = () => {
                                     className="mb-3"
                                 >
                                     <Tab eventKey="home" title="User Profile Module">
-                                        <ProfileForm />
+                                        <ProfileForm usedata={usedata} />
                                     </Tab>
                                     <Tab eventKey="quali" title="Subscriptions">
-                                        <MyPlans />
+                                        <MyPlans  plan={plan}/>
                                     </Tab>
                                 </Tabs>
                             </div>

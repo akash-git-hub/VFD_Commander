@@ -4,10 +4,10 @@ import { InputField } from '../../../components/InputField';
 import Select from '../../../components/Select';
 import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 import { SharedButton } from '../../../components/Button';
-import { createUserGear_API, getGear_API } from '../../../api_services/Apiservices';
-import { successAlert } from '../../../components/Alert';
+import { createUserQualification_API,  getQualification_API } from '../../../api_services/Apiservices';
+import { errorAlert, successAlert } from '../../../components/Alert';
 
-export const EditGearForm = ({ pre, setLoder, setKey,getgr }) => {
+export const UserQuilification = ({ pre, setLoder, setKey,quadata,getqua }) => {
     const [fields, setFields] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [maindata, setMaindata] = useState();
@@ -15,11 +15,11 @@ export const EditGearForm = ({ pre, setLoder, setKey,getgr }) => {
 
     const getdata = async () => {
         setLoder(true);
-        const resp = await getGear_API();
+        const resp = await getQualification_API();
         if (resp && resp.success) {
             setLoder(false);
             const prefdata = resp.data;
-            const fdata = prefdata.map((e) => ({ "name": e.gear_item_name, "value": e._id }));
+            const fdata = prefdata.map((e) => ({ "name": e.name, "value": e._id }));
             setGrtype(fdata);
         }
         setLoder(false);
@@ -50,43 +50,39 @@ export const EditGearForm = ({ pre, setLoder, setKey,getgr }) => {
     const handleShowModal = () => setShowModal(true);
     const handleCloseModal = () => setShowModal(false);
 
-    const [indata, setIndata] = useState({ "gear_id": "", "replacement_date": "", "issue_date": "" });
-    const [error, setError] = useState({ "gear_id": "", "replacement_date": "", "issue_date": "" });
+    const [indata, setIndata] = useState({ "qualifications_id": "", "exp_date": "" });
+
     const inputHandler = (e) => {
         const { name, value } = e.target;
         setIndata((prev) => ({ ...prev, [name]: value }));
-        setError((prev) => ({ ...prev, [name]: "" }));
     }
 
+    const [checked, setChecked] = useState(false);
+
+    const handleChange = () => { setChecked(!checked); };
     const submitHandler = async (e) => {
         e.preventDefault();
-        let isValid = true;
-        if (!indata.gear_id) { setError((prev) => ({ ...prev, "gear_id": "Required" })); isValid = false; }
-        if (!indata.replacement_date) { setError((prev) => ({ ...prev, "replacement_date": "Required" })); isValid = false; }
-        if (!indata.issue_date) { setError((prev) => ({ ...prev, "issue_date": "Required" })); isValid = false; }
-
-        if (isValid) {
-            setLoder(true);
-            const fdata = {
-                "user_id": maindata._id,
-                "gear_id": indata.gear_id,
-                "replacement_date": indata.replacement_date,
-                "issue_date": indata.issue_date,
-                "add_field": fields
-            }
-            const resp = await createUserGear_API(fdata);
-
-            if (resp && resp.success) {
-                e.target.reset();
-                setFields([]);
-                setLoder(false);
-                successAlert(resp.message);
-                setKey("home");
-                const id =maindata._id;
-                getgr(id);
-            }
-            setLoder(false);
+        if (!indata.qualifications_id) {errorAlert("Qualifications Type Is Required"); return; }
+        setLoder(true);
+        const fdata = {
+            "user_id": maindata._id,
+            "qualifications_id": indata.qualifications_id,
+            "exp_date": indata.exp_date,
+            "add_field": fields
         }
+        const resp = await createUserQualification_API(fdata);
+
+        if (resp && resp.success) {
+            e.target.reset();
+            setFields([]);
+            setLoder(false);
+            successAlert(resp.message);
+            const id = maindata._id;
+            getqua(id);
+            setKey("home");
+        }
+        setLoder(false);
+
 
     }
 
@@ -95,30 +91,36 @@ export const EditGearForm = ({ pre, setLoder, setKey,getgr }) => {
             <div className='RoleAdminstrator'>
                 <Container fluid>
                     <Form onSubmit={submitHandler}>
-                        <Row className='mb-2'>
-                            <Col md={4}>
-                                <Select FormLabel='Gear Type' FormPlaceHolder='Gear Type' Array={grtype} name='gear_id' error={error.gear_id} onChange={inputHandler} />
+                        <Row>
+                            <Col md={6} className='mb-2'>
+                                <Select FormLabel='Qualifications Type' FormPlaceHolder='Qualifications Type' Array={grtype} name='qualifications_id'  onChange={inputHandler} />
                             </Col>
-                            <Col md={4}>
-                                <InputField FormType={'date'} FormLabel={"Issue Date"} FormPlaceHolder={"Issue Date"} name='issue_date' error={error.issue_date} onChange={inputHandler} />
+                            <Col md={6} style={{
+                                position: 'relative'
+                            }} className='mb-2'>
+                                <Form.Check
+                                    type="switch"
+                                    id="custom-switch"
+                                    label={!checked ? "Disable" : "Enable"}
+                                    style={{ position: 'absolute', right: '0' }}
+                                    checked={checked}
+                                    onChange={handleChange}
+                                />
+                                <InputField FormType={'date'} readOnly={!checked} FormLabel={"Expiretion Date"} name='exp_date'  onChange={inputHandler} />
                             </Col>
-                            <Col md={4}>
-                                <InputField FormType={'date'} FormLabel={"Replacement Date"} FormPlaceHolder={"Replacement Date"} name='replacement_date' error={error.replacement_date} onChange={inputHandler} />
-                            </Col>
-                      
                         </Row>
                         <Row className='mb-2'>
                             {fields.map((e, i) => (
-                                <Col md={4} key={i}>
+                                <Col md={6} key={i}>
                                     <InputField FormType={'text'} FormLabel={e.title} onChange={addNewHandler} name={e.title} FormPlaceHolder={e.placeholder} />
                                 </Col>
                             ))}
-                            <Col md={4}>
+                            <Col md={6}>
                                 <SharedButton type={'button'} BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
                             </Col>
                         </Row>
                         <Row className='mb-2 mt-3'>
-                            <Col md={4}>
+                            <Col md={6}>
                                 <SharedButton BtnLabel={"Add"} BtnVariant={'primary'} BtnClass={"w-100"} />
                             </Col>
                         </Row>

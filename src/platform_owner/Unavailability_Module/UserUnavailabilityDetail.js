@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
 import { PoSidebar } from '../PO_Sidebar'
 import { Headings } from '../../components/Headings'
 import Calendar from 'react-calendar'
@@ -19,7 +19,12 @@ export const UserUnavailabilityDetail = () => {
                         </Col>
                         <Col md={9}>
                             <Headings MainHeading={"Unavailability Module"} />
-                            <div className='my-md-4'>
+                            <Tabs
+                                id="controlled-tab-example"
+                                activeKey={"home"}
+                                className="my-4"
+                            >
+                                <Tab eventKey="home" title="Unavailability Data">
                                 <Row>
                                     <Col md={4}>
                                         <Calendar />
@@ -45,7 +50,8 @@ export const UserUnavailabilityDetail = () => {
                                         </div>
                                     </Col>
                                 </Row>
-                            </div>
+                            </Tab>
+                            </Tabs>
                         </Col>
                     </Row>
                 </Container>

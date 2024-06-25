@@ -1,50 +1,68 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Stack } from 'react-bootstrap'
+import { getApparatus_API } from '../../../api_services/Apiservices';
 
-export const ApparatusList = () => {
+export const ApparatusList = ({ setLoder }) => {
+    const [trdata, setTrdata] = useState([]);
+    const getdata = async () => {
+        setLoder(true);
+        const resp = await getApparatus_API();
+        if (resp && resp.success) {
+            setLoder(false);
+            setTrdata(resp.data);
+        }
+        setLoder(false);
+    }
+    useEffect(() => { getdata(); }, [])
+
+  
     return (
         <>
             <div className='ApparatusList'>
                 <Container>
                     <Row>
-                        <Col md={6}>
-                            <div className='Plans'>
-                                <Stack direction='vertical' gap={2}>
-                                    <Stack direction='horizontal' gap={2} style={{
-                                        justifyContent: 'space-between'
-                                    }}>
-                                        <div className='ApparatusHeading'>
-                                            <h5>Apparatus Name</h5>
+                        {trdata && trdata.map((e) => (
+                            <Col md={6}>
+                                <div className='Plans'>
+                                    <Stack direction='vertical' gap={2}>
+                                        <Stack direction='horizontal' gap={2} style={{
+                                            justifyContent: 'space-between'
+                                        }}>
+                                            <div className='ApparatusHeading'>
+                                                <h5>{e.name}</h5>
+                                                <h6 style={{
+                                                    color: '#7B8C87'
+                                                }}>{e._id}</h6>
+                                            </div>
+                                            <h6>{e.apparatus_type}</h6>
+                                        </Stack>
+                                        <p style={{
+                                            textAlign: 'justify',
+                                            color: '#7B8C87'
+                                        }}><b>Apparatus Description : </b>{e.description}</p>
+                                        <Stack direction='horizontal' gap={2} style={{
+                                            justifyContent: 'space-between'
+                                        }}>
                                             <h6 style={{
-                                                color:'#7B8C87'
-                                            }}>Apparatus ID</h6>
-                                        </div>
-                                        <h6>Apparatus Type</h6>
-                                    </Stack>
-                                    <p style={{
-                                        textAlign: 'justify',
-                                        color:'#7B8C87'
-                                    }}><b>Apparatus Description : </b>Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-                                    <Stack direction='horizontal' gap={2} style={{
-                                        justifyContent: 'space-between'
-                                    }}>
-                                        <h6 style={{
-                                                color:'#7B8C87'
+                                                color: '#7B8C87'
                                             }}>In Service Date</h6>
-                                        <h6 style={{
-                                                color:'#7B8C87'
+                                            <p>{e.service_date}</p>
+                                            <h6 style={{
+                                                color: '#7B8C87'
                                             }}>Replacement Date</h6>
+                                               <p>{e.replace_date}</p>
+                                        </Stack>
+                                        <Stack direction='horizontal' gap={2} style={{
+                                            justifyContent: 'space-between'
+                                        }}>
+                                            <div>
+                                            </div>
+                                            <h4>INR {e.cost}</h4>
+                                        </Stack>
                                     </Stack>
-                                    <Stack direction='horizontal' gap={2} style={{
-                                        justifyContent: 'space-between'
-                                    }}>
-                                        <div>
-                                        </div>
-                                        <h4>INR 599</h4>
-                                    </Stack>
-                                </Stack>
-                            </div>
-                        </Col>
+                                </div>
+                            </Col>
+                      ))}
                     </Row>
                 </Container>
             </div>

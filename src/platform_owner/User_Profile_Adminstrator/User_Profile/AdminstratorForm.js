@@ -15,16 +15,29 @@ export const AdminstratorForm = ({ setLoder }) => {
     const [fields, setFields] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
-    const [rolelist,setRolelist] = useState([]);
+    const [rolelist, setRolelist] = useState([]);
 
     const getrolls = async () => {
         const resp = await getRollsAll_API();
         if (resp) {
             const findata = resp.data;
-            const mydata = findata.map(e => ({name: e.role, value: e._id  }));
+            const mydata = findata.map(e => ({ name: e.role, value: e._id }));
             setRolelist(mydata);
         }
     }
+
+    const addNewHandler = (e) => {
+        const { name, value } = e.target;
+        const field = [...fields];
+        const index = field.findIndex((item) => item.title === name);
+        if (index !== -1) {
+          field[index] = {
+            ...field[index],
+            value: value
+          };
+        }
+        setFields(field);
+      }
 
     useEffect(() => { getrolls(); }, []);
 
@@ -65,15 +78,12 @@ export const AdminstratorForm = ({ setLoder }) => {
         setIndata((pre) => ({ ...pre, [name]: value }));
         setError((pre) => ({ ...pre, [name]: "" }));
     }
-  
 
     const handleShowModal = () => setShowModal(true);
     const handleCloseModal = () => setShowModal(false);
 
-    const handleSubmit = async (e) => {
-        console.log(indata);
+    const handleSubmit = async (e) => {      
         e.preventDefault();
-        // Validate each field
         let isValid = true;
         if (!indata.first_name) { setError(prev => ({ ...prev, "first_name": "First Name is required" })); isValid = false; }
         if (!indata.last_name) { setError(prev => ({ ...prev, "last_name": "Last Name is required" })); isValid = false; }
@@ -118,7 +128,7 @@ export const AdminstratorForm = ({ setLoder }) => {
             formData.append('emergency_contact_name', indata.emergency_contact_name);
             formData.append('emergency_contact_number', indata.emergency_contact_number);
             formData.append('status', indata.status);
-            formData.append('add_field', fields);
+            formData.append('add_field', JSON.stringify(fields));
 
             const resp = await create_modal_account_api(formData);
             if (resp && resp.success) {
@@ -201,18 +211,19 @@ export const AdminstratorForm = ({ setLoder }) => {
                                 <InputField FormType={'tel'} FormLabel={"Emergency Contact Number"} max='10' onChange={inputHandler} error={error.emergency_contact_number} name="emergency_contact_number" FormPlaceHolder={"Contact Number"} />
                             </Col>
                             <Col md={4}>
-                                <Select FormLabel='Status' Array={statusArray}  FormPlaceHolder='Status' onChange={inputHandler} error={error.status} name='status' />
+                                <Select FormLabel='Status' Array={statusArray} FormPlaceHolder='Status' onChange={inputHandler} error={error.status} name='status' />
                             </Col>
-                            {fields.map((field, index) => (
-                                <Col md={4} key={index}>
-                                    <InputField FormType={'text'} FormLabel={field.title} FormPlaceHolder={field.placeholder} />
+                            {fields.map((e, i) => (
+                                <Col md={4} key={i}>
+                                    <InputField FormType={'text'} FormLabel={e.title} onChange={addNewHandler} name={e.title} FormPlaceHolder={e.placeholder} />
                                 </Col>
                             ))}
                             <Col md={4}>
                                 <SharedButton type={'button'} BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
                             </Col>
                         </Row>
-                        <Row className='mb-2'>
+                        <hr />
+                        <Row className='mb-2 mt-4'>
                             <Col md={4}>
                                 <SharedButton type={'submit'} BtnLabel={"Create"} BtnVariant={'primary'} BtnClass={"w-100"} />
                             </Col>

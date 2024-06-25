@@ -26,6 +26,11 @@ import { EditProfileAdminstrator } from './platform_owner/User_Profile_Adminstra
 import { TrainingDetail } from './platform_owner/Training_Module/TrainingDetail';
 import { UserTrainingDetail } from './platform_owner/Training_Module/UserTrainingDetail';
 import { UserUnavailabilityDetail } from './platform_owner/Unavailability_Module/UserUnavailabilityDetail';
+import { GearInformationForm } from './platform_owner/Inventory_Module/Gear_Information/GearInformationForm';
+import { ApparatusInformationForm } from './platform_owner/Inventory_Module/Apparatus_Information/ApparatusInformationForm';
+import { CreateGareType } from './platform_owner/Inventory_Module/Gear_Information/CreateGareType';
+import TraningListDetail from './platform_owner/Training_Module/TraningListDetail';
+import GearListDetail from './platform_owner/Inventory_Module/Gear_Information/GearListDetail';
 
 const Mycontext = createContext();
 
@@ -69,6 +74,12 @@ function App() {
               <Route path="/traininglist" element={<TrainingList />} />
               <Route path="/usertrainingdetail" element={<UserTrainingDetail />} />
               <Route path="/inventorymodule" element={<InventoryModule />} />
+              <Route path="/CreateGear" element={<GearInformationForm/>} />
+              <Route path="/CreateApparatus" element={<ApparatusInformationForm />} />
+              <Route path="/createGeareType" element={<CreateGareType />} />
+              <Route path='/TraningListDetail' element={<TraningListDetail />} />
+              <Route path='/GearListDetail' element={<GearListDetail />} />
+
               <Route path="/inventorymodulelist" element={<InventoryModuleList />} />
               <Route path="/unavailability" element={<UnavailabilityModule />} />
               <Route path="/userunavailability" element={<UserUnavailabilityDetail />} />

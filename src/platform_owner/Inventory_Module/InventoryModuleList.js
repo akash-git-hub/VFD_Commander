@@ -1,21 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { PoSidebar } from '../PO_Sidebar'
 import { Headings } from '../../components/Headings'
 import { GearList } from './Gear_Information/GearList'
 import { ApparatusList } from './Apparatus_Information/ApparatusList'
 import { SharedButton } from '../../components/Button'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { GearTypeTable } from './Gear_Information/GearTypeTable'
+import { Loader } from '../../components/Loader'
 
 export const InventoryModuleList = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [loder,setLoder] = useState(false);
+
     const [key, setKey] = useState('gear');
 
-    const handleCreateAccount = () =>{
-        navigate('/inventorymodule');
+    useEffect(() => {
+        if (location && location.state && location.state.eventKey) {
+            setKey(location.state.eventKey)
+        }
+    }, [location])
+
+    const handleCreateAccount = (data) => {
+        navigate(data);
+        // navigate('/inventorymodule');
     }
     return (
         <>
+        <Loader show={loder} />
             <div className='InventoryList'>
                 <Container fluid>
                     <Row>
@@ -23,22 +36,33 @@ export const InventoryModuleList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                        <Headings MainHeading={"Inventory Module"}  HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Inventory"} BtnVariant={'primary'} style={{ background: '#00285D' }}/>}/>
-                         <div className='my-md-4'>
-                            <Tabs
-                                id="controlled-tab-example"
-                                activeKey={key}
-                                onSelect={(k) => setKey(k)}
-                                className="mb-3"
-                            >
-                                <Tab eventKey="gear" title="Gear Information">
-                                    <GearList/>
-                                </Tab>
-                                <Tab eventKey="apparatus" title="Apparatus Information">
-                                    <ApparatusList/>
-                                </Tab>
-                            </Tabs>
-                         </div>
+                            {key === "gear" &&
+                                < Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/CreateGear")} BtnLabel={"Create Gear Information"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            }
+                            {key === "apparatus" &&
+                                < Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/CreateApparatus")} BtnLabel={"Create Apparatus Information"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            }
+                            {key === "geartype" &&
+                                < Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/createGeareType")} BtnLabel={"Create Gear Type"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            }
+                            <div className='my-md-4'>
+                                <Tabs
+                                    id="controlled-tab-example"
+                                    activeKey={key}
+                                    onSelect={(k) => setKey(k)}
+                                    className="mb-3"
+                                >
+                                    <Tab eventKey="gear" title="Gear Information">
+                                        <GearList setLoder={setLoder} />
+                                    </Tab>
+                                    <Tab eventKey="apparatus" title="Apparatus Information">
+                                        <ApparatusList setLoder={setLoder} />
+                                    </Tab>
+                                    <Tab eventKey="geartype" title="Gear Type">
+                                        <GearTypeTable setLoder={setLoder} />
+                                    </Tab>
+                                </Tabs>
+                            </div>
                         </Col>
                     </Row>
                 </Container>

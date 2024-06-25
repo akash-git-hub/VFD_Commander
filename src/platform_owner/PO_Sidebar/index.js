@@ -20,7 +20,7 @@ export const PoSidebar = () => {
     };
     return (
         <>
-            <div className='CO_Sidebar ps-md-2' style={{}}>
+            <div className='CO_Sidebar p-md-4' style={{}}>
                 <Stack direction='vertical' gap={3}>
                     <img src='./assets/images/MainLogo.png' className='img-fluid w-75' alt='' />
                     <h6 style={{
@@ -58,7 +58,7 @@ export const PoSidebar = () => {
                             }}>
                                 <LinkSidebar LinkIcon={<Image src='./assets/images/Message.svg' />} LinkLabel={'Messaging Module'} LinkPath={'#'} />
                             </li>
-                            <li className={pathname === "/inventorymodulelist" ? 'active' : ""} style={{
+                            <li className={pathname === "/inventorymodulelist" || pathname ===  "/createGeareType" || pathname ===  "/CreateGear" || pathname ===  "/CreateApparatus"  || pathname==="/GearListDetail" ? 'active' : ""} style={{
                                 padding: '10px'
                             }}>
                                 <LinkSidebar LinkIcon={<Image src='./assets/images/Icon.svg' />} LinkLabel={'Inventory Module'} LinkPath={'/inventorymodulelist'} />
@@ -83,14 +83,10 @@ export const PoSidebar = () => {
                         listStyle: 'none',
                         padding: 0
                     }}>
-                        <Stack direction='vertical' gap={3}>
-              
-                            <li style={{ padding: '10px' }} onClick={()=>navigate('/myprofile')} >
-                             
-                                    <Avatar LinkLabel={'Jenny Wilson'} Description={'Jenny@wilsongmail.com'} />
-                        
-                            </li>
-                       
+                        <Stack direction='vertical' gap={3}>              
+                            <li style={{ padding: '0px 10px' }} onClick={()=>navigate('/myprofile')} >                             
+                                    <Avatar LinkLabel={'Jenny Wilson'} Description={'Jenny@wilsongmail.com'} />                        
+                            </li>                       
                             <li>
                                 <SharedButton BtnLabel={"Logout"} onClick={logoutClientHandler} BtnVariant={"light"} startIcon={<CgLogOut />} BtnClass={"w-100"} style={{
                                     background: '#F7F8F9'

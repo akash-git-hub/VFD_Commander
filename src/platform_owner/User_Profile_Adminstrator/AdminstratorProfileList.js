@@ -1,5 +1,5 @@
 
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
 import { Headings } from '../../components/Headings'
 import { PoSidebar } from '../PO_Sidebar'
 import { AdminstratorTableList } from './AdminstratorTableList';
@@ -18,9 +18,11 @@ export const AdminstratorProfileList = () => {
 
     const get_account_list = async (page) => {
         const data = { "page": page, userTypes: 3 }
+        setLoder(true);
         const resp = await getAccount_API(data);
         if (resp) {
             const data = resp.data;
+            setLoder(false);
 
             let filterddata = data.map((e) => ({
                 id: e._id,
@@ -34,11 +36,12 @@ export const AdminstratorProfileList = () => {
                 role: e.role.role,
                 mobile_no: e.mobile_no,
                 status: e.status,
-                full_data:e
+                full_data: e
             }))
             setMaindata(filterddata);
             setPagination(resp.pagination);
         }
+        setLoder(false);
     }
 
     useEffect(() => { get_account_list(); }, [])
@@ -47,7 +50,7 @@ export const AdminstratorProfileList = () => {
 
         // Initial language status (example)
         let languageStatus = status; // Assume 'active' as defaultata
-        const fdata = {'id':id,'status':status};
+        const fdata = { 'id': id, 'status': status };
 
         // Show confirmation dialog
         Swal.fire({
@@ -58,7 +61,7 @@ export const AdminstratorProfileList = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, change it!"
-        }).then( async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 // Toggle language status
                 languageStatus = languageStatus === 'active' ? 'inactive' : 'active';
@@ -69,10 +72,10 @@ export const AdminstratorProfileList = () => {
                     text: `Language status is now ${languageStatus}.`,
                     icon: "success"
                 });
-              const resp = await  update_actice_inactive_API(fdata); // Example function to update status
-              if(resp){
-                get_account_list();
-              }
+                const resp = await update_actice_inactive_API(fdata); // Example function to update status
+                if (resp) {
+                    get_account_list();
+                }
             }
         });
 
@@ -81,7 +84,7 @@ export const AdminstratorProfileList = () => {
 
 
 
-    const pageHanlder =(pdata) =>{ get_account_list(pdata)}
+    const pageHanlder = (pdata) => { get_account_list(pdata) }
 
     const handleCreateAccount = () => {
         navigate('/profileadminstrator');
@@ -96,9 +99,17 @@ export const AdminstratorProfileList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"User Profile Administration"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create User Profile"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
-                            <div className='my-md-5'></div>
-                            <AdminstratorTableList pagination={pagination} maindata={maindata} actionHandler={actionHandler} pageHanlder={pageHanlder} />
+                            <Headings MainHeading={"User Profile Module"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create User Profile"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                          
+                            <Tabs
+                                id="controlled-tab-example"
+                                activeKey={"home"}
+                                className="my-4"
+                            >
+                                <Tab eventKey="home" title="User Profile Administration">
+                                    <AdminstratorTableList pagination={pagination} maindata={maindata} actionHandler={actionHandler} pageHanlder={pageHanlder} />
+                                </Tab>
+                            </Tabs>
                         </Col>
                     </Row>
                 </Container>

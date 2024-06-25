@@ -77,7 +77,6 @@ export const CreateForm = ({ setLoder }) => {
     setError((pre) => ({ ...pre, [name]: "" }));
   }
   const onSelectHandler = (indata) => {
-    console.log(indata.name);
     const name = indata.name;
     const value = indata.value;
 
@@ -156,7 +155,7 @@ export const CreateForm = ({ setLoder }) => {
       formData.append('city',  indata.city);
       formData.append('billing_address', indata.billing_address);
       formData.append('billing_addres2', indata.billing_addres2);
-      formData.append('add_field', fields);    
+      formData.append('add_field', JSON.stringify(fields));    
 
       const resp = await create_modal_account_api(formData);
       if (resp && resp.success) {
@@ -245,7 +244,8 @@ export const CreateForm = ({ setLoder }) => {
                 <SharedButton BtnLabel={"Add Field"} type={'button'} BtnVariant={'outline-dark'} BtnClass={"w-100 mt-md-4"} onClick={() => handleShowModal()} />
               </Col>
             </Row>
-            <Row className='mb-2'>
+            <hr />
+            <Row className='mb-2 mt-4'>
               <Col md={4}>
                 <SharedButton BtnLabel={"Create"} type={'submit'} BtnVariant={'primary'} BtnClass={"w-100"} />
               </Col>
@@ -254,7 +254,6 @@ export const CreateForm = ({ setLoder }) => {
         </Container>
       </div>
       <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />
-      {/* <AddFieldModal show={showModal} setShowModal={setShowModal} fields={fields} setFields={setFields} /> */}
     </>
   );
 };

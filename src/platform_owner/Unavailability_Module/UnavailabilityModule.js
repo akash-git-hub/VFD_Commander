@@ -1,6 +1,6 @@
 import React from 'react'
 import { UnavailabilityTableList } from './UnavailabilityTableList'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
 import { Headings } from '../../components/Headings'
 import { PoSidebar } from '../PO_Sidebar'
 
@@ -15,10 +15,15 @@ export const UnavailabilityModule = () => {
                         </Col>
                         <Col md={9}>
                             <Headings MainHeading={"Unavailability Module"} />
-                            <div className='my-md-5'>
-                                <UnavailabilityTableList />
-                            </div>
-
+                            <Tabs
+                                id="controlled-tab-example"
+                                activeKey={"home"}
+                                className="my-4"
+                            >
+                                <Tab eventKey="home" title="User List">
+                                    <UnavailabilityTableList />
+                                </Tab>
+                            </Tabs>
                         </Col>
                     </Row>
                 </Container>

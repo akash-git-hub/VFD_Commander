@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Row, Form, Button, } from 'react-bootstrap';
+import { Col, Container, Row, Form, Button, Tabs, Tab, } from 'react-bootstrap';
 import { InputField } from '../../../components/InputField';
 import { SharedButton } from '../../../components/Button';
 import { AddFieldModal } from '../../../commonpages/AddFieldModal';
-import Select from '../../../components/Select';
+
 import { UploadFile } from '../../../components/UploadFile';
-import { create_modal_account_api, getRollsAll_API } from '../../../api_services/Apiservices';
+import { getRollsAll_API, update_modal_account_api } from '../../../api_services/Apiservices';
 import { successAlert } from '../../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import { statusArray } from '../../../helper/Helper';
 
 
-export const EditAdminstratorForm = ({ setLoder, pre }) => {
+
+export const EditAdminstratorForm = ({ setLoder, pre, grdata,quadata }) => {
     const [fields, setFields] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
     const [rolelist, setRolelist] = useState([]);
     const [isedit, setIsedit] = useState(false);
+    const [premain, setPremain] = useState();
 
     const [indata, setIndata] = useState({
         "first_name": "", "last_name": "",
@@ -29,6 +31,7 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
         "phone_no": "", "emergency_contact_name": "",
         "emergency_contact_number": "", "status": ""
     });
+
 
     const getrolls = async () => {
         const resp = await getRollsAll_API();
@@ -47,19 +50,37 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
             if (pre.role && pre.role.role) {
                 roleId = pre.role && pre.role.role;
             }
+            setPremain(pre);
             setIndata({
+                "id": pre._id,
                 "first_name": pre.first_name, "last_name": pre.last_name,
                 "start_date": pre.start_date, "email": pre.email,
                 "supervisor": pre.supervisor, "role": roleId,
                 "position": pre.position, "address_1": pre.billing_address,
                 "address_2": pre.billing_address2, "city": pre.city,
                 "state": pre.state, "zip_code": pre.zip_code,
-                "term_date": pre.term_date, "image": pre.image,
+                "term_date": pre.term_date, "image": "", "preimage": pre.image,
                 "phone_no": pre.mobile_no, "emergency_contact_name": pre.emergency_contact_name,
-                "emergency_contact_number": pre.emergency_contact_number, "status": pre.status
+                "emergency_contact_number": pre.emergency_contact_number, "status": pre.status,
+                "add_field": pre.add_field,
+                "password": pre.password,
             });
+            setFields(pre.add_field);
         }
     }, [pre])
+
+    const addNewHandler = (e) => {
+        const { name, value } = e.target;
+        const field = [...fields];
+        const index = field.findIndex((item) => item.title === name);
+        if (index !== -1) {
+            field[index] = {
+                ...field[index],
+                value: value
+            };
+        }
+        setFields(field);
+    }
 
 
     const [error, setError] = useState({
@@ -94,7 +115,7 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
     const handleCloseModal = () => setShowModal(false);
 
     const handleSubmit = async (e) => {
-        console.log(indata);
+
         e.preventDefault();
         // Validate each field
         let isValid = true;
@@ -106,7 +127,6 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
         if (!indata.role) { setError(prev => ({ ...prev, "role": "Role is required" })); isValid = false; }
         if (!indata.position) { setError(prev => ({ ...prev, "position": "Position is required" })); isValid = false; }
         if (!indata.address_1) { setError(prev => ({ ...prev, "address_1": "Address 1 is required" })); isValid = false; }
-        if (!indata.address_2) { setError(prev => ({ ...prev, "address_2": "Address 2 is required" })); isValid = false; }
         if (!indata.city) { setError(prev => ({ ...prev, "city": "City is required" })); isValid = false; }
         if (!indata.state) { setError(prev => ({ ...prev, "state": "State is required" })); isValid = false; }
         if (!indata.term_date) { setError(prev => ({ ...prev, "term_date": "Term Date is required" })); isValid = false; }
@@ -122,6 +142,7 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
 
             const formData = new FormData();
             formData.append('checkUserType', 2);
+            formData.append('id', indata.id);
             formData.append('create_by_id', localStorage.getItem('id'));
             formData.append('first_name', indata.first_name);
             formData.append('last_name', indata.last_name);
@@ -143,7 +164,7 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
             formData.append('status', indata.status);
             formData.append('add_field', fields);
 
-            const resp = await create_modal_account_api(formData);
+            const resp = await update_modal_account_api(formData);
             if (resp && resp.success) {
                 e.target.reset();
                 setFields([]);
@@ -155,7 +176,7 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
         }
     };
 
-    console.log(indata)
+
 
 
 
@@ -166,23 +187,36 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
                     <div className='CreateAccountForm'>
                         <Container>
                             <Form onSubmit={handleSubmit}>
-                                <Row>
-                                    <Col md={2}>
-                                        <img src={indata.image ? indata.image : 'assets/images/avatar.png'} alt="Profile Preview" className='img-fluid' style={{
-                                            height: '130px'
-                                        }} />
+                                <Row style={{ justifyContent: "space-between" }}>
+                                    <Col md={6}>
+                                        <Row>
+                                            <Col md={6}>
+                                                <img src={indata.preimage ? indata.preimage : 'assets/images/avatar.png'} alt="Profile Preview" className='img-fluid' style={{
+                                                    height: '130px'
+                                                }} />
+                                            </Col>
+                                            <Col md={6}>
+                                                <UploadFile
+                                                    FormLabel="Upload Profile"
+                                                    name="image"
+                                                    controlId="formProfilePic"
+                                                    onChange={imageHanlder}
+                                                />
+                                            </Col>
+                                        </Row>
                                     </Col>
-                                    <Col md={2}>
-                                        <UploadFile
-                                            FormLabel="Upload Profile"
-                                            name="image"
-                                            controlId="formProfilePic"
-                                            onChange={imageHanlder}
-                                        />
+                                    <Col md={1}>
+                                        <Button variant="warning" size="sm"
+                                            onClick={() => setIsedit(false)} style={{
+                                                background: '#FEF2F2',
+                                                color: '#991B1B',
+                                                borderColor: '#FEF2F2',
+                                                fontWeight: '500'
+                                            }}>Not Update
+                                        </Button>
                                     </Col>
-
                                 </Row>
-                                <Row className='mb-2'>
+                                <Row className='mb-2 mt-3'>
                                     <Col md={4}>
                                         <InputField FormType={'text'} FormLabel={"First Name"} onChange={inputHandler} error={error.first_name} value={indata.first_name} name='first_name' FormPlaceHolder={"Jenny"} />
                                     </Col>
@@ -204,8 +238,6 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
                                     <Col md={4}>
                                         <InputField FormType={'text'} FormLabel={"Role"} readOnly={true} onChange={inputHandler} value={indata.role} name={'role'} />
                                     </Col>
-                                    {/* <Select FormLabel='Role' Array={rolelist} FormPlaceHolder='Adminstrator Staff' onChange={inputHandler} error={error.role} value={indata.role} name='role' /> */}
-                                    {/* </Col> */}
                                     <Col md={4}>
                                         <InputField FormType={'text'} FormLabel={"Position"} onChange={inputHandler} error={error.position} value={indata.position} name='position' FormPlaceHolder={"Enter Position"} />
                                         {/* <Select FormLabel='Position' FormPlaceHolder='Software Employee' /> */}
@@ -236,12 +268,17 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
                                     </Col>
                                     <Col md={4}>
                                         <InputField FormType={'text'} FormLabel={"Status"} readOnly={true} value={indata.status} name="status" />
-                                        {/* <Select FormLabel='Status' Array={statusArray} FormPlaceHolder='Status' onChange={inputHandler} error={error.status} value={indata.status} name='status' /> */}
-                                    </Col>                                  
+                                    </Col>
+                                    {indata && indata.add_field && (indata.add_field).map((e, i) => (
+                                        <Col md={4} key={i}>
+                                            <InputField FormType={'text'} FormLabel={e.title} value={e.value} name={e.title} onChange={addNewHandler} FormPlaceHolder={e.placeholder} />
+                                        </Col>
+                                    ))}
                                 </Row>
+                                <hr />
                                 <Row className='mb-2'>
                                     <Col md={4}>
-                                        <SharedButton type={'submit'} BtnLabel={"Create"} BtnVariant={'primary'} BtnClass={"w-100"} />
+                                        <SharedButton type={'submit'} BtnLabel={"Update"} BtnVariant={'primary'} BtnClass={"w-100"} />
                                     </Col>
                                 </Row>
                             </Form>
@@ -251,17 +288,15 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
                 :
 
                 <>
-                    <div className='CreateAccountForm'>
+                    <div className='CreateAccountForm UseDetailPages'>
                         <Container>
-                            <Row className="my-3">
-                                <Col md={12} style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
-                                }}>
-                                    <img src={indata.image ? indata.image : 'assets/images/avatar.png'} alt="Profile Preview" className='img-fluid' style={{
+                            <Row className="my-3" style={{ justifyContent: "space-between" }}>
+                                <Col md={6}>
+                                    <img src={indata.preimage ? indata.preimage : 'assets/images/avatar.png'} alt="Profile Preview" className='img-fluid' style={{
                                         height: '100px'
                                     }} />
+                                </Col>
+                                <Col md={1}>
                                     <Button variant="warning" size="sm"
                                         onClick={() => setIsedit(true)} style={{
                                             background: '#FEF2F2',
@@ -272,7 +307,7 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
                                     </Button>
                                 </Col>
                             </Row>
-                            <Row className='mb-2'>
+                            <Row className='mb-5 mt-3'>
                                 <Col md={4}>
                                     <h6>First Name</h6>
                                     <p>{indata.first_name}</p>
@@ -341,10 +376,60 @@ export const EditAdminstratorForm = ({ setLoder, pre }) => {
                                     <h6>Status</h6>
                                     <p>{indata.status}</p>
                                 </Col>
-                                {fields.map((field, index) => (
-                                    <Col md={4} key={index}>
-                                        <InputField FormType={'text'} FormLabel={field.title} FormPlaceHolder={field.placeholder} />
+                                {premain && premain.add_field && premain.add_field.map((e, i) => (
+                                    <Col md={4} key={i}>
+                                        <h6>{e.title}</h6>
+                                        <p>{e.value}</p>
                                     </Col>
+
+                                ))}
+                            </Row>
+                            <h5>My Gear</h5>
+                            <hr />
+                            <Row className='mb-4'>
+                                {grdata && grdata.map((e, index) => ( // Added 'index' for unique keys
+                                    <React.Fragment key={index}> {/* Added key prop for each fragment */}
+                                        <Col md={4}>
+                                            <h6>Gear Name</h6>
+                                            <p>{e.gear_id && e.gear_id.gear_item_name}</p>
+                                        </Col>
+                                        <Col md={4}>
+                                            <h6>replacement_date</h6>
+                                            <p>{e.replacement_date}</p>
+                                        </Col>
+                                        <Col md={4}>
+                                            <h6>issue_date</h6>
+                                            <p>{e.issue_date}</p>
+                                        </Col>
+                                        {e.add_field && e.add_field.map((inField, idx) => ( // Added 'idx' for unique keys
+                                            <Col md={4} key={idx}> {/* Added key prop for each column */}
+                                                <h6>{inField.title}</h6>
+                                                <p>{inField.value}</p>
+                                            </Col>
+                                        ))}
+                                    </React.Fragment>
+                                ))}
+                            </Row>
+                            <h5>My Qualifications</h5>
+                            <hr />
+                            <Row className='mb-4'>
+                                {quadata && quadata.map((e, index) => ( // Added 'index' for unique keys
+                                    <React.Fragment key={index}> {/* Added key prop for each fragment */}
+                                        <Col md={4}>
+                                            <h6>Qualification Name</h6>
+                                            <p>{e.qualifications_id && e.qualifications_id.name}</p>
+                                        </Col>
+                                        <Col md={4}>
+                                            <h6>Expiretion Date</h6>
+                                            <p>{e.exp_date}</p>
+                                        </Col>
+                                        {e.add_field && e.add_field.map((inField, idx) => ( // Added 'idx' for unique keys
+                                            <Col md={4} key={idx}> {/* Added key prop for each column */}
+                                                <h6>{inField.title}</h6>
+                                                <p>{inField.value}</p>
+                                            </Col>
+                                        ))}
+                                    </React.Fragment>
                                 ))}
                             </Row>
                         </Container>

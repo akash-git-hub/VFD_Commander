@@ -93,7 +93,7 @@ const handleCloseModal = () => setShowModal(false);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-    console.log("----",name);
+
     setIndata((pre) => ({ ...pre, [name]: value }));
     setError((pre) => ({ ...pre, [name]: "" }));
   }

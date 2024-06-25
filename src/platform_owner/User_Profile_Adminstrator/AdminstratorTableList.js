@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { update_actice_inactive_API } from '../../api_services/Apiservices';
 import { SearchPanel } from '../../components/SearchPanel';
 import { IoSearch } from 'react-icons/io5';
+import moment from 'moment';
 
 
 export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler,pageHanlder }) => {
@@ -40,8 +41,8 @@ export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler
                 <td>{account.email}</td>
                 <td>{account.mobile_no}</td>
                 <td>{account.role}</td>
-                <td>{account.start_date}</td>
-                <td>{account.term_date}</td>
+                <td>{moment(account.start_date).format("YYYY-MMM-DD")}</td>
+                <td>{moment(account.term_date).format('YYYY-MMM-DD')}</td>
                 <td>{account.supervisor}</td>
                 <td>{account.position}</td>
                 <td>

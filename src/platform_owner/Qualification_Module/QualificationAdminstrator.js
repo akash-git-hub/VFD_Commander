@@ -5,8 +5,10 @@ import { Headings } from '../../components/Headings'
 import { QualificationForm } from './Qualification_Information/QualificationForm';
 import { SharedButton } from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
+import { Loader } from '../../components/Loader';
 export const QualificationAdminstrator = () => {
     const navigate = useNavigate();
+    const [loder,setLoder] = useState(false);
     const [key, setKey] = useState('gear');
     const handleCreateAccount = () => {
         navigate('/qualificationlist');
@@ -14,6 +16,7 @@ export const QualificationAdminstrator = () => {
 
     return (
         <>
+        <Loader show={loder} />
             <div className='RoleAdminstrator'>
                 <Container fluid>
                     <Row>
@@ -21,7 +24,7 @@ export const QualificationAdminstrator = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Qualifications Module"} SubHeading={"Manage all qualifications and proficiencies for each user."} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Qualifications Module"} SubHeading={""} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
@@ -30,7 +33,7 @@ export const QualificationAdminstrator = () => {
                                     className="mb-3"
                                 >
                                     <Tab eventKey="gear" title="Qualifications Data Elements">
-                                        <QualificationForm />
+                                        <QualificationForm setLoder={setLoder} />
                                     </Tab>
                                 </Tabs>
                             </div>

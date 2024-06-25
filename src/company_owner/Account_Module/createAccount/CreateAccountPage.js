@@ -24,18 +24,22 @@ export const CreateAccountPage = () => {
                             // SubHeading={"Manage Account"}
                              HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             {/* <Headings MainHeading={"Create Account"} SubHeading={"Manage Account"}/> */}
-                            <Tabs
+                            <div className='mt-4'>
+                            <CreateForm setLoder={setLoder} />
+                            </div>
+                         
+                            {/* <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}
                                 onSelect={(k) => setKey(k)}
                                 className="mb-3 mt-3"
                             >
                                 <Tab eventKey="home"
-                                //  title="Create Account"
+                                 title="Create Account"
                                  >
-                                    <CreateForm setLoder={setLoder} />
+                               
                                 </Tab>
-                            </Tabs>
+                            </Tabs> */}
                         </Col>
                     </Row>
                 </Container>
