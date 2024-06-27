@@ -16,15 +16,7 @@ export const InputField = ({
     required=false,
 }) => {
 
-    const formatDate = (dateString) => {
-        // Format date as mm-dd-yyyy (assuming dateString is in yyyy-mm-dd)
-        if (!dateString) return '';
-        const dateObj = new Date(dateString);
-        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-        const day = dateObj.getDate().toString().padStart(2, '0');
-        const year = dateObj.getFullYear();
-        return `${month}-${day}-${year}`;
-    }
+   
     return (
         <>
 

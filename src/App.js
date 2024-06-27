@@ -31,6 +31,8 @@ import { ApparatusInformationForm } from './platform_owner/Inventory_Module/Appa
 import { CreateGareType } from './platform_owner/Inventory_Module/Gear_Information/CreateGareType';
 import TraningListDetail from './platform_owner/Training_Module/TraningListDetail';
 import GearListDetail from './platform_owner/Inventory_Module/Gear_Information/GearListDetail';
+import { QualificationListDetail } from './platform_owner/Qualification_Module/QualificationListDetail';
+import { QualificationDetail } from './platform_owner/Qualification_Module/QualificationDetail';
 
 const Mycontext = createContext();
 
@@ -85,6 +87,7 @@ function App() {
               <Route path="/userunavailability" element={<UserUnavailabilityDetail />} />
               <Route path="/qualification" element={<QualificationAdminstrator />} />
               <Route path="/qualificationlist" element={<QualificationModuleList />} />
+              <Route path="/qualificationdetail" element={<QualificationDetail />} />
               <Route path="/myprofile" element={<MyProfile />} />
             </Route>
 

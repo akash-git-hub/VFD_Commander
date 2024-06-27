@@ -15,13 +15,14 @@ export default function TraningListDetail() {
     const [indata, setIndata] = useState({ "trname": '', "description": "" });
     const [error, setError] = useState({ "trname": '', "description": "" })
     const [isedit, setIsedit] = useState(false);
+    const [isdelete, setIsdelete] = useState(false);
     const [loder, setLoder] = useState(false);
     const location = useLocation();
     const [fields, setFields] = useState([]);
     const navigate = useNavigate();
 
     const addNewHandler = (e) => {
-        const { name, value } = e.target;     
+        const { name, value } = e.target;
         const myfield = [...fields];
         const index = myfield.findIndex((item) => item.title === name);
         if (index !== -1) {
@@ -137,14 +138,23 @@ export default function TraningListDetail() {
                                                 <div className='CreateAccountForm UseDetailPages'>
                                                     <Container>
                                                         <Row style={{ justifyContent: 'end' }}>
-                                                            <Col md={1}>
+                                                            <Col md={2}>
                                                                 <Button variant="warning" size="sm"
                                                                     onClick={() => setIsedit(true)} style={{
                                                                         background: '#FEF2F2',
                                                                         color: '#991B1B',
                                                                         borderColor: '#FEF2F2',
-                                                                        fontWeight: '500'
+                                                                        fontWeight: '500',
+                                                                        marginRight:'1rem'
                                                                     }}>Edit
+                                                                </Button>
+                                                                <Button variant="warning" size="sm"
+                                                                    onClick={() => setIsdelete(true)} style={{
+                                                                        background: '#FEF2F2',
+                                                                        color: '#991B1B',
+                                                                        borderColor: '#FEF2F2',
+                                                                        fontWeight: '500'
+                                                                    }}>Delete
                                                                 </Button>
                                                             </Col>
                                                         </Row>

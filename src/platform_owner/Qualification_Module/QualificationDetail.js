@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { PoSidebar } from '../PO_Sidebar'
 import { Headings } from '../../components/Headings'
-import { QualificationList } from './QualificationListDetail'
+
 import { SharedButton } from '../../components/Button'
 import { useNavigate } from 'react-router-dom'
 import { Loader } from '../../components/Loader'
 import { getQualification_API } from '../../api_services/Apiservices'
-import { QualificationListTable } from './Qualification_Information/QualificationListTable'
+import QualificationListDetail from './QualificationListDetail'
 
 
-export const QualificationModuleList = () => {
+
+export const QualificationDetail = () => {
     const navigate = useNavigate();
+    const [key, setKey] = useState('gear');
     const [predata, setPredata] = useState([]);
     const [trdata, setTrdata] = useState([]);
     const [loder, setLoder] = useState(false);
@@ -28,12 +30,6 @@ export const QualificationModuleList = () => {
         setLoder(false);
     }
     useEffect(() => { getdata(); }, [])
-
-    
-
-
-
-    const [key, setKey] = useState('gear');
     const handleCreateAccount = () => {
         navigate('/qualification');
     }
@@ -47,7 +43,7 @@ export const QualificationModuleList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Qualifications Module"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Qualification"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Qualifications Module"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
@@ -56,8 +52,7 @@ export const QualificationModuleList = () => {
                                     className="mb-3"
                                 >
                                     <Tab eventKey="gear" title="Qualifications Data Elements">
-                                        {/* <QualificationList predata={predata} /> */}
-                                        <QualificationListTable trdata={trdata}/>
+                                        <QualificationListDetail predata={predata} />
                                     </Tab>
                                 </Tabs>
                             </div>
