@@ -6,11 +6,13 @@ import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 
 import { UploadFile } from '../../../components/UploadFile';
 import { getRollsAll_API, update_modal_account_api } from '../../../api_services/Apiservices';
-import { successAlert } from '../../../components/Alert';
+import { errorAlert, successAlert } from '../../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import { TbEdit } from "react-icons/tb";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { statusArray } from '../../../helper/Helper';
+import moment from 'moment';
+import Swal from 'sweetalert2';
 
 
 
@@ -180,6 +182,40 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
     };
 
 
+    const deleteHandler = (id) => {
+        if (!id) { errorAlert("Something wrong"); return; }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const fadat = {
+                    "id": indata.id,
+                    "is_delete" :'yes'      
+                }
+                const resp = await update_modal_account_api(fadat);            
+                if (resp && resp.success) {
+                    setLoder(false);
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your Data has been deleted.",
+                        icon: "success"
+                    }).then(async (result) => {
+                        if (result.isConfirmed) {
+                            navigate("/adminstratorprofilelist");
+                        }
+                    })
+                }
+            }
+        });
+    }
+
+
 
 
 
@@ -296,13 +332,18 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                         height: '100px'
                                     }} />
                                 </Col>
-                                <Col md={1}>
-                                    <Button variant="success" size="sm"
+                                <Col md={2}>
+                                    <Button variant="success" size="sm" className='m-2'
                                         onClick={() => setIsedit(true)} style={{
-                                            fontWeight: '500'
-                                        }}><TbEdit />
-
+                                            fontWeight: '500',
+                                            
+                                        }}><TbEdit />                                     
                                     </Button>
+                                    <Button variant="danger" size="sm"
+                                            onClick={() => deleteHandler(indata.id)} style={{
+                                                fontWeight: '500'
+                                            }}><RiDeleteBinLine />
+                                        </Button>
                                 </Col>
                             </Row>
                             <Row className='mb-5 mt-3'>
@@ -315,24 +356,28 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                     <p>{indata.last_name}</p>
                                 </Col>
                                 <Col md={4}>
-                                    <h6>Start Date</h6>
-                                    <p>{indata.start_date}</p>
-                                </Col>
-                                <Col md={4}>
                                     <h6>Email</h6>
                                     <p>{indata.email}</p>
                                 </Col>
                                 <Col md={4}>
-                                    <h6>Term Date</h6>
-                                    <p>{indata.term_date}</p>
+                                    <h6>Phone No</h6>
+                                    <p>{indata.phone_no}</p>
                                 </Col>
                                 <Col md={4}>
-                                    <h6>Supervisor</h6>
-                                    <p>{indata.supervisor}</p>
+                                    <h6>Start Date</h6>
+                                    <p>{moment.unix(indata.start_date).format("MM-DD-YYYY")}</p>
+                                </Col>
+                                <Col md={4}>
+                                    <h6>Term Date</h6>
+                                    <p>{moment.unix(indata.term_date).format('MM-DD-YYYY')}</p>
                                 </Col>
                                 <Col md={4}>
                                     <h6>Role</h6>
                                     <p>{indata.role}</p>
+                                </Col>
+                                <Col md={4}>
+                                    <h6>Supervisor</h6>
+                                    <p>{indata.supervisor}</p>
                                 </Col>
                                 <Col md={4}>
                                     <h6>Position</h6>
@@ -347,21 +392,18 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                     <p>{indata.address_2}</p>
                                 </Col>
                                 <Col md={4}>
-                                    <h6>City</h6>
-                                    <p>{indata.city}</p>
-                                </Col>
-                                <Col md={4}>
                                     <h6>State</h6>
                                     <p>{indata.state}</p>
+                                </Col>
+                                <Col md={4}>
+                                    <h6>City</h6>
+                                    <p>{indata.city}</p>
                                 </Col>
                                 <Col md={4}>
                                     <h6>Zip Code</h6>
                                     <p>{indata.zip_code}</p>
                                 </Col>
-                                <Col md={4}>
-                                    <h6>Phone No</h6>
-                                    <p>{indata.phone_no}</p>
-                                </Col>
+
                                 <Col md={4}>
                                     <h6>Emergency Contact Name</h6>
                                     <p>{indata.emergency_contact_name}</p>

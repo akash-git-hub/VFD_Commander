@@ -8,7 +8,10 @@ import { SharedButton } from '../../components/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Textareanew } from '../../components/Textareanew';
 import { updateTraning_API } from '../../api_services/Apiservices';
-import { successAlert } from '../../components/Alert';
+import { errorAlert, successAlert } from '../../components/Alert';
+import { TbEdit } from 'react-icons/tb';
+import { RiDeleteBinLine } from 'react-icons/ri';
+import Swal from 'sweetalert2';
 
 
 export default function TraningListDetail() {
@@ -54,14 +57,13 @@ export default function TraningListDetail() {
     }
 
     const handleSubmit = async (e) => {
-
         e.preventDefault();
         setLoder(true);
         const fadat = {
             "id": indata.id,
             'name': indata.trname,
             "description": indata.description,
-            "add_field": fields
+            "add_field": fields,            
         }
         const resp = await updateTraning_API(fadat);
         if (resp && resp.success) {
@@ -72,8 +74,42 @@ export default function TraningListDetail() {
             navigate("/traininglist");
         }
         setLoder(false);
-
     }
+   
+    const deleteHandler = (id) => {
+        if (!id) { errorAlert("Something wrong"); return; }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const fadat = {
+                    "id": indata.id,
+                    "is_delete" :'yes'      
+                }
+                const resp = await updateTraning_API(fadat);            
+                if (resp && resp.success) {
+                    setLoder(false);
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your Data has been deleted.",
+                        icon: "success"
+                    }).then(async (result) => {
+                        if (result.isConfirmed) {
+                            navigate("/traininglist");
+                        }
+                    })
+                }
+            }
+        });
+    }
+
+
     return (
         <>
             <Loader show={loder} />
@@ -84,14 +120,14 @@ export default function TraningListDetail() {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Profile Administration"} HeadButton={<SharedButton BtnLabel={"Back"} onClick={() => window.history.back()} BtnVariant={'primary'} />} />
+                            <Headings MainHeading={"Training Module"} HeadButton={<SharedButton BtnLabel={"Back"} onClick={() => window.history.back()} BtnVariant={'primary'} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
                                     activeKey={"home"}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="home" title="User Profile Module">
+                                    <Tab eventKey="home" title="Training Detail">
                                         {isedit ?
                                             <>
                                                 <div className='CreateAccountForm'>
@@ -100,13 +136,8 @@ export default function TraningListDetail() {
                                                         <Form onSubmit={handleSubmit}>
                                                             <Row style={{ justifyContent: 'end' }}>
                                                                 <Col md={1}>
-                                                                    <Button variant="warning" size="sm"
-                                                                        onClick={() => setIsedit(false)} style={{
-                                                                            background: '#FEF2F2',
-                                                                            color: '#991B1B',
-                                                                            borderColor: '#FEF2F2',
-                                                                            fontWeight: '500'
-                                                                        }}>Not Update
+                                                                    <Button variant="success" size="sm"
+                                                                        onClick={() => setIsedit(false)} >Not Update
                                                                     </Button>
                                                                 </Col>
                                                             </Row>
@@ -138,26 +169,20 @@ export default function TraningListDetail() {
                                                 <div className='CreateAccountForm UseDetailPages'>
                                                     <Container>
                                                         <Row style={{ justifyContent: 'end' }}>
-                                                            <Col md={2}>
-                                                                <Button variant="warning" size="sm"
+                                                            <Col md={2} style={{ textAlign: "center" }}>
+                                                                <Button variant="success" size="sm"
                                                                     onClick={() => setIsedit(true)} style={{
-                                                                        background: '#FEF2F2',
-                                                                        color: '#991B1B',
-                                                                        borderColor: '#FEF2F2',
                                                                         fontWeight: '500',
-                                                                        marginRight:'1rem'
-                                                                    }}>Edit
+                                                                        marginRight: '1rem'
+                                                                    }}><TbEdit />
                                                                 </Button>
-                                                                <Button variant="warning" size="sm"
-                                                                    onClick={() => setIsdelete(true)} style={{
-                                                                        background: '#FEF2F2',
-                                                                        color: '#991B1B',
-                                                                        borderColor: '#FEF2F2',
+                                                                <Button variant="danger" size="sm"
+                                                                    onClick={() => deleteHandler(indata.id)} style={{
                                                                         fontWeight: '500'
-                                                                    }}>Delete
+                                                                    }}><RiDeleteBinLine />
                                                                 </Button>
                                                             </Col>
-                                                        </Row>
+                                                        </Row>                                                   
                                                         <Row className='mb-2'>
                                                             <Col md={12}>
                                                                 <h6>Traning Name</h6>

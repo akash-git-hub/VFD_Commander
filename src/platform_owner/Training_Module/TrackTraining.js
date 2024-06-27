@@ -4,56 +4,56 @@ import { TablePagination } from '../../components/TablePagination';
 import { useNavigate } from 'react-router-dom';
 
 
-const sampleData = [
-    {
-        userName: 'Firefighters',
-        totalTraining: '10',
-        incomplete: "5",
-        inProgress: '5'
-    },
-    {
-        userName: 'Administrative Staff',
-        totalTraining: '10',
-        incomplete: "5",
-        inProgress: '5'
-    },
-    {
-        userName: 'Volunteers',
-        totalTraining: '10',
-        incomplete: "5",
-        inProgress: '5'
-    },
-    {
-        userName: 'Command Staff,',
-        totalTraining: '10',
-        incomplete: "5",
-        inProgress: '5'
-    },
-    {
-        userName: 'Manager',
-        totalTraining: '10',
-        incomplete: "5",
-        inProgress: '5'
-    },
-    {
-        userName: 'Product Manager',
-        totalTraining: '10',
-        incomplete: "5",
-        inProgress: '5'
-    },
-    {
-        userName: 'CEO',
-        totalTraining: '10',
-        incomplete: "5",
-        inProgress: '5'
-    },
-    {
-        userName: 'Staff',
-        totalTraining: '10',
-        incomplete: "5",
-        inProgress: '5'
-    },
-];
+const sampleData = [ ];
+//     {
+//         userName: 'Firefighters',
+//         totalTraining: '10',
+//         incomplete: "5",
+//         inProgress: '5'
+//     },
+//     {
+//         userName: 'Administrative Staff',
+//         totalTraining: '10',
+//         incomplete: "5",
+//         inProgress: '5'
+//     },
+//     {
+//         userName: 'Volunteers',
+//         totalTraining: '10',
+//         incomplete: "5",
+//         inProgress: '5'
+//     },
+//     {
+//         userName: 'Command Staff,',
+//         totalTraining: '10',
+//         incomplete: "5",
+//         inProgress: '5'
+//     },
+//     {
+//         userName: 'Manager',
+//         totalTraining: '10',
+//         incomplete: "5",
+//         inProgress: '5'
+//     },
+//     {
+//         userName: 'Product Manager',
+//         totalTraining: '10',
+//         incomplete: "5",
+//         inProgress: '5'
+//     },
+//     {
+//         userName: 'CEO',
+//         totalTraining: '10',
+//         incomplete: "5",
+//         inProgress: '5'
+//     },
+//     {
+//         userName: 'Staff',
+//         totalTraining: '10',
+//         incomplete: "5",
+//         inProgress: '5'
+//     },
+// ];
 
 
 export const TrackTraining = () => {

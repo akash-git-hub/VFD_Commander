@@ -42,9 +42,7 @@ export const InventoryModuleList = () => {
                             {key === "apparatus" &&
                                 < Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/CreateApparatus")} BtnLabel={"Create Apparatus Information"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             }
-                            {key === "geartype" &&
-                                < Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/createGeareType")} BtnLabel={"Create Gear Type"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
-                            }
+                           
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
@@ -58,9 +56,7 @@ export const InventoryModuleList = () => {
                                     <Tab eventKey="apparatus" title="Apparatus Information">
                                         <ApparatusList setLoder={setLoder} />
                                     </Tab>
-                                    <Tab eventKey="geartype" title="Gear Type">
-                                        <GearTypeTable setLoder={setLoder} />
-                                    </Tab>
+                                  
                                 </Tabs>
                             </div>
                         </Col>

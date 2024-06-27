@@ -66,7 +66,7 @@ export const CreateGareType = ({ }) => {
                 setFields([]);
                 setLoder(false);
                 successAlert(resp.message);
-                navigate("/inventorymodulelist", { state: { eventKey: "geartype" } });
+                navigate("/CreateGear", { state: { eventKey: "geartype" } });
             }
             setLoder(false);
 

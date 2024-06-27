@@ -40,8 +40,8 @@ export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler
                 <td>{account.email}</td>
                 <td>{account.mobile_no}</td>
                 <td>{account.role}</td>
-                <td>{moment(account.start_date).format("YYYY-MMM-DD")}</td>
-                <td>{moment(account.term_date).format('YYYY-MMM-DD')}</td>
+                <td>{moment.unix(account.start_date).format("MM-DD-YYYY")}</td>
+                <td>{moment.unix(account.term_date).format('MM-DD-YYYY')}</td>
                 <td>{account.supervisor}</td>
                 <td>{account.position}</td>
                 <td>

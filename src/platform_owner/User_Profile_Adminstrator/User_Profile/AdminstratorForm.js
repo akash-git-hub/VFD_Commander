@@ -31,13 +31,13 @@ export const AdminstratorForm = ({ setLoder }) => {
         const field = [...fields];
         const index = field.findIndex((item) => item.title === name);
         if (index !== -1) {
-          field[index] = {
-            ...field[index],
-            value: value
-          };
+            field[index] = {
+                ...field[index],
+                value: value
+            };
         }
         setFields(field);
-      }
+    }
 
     useEffect(() => { getrolls(); }, []);
 
@@ -82,28 +82,29 @@ export const AdminstratorForm = ({ setLoder }) => {
     const handleShowModal = () => setShowModal(true);
     const handleCloseModal = () => setShowModal(false);
 
-    const handleSubmit = async (e) => {      
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        let isValid = true;
-        if (!indata.first_name) { setError(prev => ({ ...prev, "first_name": "First Name is required" })); isValid = false; }
-        if (!indata.last_name) { setError(prev => ({ ...prev, "last_name": "Last Name is required" })); isValid = false; }
-        if (!indata.start_date) { setError(prev => ({ ...prev, "start_date": "Start Date is required" })); isValid = false; }
-        if (!indata.email) { setError(prev => ({ ...prev, "email": "Email is required" })); isValid = false; }
-        if (!indata.supervisor) { setError(prev => ({ ...prev, "supervisor": "Supervisor is required" })); isValid = false; }
-        if (!indata.role) { setError(prev => ({ ...prev, "role": "Role is required" })); isValid = false; }
-        if (!indata.position) { setError(prev => ({ ...prev, "position": "Position is required" })); isValid = false; }
-        if (!indata.address_1) { setError(prev => ({ ...prev, "address_1": "Address 1 is required" })); isValid = false; }
-        if (!indata.address_2) { setError(prev => ({ ...prev, "address_2": "Address 2 is required" })); isValid = false; }
-        if (!indata.city) { setError(prev => ({ ...prev, "city": "City is required" })); isValid = false; }
-        if (!indata.state) { setError(prev => ({ ...prev, "state": "State is required" })); isValid = false; }
-        if (!indata.term_date) { setError(prev => ({ ...prev, "term_date": "Term Date is required" })); isValid = false; }
-        if (!indata.zip_code) { setError(prev => ({ ...prev, "zip_code": "Zip Code is required" })); isValid = false; }
-        if (!indata.phone_no) { setError(prev => ({ ...prev, "phone_no": "Phone Number is required" })); isValid = false; }
-        if (!indata.emergency_contact_name) { setError(prev => ({ ...prev, "emergency_contact_name": "Emergency Contact Name is required" })); isValid = false; }
-        if (!indata.emergency_contact_number) { setError(prev => ({ ...prev, "emergency_contact_number": "Emergency Contact Number is required" })); isValid = false; }
-        if (!indata.status) { setError(prev => ({ ...prev, "status": "Status is required" })); isValid = false; }
+        let isValid = 0;
+        if (!indata.first_name) { setError(prev => ({ ...prev, "first_name": "First Name is required" })); isValid = 1; }
+        if (!indata.last_name) { setError(prev => ({ ...prev, "last_name": "Last Name is required" })); isValid = 2; }
+        if (!indata.start_date) { setError(prev => ({ ...prev, "start_date": "Start Date is required" })); isValid = 3; }
+        if (!indata.email) { setError(prev => ({ ...prev, "email": "Email is required" })); isValid = 4; }
+        if (!indata.supervisor) { setError(prev => ({ ...prev, "supervisor": "Supervisor is required" })); isValid = 5; }
+        if (!indata.role) { setError(prev => ({ ...prev, "role": "Role is required" })); isValid = 6; }
+        if (!indata.position) { setError(prev => ({ ...prev, "position": "Position is required" })); isValid = 7; }
+        if (!indata.address_1) { setError(prev => ({ ...prev, "address_1": "Address 1 is required" })); isValid = 8; }
+        if (!indata.address_2) { setError(prev => ({ ...prev, "address_2": "Address 2 is required" })); isValid = 9; }
+        if (!indata.city) { setError(prev => ({ ...prev, "city": "City is required" })); isValid = 10; }
+        if (!indata.state) { setError(prev => ({ ...prev, "state": "State is required" })); isValid = 11; }
+        if (!indata.term_date) { setError(prev => ({ ...prev, "term_date": "Term Date is required" })); isValid = 12; }
+        if (!indata.zip_code) { setError(prev => ({ ...prev, "zip_code": "Zip Code is required" })); isValid = 13; }
+        if (!indata.phone_no) { setError(prev => ({ ...prev, "phone_no": "Phone Number is required" })); isValid = 14; }
+        if (!indata.emergency_contact_name) { setError(prev => ({ ...prev, "emergency_contact_name": "Emergency Contact Name is required" })); isValid = 15; }
+        if (!indata.emergency_contact_number) { setError(prev => ({ ...prev, "emergency_contact_number": "Emergency Contact Number is required" })); isValid = 16; }
+        if (!indata.status) { setError(prev => ({ ...prev, "status": "Status is required" })); isValid = 17; }
         // If all fields are valid, submit the form
-        if (isValid) {
+        console.log("---------",isValid);
+        if (isValid==0) {
 
             setLoder(true);
 
@@ -168,25 +169,30 @@ export const AdminstratorForm = ({ setLoder }) => {
                                 <InputField FormType={'text'} FormLabel={"Last Name"} onChange={inputHandler} error={error.last_name} name='last_name' FormPlaceHolder={"Wilson"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'date'}
-                  FormLabel={"Renewal Date"}
-                  name='renewal_date'
-                  error={error.renewal_date}
-                //   onChange={onChangeHandler} 
-                  />
-                            </Col>
-                            <Col md={4}>
                                 <InputField FormType={'email'} FormLabel={"Email"} onChange={inputHandler} error={error.email} name='email' FormPlaceHolder={"example@gmail.com"} />
                             </Col>
+                            <Col md={4}>
+                                <InputField FormType={'tel'} FormLabel={"Phone No"} max='10' onChange={inputHandler} error={error.phone_no} name='phone_no' FormPlaceHolder={"8989898989"} />
+                            </Col>
+                            <Col md={4}>
+                                <InputField FormType={'date'}
+                                    FormLabel={"Start Date"}
+                                    name='start_date'
+                                    error={error.start_date}
+                                  onChange={inputHandler} 
+                                />
+                            </Col>
+                          
                             <Col md={4}>
                                 <InputField FormType={'date'} FormLabel={"Term Date"} onChange={inputHandler} error={error.term_date} name='term_date' FormPlaceHolder={"DD/MM/YYYY"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Supervisor"} onChange={inputHandler} error={error.supervisor} name='supervisor' FormPlaceHolder={"Enter Supervisor"} />
-                            </Col>
-                            <Col md={4}>
                                 <Select FormLabel='Role' Array={rolelist} FormPlaceHolder='Adminstrator Staff' onChange={inputHandler} error={error.role} name='role' />
                             </Col>
+                            <Col md={4}>
+                                <InputField FormType={'text'} FormLabel={"Supervisor"} onChange={inputHandler} error={error.supervisor} name='supervisor' FormPlaceHolder={"Enter Supervisor"} />
+                            </Col>
+                          
                             <Col md={4}>
                                 <InputField FormType={'text'} FormLabel={"Position"} onChange={inputHandler} error={error.position} name='position' FormPlaceHolder={"Enter Position"} />
                                 {/* <Select FormLabel='Position' FormPlaceHolder='Software Employee' /> */}
@@ -198,17 +204,16 @@ export const AdminstratorForm = ({ setLoder }) => {
                                 <InputField FormType={'text'} FormLabel={"Address 2"} onChange={inputHandler} error={error.address_2} name='address_2' FormPlaceHolder={"scheme 24 - Vijay Nagar"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"City"} onChange={inputHandler} error={error.city} name='city' FormPlaceHolder={"Indore"} />
-                            </Col>
-                            <Col md={4}>
                                 <InputField FormType={'text'} FormLabel={"State"} onChange={inputHandler} error={error.state} name='state' FormPlaceHolder={"Madhya Pradesh"} />
                             </Col>
                             <Col md={4}>
+                                <InputField FormType={'text'} FormLabel={"City"} onChange={inputHandler} error={error.city} name='city' FormPlaceHolder={"Indore"} />
+                            </Col>
+                          
+                            <Col md={4}>
                                 <InputField FormType={'tel'} FormLabel={"Zip Code"} max={6} onChange={inputHandler} error={error.zip_code} name='zip_code' FormPlaceHolder={"452001"} />
                             </Col>
-                            <Col md={4}>
-                                <InputField FormType={'tel'} FormLabel={"Phone No"} max='10' onChange={inputHandler} error={error.phone_no} name='phone_no' FormPlaceHolder={"8989898989"} />
-                            </Col>
+                         
                             <Col md={4}>
                                 <InputField FormType={'text'} FormLabel={"Emergency Contact Name"} onChange={inputHandler} error={error.emergency_contact_name} name='emergency_contact_name' FormPlaceHolder={"Contact Name"} />
                             </Col>

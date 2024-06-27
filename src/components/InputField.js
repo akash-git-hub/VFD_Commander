@@ -21,9 +21,16 @@ export const InputField = ({
     const [startDate, setStartDate] = useState();
     const handleDateChange = (date) => {
         setStartDate(date);
+        console.log(date);
         let formattedDate = "";
         if (date) {
-            formattedDate = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+            // Parse the timestamp using moment
+            const momentObj = moment(date, "ddd MMM DD YYYY HH:mm:ss");
+
+            // Get Unix timestamp (seconds since Jan 1, 1970)
+            const unixTimestamp = momentObj.unix();
+            // formattedDate = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+            formattedDate = unixTimestamp;
         }
         if (onChange) {
             onChange({ target: { name, value: formattedDate } });

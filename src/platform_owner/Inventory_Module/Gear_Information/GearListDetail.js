@@ -4,11 +4,14 @@ import { Loader } from '../../../components/Loader';
 import { PoSidebar } from '../../PO_Sidebar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { updateGearType_API } from '../../../api_services/Apiservices';
-import { successAlert } from '../../../components/Alert';
+import { errorAlert, successAlert } from '../../../components/Alert';
 import { Headings } from '../../../components/Headings';
 import { SharedButton } from '../../../components/Button';
 import { InputField } from '../../../components/InputField';
 import { Textareanew } from '../../../components/Textareanew';
+import { TbEdit } from 'react-icons/tb';
+import { RiDeleteBinLine } from 'react-icons/ri';
+import Swal from 'sweetalert2';
 
 
 
@@ -68,10 +71,43 @@ export default function GearListDetail() {
             setFields([]);
             setLoder(false);
             successAlert(resp.message);
-            navigate("/inventorymodulelist", { state: { eventKey: "geartype" } });
+            navigate("/CreateGear", { state: { eventKey: "geartype" } });
+            // navigate("/inventorymodulelist", { state: { eventKey: "geartype" } });
         }
         setLoder(false);
+    }
 
+    const deleteHandler = (id) => {
+        if (!id) { errorAlert("Something wrong"); return; }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const fadat = {
+                    "id": indata.id,
+                    "is_delete" :'yes'      
+                }
+                const resp = await updateGearType_API(fadat);            
+                if (resp && resp.success) {
+                    setLoder(false);
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your Data has been deleted.",
+                        icon: "success"
+                    }).then(async (result) => {
+                        if (result.isConfirmed) {
+                            navigate("/CreateGear", { state: { eventKey: "geartype" } });
+                        }
+                    })
+                }
+            }
+        });
     }
     return (
         <>
@@ -99,13 +135,8 @@ export default function GearListDetail() {
                                                         <Form onSubmit={handleSubmit}>
                                                             <Row style={{ justifyContent: 'end' }}>
                                                                 <Col md={1}>
-                                                                    <Button variant="warning" size="sm"
-                                                                        onClick={() => setIsedit(false)} style={{
-                                                                            background: '#FEF2F2',
-                                                                            color: '#991B1B',
-                                                                            borderColor: '#FEF2F2',
-                                                                            fontWeight: '500'
-                                                                        }}>Not Update
+                                                                    <Button variant="success" size="sm"
+                                                                        onClick={() => setIsedit(false)} >Not Update
                                                                     </Button>
                                                                 </Col>
                                                             </Row>
@@ -136,18 +167,21 @@ export default function GearListDetail() {
                                             <>
                                                 <div className='CreateAccountForm UseDetailPages'>
                                                     <Container>
-                                                        <Row style={{ justifyContent: 'end' }}>
-                                                            <Col md={1}>
-                                                                <Button variant="warning" size="sm"
+                                                    <Row style={{ justifyContent: 'end' }}>
+                                                            <Col md={2} style={{ textAlign: "center" }}>
+                                                                <Button variant="success" size="sm"
                                                                     onClick={() => setIsedit(true)} style={{
-                                                                        background: '#FEF2F2',
-                                                                        color: '#991B1B',
-                                                                        borderColor: '#FEF2F2',
+                                                                        fontWeight: '500',
+                                                                        marginRight: '1rem'
+                                                                    }}><TbEdit />
+                                                                </Button>
+                                                                <Button variant="danger" size="sm"
+                                                                    onClick={() => deleteHandler(indata.id)} style={{
                                                                         fontWeight: '500'
-                                                                    }}>Edit
+                                                                    }}><RiDeleteBinLine />
                                                                 </Button>
                                                             </Col>
-                                                        </Row>
+                                                        </Row>  
                                                         <Row className='mb-2'>
                                                             <Col md={12}>
                                                                 <h6>Gear Type Name</h6>

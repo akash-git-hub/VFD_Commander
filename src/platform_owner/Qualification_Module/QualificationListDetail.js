@@ -7,10 +7,11 @@ import { SharedButton } from '../../components/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Loader } from '../../components/Loader';
 import { PoSidebar } from '../PO_Sidebar';
-import { successAlert } from '../../components/Alert';
-import { updateTraning_API } from '../../api_services/Apiservices';
+import { errorAlert, successAlert } from '../../components/Alert';
+import { updateQualification_API, updateTraning_API } from '../../api_services/Apiservices';
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
+import Swal from 'sweetalert2';
 
 
 
@@ -42,8 +43,9 @@ export default function QualificationListDetail() {
     useEffect(() => {
         if (location && location.state && location.state.data) {
             const data = location.state.data;
+            console.log(data);
             if (data) {
-                setIndata({ "trname": data.name, "description": data.description, "add_field": data.add_field, "id": data._id });
+                setIndata({ "trname": data.name, "description": data.description, "add_field": data.add_field, "id": data._id,"type":data.type });
                 setFields(data.add_field);
             }
         }
@@ -63,20 +65,54 @@ export default function QualificationListDetail() {
         const fadat = {
             "id": indata.id,
             'name': indata.trname,
+            "type":indata.type,
             "description": indata.description,
             "add_field": fields
         }
-        const resp = await updateTraning_API(fadat);
+        const resp = await updateQualification_API(fadat);
         if (resp && resp.success) {
             e.target.reset();
             setFields([]);
             setLoder(false);
             successAlert(resp.message);
-            navigate("/qualification");
+            navigate("/qualificationlist");
         }
         setLoder(false);
-
     }
+
+    const deleteHandler = (id) => {
+        if (!id) { errorAlert("Something wrong"); return; }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const fadat = {
+                    "id": indata.id,
+                    "is_delete" :'yes'      
+                }
+                const resp = await updateQualification_API(fadat);            
+                if (resp && resp.success) {
+                    setLoder(false);
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your Data has been deleted.",
+                        icon: "success"
+                    }).then(async (result) => {
+                        if (result.isConfirmed) {
+                            navigate("/qualificationlist");
+                        }
+                    })
+                }
+            }
+        });
+    }
+
     return (
         <>
             <Loader show={loder} />
@@ -92,19 +128,17 @@ export default function QualificationListDetail() {
                                             <Form onSubmit={handleSubmit}>
                                                 <Row style={{ justifyContent: 'end' }}>
                                                     <Col md={1}>
-                                                        <Button variant="warning" size="sm"
-                                                            onClick={() => setIsedit(false)} style={{
-                                                                background: '#FEF2F2',
-                                                                color: '#991B1B',
-                                                                borderColor: '#FEF2F2',
-                                                                fontWeight: '500'
-                                                            }}>Not Update
+                                                        <Button variant="success" size="sm"
+                                                            onClick={() => setIsedit(false)} >Not Update
                                                         </Button>
                                                     </Col>
                                                 </Row>
                                                 <Row className='mb-2'>
                                                     <Col md={12}>
                                                         <InputField FormType={'text'} FormLabel={"Qualification Name"} onChange={inputHandler} error={error.trname} value={indata.trname} name='trname' />
+                                                    </Col>
+                                                    <Col md={12}>
+                                                        <InputField FormType={'text'} FormLabel={"Qualification Type"} onChange={inputHandler} error={error.type} value={indata.type} name='type' />
                                                     </Col>
                                                     <Col md={12}>
                                                         <Textareanew FormType={'text'} rows={4} FormLabel={"Description"} onChange={inputHandler} error={error.description} value={indata.description} name='description' />
@@ -138,7 +172,7 @@ export default function QualificationListDetail() {
                                                         }}><TbEdit />
                                                     </Button>
                                                     <Button variant="danger" size="sm"
-                                                        onClick={() => setIsdelete(true)} style={{
+                                                        onClick={() => deleteHandler(indata.id)} style={{
                                                             fontWeight: '500'
                                                         }}><RiDeleteBinLine />
                                                     </Button>
@@ -148,6 +182,10 @@ export default function QualificationListDetail() {
                                                 <Col md={12}>
                                                     <h6>Qualification Name</h6>
                                                     <p>{indata.trname}</p>
+                                                </Col>
+                                                <Col md={12}>
+                                                    <h6>Qualification Type</h6>
+                                                    <p>{indata.type}</p>
                                                 </Col>
                                                 <Col md={12}>
                                                     <h6>Description</h6>

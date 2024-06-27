@@ -4,44 +4,8 @@ import { TablePagination } from '../../components/TablePagination';
 import { useNavigate } from 'react-router-dom';
 import { SearchPanel } from '../../components/SearchPanel';
 
-const sampleData = [
-  {
-    firstName: 'Jenny',
-    lastName: 'Wilson',
-    status: 'Active'
-  },
-  {
-    firstName: 'Jenny',
-    lastName: 'Wilson',
-    status: 'Active'
-  },
-  {
-    firstName: 'Jenny',
-    lastName: 'Wilson',
-    status: 'Active'
-  },
-  {
-    firstName: 'Jenny',
-    lastName: 'Wilson',
-    status: 'Active'
-  },
-  {
-    firstName: 'Jenny',
-    lastName: 'Wilson',
-    status: 'Active'
-  },
-  {
-    firstName: 'Jenny',
-    lastName: 'Wilson',
-    status: 'Active'
-  },
-  {
-    firstName: 'Jenny',
-    lastName: 'Wilson',
-    status: 'Active'
-  },
-
-];
+const sampleData = [];
+  
 
 export const UnavailabilityTableList = () => {
   const navigate = useNavigate();
