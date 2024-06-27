@@ -36,8 +36,8 @@ export const CreateForm = ({ setLoder }) => {
 
 
   const handleAddField = (title, placeholder) => {
-    if(!title){errorAlert("Please Enter Title");setShowModal(true);return}
-      setFields([...fields, { title, placeholder }]);
+    if (!title) { errorAlert("Please Enter Title"); setShowModal(true); return }
+    setFields([...fields, { title, placeholder }]);
   };
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -80,13 +80,13 @@ export const CreateForm = ({ setLoder }) => {
     const name = indata.name;
     const value = indata.value;
 
-    if(name){
+    if (name) {
       setIndata((pre) => ({ ...pre, [name]: value }));
       setError((pre) => ({ ...pre, [name]: "" }));
-    }  
+    }
   }
 
-  
+
   const get_plan = async () => {
     setLoder(true);
     const resp = await getSubscriptionPlan_api();
@@ -148,14 +148,14 @@ export const CreateForm = ({ setLoder }) => {
       formData.append('time_zone', indata.time_zone);
       formData.append('time_formate', indata.time_formate);
       formData.append('incentive_information', indata.incentive_information);
-      formData.append('renewal_date',  indata.renewal_date);
+      formData.append('renewal_date', indata.renewal_date);
       formData.append('subscription_amount', indata.subscription_amount);
       formData.append('zip_code', indata.zip_code);
       formData.append('state', indata.state);
-      formData.append('city',  indata.city);
+      formData.append('city', indata.city);
       formData.append('billing_address', indata.billing_address);
       formData.append('billing_addres2', indata.billing_addres2);
-      formData.append('add_field', JSON.stringify(fields));    
+      formData.append('add_field', JSON.stringify(fields));
 
       const resp = await create_modal_account_api(formData);
       if (resp && resp.success) {
@@ -177,35 +177,35 @@ export const CreateForm = ({ setLoder }) => {
           <Form onSubmit={submitHandler}>
             <Row className='mb-2'>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Account Name"} name="account_name" error={error.account_name} onChange={onChangeHandler}  />
+                <InputField FormType={'text'} FormLabel={"Account Name"} name="account_name" error={error.account_name} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"First Name"} name="first_name" error={error.first_name} onChange={onChangeHandler}  />
+                <InputField FormType={'text'} FormLabel={"First Name"} name="first_name" error={error.first_name} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Last Name"} name='last_name' error={error.last_name} onChange={onChangeHandler}  />
-              </Col>
-            </Row>
-            <Row className='mb-2'>
-              <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Account Owner Email Address"} name='email' error={error.email} onChange={onChangeHandler}  />
-              </Col>
-              <Col md={4}>
-                <InputField FormType={'tel'} FormLabel={"Contact Phone"} max={10} name='contact_number' error={error.contact_number} onChange={onChangeHandler}  />
-              </Col>
-              <Col md={4}>
-                <Select  Array={planList} name="subscription_name" FormLabel={"Subscription Name"} error={error.subscription_name} value={indata.subscription_name} onChange={onChangeHandler} />
+                <InputField FormType={'text'} FormLabel={"Last Name"} name='last_name' error={error.last_name} onChange={onChangeHandler} />
               </Col>
             </Row>
             <Row className='mb-2'>
               <Col md={4}>
-                <InputField FormType={'number'} FormLabel={"Subscription Amount"} value={indata.subscription_amount} error={error.subscription_amount} name='subscription_amount' onChange={onChangeHandler}  readOnly="true" />
+                <InputField FormType={'text'} FormLabel={"Account Owner Email Address"} name='email' error={error.email} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Billing Address 1"} name="billing_address" error={error.billing_address} onChange={onChangeHandler}  />
+                <InputField FormType={'tel'} FormLabel={"Contact Phone"} max={10} name='contact_number' error={error.contact_number} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Billing Address 2"} name='billing_addres2' error={error.billing_addres2} onChange={onChangeHandler}  />
+                <Select Array={planList} name="subscription_name" FormLabel={"Subscription Name"} error={error.subscription_name} value={indata.subscription_name} onChange={onChangeHandler} />
+              </Col>
+            </Row>
+            <Row className='mb-2'>
+              <Col md={4}>
+                <InputField FormType={'number'} FormLabel={"Subscription Amount"} value={indata.subscription_amount} error={error.subscription_amount} name='subscription_amount' onChange={onChangeHandler} readOnly="true" />
+              </Col>
+              <Col md={4}>
+                <InputField FormType={'text'} FormLabel={"Billing Address 1"} name="billing_address" error={error.billing_address} onChange={onChangeHandler} />
+              </Col>
+              <Col md={4}>
+                <InputField FormType={'text'} FormLabel={"Billing Address 2"} name='billing_addres2' error={error.billing_addres2} onChange={onChangeHandler} />
               </Col>
             </Row>
             <Row className='mb-2'>
@@ -216,24 +216,28 @@ export const CreateForm = ({ setLoder }) => {
                 <InputField FormType={'text'} FormLabel={"City"} name='city' error={error.city} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={6} name='zip_code' error={error.zip_code} onChange={onChangeHandler}  />
+                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={6} name='zip_code' error={error.zip_code} onChange={onChangeHandler} />
               </Col>
             </Row>
             <Row className='mb-2'>
               <Col md={4}>
-                <InputField FormType={'date'} FormLabel={"Renewal Date"} name='renewal_date' error={error.renewal_date} onChange={onChangeHandler}  />
+                <InputField FormType={'date'}
+                  FormLabel={"Renewal Date"}
+                  name='renewal_date'
+                  error={error.renewal_date}
+                  onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Incentive Information"} name='incentive_information' onChange={onChangeHandler} error={error.incentive_information}  />
+                <InputField FormType={'text'} FormLabel={"Incentive Information"} name='incentive_information' onChange={onChangeHandler} error={error.incentive_information} />
               </Col>
               <Col md={4}>
-                <Timezoneselectdropdown Array={timezones} FormLabel="Time Zone" error={error.time_zone} name="time_zone" onChange={(e)=>onSelectHandler(e)} />
+                <Timezoneselectdropdown Array={timezones} FormLabel="Time Zone" error={error.time_zone} name="time_zone" onChange={(e) => onSelectHandler(e)} />
                 {/* <Select  /> */}
               </Col>
             </Row>
             <Row className='mb-2'>
               <Col md={4}>
-                <Timeformatdropdown arraydata={timeFormate} FormLabel="Time Display" name="time_formate" error={error.time_formate} onChange={(e)=>onSelectHandler(e)} />
+                <Timeformatdropdown arraydata={timeFormate} FormLabel="Time Display" name="time_formate" error={error.time_formate} onChange={(e) => onSelectHandler(e)} />
               </Col>
               {fields.map((e, i) => (
                 <Col md={4} key={i}>

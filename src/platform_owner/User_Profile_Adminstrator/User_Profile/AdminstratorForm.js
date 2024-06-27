@@ -168,7 +168,12 @@ export const AdminstratorForm = ({ setLoder }) => {
                                 <InputField FormType={'text'} FormLabel={"Last Name"} onChange={inputHandler} error={error.last_name} name='last_name' FormPlaceHolder={"Wilson"} />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'date'} FormLabel={"Start Date"} onChange={inputHandler} error={error.start_date} name='start_date' FormPlaceHolder={"DD/MM/YYYY"} />
+                                <InputField FormType={'date'}
+                  FormLabel={"Renewal Date"}
+                  name='renewal_date'
+                  error={error.renewal_date}
+                //   onChange={onChangeHandler} 
+                  />
                             </Col>
                             <Col md={4}>
                                 <InputField FormType={'email'} FormLabel={"Email"} onChange={inputHandler} error={error.email} name='email' FormPlaceHolder={"example@gmail.com"} />
