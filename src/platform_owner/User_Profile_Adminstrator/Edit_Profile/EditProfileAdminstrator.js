@@ -72,8 +72,9 @@ export const EditProfileAdminstrator = () => {
                                     </Tab>
                                     <Tab eventKey="quali" title="Qualifications" >
                                         <UserQuilification pre={pre} setLoder={setLoder} setKey={setKey} quadata={quadata} getqua={getqua} />
+                                        
                                     </Tab>
-                                    <Tab eventKey="gear" title="Gear">
+                                    <Tab eventKey="gear" title="Gear Info">
                                         <EditGearForm pre={pre} setLoder={setLoder} setKey={setKey} grdata={grdata} getgr={getgr}/>
                                     </Tab>
                                 </Tabs>

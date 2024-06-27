@@ -31,14 +31,14 @@ export const UserUnavailabilityDetail = () => {
                                     </Col>
                                     <Col md={8}>
                                         <div className='RoleName my-3'>
-                                            <h6>Role Name</h6>
+                                            <h6>User Name</h6>
                                             <h5 className='textName' style={{
                                                 padding: '1rem',
                                                 background: '#F7F8F9',
                                                 textAlign: 'center',
                                                 color: '#191D23',
                                                 fontWeight: '300'
-                                            }}>Employer Name</h5>
+                                            }}>User Name</h5>
                                         </div>
                                         <div className='RoleName'>
                                             <h6>Unavailability</h6>

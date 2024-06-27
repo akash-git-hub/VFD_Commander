@@ -6,6 +6,7 @@ import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 import { SharedButton } from '../../../components/Button';
 import { createUserQualification_API,  getQualification_API } from '../../../api_services/Apiservices';
 import { errorAlert, successAlert } from '../../../components/Alert';
+import { UserQualificationTable } from './UserQualificationTable';
 
 export const UserQuilification = ({ pre, setLoder, setKey,quadata,getqua }) => {
     const [fields, setFields] = useState([]);
@@ -106,7 +107,9 @@ export const UserQuilification = ({ pre, setLoder, setKey,quadata,getqua }) => {
                                     checked={checked}
                                     onChange={handleChange}
                                 />
-                                <InputField FormType={'date'} readOnly={!checked} FormLabel={"Expiretion Date"} name='exp_date'  onChange={inputHandler} />
+                                {/* <InputField FormType={'date'} readOnly={!checked} FormLabel={"Expiration Date"} name='exp_date'  onChange={inputHandler} />
+                                 */}
+                                 
                             </Col>
                         </Row>
                         <Row className='mb-2'>
@@ -125,6 +128,8 @@ export const UserQuilification = ({ pre, setLoder, setKey,quadata,getqua }) => {
                             </Col>
                         </Row>
                     </Form>
+                    <Row className='mt-5'><hr /></Row>
+                    <UserQualificationTable quadata={quadata}/>
                 </Container>
             </div>
             <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />

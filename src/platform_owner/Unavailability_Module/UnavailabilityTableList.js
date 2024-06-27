@@ -52,7 +52,7 @@ export const UnavailabilityTableList = () => {
 
   return (
     <>
-      <SearchPanel FormPlaceHolder={"Search by ID, Role"}/>
+      <SearchPanel FormPlaceHolder={"Search by user name"}/>
       <div className='MainTable'>
         <Table responsive>
           <thead>

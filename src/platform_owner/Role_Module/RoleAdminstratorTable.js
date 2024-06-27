@@ -7,7 +7,7 @@ import { IoSearch } from 'react-icons/io5';
 export const RoleAdminstratorTable = ({ rolldata, pagination, pageHanlder }) => {
     return (
         <>
-            <SearchPanel StartIcon={<IoSearch />} FormPlaceHolder={"Search by Role Name"} />
+            {/* <SearchPanel StartIcon={<IoSearch />} FormPlaceHolder={"Search by Role Name"} /> */}
             <div className='MainTable'>
                 <Table responsive>
                     <thead>

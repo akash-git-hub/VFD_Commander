@@ -420,7 +420,7 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata,quadata }) => {
                                             <p>{e.qualifications_id && e.qualifications_id.name}</p>
                                         </Col>
                                         <Col md={4}>
-                                            <h6>Expiretion Date</h6>
+                                            <h6>Expiration Date</h6>
                                             <p>{e.exp_date}</p>
                                         </Col>
                                         {e.add_field && e.add_field.map((inField, idx) => ( // Added 'idx' for unique keys

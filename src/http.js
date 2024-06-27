@@ -2,9 +2,6 @@ import axios from 'axios';
 const moment = require('moment-timezone');
 const currentTimeZone = moment.tz.guess();
 
-console.log("process.env.REACT_APP_API_BASE_URL --> ",process.env.REACT_APP_API_BASE_URL);
-
-
 const http = axios.create({
     baseURL: process.env.REACT_APP_API_BASE_URL,
     headers: {

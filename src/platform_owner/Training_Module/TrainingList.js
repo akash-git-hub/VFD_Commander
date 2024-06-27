@@ -62,7 +62,7 @@ export const TrainingList = () => {
                                     <Tab eventKey="home" title="Training List">
                                         <ListView  trdata={trdata}/>
                                     </Tab>
-                                    <Tab eventKey="tracking" title="Track Trainy">
+                                    <Tab eventKey="tracking" title="Track Trainee">
                                         <TrackTraining />
                                     </Tab>
                                 </Tabs>

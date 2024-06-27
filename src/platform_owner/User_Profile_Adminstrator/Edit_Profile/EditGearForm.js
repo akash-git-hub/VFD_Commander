@@ -6,8 +6,9 @@ import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 import { SharedButton } from '../../../components/Button';
 import { createUserGear_API, getGear_API } from '../../../api_services/Apiservices';
 import { successAlert } from '../../../components/Alert';
+import { UserGearTable } from './UserGearTable';
 
-export const EditGearForm = ({ pre, setLoder, setKey,getgr }) => {
+export const EditGearForm = ({ pre, setLoder, setKey, getgr,grdata }) => {
     const [fields, setFields] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [maindata, setMaindata] = useState();
@@ -82,7 +83,7 @@ export const EditGearForm = ({ pre, setLoder, setKey,getgr }) => {
                 setLoder(false);
                 successAlert(resp.message);
                 setKey("home");
-                const id =maindata._id;
+                const id = maindata._id;
                 getgr(id);
             }
             setLoder(false);
@@ -105,7 +106,7 @@ export const EditGearForm = ({ pre, setLoder, setKey,getgr }) => {
                             <Col md={4}>
                                 <InputField FormType={'date'} FormLabel={"Replacement Date"} FormPlaceHolder={"Replacement Date"} name='replacement_date' error={error.replacement_date} onChange={inputHandler} />
                             </Col>
-                      
+
                         </Row>
                         <Row className='mb-2'>
                             {fields.map((e, i) => (
@@ -123,6 +124,10 @@ export const EditGearForm = ({ pre, setLoder, setKey,getgr }) => {
                             </Col>
                         </Row>
                     </Form>
+
+                    <Row className='mt-5'><hr /></Row>
+                    
+                    <UserGearTable grdata={grdata} />
                 </Container>
             </div>
             <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />

@@ -124,14 +124,14 @@ export const ProfileForm = ({ usedata }) => {
                                 }} />
                             </Col>
                             <Col md={1}>
-                                <Button variant="warning" size="sm"
+                                {/* <Button variant="warning" size="sm"
                                     onClick={() => setIsedit(true)} style={{
                                         background: '#FEF2F2',
                                         color: '#991B1B',
                                         borderColor: '#FEF2F2',
                                         fontWeight: '500'
                                     }}>Edit
-                                </Button>
+                                </Button> */}
                             </Col>
                         </Row>
                         <Row className='mb-5 mt-3'>

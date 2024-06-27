@@ -49,7 +49,7 @@ function App() {
   return (
     <>
 
-      <BrowserRouter>
+      <HashRouter>
         <Mycontext.Provider value={{ pdata: pdata, contaxtHandler: contaxtHandler }}>
           <Routes>
             <Route path="/" element={<Login />} />
@@ -90,7 +90,7 @@ function App() {
 
           </Routes>
         </Mycontext.Provider>
-      </BrowserRouter>
+      </HashRouter>
 
     </>
   );

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Image, Stack } from 'react-bootstrap'
 import { LinkSidebar } from '../../components/LinkSidebar';
 import { Avatar } from '../../components/Avatar';
@@ -9,13 +9,17 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export const PoSidebar = () => {
     const navigate = useNavigate();
     const pathname = useLocation().pathname;
+    const [mydata,setMydata] = useState(JSON.parse(localStorage.getItem('userData')));
 
+ 
     const logoutClientHandler = () => {
+      
         localStorage.setItem("mydata", "");
         localStorage.removeItem("mydata");
         localStorage.removeItem('id');
         localStorage.removeItem('Authorization');
         localStorage.removeItem('type');
+        localStorage.removeItem('userData');
         navigate('/');
     };
     return (
@@ -85,7 +89,7 @@ export const PoSidebar = () => {
                     }}>
                         <Stack direction='vertical' gap={3}>              
                             <li style={{ padding: '0px 10px' }} onClick={()=>navigate('/myprofile')} >                             
-                                    <Avatar LinkLabel={'Jenny Wilson'} Description={'Jenny@wilsongmail.com'} />                        
+                                    <Avatar LinkLabel={mydata && mydata.account_name} Description={mydata && mydata.email} />                        
                             </li>                       
                             <li>
                                 <SharedButton BtnLabel={"Logout"} onClick={logoutClientHandler} BtnVariant={"light"} startIcon={<CgLogOut />} BtnClass={"w-100"} style={{

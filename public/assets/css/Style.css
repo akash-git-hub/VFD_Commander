@@ -92,6 +92,7 @@ img.Avatar_img.rounded {
   padding: 20px;
   background: #e7eaee;
   border-radius: 10px;
+  border: 1px dashed #000;
 }
 
 .MainLoader {
@@ -112,6 +113,8 @@ img.Avatar_img.rounded {
   width: 100%;
 }
 .maindiv {
+  /* position: fixed;
+  width: 100%; */
   height: 100vh;
   background: #e9eeed;
 }

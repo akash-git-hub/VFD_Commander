@@ -15,7 +15,7 @@ export const ApparatusList = ({ setLoder }) => {
     }
     useEffect(() => { getdata(); }, [])
 
-  
+
     return (
         <>
             <div className='ApparatusList'>
@@ -43,14 +43,18 @@ export const ApparatusList = ({ setLoder }) => {
                                         <Stack direction='horizontal' gap={2} style={{
                                             justifyContent: 'space-between'
                                         }}>
-                                            <h6 style={{
-                                                color: '#7B8C87'
-                                            }}>In Service Date</h6>
-                                            <p>{e.service_date}</p>
-                                            <h6 style={{
-                                                color: '#7B8C87'
-                                            }}>Replacement Date</h6>
-                                               <p>{e.replace_date}</p>
+                                            <div>
+                                                <h6 style={{
+                                                    color: '#7B8C87'
+                                                }}>In Service Date</h6>
+                                                <p>{e.service_date}</p>
+                                            </div>
+                                            <div>
+                                                <h6 style={{
+                                                    color: '#7B8C87'
+                                                }}>Replacement Date</h6>
+                                                <p>{e.replace_date}</p>
+                                            </div>
                                         </Stack>
                                         <Stack direction='horizontal' gap={2} style={{
                                             justifyContent: 'space-between'
@@ -62,7 +66,7 @@ export const ApparatusList = ({ setLoder }) => {
                                     </Stack>
                                 </div>
                             </Col>
-                      ))}
+                        ))}
                     </Row>
                 </Container>
             </div>
