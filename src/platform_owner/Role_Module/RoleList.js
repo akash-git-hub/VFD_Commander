@@ -29,7 +29,7 @@ export const RoleList = () => {
                 if (e.Qualification_Module) { modules.push('Qualification_Module'); }
                 if (e.Reporting_Module) { modules.push('Reporting_Module'); }
                 const modulesString = modules.join(', ');
-                mydata.push({ name: e.role, modules: modulesString });
+                mydata.push({ name: e.role, modules: modulesString ,fulldata:e});
             });
             setRolldata(mydata);
         }

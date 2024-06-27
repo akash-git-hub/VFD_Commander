@@ -14,11 +14,11 @@ export const SearchPanel = ({ FormLabel, FormType, FormPlaceHolder, StartIcon,on
                                 <Form.Label>{FormLabel}</Form.Label>
                                 <InputGroup>
                                 <Form.Control type={FormType} placeholder={FormPlaceHolder} onChange={onChange} />
-                                    {StartIcon && (
-                                        <InputGroup.Text>
-                                            {StartIcon}
-                                        </InputGroup.Text>
-                                    )}
+                                    {/* {StartIcon && ( */}
+                                        {/* <InputGroup.Text> */}
+                                            {/* {StartIcon} */}
+                                        {/* </InputGroup.Text> */}
+                                    {/* )} */}
                                 </InputGroup>
                             </Form.Group>
                         </Col>

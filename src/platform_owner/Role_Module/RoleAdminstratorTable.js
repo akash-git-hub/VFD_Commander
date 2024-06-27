@@ -6,7 +6,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 export const RoleAdminstratorTable = ({ rolldata, pagination, pageHanlder }) => {
     const navigate = useNavigate();
     const handleEditClick = (data) => {
-        Navigate("/TraningListDetail", { state: { data } });
+        navigate("/rolelistdetail", { state: { data } });
 
     }
     return (
@@ -29,7 +29,7 @@ export const RoleAdminstratorTable = ({ rolldata, pagination, pageHanlder }) => 
                                 }}>{e.modules}</td>
                                 <td>
                                     <Button variant="success" size="sm" className="me-2"
-                                        // onClick={() => handleEditClick(account)}
+                                        onClick={() => handleEditClick(e.fulldata)}
                                     >Detail
                                     </Button>
                                 </td>

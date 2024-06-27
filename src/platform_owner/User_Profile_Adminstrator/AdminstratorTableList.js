@@ -16,7 +16,6 @@ export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler
 
   return (
     <>
-      <SearchPanel StartIcon={<IoSearch />} FormPlaceHolder={"Search by Role Name"} />
       <div className='MainTable '>
         <Table responsive className='table table-hover'>
           <thead>

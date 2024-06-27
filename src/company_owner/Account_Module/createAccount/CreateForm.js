@@ -225,7 +225,8 @@ export const CreateForm = ({ setLoder }) => {
                   FormLabel={"Renewal Date"}
                   name='renewal_date'
                   error={error.renewal_date}
-                  onChange={onChangeHandler} />
+                  onChange={onChangeHandler} 
+                  />
               </Col>
               <Col md={4}>
                 <InputField FormType={'text'} FormLabel={"Incentive Information"} name='incentive_information' onChange={onChangeHandler} error={error.incentive_information} />

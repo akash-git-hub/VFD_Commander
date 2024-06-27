@@ -38,13 +38,13 @@ export const PoSidebar = () => {
                             <li className={pathname === "/roleadminstratorlist" || pathname === "/roleadminstrator" ? 'active' : ""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Role.svg' />} LinkLabel={'Role Module'} LinkPath={'/roleadminstratorlist'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Role.svg' />} LinkLabel={'Role'} LinkPath={'/roleadminstratorlist'} />
                             </li>
                             <li className={pathname === "/adminstratorprofilelist" || pathname === "/profileadminstrator" ? 'active' : ""} style={{
                                 padding: '10px',
                                 position: 'relative'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/User.svg' />} LinkLabel={'User Profile Module'} LinkPath={'/adminstratorprofilelist'} /> 
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/User.svg' />} LinkLabel={'User Profile'} LinkPath={'/adminstratorprofilelist'} /> 
                                  {/* <Badge bg="secondary" style={{
                                     position: 'absolute',
                                     top: '2vh',
@@ -55,27 +55,27 @@ export const PoSidebar = () => {
                             <li className={pathname === "/traininglist" || pathname === "/training" ? 'active' : ""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Text.svg' />} LinkLabel={'Training Module'} LinkPath={'/traininglist'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Text.svg' />} LinkLabel={'Training'} LinkPath={'/traininglist'} />
                             </li>
                             <li style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Message.svg' />} LinkLabel={'Messaging Module'} LinkPath={'#'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Message.svg' />} LinkLabel={'Messaging'} LinkPath={'#'} />
                             </li>
                             <li className={pathname === "/inventorymodulelist" || pathname ===  "/createGeareType" || pathname ===  "/CreateGear" || pathname ===  "/CreateApparatus"  || pathname==="/GearListDetail" ? 'active' : ""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Icon.svg' />} LinkLabel={'Inventory Module'} LinkPath={'/inventorymodulelist'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Icon.svg' />} LinkLabel={'Inventory'} LinkPath={'/inventorymodulelist'} />
                             </li>
                             <li className={pathname === "/unavailability" ? 'active' : ""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Todo.svg' />} LinkLabel={'Availability Module'} LinkPath={'/unavailability'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Todo.svg' />} LinkLabel={'Availability '} LinkPath={'/unavailability'} />
                             </li>
                             <li className={pathname === "/qualificationlist" ? 'active' : ""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Qualification.svg' />} LinkLabel={'Qualifications Module'} LinkPath={'/qualificationlist'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Qualification.svg' />} LinkLabel={'Qualifications '} LinkPath={'/qualificationlist'} />
                             </li>
                         </Stack>
                     </ul>

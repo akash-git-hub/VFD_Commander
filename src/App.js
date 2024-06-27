@@ -33,6 +33,7 @@ import TraningListDetail from './platform_owner/Training_Module/TraningListDetai
 import GearListDetail from './platform_owner/Inventory_Module/Gear_Information/GearListDetail';
 import { QualificationListDetail } from './platform_owner/Qualification_Module/QualificationListDetail';
 import { QualificationDetail } from './platform_owner/Qualification_Module/QualificationDetail';
+import { RoleListDetail } from './platform_owner/Role_Module/RoleListDetail';
 
 const Mycontext = createContext();
 
@@ -69,6 +70,7 @@ function App() {
             <Route element={<ClientAuth />} >
               <Route path="/roleadminstrator" element={<RoleAdminstrator />} />
               <Route path="/roleadminstratorlist" element={<RoleList />} />
+              <Route path="/rolelistdetail" element={<RoleListDetail />} />
               <Route path="/adminstratorprofilelist" element={<AdminstratorProfileList />} />
               <Route path="/profileadminstrator" element={<ProfileAdminstrator />} />
               <Route path="/editprofileadminstrator" element={<EditProfileAdminstrator />} />

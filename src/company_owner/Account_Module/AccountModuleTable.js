@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { TablePagination } from '../../components/TablePagination';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 
 
@@ -42,7 +43,7 @@ export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) =
                                 <td style={{maxWidth:"99px"}}>{account.accountName}</td>
                                 <td style={{maxWidth:"99px"}}>{account.accountId}</td>
                                 <td style={{maxWidth:"99px"}}>{account.accountOwnerId}</td>
-                                <td style={{maxWidth:"99px"}}>{account.billingDate}</td>
+                                <td style={{maxWidth:"99px"}}>{moment(account.billingDate).format("mm-dd-yyyy")}</td>
                                 <td style={{maxWidth:"99px"}}>{account.location}</td>
                                 <td style={{maxWidth:"99px"}}>INR {account.subscription}</td>
                                 <td style={{maxWidth:"99px"}}>{account.mobileNo}</td>

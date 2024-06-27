@@ -9,6 +9,8 @@ import { Loader } from '../../components/Loader';
 import { useEffect, useState } from 'react';
 import { getAccount_API, update_actice_inactive_API } from '../../api_services/Apiservices';
 import Swal from 'sweetalert2';
+import { SearchPanel } from '../../components/SearchPanel';
+import { IoSearch } from 'react-icons/io5';
 
 export const AdminstratorProfileList = () => {
     const navigate = useNavigate();
@@ -16,9 +18,9 @@ export const AdminstratorProfileList = () => {
     const [maindata, setMaindata] = useState([]);
     const [pagination, setPagination] = useState()
 
-    const get_account_list = async (page) => {
-        const data = { "page": page, userTypes: 3 }
-        setLoder(true);
+    const get_account_list = async (page,key="") => {
+        const data = { "page": page, userTypes: 3,"srkey":key }
+     
         const resp = await getAccount_API(data);
         if (resp) {
             const data = resp.data;
@@ -47,7 +49,6 @@ export const AdminstratorProfileList = () => {
     useEffect(() => { get_account_list(); }, [])
 
     const actionHandler = (id, status) => {
-
         // Initial language status (example)
         let languageStatus = status; // Assume 'active' as defaultata
         const fdata = { 'id': id, 'status': status };
@@ -78,16 +79,17 @@ export const AdminstratorProfileList = () => {
                 }
             }
         });
-
-
     }
-
-
 
     const pageHanlder = (pdata) => { get_account_list(pdata) }
 
     const handleCreateAccount = () => {
         navigate('/profileadminstrator');
+    }
+
+    const searchandler = (e)=>{
+        const key = e.target.value;
+        get_account_list("",key);
     }
     return (
         <>
@@ -100,13 +102,14 @@ export const AdminstratorProfileList = () => {
                         </Col>
                         <Col md={9}>
                             <Headings MainHeading={"User Profile Module"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create User Profile"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
-                          
+
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={"home"}
                                 className="my-4"
                             >
                                 <Tab eventKey="home" title="User Profile Administration">
+                                    <SearchPanel  StartIcon={<IoSearch />} FormPlaceHolder={"Search by Name"} onChange={searchandler}/>
                                     <AdminstratorTableList pagination={pagination} maindata={maindata} actionHandler={actionHandler} pageHanlder={pageHanlder} />
                                 </Tab>
                             </Tabs>

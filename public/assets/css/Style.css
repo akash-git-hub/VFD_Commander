@@ -105,6 +105,9 @@ img.Avatar_img.rounded {
 .bg-white {
   background-color: #fff;
 }
+.color_white {
+  color: #fff !important;
+}
 
 .chiled-row {
   justify-content: center;
