@@ -107,9 +107,7 @@ export const UserQuilification = ({ pre, setLoder, setKey,quadata,getqua }) => {
                                     checked={checked}
                                     onChange={handleChange}
                                 />
-                                {/* <InputField FormType={'date'} readOnly={!checked} FormLabel={"Expiration Date"} name='exp_date'  onChange={inputHandler} />
-                                 */}
-                                 
+                                <InputField FormType={'date'} readOnly={!checked} FormLabel={"Expiration Date"} name='exp_date'  onChange={inputHandler} FormPlaceHolder='MM/DD/YYYY' />
                             </Col>
                         </Row>
                         <Row className='mb-2'>

@@ -9,6 +9,8 @@ import { Loader } from '../../components/Loader';
 import { PoSidebar } from '../PO_Sidebar';
 import { successAlert } from '../../components/Alert';
 import { updateTraning_API } from '../../api_services/Apiservices';
+import { RiDeleteBinLine } from "react-icons/ri";
+import { TbEdit } from "react-icons/tb";
 
 
 
@@ -129,22 +131,16 @@ export default function QualificationListDetail() {
                                         <Container>
                                             <Row style={{ justifyContent: 'end' }}>
                                                 <Col md={2}>
-                                                    <Button variant="warning" size="sm"
+                                                    <Button variant="success" size="sm"
                                                         onClick={() => setIsedit(true)} style={{
-                                                            background: '#FEF2F2',
-                                                            color: '#991B1B',
-                                                            borderColor: '#FEF2F2',
                                                             fontWeight: '500',
                                                             marginRight:'1rem'
-                                                        }}>Edit
+                                                        }}><TbEdit />
                                                     </Button>
-                                                    <Button variant="warning" size="sm"
+                                                    <Button variant="danger" size="sm"
                                                         onClick={() => setIsdelete(true)} style={{
-                                                            background: '#FEF2F2',
-                                                            color: '#991B1B',
-                                                            borderColor: '#FEF2F2',
                                                             fontWeight: '500'
-                                                        }}>Delete
+                                                        }}><RiDeleteBinLine />
                                                     </Button>
                                                 </Col>
                                             </Row>

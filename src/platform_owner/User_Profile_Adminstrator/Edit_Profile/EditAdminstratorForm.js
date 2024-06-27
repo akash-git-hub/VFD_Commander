@@ -8,13 +8,16 @@ import { UploadFile } from '../../../components/UploadFile';
 import { getRollsAll_API, update_modal_account_api } from '../../../api_services/Apiservices';
 import { successAlert } from '../../../components/Alert';
 import { useNavigate } from 'react-router-dom';
+import { TbEdit } from "react-icons/tb";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { statusArray } from '../../../helper/Helper';
 
 
 
-export const EditAdminstratorForm = ({ setLoder, pre, grdata,quadata }) => {
+export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
     const [fields, setFields] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [isdelete, setIsdelete] = useState(false);
     const navigate = useNavigate();
     const [rolelist, setRolelist] = useState([]);
     const [isedit, setIsedit] = useState(false);
@@ -206,11 +209,8 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata,quadata }) => {
                                         </Row>
                                     </Col>
                                     <Col md={1}>
-                                        <Button variant="warning" size="sm"
+                                        <Button variant="success" size="sm"
                                             onClick={() => setIsedit(false)} style={{
-                                                background: '#FEF2F2',
-                                                color: '#991B1B',
-                                                borderColor: '#FEF2F2',
                                                 fontWeight: '500'
                                             }}>Not Update
                                         </Button>
@@ -297,13 +297,11 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata,quadata }) => {
                                     }} />
                                 </Col>
                                 <Col md={1}>
-                                    <Button variant="warning" size="sm"
+                                    <Button variant="success" size="sm"
                                         onClick={() => setIsedit(true)} style={{
-                                            background: '#FEF2F2',
-                                            color: '#991B1B',
-                                            borderColor: '#FEF2F2',
                                             fontWeight: '500'
-                                        }}>Edit
+                                        }}><TbEdit />
+
                                     </Button>
                                 </Col>
                             </Row>
@@ -386,52 +384,84 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata,quadata }) => {
                             </Row>
                             <h5>My Gear</h5>
                             <hr />
-                            <Row className='mb-4'>
-                                {grdata && grdata.map((e, index) => ( // Added 'index' for unique keys
-                                    <React.Fragment key={index}> {/* Added key prop for each fragment */}
-                                        <Col md={4}>
-                                            <h6>Gear Name</h6>
-                                            <p>{e.gear_id && e.gear_id.gear_item_name}</p>
+                            {grdata && grdata.map((e, index) => ( // Added 'index' for unique keys
+                                <React.Fragment key={index}> {/* Added key prop for each fragment */}
+                                    <Row className='mb-4'>
+                                        <Col md={10}>
+                                            <Row>
+                                                <Col md={3}>
+                                                    <h6>Gear Name</h6>
+                                                    <p>{e.gear_id && e.gear_id.gear_item_name}</p>
+                                                </Col>
+                                                <Col md={3}>
+                                                    <h6>replacement_date</h6>
+                                                    <p>{e.replacement_date}</p>
+                                                </Col>
+                                                <Col md={3}>
+                                                    <h6>issue_date</h6>
+                                                    <p>{e.issue_date}</p>
+                                                </Col>
+
+                                                {e.add_field && e.add_field.map((inField, idx) => ( // Added 'idx' for unique keys
+                                                    <Col md={3} key={idx}> {/* Added key prop for each column */}
+                                                        <h6>{inField.title}</h6>
+                                                        <p>{inField.value}</p>
+                                                    </Col>
+                                                ))}
+                                            </Row>
                                         </Col>
-                                        <Col md={4}>
-                                            <h6>replacement_date</h6>
-                                            <p>{e.replacement_date}</p>
+                                        <Col md={2} className="text-center">
+                                            <Button variant="success" size="sm"
+                                                onClick={() => setIsedit(true)} style={{
+                                                    fontWeight: '500',
+                                                    marginRight: '1rem'
+                                                }}><TbEdit />
+                                            </Button>
+                                            <Button variant="danger" size="sm"
+                                                onClick={() => setIsdelete(true)} style={{
+                                                    fontWeight: '500'
+                                                }}><RiDeleteBinLine />
+                                            </Button>
                                         </Col>
-                                        <Col md={4}>
-                                            <h6>issue_date</h6>
-                                            <p>{e.issue_date}</p>
-                                        </Col>
-                                        {e.add_field && e.add_field.map((inField, idx) => ( // Added 'idx' for unique keys
-                                            <Col md={4} key={idx}> {/* Added key prop for each column */}
-                                                <h6>{inField.title}</h6>
-                                                <p>{inField.value}</p>
-                                            </Col>
-                                        ))}
-                                    </React.Fragment>
-                                ))}
-                            </Row>
+                                    </Row>
+                                </React.Fragment>
+                            ))}
                             <h5>My Qualifications</h5>
                             <hr />
-                            <Row className='mb-4'>
-                                {quadata && quadata.map((e, index) => ( // Added 'index' for unique keys
-                                    <React.Fragment key={index}> {/* Added key prop for each fragment */}
-                                        <Col md={4}>
+                            {quadata && quadata.map((e, index) => ( // Added 'index' for unique keys
+                                <React.Fragment key={index}> {/* Added key prop for each fragment */}
+                                    <Row className='mb-4'>
+                                        <Col md={3}>
                                             <h6>Qualification Name</h6>
                                             <p>{e.qualifications_id && e.qualifications_id.name}</p>
                                         </Col>
-                                        <Col md={4}>
+                                        <Col md={3}>
                                             <h6>Expiration Date</h6>
                                             <p>{e.exp_date}</p>
                                         </Col>
                                         {e.add_field && e.add_field.map((inField, idx) => ( // Added 'idx' for unique keys
-                                            <Col md={4} key={idx}> {/* Added key prop for each column */}
+                                            <Col md={3} key={idx}> {/* Added key prop for each column */}
                                                 <h6>{inField.title}</h6>
                                                 <p>{inField.value}</p>
                                             </Col>
                                         ))}
-                                    </React.Fragment>
-                                ))}
-                            </Row>
+                                        <Col md={3} className="text-center">
+                                            <Button variant="success" size="sm"
+                                                onClick={() => setIsedit(true)} style={{
+                                                    fontWeight: '500',
+                                                    marginRight: '1rem'
+                                                }}><TbEdit />
+
+                                            </Button>
+                                            <Button variant="danger" size="sm"
+                                                onClick={() => setIsdelete(true)} style={{
+                                                    fontWeight: '500'
+                                                }}><RiDeleteBinLine />
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                </React.Fragment>
+                            ))}
                         </Container>
                     </div>
                     <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />
