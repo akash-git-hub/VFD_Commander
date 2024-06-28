@@ -13,8 +13,9 @@ export const InventoryModuleList = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [loder,setLoder] = useState(false);
-
     const [key, setKey] = useState('gear');
+
+    
 
     useEffect(() => {
         if (location && location.state && location.state.eventKey) {

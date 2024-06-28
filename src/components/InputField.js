@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -19,9 +19,17 @@ export const InputField = ({
     required = false,
 }) => {
     const [startDate, setStartDate] = useState();
+
+    useEffect(()=>{
+        if(FormType === 'date'){
+            const momentObj = moment.unix(value).format("ddd MMM DD YYYY HH:mm:ss");
+            setStartDate(momentObj);
+        }
+    },[FormType]);
+
+
     const handleDateChange = (date) => {
         setStartDate(date);
-        console.log(date);
         let formattedDate = "";
         if (date) {
             // Parse the timestamp using moment

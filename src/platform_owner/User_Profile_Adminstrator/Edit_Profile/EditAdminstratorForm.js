@@ -5,12 +5,11 @@ import { SharedButton } from '../../../components/Button';
 import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 
 import { UploadFile } from '../../../components/UploadFile';
-import { getRollsAll_API, update_modal_account_api } from '../../../api_services/Apiservices';
+import { deleteUserGear_API, deleteUserQualification_API, getRollsAll_API,  update_modal_account_api } from '../../../api_services/Apiservices';
 import { errorAlert, successAlert } from '../../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import { TbEdit } from "react-icons/tb";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { statusArray } from '../../../helper/Helper';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 
@@ -195,10 +194,10 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const fadat = {
-                    "id": indata.id,
-                    "is_delete" :'yes'      
+                    "id": id,
+                    "is_delete": 'yes'
                 }
-                const resp = await update_modal_account_api(fadat);            
+                const resp = await update_modal_account_api(fadat);
                 if (resp && resp.success) {
                     setLoder(false);
                     Swal.fire({
@@ -216,6 +215,68 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
     }
 
 
+    const deleteUserGear = (id) => {
+        if (!id) { errorAlert("Something wrong"); return; }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const fadat = { "id": id, }
+                const resp = await deleteUserGear_API(fadat);
+                if (resp && resp.success) {
+                    setLoder(false);
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your Data has been deleted.",
+                        icon: "success"
+                    }).then(async (result) => {
+                        if (result.isConfirmed) {
+                            navigate("/adminstratorprofilelist");
+                        }
+                    })
+                }
+            }
+        });
+    }
+
+
+    
+    const deleteUserQualificationHandler = (id) => {
+        if (!id) { errorAlert("Something wrong"); return; }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const fadat = { "id": id, }
+                console.log("----------",id);
+                const resp = await deleteUserQualification_API(fadat);
+                if (resp && resp.success) {
+                    setLoder(false);
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your Data has been deleted.",
+                        icon: "success"
+                    }).then(async (result) => {
+                        if (result.isConfirmed) {
+                            navigate("/adminstratorprofilelist");
+                        }
+                    })
+                }
+            }
+        });
+    }
 
 
 
@@ -260,19 +321,22 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                         <InputField FormType={'text'} FormLabel={"Last Name"} onChange={inputHandler} error={error.last_name} value={indata.last_name} name='last_name' FormPlaceHolder={"Wilson"} />
                                     </Col>
                                     <Col md={4}>
-                                        <InputField FormType={'date'} FormLabel={"Start Date"} onChange={inputHandler} error={error.start_date} value={indata.start_date} name='start_date' FormPlaceHolder={"DD/MM/YYYY"} />
+                                        <InputField FormType={'email'} FormLabel={"Email"} onChange={inputHandler} readOnly={true} error={error.email} value={indata.email} name='email' FormPlaceHolder={"example@gmail.com"} />
                                     </Col>
                                     <Col md={4}>
-                                        <InputField FormType={'email'} FormLabel={"Email"} onChange={inputHandler} readOnly={true} error={error.email} value={indata.email} name='email' FormPlaceHolder={"example@gmail.com"} />
+                                        <InputField FormType={'tel'} FormLabel={"Phone No"} max='10' onChange={inputHandler} error={error.phone_no} value={indata.phone_no} name='phone_no' FormPlaceHolder={"8989898989"} />
+                                    </Col>
+                                    <Col md={4}>
+                                        <InputField FormType={'date'} FormLabel={"Start Date"} onChange={inputHandler} error={error.start_date} value={indata.start_date} name='start_date' FormPlaceHolder={"DD/MM/YYYY"} />
                                     </Col>
                                     <Col md={4}>
                                         <InputField FormType={'date'} FormLabel={"Term Date"} onChange={inputHandler} error={error.term_date} value={indata.term_date} name='term_date' FormPlaceHolder={"DD/MM/YYYY"} />
                                     </Col>
                                     <Col md={4}>
-                                        <InputField FormType={'text'} FormLabel={"Supervisor"} onChange={inputHandler} error={error.supervisor} value={indata.supervisor} name='supervisor' FormPlaceHolder={"Enter Supervisor"} />
+                                        <InputField FormType={'text'} FormLabel={"Role"} readOnly={true} onChange={inputHandler} value={indata.role} name={'role'} />
                                     </Col>
                                     <Col md={4}>
-                                        <InputField FormType={'text'} FormLabel={"Role"} readOnly={true} onChange={inputHandler} value={indata.role} name={'role'} />
+                                        <InputField FormType={'text'} FormLabel={"Supervisor"} onChange={inputHandler} error={error.supervisor} value={indata.supervisor} name='supervisor' FormPlaceHolder={"Enter Supervisor"} />
                                     </Col>
                                     <Col md={4}>
                                         <InputField FormType={'text'} FormLabel={"Position"} onChange={inputHandler} error={error.position} value={indata.position} name='position' FormPlaceHolder={"Enter Position"} />
@@ -285,23 +349,22 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                         <InputField FormType={'text'} FormLabel={"Address 2"} onChange={inputHandler} error={error.address_2} value={indata.address_2} name='address_2' FormPlaceHolder={"scheme 24 - Vijay Nagar"} />
                                     </Col>
                                     <Col md={4}>
-                                        <InputField FormType={'text'} FormLabel={"City"} onChange={inputHandler} error={error.city} value={indata.city} name='city' FormPlaceHolder={"Indore"} />
+                                        <InputField FormType={'text'} FormLabel={"State"} onChange={inputHandler} error={error.state} value={indata.state} name='state' FormPlaceHolder={"Madhya Pradesh"} />
                                     </Col>
                                     <Col md={4}>
-                                        <InputField FormType={'text'} FormLabel={"State"} onChange={inputHandler} error={error.state} value={indata.state} name='state' FormPlaceHolder={"Madhya Pradesh"} />
+                                        <InputField FormType={'text'} FormLabel={"City"} onChange={inputHandler} error={error.city} value={indata.city} name='city' FormPlaceHolder={"Indore"} />
                                     </Col>
                                     <Col md={4}>
                                         <InputField FormType={'tel'} FormLabel={"Zip Code"} max={6} onChange={inputHandler} error={error.zip_code} value={indata.zip_code} name='zip_code' FormPlaceHolder={"452001"} />
                                     </Col>
-                                    <Col md={4}>
-                                        <InputField FormType={'tel'} FormLabel={"Phone No"} max='10' onChange={inputHandler} error={error.phone_no} value={indata.phone_no} name='phone_no' FormPlaceHolder={"8989898989"} />
-                                    </Col>
+
                                     <Col md={4}>
                                         <InputField FormType={'text'} FormLabel={"Emergency Contact Name"} onChange={inputHandler} error={error.emergency_contact_name} value={indata.emergency_contact_name} name='emergency_contact_name' FormPlaceHolder={"Contact Name"} />
                                     </Col>
                                     <Col md={4}>
                                         <InputField FormType={'tel'} FormLabel={"Emergency Contact Number"} max='10' onChange={inputHandler} error={error.emergency_contact_number} value={indata.emergency_contact_number} name="emergency_contact_number" FormPlaceHolder={"Contact Number"} />
                                     </Col>
+
                                     <Col md={4}>
                                         <InputField FormType={'text'} FormLabel={"Status"} readOnly={true} value={indata.status} name="status" />
                                     </Col>
@@ -336,14 +399,14 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                     <Button variant="success" size="sm" className='m-2'
                                         onClick={() => setIsedit(true)} style={{
                                             fontWeight: '500',
-                                            
-                                        }}><TbEdit />                                     
+
+                                        }}><TbEdit />
                                     </Button>
                                     <Button variant="danger" size="sm"
-                                            onClick={() => deleteHandler(indata.id)} style={{
-                                                fontWeight: '500'
-                                            }}><RiDeleteBinLine />
-                                        </Button>
+                                        onClick={() => deleteHandler(indata.id)} style={{
+                                            fontWeight: '500'
+                                        }}><RiDeleteBinLine />
+                                    </Button>
                                 </Col>
                             </Row>
                             <Row className='mb-5 mt-3'>
@@ -453,14 +516,8 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                             </Row>
                                         </Col>
                                         <Col md={2} className="text-center">
-                                            <Button variant="success" size="sm"
-                                                onClick={() => setIsedit(true)} style={{
-                                                    fontWeight: '500',
-                                                    marginRight: '1rem'
-                                                }}><TbEdit />
-                                            </Button>
                                             <Button variant="danger" size="sm"
-                                                onClick={() => setIsdelete(true)} style={{
+                                                onClick={() => deleteUserGear(e._id)} style={{
                                                     fontWeight: '500'
                                                 }}><RiDeleteBinLine />
                                             </Button>
@@ -473,30 +530,27 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                             {quadata && quadata.map((e, index) => ( // Added 'index' for unique keys
                                 <React.Fragment key={index}> {/* Added key prop for each fragment */}
                                     <Row className='mb-4'>
-                                        <Col md={3}>
-                                            <h6>Qualification Name</h6>
-                                            <p>{e.qualifications_id && e.qualifications_id.name}</p>
+                                        <Col md={10}>
+                                            <Row>
+                                                <Col md={3}>
+                                                    <h6>Qualification Name</h6>
+                                                    <p>{e.qualifications_id && e.qualifications_id.name}</p>
+                                                </Col>
+                                                <Col md={3}>
+                                                    <h6>Expiration Date</h6>
+                                                    <p>{e.exp_date}</p>
+                                                </Col>
+                                                {e.add_field && e.add_field.map((inField, idx) => ( // Added 'idx' for unique keys
+                                                    <Col md={3} key={idx}> {/* Added key prop for each column */}
+                                                        <h6>{inField.title}</h6>
+                                                        <p>{inField.value}</p>
+                                                    </Col>
+                                                ))}
+                                            </Row>
                                         </Col>
-                                        <Col md={3}>
-                                            <h6>Expiration Date</h6>
-                                            <p>{e.exp_date}</p>
-                                        </Col>
-                                        {e.add_field && e.add_field.map((inField, idx) => ( // Added 'idx' for unique keys
-                                            <Col md={3} key={idx}> {/* Added key prop for each column */}
-                                                <h6>{inField.title}</h6>
-                                                <p>{inField.value}</p>
-                                            </Col>
-                                        ))}
-                                        <Col md={3} className="text-center">
-                                            <Button variant="success" size="sm"
-                                                onClick={() => setIsedit(true)} style={{
-                                                    fontWeight: '500',
-                                                    marginRight: '1rem'
-                                                }}><TbEdit />
-
-                                            </Button>
+                                        <Col md={2} className="text-center">
                                             <Button variant="danger" size="sm"
-                                                onClick={() => setIsdelete(true)} style={{
+                                                onClick={() => deleteUserQualificationHandler(e._id)} style={{
                                                     fontWeight: '500'
                                                 }}><RiDeleteBinLine />
                                             </Button>

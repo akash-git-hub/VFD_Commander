@@ -19,7 +19,7 @@ export const ApparatusInformationForm = () => {
     const [indata, setIndata] = useState({ "apparatus_type": "", "name": "", "srdate": "", "rpdate": "", "cost": "", "status": "", "description": "" });
     const [error, setError] = useState({ "apparatus_type": "", "name": "", "srdate": "", "rpdate": "", "cost": "", "status": "", "description": "" });
 
-    const [loder,setLoder] = useState(false);
+    const [loder, setLoder] = useState(false);
     const navigate = useNavigate();
 
     const handleAddField = (title, placeholder) => {
@@ -36,46 +36,46 @@ export const ApparatusInformationForm = () => {
     }
 
 
-    const submitHandler = async (e) =>{
+    const submitHandler = async (e) => {
         e.preventDefault();
-        let isValid=true;
-        if (!indata.apparatus_type) {  setError(prev => ({ ...prev, "apparatus_type": "Required" }));  isValid = false; }        
-        if (!indata.name) {  setError(prev => ({ ...prev, "name": "Required" }));  isValid = false; }        
-        if (!indata.srdate) {  setError(prev => ({ ...prev, "srdate": "Required" }));  isValid = false; }        
-        if (!indata.rpdate) {  setError(prev => ({ ...prev, "rpdate": "Required" }));  isValid = false; }
-        if (!indata.cost) {  setError(prev => ({ ...prev, "cost": "Required" }));  isValid = false; }
-        if (!indata.status) {  setError(prev => ({ ...prev, "status": "Required" }));  isValid = false; }
-        if (!indata.description) {  setError(prev => ({ ...prev, "description": "Required" }));  isValid = false; }
-     
-        if(isValid){
+        let isValid = true;
+        if (!indata.apparatus_type) { setError(prev => ({ ...prev, "apparatus_type": "Required" })); isValid = false; }
+        if (!indata.name) { setError(prev => ({ ...prev, "name": "Required" })); isValid = false; }
+        if (!indata.srdate) { setError(prev => ({ ...prev, "srdate": "Required" })); isValid = false; }
+        if (!indata.rpdate) { setError(prev => ({ ...prev, "rpdate": "Required" })); isValid = false; }
+        if (!indata.cost) { setError(prev => ({ ...prev, "cost": "Required" })); isValid = false; }
+        if (!indata.status) { setError(prev => ({ ...prev, "status": "Required" })); isValid = false; }
+        if (!indata.description) { setError(prev => ({ ...prev, "description": "Required" })); isValid = false; }
+
+        if (isValid) {
             setLoder(true);
             const finaldata = {
-                "apparatus_type":indata.apparatus_type,
-                "name":indata.name,
-                "service_date":indata.srdate,
-                "replace_date":indata.rpdate,
-                "cost":indata.cost,
-                "status":indata.status,
-                "description":indata.description
+                "apparatus_type": indata.apparatus_type,
+                "name": indata.name,
+                "service_date": indata.srdate,
+                "replace_date": indata.rpdate,
+                "cost": indata.cost,
+                "status": indata.status,
+                "description": indata.description
             }
-          const resp = await createApparatus_API(finaldata);
-          if (resp && resp.success) {
-            e.target.reset();             
-            setIndata([]);
-            setFields([]);
+            const resp = await createApparatus_API(finaldata);
+            if (resp && resp.success) {
+                e.target.reset();
+                setIndata([]);
+                setFields([]);
+                setLoder(false);
+                successAlert(resp.message);
+                navigate("/inventorymodulelist", { state: { eventKey: "apparatus" } });
+            }
             setLoder(false);
-            successAlert(resp.message);
-            navigate("/inventorymodulelist", { state: { eventKey: "apparatus" } });
         }
-        setLoder(false);
-        }
-        
+
 
     }
 
     return (
         <>
-        <Loader show={loder} />
+            <Loader show={loder} />
             <div className='RoleAdminstrator'>
                 <Container fluid>
                     <Row>
@@ -94,42 +94,42 @@ export const ApparatusInformationForm = () => {
                                         <div className='TrainingForm'>
                                             <Container fluid>
                                                 <Form onSubmit={submitHandler}>
-                                                <Row className='mb-2'>
-                                                    <Col md={6}>
-                                                        <InputField FormType={'text'} FormLabel={"Apparatus Type"} FormPlaceHolder={"Apparatus Type"} name='apparatus_type' error={error.apparatus_type} onChange={inputHandler} />
-                                                    </Col>
-                                                    <Col md={6}>
-                                                        <InputField FormType={'text'} FormLabel={"Apparatus Name"} FormPlaceHolder={"Apparatus Name"} name='name' error={error.name} onChange={inputHandler} />
-                                                    </Col>
-                                                    <Col md={6}>
-                                                        <InputField FormType={'date'} FormLabel={"In Service Date"} FormPlaceHolder={"In Service Date"} name='srdate' error={error.srdate} onChange={inputHandler} />
-                                                    </Col>
-                                                    <Col md={6}>
-                                                        <InputField FormType={'date'} FormLabel={"Replacement Date"} FormPlaceHolder={"Replacement Date"} name='rpdate' error={error.rpdate} onChange={inputHandler} />
-                                                    </Col>
-                                                    <Col md={6}>
-                                                        <InputField FormType={'text'} FormLabel={"Item Cost"} FormPlaceHolder={"Item Cost"} name='cost' error={error.cost} onChange={inputHandler} />
-                                                    </Col>
-                                                    <Col md={6}>
-                                                        <Select FormLabel='Status' FormPlaceHolder='Status' Array={statusArray} name='status' error={error.status} onChange={inputHandler} />
-                                                    </Col>
-                                                    <Col md={12}>
-                                                        <Textareanew FormType={'text'} FormLabel={"Apparatus Description"} FormPlaceHolder={"Apparatus Description"} error={error.description} name='description' onChange={inputHandler} />
-                                                    </Col>
-                                                    {/* {fields.map((field, index) => (
+                                                    <Row className='mb-2'>
+                                                        <Col md={6}>
+                                                            <InputField FormType={'text'} FormLabel={"Apparatus Name"} FormPlaceHolder={"Apparatus Name"} name='name' error={error.name} onChange={inputHandler} />
+                                                        </Col>
+                                                        <Col md={6}>
+                                                            <InputField FormType={'text'} FormLabel={"Apparatus Type"} FormPlaceHolder={"Apparatus Type"} name='apparatus_type' error={error.apparatus_type} onChange={inputHandler} />
+                                                        </Col>
+                                                        <Col md={6}>
+                                                            <InputField FormType={'date'} FormLabel={"In Service Date"} FormPlaceHolder={"In Service Date"} name='srdate' error={error.srdate} onChange={inputHandler} />
+                                                        </Col>
+                                                        <Col md={6}>
+                                                            <InputField FormType={'date'} FormLabel={"Replacement Date"} FormPlaceHolder={"Replacement Date"} name='rpdate' error={error.rpdate} onChange={inputHandler} />
+                                                        </Col>
+                                                        <Col md={6}>
+                                                            <InputField FormType={'text'} FormLabel={"Item Cost"} FormPlaceHolder={"Item Cost"} name='cost' error={error.cost} onChange={inputHandler} />
+                                                        </Col>
+                                                        <Col md={6}>
+                                                            <Select FormLabel='Status' FormPlaceHolder='Status' Array={statusArray} name='status' error={error.status} onChange={inputHandler} />
+                                                        </Col>
+                                                        <Col md={12}>
+                                                            <Textareanew FormType={'text'} FormLabel={"Apparatus Description"} FormPlaceHolder={"Apparatus Description"} error={error.description} name='description' onChange={inputHandler} />
+                                                        </Col>
+                                                        {/* {fields.map((field, index) => (
                                                         <Col md={6} key={index}>
                                                             <InputField FormType={'text'} FormLabel={field.title} FormPlaceHolder={field.placeholder} />
                                                         </Col>
                                                     ))} */}
-                                                    {/* <Col md={6}>
+                                                        {/* <Col md={6}>
                                                         <SharedButton BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
                                                     </Col> */}
-                                                </Row>
-                                                <Row>
-                                                    <Col md={6}>
-                                                        <SharedButton BtnLabel={"Create"} BtnVariant={'primary'} BtnClass={"w-100 mt-4"} />
-                                                    </Col>
-                                                </Row>
+                                                    </Row>
+                                                    <Row>
+                                                        <Col md={6}>
+                                                            <SharedButton BtnLabel={"Create"} BtnVariant={'primary'} BtnClass={"w-100 mt-4"} />
+                                                        </Col>
+                                                    </Row>
                                                 </Form>
                                             </Container>
                                         </div>

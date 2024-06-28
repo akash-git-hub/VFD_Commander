@@ -121,13 +121,13 @@ export const GearInformationForm = () => {
                                             <Container fluid>
                                                 <Form onSubmit={submitHandler}>
                                                     <Row className='mb-2'>
+                                                    <Col md={6}>
+                                                            <InputField FormType={'text'} FormLabel={"Gear Name"} FormPlaceHolder={"Gear Item Name"} name='gear_item_name' error={error.gear_item_name} onChange={inputHandler} />
+                                                        </Col>
                                                         <Col md={6}>
                                                             <Select FormLabel='Gear Type' Array={grtype} onChange={inputHandler} error={error.gear_type} name='gear_type' />
 
-                                                        </Col>
-                                                        <Col md={6}>
-                                                            <InputField FormType={'text'} FormLabel={"Gear Item Name"} FormPlaceHolder={"Gear Item Name"} name='gear_item_name' error={error.gear_item_name} onChange={inputHandler} />
-                                                        </Col>
+                                                        </Col>                                                    
 
                                                         <Col md={6}>
                                                             <InputField FormType={'date'} FormLabel={"Date Received"} FormPlaceHolder={"Date Received"} onChange={inputHandler} name='recevied_date' error={error.recevied_date} />

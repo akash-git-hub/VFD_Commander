@@ -34,6 +34,8 @@ import GearListDetail from './platform_owner/Inventory_Module/Gear_Information/G
 import { QualificationListDetail } from './platform_owner/Qualification_Module/QualificationListDetail';
 import { QualificationDetail } from './platform_owner/Qualification_Module/QualificationDetail';
 import { RoleListDetail } from './platform_owner/Role_Module/RoleListDetail';
+import GearInfoDetails from './platform_owner/Inventory_Module/Gear_Information/GearInfoDetails';
+import ApparatusInfoDetails from './platform_owner/Inventory_Module/Gear_Information/ApparatusInfoDetails';
 
 const Mycontext = createContext();
 
@@ -79,6 +81,8 @@ function App() {
               <Route path="/usertrainingdetail" element={<UserTrainingDetail />} />
               <Route path="/inventorymodule" element={<InventoryModule />} />
               <Route path="/CreateGear" element={<GearInformationForm/>} />
+              <Route path="/gearinfo" element={<GearInfoDetails/>} />
+              <Route path="/apparatusInfoDetails" element={<ApparatusInfoDetails />} />
               <Route path="/CreateApparatus" element={<ApparatusInformationForm />} />
               <Route path="/createGeareType" element={<CreateGareType />} />
               <Route path='/TraningListDetail' element={<TraningListDetail />} />

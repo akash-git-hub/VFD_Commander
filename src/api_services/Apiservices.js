@@ -456,6 +456,23 @@ export const updateUserGear_API = async (data) => {
     }
 }
 
+export const deleteUserGear_API = async (data) => {
+    try {
+        const resp = await http.post("/deleteUserGear",data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+
 export const getSubscriptonData_API = async (id) => {
     try {
         const resp = await http.post("/getSubscriptonData",id);
@@ -553,6 +570,21 @@ export const getUserQualification_API = async (id) => {
 export const deleteQualification_API = async (data) =>{
     try {
         const resp = await http.post("/deleteQualification",data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const deleteUserQualification_API = async (data) =>{
+    try {
+        const resp = await http.post("/deleteUserQualification",data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
