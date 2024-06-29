@@ -29,12 +29,12 @@ export const GearList = ({ setLoder }) => {
             <div className='GearList'>
                 <Container>
                 <div className='MainTable'>
-                        <Table responsive>
+                        <Table responsive className="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Gear Name</th>
-                                    <th>Gear Type</th>
-                                    <th>Recevied Date</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>received Date</th>
                                     <th>Cost</th>
                                     <th>Description</th>
                                     <th>Action</th>

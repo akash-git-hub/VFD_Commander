@@ -67,7 +67,7 @@ export const TrackTraining = () => {
             <div className='TrainingViewList'>
                 <Container>
                     <div className='MainTable'>
-                        <Table responsive>
+                        <Table responsive className="table table-hover">
                             <thead>
                                 <tr>
                                     <th>USER NAME</th>

@@ -24,7 +24,7 @@ export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) =
     return (
         <>
             <div className='MainTable' >
-                <Table responsive  style={{minHeight:"200px"}}>
+                <Table responsive  style={{minHeight:"200px"}} className="table table-hover">
                     <thead>
                         <tr>
                             <th>ACCOUNT NAME</th>
@@ -34,7 +34,7 @@ export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) =
                             <th>LOCATION</th>
                             <th>SUBSCRIPTION</th>
                             <th>MOBILE NO</th>
-                            <th>STATUS</th>
+                            <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,9 +43,9 @@ export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) =
                                 <td style={{maxWidth:"99px"}}>{account.accountName}</td>
                                 <td style={{maxWidth:"99px"}}>{account.accountId}</td>
                                 <td style={{maxWidth:"99px"}}>{account.accountOwnerId}</td>
-                                <td style={{maxWidth:"99px"}}>{moment(account.billingDate).format("mm-dd-yyyy")}</td>
+                                <td style={{maxWidth:"99px"}}>{moment.unix(account.billingDate).format("MM-DD-YYYY")}</td>
                                 <td style={{maxWidth:"99px"}}>{account.location}</td>
-                                <td style={{maxWidth:"99px"}}>INR {account.subscription}</td>
+                                <td style={{maxWidth:"99px"}}>$ {account.subscription}</td>
                                 <td style={{maxWidth:"99px"}}>{account.mobileNo}</td>
                                 <td>
                                     <Button variant="info" size="sm" className="me-2" style={{
@@ -55,9 +55,9 @@ export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) =
                                         fontWeight: '500'
                                     }}
                                         onClick={()=>handleViewClick(account.data)}
-                                    >View
+                                    >Detail
                                     </Button>
-                                    <Button variant="warning" size="sm" style={{
+                                    {/* <Button variant="warning" size="sm" style={{
                                         background: '#FEF2F2',
                                         color: '#991B1B',
                                         borderColor: '#FEF2F2',
@@ -65,7 +65,7 @@ export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) =
                                     }}
                                         onClick={()=>handleEditClick(account.data)}
                                     >Edit
-                                    </Button>
+                                    </Button> */}
                                 </td>
                             </tr>
                         ))}

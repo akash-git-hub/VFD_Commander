@@ -45,10 +45,10 @@ export default function ApparatusInfoDetails() {
 
     useEffect(() => {
         if (location && location.state && location.state.data) {
-            const data = location.state.data;       
+            const data = location.state.data;
             if (data) {
-                setIndata({ "id":data._id,"apparatus_type":data.apparatus_type, "name": data.name, "srdate": data.service_date, "rpdate":data.replace_date , "cost": data.cost, "status": data.state, "description": data.description });
-               
+                setIndata({ "id": data._id, "apparatus_type": data.apparatus_type, "name": data.name, "srdate": data.service_date, "rpdate": data.replace_date, "cost": data.cost, "status": data.status, "description": data.description });
+
                 setFields(data.add_field);
             }
         }
@@ -68,9 +68,9 @@ export default function ApparatusInfoDetails() {
         if (isValid) {
             setLoder(true);
             const finaldata = {
-                "id":indata.id,
+                "id": indata.id,
                 "name": indata.name,
-                "apparatus_type": indata.apparatus_type,               
+                "apparatus_type": indata.apparatus_type,
                 "service_date": indata.srdate,
                 "replace_date": indata.rpdate,
                 "cost": indata.cost,
@@ -108,8 +108,8 @@ export default function ApparatusInfoDetails() {
                     "id": indata.id,
                     "is_delete": 'yes'
                 }
-                const resp = await updateApparatus_API(fadat);  
-          
+                const resp = await updateApparatus_API(fadat);
+
                 if (resp && resp.success) {
                     setLoder(false);
                     Swal.fire({
@@ -136,7 +136,7 @@ export default function ApparatusInfoDetails() {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Inventory"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
 
                             <div className='my-md-4'>
                                 <Tabs
@@ -144,7 +144,7 @@ export default function ApparatusInfoDetails() {
                                     activeKey={"home"}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="home" title="Edit Apparatus">
+                                    <Tab eventKey="home" title="Apparatus Info">
                                         <div className='RoleAdminstrator'>
                                             <Container fluid>
                                                 <Row>
@@ -153,28 +153,35 @@ export default function ApparatusInfoDetails() {
                                                             <>
                                                                 <div className='CreateAccountForm'>
                                                                     <Container fluid>
+                                                                        <Row style={{ justifyContent: 'end' }}>
+                                                                            <Col md={1}>
+                                                                                <Button variant="success" size="sm"
+                                                                                    onClick={() => setIsedit(false)} >Not Update
+                                                                                </Button>
+                                                                            </Col>
+                                                                        </Row>
                                                                         <Form onSubmit={submitHandler}>
                                                                             <Row className='mb-2'>
                                                                                 <Col md={6}>
-                                                                                    <InputField FormType={'text'} FormLabel={"Apparatus Name"} FormPlaceHolder={"Apparatus Name"} value={indata.name} name='name' error={error.name} onChange={inputHandler} />
+                                                                                    <InputField FormType={'text'} FormLabel={"Name"} FormPlaceHolder={"Enter Apparatus Name"} value={indata.name} name='name' error={error.name} onChange={inputHandler} />
                                                                                 </Col>
                                                                                 <Col md={6}>
-                                                                                    <InputField FormType={'text'} FormLabel={"Apparatus Type"} FormPlaceHolder={"Apparatus Type"} value={indata.apparatus_type} name='apparatus_type' error={error.apparatus_type} onChange={inputHandler} />
+                                                                                    <InputField FormType={'text'} FormLabel={"Type"} FormPlaceHolder={"Enter Apparatus Type"} value={indata.apparatus_type} name='apparatus_type' error={error.apparatus_type} onChange={inputHandler} />
                                                                                 </Col>
                                                                                 <Col md={6}>
-                                                                                    <InputField FormType={'date'} FormLabel={"In Service Date"} FormPlaceHolder={"In Service Date"} value={indata.srdate} name='srdate' error={error.srdate} onChange={inputHandler} />
+                                                                                    <InputField FormType={'date'} FormLabel={"Service Date"} FormPlaceHolder={"Enter Service Date"} value={indata.srdate} name='srdate' error={error.srdate} onChange={inputHandler} />
                                                                                 </Col>
                                                                                 <Col md={6}>
                                                                                     <InputField FormType={'date'} FormLabel={"Replacement Date"} FormPlaceHolder={"Replacement Date"} value={indata.rpdate} name='rpdate' error={error.rpdate} onChange={inputHandler} />
                                                                                 </Col>
                                                                                 <Col md={6}>
-                                                                                    <InputField FormType={'text'} FormLabel={"Item Cost"} FormPlaceHolder={"Item Cost"} name='cost' value={indata.cost} error={error.cost} onChange={inputHandler} />
+                                                                                    <InputField FormType={'text'} FormLabel={"Cost"} FormPlaceHolder={"Enter Item Cost"} name='cost' value={indata.cost} error={error.cost} onChange={inputHandler} />
                                                                                 </Col>
                                                                                 <Col md={6}>
-                                                                                    <Select FormLabel='Status' FormPlaceHolder='Status' Array={statusArray} name='status'  value={indata.status} error={error.status} onChange={inputHandler} />
+                                                                                    <Select FormLabel='Status' FormPlaceHolder='Status' Array={statusArray} name='status' value={indata.status} error={error.status} onChange={inputHandler} />
                                                                                 </Col>
                                                                                 <Col md={12}>
-                                                                                    <Textareanew FormType={'text'} FormLabel={"Apparatus Description"} FormPlaceHolder={"Apparatus Description"}  value={indata.description} error={error.description} name='description' onChange={inputHandler} />
+                                                                                    <Textareanew FormType={'text'} FormLabel={"Description"} FormPlaceHolder={"Description"} value={indata.description} error={error.description} name='description' onChange={inputHandler} />
                                                                                 </Col>
                                                                             </Row>
                                                                             <Row>
@@ -205,18 +212,18 @@ export default function ApparatusInfoDetails() {
                                                                                     }}><RiDeleteBinLine />
                                                                                 </Button>
                                                                             </Col>
-                                                                        </Row>                                                                    
+                                                                        </Row>
                                                                         <Row className='mb-2'>
                                                                             <Col md={12} className='mb-2'>
-                                                                                <h6>Apparatus Name</h6>
+                                                                                <h6>Name</h6>
                                                                                 <p>{indata.name}</p>
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
-                                                                                <h6>Apparatus Type</h6>
+                                                                                <h6>Type</h6>
                                                                                 <p>{indata.apparatus_type}</p>
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
-                                                                                <h6>In Service Date</h6>
+                                                                                <h6>Service Date</h6>
                                                                                 <p>{moment.unix(indata.srdate).format("MM-DD-YYYY")}</p>
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
@@ -224,7 +231,7 @@ export default function ApparatusInfoDetails() {
                                                                                 <p>{moment.unix(indata.rpdate).format("MM-DD-YYYY")}</p>
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
-                                                                                <h6>Item Cost</h6>
+                                                                                <h6>Cost</h6>
                                                                                 <p>{indata.cost}</p>
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
@@ -232,7 +239,7 @@ export default function ApparatusInfoDetails() {
                                                                                 <p>{indata.status}</p>
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
-                                                                                <h6>Apparatus Description</h6>
+                                                                                <h6>Description</h6>
                                                                                 <p>{indata.description}</p>
                                                                             </Col>
                                                                             {indata && indata.add_field && indata.add_field.map((e, i) => (

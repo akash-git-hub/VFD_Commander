@@ -120,14 +120,14 @@ export default function TraningListDetail() {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Training Module"} HeadButton={<SharedButton BtnLabel={"Back"} onClick={() => window.history.back()} BtnVariant={'primary'} />} />
+                            <Headings MainHeading={"Training"} HeadButton={<SharedButton BtnLabel={"Back"} onClick={() => window.history.back()} BtnVariant={'primary'} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
                                     activeKey={"home"}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="home" title="Training Detail">
+                                    <Tab eventKey="home" title="Training Info">
                                         {isedit ?
                                             <>
                                                 <div className='CreateAccountForm'>
@@ -143,7 +143,7 @@ export default function TraningListDetail() {
                                                             </Row>
                                                             <Row className='mb-2'>
                                                                 <Col md={12}>
-                                                                    <InputField FormType={'text'} FormLabel={"Traning Name"} onChange={inputHandler} error={error.trname} value={indata.trname} name='trname' />
+                                                                    <InputField FormType={'text'} FormLabel={"Name"} onChange={inputHandler} error={error.trname} value={indata.trname} name='trname' />
                                                                 </Col>
                                                                 <Col md={12}>
                                                                     <Textareanew FormType={'text'} rows={4} FormLabel={"Description"} onChange={inputHandler} error={error.description} value={indata.description} name='description' />
@@ -185,7 +185,7 @@ export default function TraningListDetail() {
                                                         </Row>                                                   
                                                         <Row className='mb-2'>
                                                             <Col md={12}>
-                                                                <h6>Traning Name</h6>
+                                                                <h6>Name</h6>
                                                                 <p>{indata.trname}</p>
                                                             </Col>
                                                             <Col md={12}>

@@ -61,7 +61,7 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                 "start_date": pre.start_date, "email": pre.email,
                 "supervisor": pre.supervisor, "role": roleId,
                 "position": pre.position, "address_1": pre.billing_address,
-                "address_2": pre.billing_address2, "city": pre.city,
+                "address_2": pre.billing_addres2, "city": pre.city,
                 "state": pre.state, "zip_code": pre.zip_code,
                 "term_date": pre.term_date, "image": "", "preimage": pre.image,
                 "phone_no": pre.mobile_no, "emergency_contact_name": pre.emergency_contact_name,
@@ -297,7 +297,7 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                             </Col>
                                             <Col md={6}>
                                                 <UploadFile
-                                                    FormLabel="Upload Profile"
+                                                    FormLabel="Upload"
                                                     name="image"
                                                     controlId="formProfilePic"
                                                     onChange={imageHanlder}
@@ -499,13 +499,13 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                                     <p>{e.gear_id && e.gear_id.gear_item_name}</p>
                                                 </Col>
                                                 <Col md={3}>
-                                                    <h6>replacement_date</h6>
-                                                    <p>{e.replacement_date}</p>
+                                                    <h6>Issue Date</h6>
+                                                    <p>{moment.unix(e.issue_date).format("MM-DD-YYYY")}</p>
                                                 </Col>
                                                 <Col md={3}>
-                                                    <h6>issue_date</h6>
-                                                    <p>{e.issue_date}</p>
-                                                </Col>
+                                                    <h6>Replacement Date</h6>
+                                                    <p>{moment.unix(e.replacement_date).format("MM-DD-YYYY")}</p>
+                                                </Col>                                            
 
                                                 {e.add_field && e.add_field.map((inField, idx) => ( // Added 'idx' for unique keys
                                                     <Col md={3} key={idx}> {/* Added key prop for each column */}
@@ -538,7 +538,7 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                                 </Col>
                                                 <Col md={3}>
                                                     <h6>Expiration Date</h6>
-                                                    <p>{e.exp_date}</p>
+                                                    <p>{moment.unix(e.exp_date).format("MM-DD-YYYY")}</p>
                                                 </Col>
                                                 {e.add_field && e.add_field.map((inField, idx) => ( // Added 'idx' for unique keys
                                                     <Col md={3} key={idx}> {/* Added key prop for each column */}

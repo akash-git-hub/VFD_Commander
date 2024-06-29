@@ -24,11 +24,11 @@ export const Plans = ({ planList }) => {
                                         <Stack direction='horizontal' gap={2} style={{
                                             justifyContent: 'space-between'
                                         }}>
-                                            <h6>{moment.unix(e.start_date).format("DD-MM-YYYY")}</h6>
-                                            <h6>{moment.unix(e.end_date).format("DD-MM-YYYY")}</h6>
+                                            <h6>{moment.unix(e.start_date).format("MM-DD-YYYY")}</h6>
+                                            <h6>{moment.unix(e.end_date).format("MM-DD-YYYY")}</h6>
                                         </Stack>
                                         <Stack direction='horizontal' gap={2}>
-                                            <h4 style={{display:"flex",alignItems:"center"}}>INR {e.pricing}
+                                            <h4 style={{display:"flex",alignItems:"center"}}>$ {e.pricing}
                                                  <span style={{  color: 'green', fontSize:"15px", marginLeft:"5px" }}>{e.billing_interval}</span>
                                             </h4>
                                         </Stack>

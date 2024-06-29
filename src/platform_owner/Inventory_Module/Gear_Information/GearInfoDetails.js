@@ -136,7 +136,7 @@ export default function GearInfoDetails() {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Inventory"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
 
                             <div className='my-md-4'>
                                 <Tabs
@@ -144,7 +144,7 @@ export default function GearInfoDetails() {
                                     activeKey={"home"}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="home" title="Edit Gear">
+                                    <Tab eventKey="home" title="Gear Info">
                                         <div className='RoleAdminstrator'>
                                             <Container fluid>
                                                 <Row>
@@ -154,25 +154,32 @@ export default function GearInfoDetails() {
                                                                 <div className='CreateAccountForm'>
                                                                     <div className='TrainingForm'>
                                                                         <Container fluid>
+                                                                            <Row style={{ justifyContent: 'end' }}>
+                                                                                <Col md={1}>
+                                                                                    <Button variant="success" size="sm"
+                                                                                        onClick={() => setIsedit(false)} >Not Update
+                                                                                    </Button>
+                                                                                </Col>
+                                                                            </Row>
                                                                             <Form onSubmit={updateHandler}>
                                                                                 <Row className='mb-2'>
                                                                                     <Col md={6}>
-                                                                                        <InputField FormType={'text'} FormLabel={"Gear Item Name"} FormPlaceHolder={"Gear Item Name"} name='gear_item_name' error={error.gear_item_name} value={indata.gear_item_name} onChange={inputHandler} />
+                                                                                        <InputField FormType={'text'} FormLabel={"Name"} FormPlaceHolder={"Enter Gear Item Name"} name='gear_item_name' error={error.gear_item_name} value={indata.gear_item_name} onChange={inputHandler} />
                                                                                     </Col>
                                                                                     <Col md={6}>
-                                                                                        <Select FormLabel='Gear Type' Array={grtype} onChange={inputHandler} error={error.gear_type} value={indata.gearttype_id} name='gear_type' />
+                                                                                        <Select FormLabel='Type' Array={grtype} onChange={inputHandler} error={error.gear_type} value={indata.gearttype_id} name='gear_type' />
                                                                                     </Col>
 
                                                                                     <Col md={6}>
-                                                                                        <InputField FormType={'date'} FormLabel={"Date Received"} FormPlaceHolder={"Date Received"} onChange={inputHandler} name='recevied_date'
+                                                                                        <InputField FormType={'date'} FormLabel={"Received Date"} FormPlaceHolder={"Enter Received Date "} onChange={inputHandler} name='recevied_date'
                                                                                             value={indata.recevied_date}
                                                                                             error={error.recevied_date} />
                                                                                     </Col>
                                                                                     <Col md={6}>
-                                                                                        <InputField FormType={'number'} FormLabel={"Item Cost"} FormPlaceHolder={"Item Cost"} onChange={inputHandler} name='item_cost' value={indata.item_cost} error={error.item_cost} />
+                                                                                        <InputField FormType={'number'} FormLabel={"Cost"} FormPlaceHolder={"Enter Cost"} onChange={inputHandler} name='item_cost' value={indata.item_cost} error={error.item_cost} />
                                                                                     </Col>
                                                                                     <Col md={12}>
-                                                                                        <Textareanew FormType={'text'} FormLabel={"Gear Item Description"} rows={4} FormPlaceHolder={"Gear Item Description"} value={indata.description} onChange={inputHandler} name="description" error={error.description} />
+                                                                                        <Textareanew FormType={'text'} FormLabel={"Description"} rows={4} FormPlaceHolder={"Enter Gear Item Description"} value={indata.description} onChange={inputHandler} name="description" error={error.description} />
                                                                                     </Col>
                                                                                 </Row>
                                                                                 <Row className='mb-2'>
@@ -207,24 +214,24 @@ export default function GearInfoDetails() {
 
                                                                         <Row className='mb-2'>
                                                                             <Col md={12} className='mb-2'>
-                                                                                <h6>Gear Item Name</h6>
+                                                                                <h6>Name</h6>
                                                                                 <p>{indata.gear_item_name}</p>
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
-                                                                                <h6>Gear Type</h6>
+                                                                                <h6>Type</h6>
                                                                                 <p>{indata.gearttype_name}</p>
                                                                             </Col>
 
                                                                             <Col md={12} className='mb-2'>
-                                                                                <h6>Date Received</h6>
+                                                                                <h6>Received Date</h6>
                                                                                 <p>{moment.unix(indata.recevied_date).format("MM-DD-YYYY")}</p>
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
-                                                                                <h6>Item Cost</h6>
+                                                                                <h6>Cost</h6>
                                                                                 <p>{indata.item_cost}</p>
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
-                                                                                <h6>Gear Item Description</h6>
+                                                                                <h6>Description</h6>
                                                                                 <p>{indata.description}</p>
                                                                             </Col>
 

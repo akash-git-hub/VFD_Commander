@@ -45,7 +45,7 @@ export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler
                 <td>{account.supervisor}</td>
                 <td>{account.position}</td>
                 <td>
-                  {account.status === "Active" ?
+                  {/* {account.status === "Active" ?
                     <Button variant="info" size="sm" className="me-2" style={{
                       background: '#ECFDF5',
                       color: '#064E3B',
@@ -67,7 +67,7 @@ export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler
                       onClick={() => actionHandler(account.id, 'Active')}
                     >Inactive
                     </Button>
-                  }
+                  } */}
                   <Button variant="success" size="sm" className="me-2"
                     onClick={() => handleEditClick(account.full_data)}
                   >Detail

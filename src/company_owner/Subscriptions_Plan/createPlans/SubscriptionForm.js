@@ -75,10 +75,18 @@ export const SubscriptionForm = ({ setLoder }) => {
             setError((pre) => ({ ...pre, "discription": "Description is required" }));
             isValid = 2;
         }
-        if (moment(indata.end_date).isSame(moment(indata.start_date), 'day')) {
+
+   
+
+        if (moment.unix(indata.end_date).isSame(moment.unix(indata.start_date), 'day')) {
             errorAlert("Start Date and End Date are the same");
             return;
+        } 
+         if (moment.unix(indata.end_date).isBefore(moment.unix(indata.start_date), 'day')) {
+            errorAlert("End Date should be greater than Start Date");
+            return;
         }
+        
 
         if (isValid === 1) {
             setLoder(true);
@@ -87,8 +95,8 @@ export const SubscriptionForm = ({ setLoder }) => {
                 "description": indata.discription,
                 "pricing": indata.price,
                 "duration": indata.duration,
-                "start_date": moment(indata.start_date).unix(),
-                "end_date": moment(indata.end_date).unix(),
+                "start_date": indata.start_date,
+                "end_date": indata.end_date,
                 "billing_interval": indata.billing_interval,
                 "add_new": fields
             }
@@ -113,10 +121,10 @@ export const SubscriptionForm = ({ setLoder }) => {
                     <Form onSubmit={submitHandler}>
                         <Row className='mb-2'>
                             <Col md={6}>
-                                <InputField FormType={'text'} FormLabel={"Plan Name"} name='plan_name' value={indata.plan_name} error={error.plan_name} onChange={inHandler} FormPlaceHolder={"Premium Plan"} />
+                                <InputField FormType={'text'} FormLabel={"Plan Name"} name='plan_name' value={indata.plan_name} error={error.plan_name} onChange={inHandler} FormPlaceHolder={"Enter Plan Name"} />
                             </Col>
                             <Col md={6}>
-                                <InputField FormType={'text'} FormLabel={"Pricing"} value={indata.price} name='price' error={error.price} onChange={inHandler} FormPlaceHolder={"INR 599"} />
+                                <InputField FormType={'number'} min={0} FormLabel={"Amount"} value={indata.price} name='price' error={error.price} onChange={inHandler} FormPlaceHolder={"Enter Amount"} />
                             </Col>
                         </Row>
                         <Row className='mb-2'>

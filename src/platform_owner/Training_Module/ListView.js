@@ -18,10 +18,10 @@ export const ListView = ({ trdata }) => {
             <div className='TrainingViewList'>
                 <Container>
                     <div className='MainTable'>
-                        <Table responsive>
+                        <Table responsive className="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>TRAINING NAME</th>
+                                    <th>NAME</th>
                                     <th>DESCRIPTION</th>
                                     <th>ACTION</th>
                                 </tr>

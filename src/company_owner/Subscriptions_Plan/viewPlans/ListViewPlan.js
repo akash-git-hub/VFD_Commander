@@ -35,16 +35,16 @@ export const ListViewPlan = () => {
   return (
     <>
       <Loader show={loder} />
-      <div className='CreateSubscription'>
+      <div className='CreateSubscription AccountModulePage'>
         <Container fluid>
           <Row>
             <Col md={3}>
               <Cosidebar />
             </Col>
             <Col md={9}>
-              <Headings MainHeading={"Subscription Plan"}
+              <Headings MainHeading={"Subscriptions"}
               //  SubHeading={"View Plans"}
-                HeadButton={<SharedButton onClick={handleSubscriptionPlan} BtnLabel={"Create Plan"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                HeadButton={<SharedButton onClick={handleSubscriptionPlan} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
               <Tabs
                 id="controlled-tab-example"
                 activeKey={key}
@@ -52,7 +52,7 @@ export const ListViewPlan = () => {
                 className="mb-3 mt-3"
               >
                 <Tab eventKey="home" 
-                // title="Subscription Plan"
+                title="Information"
                 >
                   <Plans planList={planList}/>
                 </Tab>

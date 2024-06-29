@@ -23,7 +23,7 @@ export const UserTrainingDetail = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Training Module"} HeadButton={<SharedButton BtnLabel={"Create Training "} BtnVariant={'primary'} onClick={handleNavigation} />} />
+                            <Headings MainHeading={"Training"} HeadButton={<SharedButton BtnLabel={"CREATE "} BtnVariant={'primary'} onClick={handleNavigation} />} />
                             <div className='my-md-4'>
                                 <TrainingDetail />
                             </div>

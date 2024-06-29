@@ -13,18 +13,27 @@ export const CreateAccountPage = () => {
     return (
         <>
             <Loader show={loder} />
-            <div className='CreateAccount'>
+            <div className='CreateAccount AccountModulePage'>
                 <Container fluid>
                     <Row>
                         <Col md={3}>
                             <Cosidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Create Account"} 
-                             HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />                      
-                            <div className='mt-4'>
-                            <CreateForm setLoder={setLoder} />
-                            </div>  
+                            <Headings MainHeading={"Account"}
+                                HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+
+                            <Tabs
+                                id="controlled-tab-example"
+                                activeKey={"home"}
+                                className="mb-3 mt-3"
+                            >
+                                <Tab eventKey="home"
+                                    title="Information"
+                                >
+                                    <CreateForm setLoder={setLoder} />
+                                </Tab>
+                            </Tabs>
                         </Col>
                     </Row>
                 </Container>

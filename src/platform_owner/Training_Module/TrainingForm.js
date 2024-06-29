@@ -78,10 +78,10 @@ export const TrainingForm = ({setLoder}) => {
                     <Form onSubmit={submitHandler}>
                         <Row className='mb-2'>
                             <Col md={12}>
-                                <InputField FormType={'text'} FormLabel={"Training Name"} FormPlaceHolder={"Training Name"} name='trname' error={error.trname} value={indata.trname} onChange={inputHandler} />
+                                <InputField FormType={'text'} FormLabel={"Name"} FormPlaceHolder={"Enter Training Name"} name='trname' error={error.trname} value={indata.trname} onChange={inputHandler} />
                             </Col>
                             <Col md={12}>
-                                <Textareanew FormType={'text'} FormLabel={"Description"} FormPlaceHolder={"Apparatus Description"} name="description"  error={error.description} value={indata.description} onChange={inputHandler} />
+                                <Textareanew FormType={'text'} FormLabel={"Description"} FormPlaceHolder={"Enter Description"} name="description"  error={error.description} value={indata.description} onChange={inputHandler} />
                             </Col>
                         </Row>
                         <Row className='mb-2'>

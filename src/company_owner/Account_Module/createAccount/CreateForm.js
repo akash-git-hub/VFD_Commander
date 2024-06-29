@@ -4,11 +4,11 @@ import { InputField } from '../../../components/InputField';
 import { SharedButton } from '../../../components/Button';
 import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 import Select from '../../../components/Select';
-import { TimezoneList } from '../../../helper/Helper';
+import { TimezoneList, timeFormateArray } from '../../../helper/Helper';
 import { SelectDropdown } from '../../../components/SelectDropdown';
 import { create_modal_account_api, getSubscriptionPlan_api } from '../../../api_services/Apiservices';
 import { errorAlert, successAlert } from '../../../components/Alert';
-import { Timezoneselectdropdown } from '../../../components/Timezoneselectdropdown';
+// import { Timezoneselectdropdown } from '../../../components/Timezoneselectdropdown';
 import { Timeformatdropdown } from '../../../components/Timeformatdropdown';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,6 +21,7 @@ export const CreateForm = ({ setLoder }) => {
   const [fullplandata, setFullplandata] = useState([]);
   const [timeFormate, setTimeFormate] = useState([{ 'label': '12-Hours', "value": 'hh:mm:ss A' }, { 'label': '24-Hours', "value": 'HH:mm:ss' }]);
 
+ 
   const navigate = useNavigate();
 
   const [indata, setIndata] = useState(
@@ -107,7 +108,8 @@ export const CreateForm = ({ setLoder }) => {
     const tzList = TimezoneList();
     const array = [];
     if (tzList && tzList.length > 0) {
-      tzList.map((e) => (array.push({ label: e, value: e })))
+      // tzList.map((e) => (array.push({ label: e, value: e })))
+      tzList.map((e) => (array.push({ name: e, value: e })))
     }
     setTimezones(array);
     get_plan();
@@ -180,7 +182,7 @@ export const CreateForm = ({ setLoder }) => {
                 <InputField FormType={'text'} FormLabel={"Account Name"} name="account_name" error={error.account_name} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"First Name"} name="first_name" error={error.first_name} onChange={onChangeHandler} />
+                <InputField FormType={'text'} FormLabel={"First Name"}  name="first_name" error={error.first_name} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
                 <InputField FormType={'text'} FormLabel={"Last Name"} name='last_name' error={error.last_name} onChange={onChangeHandler} />
@@ -188,10 +190,10 @@ export const CreateForm = ({ setLoder }) => {
             </Row>
             <Row className='mb-2'>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Account Owner Email Address"} name='email' error={error.email} onChange={onChangeHandler} />
+                <InputField FormType={'text'} FormLabel={"Email"} name='email' error={error.email} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'tel'} FormLabel={"Contact Phone"} max={10} name='contact_number' error={error.contact_number} onChange={onChangeHandler} />
+                <InputField FormType={'tel'} FormLabel={"Mobile No"} max={10} name='contact_number' error={error.contact_number} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
                 <Select Array={planList} name="subscription_name" FormLabel={"Subscription Name"} error={error.subscription_name} value={indata.subscription_name} onChange={onChangeHandler} />
@@ -232,13 +234,16 @@ export const CreateForm = ({ setLoder }) => {
                 <InputField FormType={'text'} FormLabel={"Incentive Information"} name='incentive_information' onChange={onChangeHandler} error={error.incentive_information} />
               </Col>
               <Col md={4}>
-                <Timezoneselectdropdown Array={timezones} FormLabel="Time Zone" error={error.time_zone} name="time_zone" onChange={(e) => onSelectHandler(e)} />
+              <Select Array={timezones} name="time_zone" FormLabel={"Time Zone"} error={error.time_zone} value={indata.time_zone} onChange={onChangeHandler} />
+{/*               
+                <Timezoneselectdropdown Array={timezones} FormLabel="Time Zone" error={error.time_zone} name="time_zone" onChange={(e) => onSelectHandler(e)} /> */}
                 {/* <Select  /> */}
               </Col>
             </Row>
             <Row className='mb-2'>
               <Col md={4}>
-                <Timeformatdropdown arraydata={timeFormate} FormLabel="Time Display" name="time_formate" error={error.time_formate} onChange={(e) => onSelectHandler(e)} />
+              <Select Array={timeFormateArray} name="time_formate" FormLabel={"Time Display"} error={error.time_formate} value={indata.time_formate} onChange={onChangeHandler} />
+                {/* <Timeformatdropdown arraydata={timeFormate} FormLabel="Time Display" name="time_formate" error={error.time_formate} onChange={(e) => onSelectHandler(e)} /> */}
               </Col>
               {fields.map((e, i) => (
                 <Col md={4} key={i}>

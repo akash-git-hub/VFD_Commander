@@ -75,7 +75,7 @@ export const TrainingDetail = () => {
                         </Row>
                     </div>
                     <div className='MainTable'>
-                        <Table responsive>
+                        <Table responsive className="table table-hover">
                             <thead>
                                 <tr>
                                     <th>TRAINING NAME</th>

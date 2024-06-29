@@ -119,7 +119,7 @@ export default function GearListDetail() {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton BtnLabel={"Back"} onClick={() => window.history.back()} BtnVariant={'primary'} />} />
+                            <Headings MainHeading={"Inventory"} HeadButton={<SharedButton BtnLabel={"Back"} onClick={() => window.history.back()} BtnVariant={'primary'} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"

@@ -83,38 +83,38 @@ export const ApparatusInformationForm = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Inventory"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
                                     activeKey={"home"}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="home" title="Create Apparatus">
+                                    <Tab eventKey="home" title="Apparatus Info">
                                         <div className='TrainingForm'>
                                             <Container fluid>
                                                 <Form onSubmit={submitHandler}>
                                                     <Row className='mb-2'>
                                                         <Col md={6}>
-                                                            <InputField FormType={'text'} FormLabel={"Apparatus Name"} FormPlaceHolder={"Apparatus Name"} name='name' error={error.name} onChange={inputHandler} />
+                                                            <InputField FormType={'text'} FormLabel={"Name"} FormPlaceHolder={"Enter Apparatus Name"} name='name' error={error.name} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={6}>
-                                                            <InputField FormType={'text'} FormLabel={"Apparatus Type"} FormPlaceHolder={"Apparatus Type"} name='apparatus_type' error={error.apparatus_type} onChange={inputHandler} />
+                                                            <InputField FormType={'text'} FormLabel={"Type"} FormPlaceHolder={"Enter Apparatus Type"} name='apparatus_type' error={error.apparatus_type} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={6}>
-                                                            <InputField FormType={'date'} FormLabel={"In Service Date"} FormPlaceHolder={"In Service Date"} name='srdate' error={error.srdate} onChange={inputHandler} />
+                                                            <InputField FormType={'date'} FormLabel={"Service Date"} FormPlaceHolder={"Select Service Date"} name='srdate' error={error.srdate} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={6}>
-                                                            <InputField FormType={'date'} FormLabel={"Replacement Date"} FormPlaceHolder={"Replacement Date"} name='rpdate' error={error.rpdate} onChange={inputHandler} />
+                                                            <InputField FormType={'date'} FormLabel={"Replacement Date"} FormPlaceHolder={"Select Replacement Date"} name='rpdate' error={error.rpdate} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={6}>
-                                                            <InputField FormType={'text'} FormLabel={"Item Cost"} FormPlaceHolder={"Item Cost"} name='cost' error={error.cost} onChange={inputHandler} />
+                                                            <InputField FormType={'text'} FormLabel={"Cost"} FormPlaceHolder={"Enter Item Cost"} name='cost' error={error.cost} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={6}>
                                                             <Select FormLabel='Status' FormPlaceHolder='Status' Array={statusArray} name='status' error={error.status} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={12}>
-                                                            <Textareanew FormType={'text'} FormLabel={"Apparatus Description"} FormPlaceHolder={"Apparatus Description"} error={error.description} name='description' onChange={inputHandler} />
+                                                            <Textareanew FormType={'text'} FormLabel={"Description"} FormPlaceHolder={"Enter Apparatus Description"} error={error.description} name='description' onChange={inputHandler} />
                                                         </Col>
                                                         {/* {fields.map((field, index) => (
                                                         <Col md={6} key={index}>

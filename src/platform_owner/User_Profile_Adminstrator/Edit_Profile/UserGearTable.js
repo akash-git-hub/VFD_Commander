@@ -1,25 +1,26 @@
 import React from 'react';
 import {  Table } from 'react-bootstrap';
 import { TablePagination } from '../../../components/TablePagination';
+import moment from 'moment';
 
 export const UserGearTable = ({grdata=[]}) => {
   return (
     <>
-      <div className='MainTable my-md-4'>
-        <Table responsive>
+      <div className='MainTable'>
+        <Table responsive className="table table-hover">
           <thead>
             <tr>
-              <th>Gear Type</th>
-              <th>Issue Date</th>
-              <th>Replacement Date</th>
+              <th>GEAR TYPE</th>
+              <th>ISSUE DATE</th>
+              <th>REPLACEMENT DATE</th>
             </tr>
           </thead>
           <tbody>
             {grdata && grdata.map((e, index) => (
               <tr key={index}>
                 <td>{e.gear_id && e.gear_id.gear_item_name}</td>
-                <td>{e.issue_date}</td>  
-                <td>{e.replacement_date}</td>                
+                <td>{moment.unix(e.issue_date).format("MM-DD-YYYY")}</td>  
+                <td>{moment.unix(e.replacement_date).format("MM-DD-YYYY")}</td>                
               </tr>
             ))}
           </tbody>

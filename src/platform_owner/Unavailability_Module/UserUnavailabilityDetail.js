@@ -18,7 +18,7 @@ export const UserUnavailabilityDetail = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Unavailability Module"} />
+                            <Headings MainHeading={"Unavailability"} />
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={"home"}

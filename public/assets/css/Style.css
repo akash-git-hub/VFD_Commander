@@ -42,7 +42,9 @@
 
 table.table th {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
+  color: black;
+  text-transform: uppercase;
 }
 
 .active > .page-link,
@@ -100,6 +102,7 @@ img.Avatar_img.rounded {
   background: #0000002e;
   position: fixed;
   width: 100%;
+  z-index: 999!important;
 }
 
 .bg-white {
@@ -214,3 +217,21 @@ a.page-link.currentPage {
   padding: 1.5rem;
   border-radius: 10px;
 }
+.RoleAdminstrator{
+  padding-top: 10px !important;
+}
+.InventoryList{
+  padding-top: 10px !important;
+}
+.UnavailabilityModule{
+  padding-top: 10px !important;
+}
+.AccountModulePage{
+  padding-top: 10px !important;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+

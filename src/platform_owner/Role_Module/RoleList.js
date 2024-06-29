@@ -22,12 +22,12 @@ export const RoleList = () => {
             const mydata = [];
             findata.map((e) => {
                 const modules = [];
-                if (e.User_Profile_Module) { modules.push('User_Profile_Module'); }
-                if (e.Training_Module) { modules.push('Training_Module'); }
-                if (e.Inventory_Module) { modules.push('Inventory_Module'); }
-                if (e.Availability_Module) { modules.push('Availability_Module'); }
-                if (e.Qualification_Module) { modules.push('Qualification_Module'); }
-                if (e.Reporting_Module) { modules.push('Reporting_Module'); }
+                if (e.User_Profile_Module) { modules.push('User Profile'); }
+                if (e.Training_Module) { modules.push('Training'); }
+                if (e.Inventory_Module) { modules.push('Inventory'); }
+                if (e.Availability_Module) { modules.push('Availability'); }
+                if (e.Qualification_Module) { modules.push('Qualifications'); }
+                if (e.Reporting_Module) { modules.push('Reporting'); }
                 const modulesString = modules.join(', ');
                 mydata.push({ name: e.role, modules: modulesString ,fulldata:e});
             });
@@ -47,14 +47,14 @@ export const RoleList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Role Module"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Role"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Role"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
                                     activeKey={"home"}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="home" title="Role Administration">
+                                    <Tab eventKey="home" title="Role info ">
                                         <RoleAdminstratorTable rolldata={rolldata} pagination={pagination} pageHanlder={pageHanlder} />
                                     </Tab>
                                 </Tabs>

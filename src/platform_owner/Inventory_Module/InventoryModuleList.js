@@ -38,10 +38,10 @@ export const InventoryModuleList = () => {
                         </Col>
                         <Col md={9}>
                             {key === "gear" &&
-                                < Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/CreateGear")} BtnLabel={"Create Gear Information"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                                < Headings MainHeading={"Inventory"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/CreateGear")} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             }
                             {key === "apparatus" &&
-                                < Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/CreateApparatus")} BtnLabel={"Create Apparatus Information"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                                < Headings MainHeading={"Inventory"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/CreateApparatus")} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             }
                            
                             <div className='my-md-4'>
@@ -51,10 +51,10 @@ export const InventoryModuleList = () => {
                                     onSelect={(k) => setKey(k)}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="gear" title="Gear Information">
+                                    <Tab eventKey="gear" title="Gear Info">
                                         <GearList setLoder={setLoder} />
                                     </Tab>
-                                    <Tab eventKey="apparatus" title="Apparatus Information">
+                                    <Tab eventKey="apparatus" title="Apparatus Info">
                                         <ApparatusList setLoder={setLoder} />
                                     </Tab>
                                   

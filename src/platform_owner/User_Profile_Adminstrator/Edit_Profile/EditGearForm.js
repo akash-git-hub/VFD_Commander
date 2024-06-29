@@ -124,9 +124,7 @@ export const EditGearForm = ({ pre, setLoder, setKey, getgr,grdata }) => {
                             </Col>
                         </Row>
                     </Form>
-
-                    <Row className='mt-5'><hr /></Row>
-                    
+                    <Row className='mt-5'><hr /></Row>                    
                     <UserGearTable grdata={grdata} />
                 </Container>
             </div>

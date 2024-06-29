@@ -105,9 +105,9 @@ export const GearInformationForm = () => {
                         </Col>
                         <Col md={9}>
                             {key === "geartype" ?
-                                < Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/createGeareType")} BtnLabel={"Create Gear Type"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                                < Headings MainHeading={"Inventory"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/createGeareType")} BtnLabel={"Create Gear Type"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                                 :
-                                <Headings MainHeading={"Inventory Module"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                                <Headings MainHeading={"Inventory"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             }
                             <div className='my-md-4'>
                                 <Tabs

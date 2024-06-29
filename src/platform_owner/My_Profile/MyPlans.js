@@ -25,8 +25,8 @@ export const MyPlans = ({ plan = [] }) => {
                                         <Stack direction='horizontal' gap={2} style={{
                                             justifyContent: 'space-between'
                                         }}>
-                                            <h6>{moment.unix(e.start_date).format('DD-MMM-YYYY')}</h6>
-                                            <h6>{moment.unix(e.end_date).format('DD-MMM-YYYY')}</h6>
+                                            <h6>{moment.unix(e.start_date).format('MM-DD-YYYY')}</h6>
+                                            <h6>{moment.unix(e.end_date).format('MM-DD-YYYY')}</h6>
                                         </Stack>
                                         <Stack direction='horizontal' gap={2}>
                                             <h4>INR {e.pricing} <sup style={{

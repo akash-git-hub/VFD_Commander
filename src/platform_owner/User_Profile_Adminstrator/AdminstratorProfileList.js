@@ -101,14 +101,14 @@ export const AdminstratorProfileList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"User Profile Module"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create User Profile"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"User Profile"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
 
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={"home"}
                                 className="my-4"
                             >
-                                <Tab eventKey="home" title="User Profile Administration">
+                                <Tab eventKey="home" title="User Info">
                                     <SearchPanel  StartIcon={<IoSearch />} FormPlaceHolder={"Search by Name"} onChange={searchandler}/>
                                     <AdminstratorTableList pagination={pagination} maindata={maindata} actionHandler={actionHandler} pageHanlder={pageHanlder} />
                                 </Tab>

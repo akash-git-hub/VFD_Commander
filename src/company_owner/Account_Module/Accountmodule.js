@@ -19,8 +19,8 @@ export const Accountmodule = () => {
     const [pagination, setPagination] = useState()
 
 
-    const get_account_list = async (page) => {
-        const resp = await getAccount_API({ "page": page });
+    const get_account_list = async (page,key) => {
+        const resp = await getAccount_API({ "page": page,"srkey":key });
         if (resp) {
             const data = resp.data;
             setMaindata(data);
@@ -49,24 +49,25 @@ export const Accountmodule = () => {
 
     const searchHanlder = (e) => {
         const key = e.target.value;
-        const filteredData = maindata.filter(item =>
-            item._id.toLowerCase().includes(key) ||
-            item.account_name.toLowerCase().includes(key) ||
-            item.first_name.toLowerCase().includes(key) ||
-            item.last_name.toLowerCase().includes(key)
-        );
-        const transformedData = filteredData.map(item => ({
-            accountName: item.account_name,
-            accountId: item._id,
-            accountOwnerId: item.email,
-            billingDate: item.renewal_date,
-            location: `${item.state} ${item.city}`,
-            subscription: item.subscription_amount,
-            mobileNo: item.mobile_no,
-            status: item.status,
-            data: item
-        }));
-        setAccount_data(transformedData);
+        get_account_list("",key);
+        // const filteredData = maindata.filter(item =>
+        //     item._id.toLowerCase().includes(key) ||
+        //     item.account_name.toLowerCase().includes(key) ||
+        //     item.first_name.toLowerCase().includes(key) ||
+        //     item.last_name.toLowerCase().includes(key)
+        // );
+        // const transformedData = filteredData.map(item => ({
+        //     accountName: item.account_name,
+        //     accountId: item._id,
+        //     accountOwnerId: item.email,
+        //     billingDate: item.renewal_date,
+        //     location: `${item.state} ${item.city}`,
+        //     subscription: item.subscription_amount,
+        //     mobileNo: item.mobile_no,
+        //     status: item.status,
+        //     data: item
+        // }));
+        // setAccount_data(transformedData);
     }
 
     const pageHanlder = (page) => {
@@ -76,14 +77,14 @@ export const Accountmodule = () => {
     return (
         <>
             <Loader show={loder} />
-            <div className='AccountModulePage'>
+            <div className='AccountModulePage AccountModulePage'>
                 <Container fluid>
                     <Row >
                         <Col md={3}>
                             <Cosidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Account Module"}  HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Account"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Accounts"}  HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}
@@ -91,9 +92,9 @@ export const Accountmodule = () => {
                                 className="mb-3 mt-3"
                             >
                                 <Tab eventKey="home" 
-                                // title="Overview"
+                                title="Information"
                                 >
-                                    <SearchPanel StartIcon={<IoSearchOutline />} FormPlaceHolder={"Search by name ..."} FormType={"search"} onChange={searchHanlder} />
+                                    <SearchPanel StartIcon={<IoSearchOutline />} FormPlaceHolder={"Search by first name, last name, or email.."} FormType={"search"} onChange={searchHanlder} />
                                     <AccountModuleTable setLoder={setLoder} mydata={account_data} pagination={pagination} pageHanlder={pageHanlder} />
                                 </Tab>
                             </Tabs>

@@ -26,13 +26,13 @@ export const ApparatusList = ({ setLoder }) => {
             <div className='ApparatusList'>
                 <Container>
                 <div className='MainTable'>
-                        <Table responsive>
+                        <Table responsive className="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Aparatus Name</th>
-                                    <th>Aparatus Type</th>                                   
+                                    <th>Name</th>
+                                    <th>Type</th>                                   
                                     <th>Service Date</th>
-                                    <th>Replace Date</th>
+                                    <th>Replacement Date</th>
                                     <th>Cost</th>                                   
                                     <th>Description</th>
                                     <th>Action</th>

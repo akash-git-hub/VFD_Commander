@@ -59,7 +59,7 @@ export const EditProfileAdminstrator = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Profile Administration"} HeadButton={<SharedButton BtnLabel={"Back"} onClick={() => window.history.back()} BtnVariant={'primary'} />} />
+                            <Headings MainHeading={"User Profile"} HeadButton={<SharedButton BtnLabel={"Back"} onClick={() => window.history.back()} BtnVariant={'primary'} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
@@ -67,10 +67,10 @@ export const EditProfileAdminstrator = () => {
                                     onSelect={(k) => setKey(k)}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="home" title="User Profile Module">
+                                    <Tab eventKey="home" title="User Info ">
                                         <EditAdminstratorForm pre={pre} setLoder={setLoder} grdata={grdata} quadata={quadata}/>
                                     </Tab>
-                                    <Tab eventKey="quali" title="Qualifications" >
+                                    <Tab eventKey="quali" title="Qualification Info" >
                                         <UserQuilification pre={pre} setLoder={setLoder} setKey={setKey} quadata={quadata} getqua={getqua} />
                                         
                                     </Tab>

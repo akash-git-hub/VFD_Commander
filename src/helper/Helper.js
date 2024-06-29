@@ -18,4 +18,9 @@ export const statusArray = [
   { name: "InActive", value: "Inactive" }
 ]
 
+export const timeFormateArray = [
+  { name: '12-Hours', "value": 'hh:mm:ss A' },
+  { name: '24-Hours', "value": 'HH:mm:ss' }
+]
+
 

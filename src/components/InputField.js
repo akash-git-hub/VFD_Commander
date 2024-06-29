@@ -21,11 +21,11 @@ export const InputField = ({
     const [startDate, setStartDate] = useState();
 
     useEffect(()=>{
-        if(FormType === 'date'){
+        if(FormType === 'date' && value !=""){
             const momentObj = moment.unix(value).format("ddd MMM DD YYYY HH:mm:ss");
             setStartDate(momentObj);
         }
-    },[FormType]);
+    },[FormType,value]);
 
 
     const handleDateChange = (date) => {

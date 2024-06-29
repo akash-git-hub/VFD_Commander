@@ -20,16 +20,16 @@ export const CreateRole = ({ setLoder }) => {
     });
 
     const moduleList = [
-        { id: 5, name: 'User Profile Module',value:"User_Profile_Module" },
-        { id: 4, name: 'Training Module',value:"Training_Module" },
-        { id: 1, name: 'Inventory Module',value:"Inventory_Module" },
-        { id: 2, name: 'Availability Module',value:"Availability_Module" },
-        { id: 3, name: 'Qualification Module',value:"Qualification_Module" }, 
-        { id: 6, name: 'Reporting Module',value:"Reporting_Module" },
+        { id: 5, name: 'User Profile',value:"User_Profile_Module" },
+        { id: 4, name: 'Training',value:"Training_Module" },
+        { id: 1, name: 'Inventory',value:"Inventory_Module" },
+        { id: 2, name: 'Availability',value:"Availability_Module" },
+        { id: 3, name: 'Qualification',value:"Qualification_Module" }, 
+        { id: 6, name: 'Reporting',value:"Reporting_Module" },
     ]
 
     const createHandler = async () => {
-        if (fdata && !fdata.role) { errorAlert("Please Enter Roll"); return null; }
+        if (fdata && !fdata.role) { errorAlert("Please Enter Role"); return null; }
         setLoder(true)
         const datas = {
             "role": fdata.role,

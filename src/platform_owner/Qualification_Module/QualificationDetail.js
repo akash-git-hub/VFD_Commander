@@ -43,7 +43,7 @@ export const QualificationDetail = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Qualifications Module"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Qualifications"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
@@ -51,7 +51,7 @@ export const QualificationDetail = () => {
                                     onSelect={(k) => setKey(k)}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="gear" title="Qualifications Data Elements">
+                                    <Tab eventKey="gear" title="Qualification Info">
                                         <QualificationListDetail predata={predata} />
                                     </Tab>
                                 </Tabs>

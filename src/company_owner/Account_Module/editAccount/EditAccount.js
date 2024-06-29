@@ -23,14 +23,14 @@ export const EditAccount = () => {
     return (
         <>
           <Loader show={loder} />
-            <div className='CreateAccount'>
+            <div className='CreateAccount AccountModulePage'>
                 <Container fluid>
                     <Row>
                         <Col md={3}>
                             <Cosidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Edit Account"} SubHeading={"Update Your Account"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Accounts"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
 
                             <Tabs
                                 id="controlled-tab-example"
@@ -38,7 +38,7 @@ export const EditAccount = () => {
                                 onSelect={(k) => setKey(k)}
                                 className="mb-3"
                             >
-                                <Tab eventKey="home" title="Edit Account">
+                                <Tab eventKey="home" title="Information">
                                     <EditForm mydata={data} setLoder={setLoder} />
                                 </Tab>
                             </Tabs>

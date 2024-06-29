@@ -25,14 +25,14 @@ export const RoleListDetail = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Role Module"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Role"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
                                     activeKey={'id'}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="id" title="Role Detail">
+                                    <Tab eventKey="id" title="Role Info">
                                         <RoleFullDetails setLoder={setLoder} />
                                     </Tab>
                                 </Tabs>

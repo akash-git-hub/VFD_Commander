@@ -18,14 +18,12 @@ export const UnavailabilityTableList = () => {
     <>
       <SearchPanel FormPlaceHolder={"Search by user name"}/>
       <div className='MainTable'>
-        <Table responsive>
+        <Table responsive className="table table-hover">
           <thead>
             <tr>
               <th>USER NAME</th>
               <th>ROLE</th>
-              <th style={{
-                textAlign: 'right'
-              }}>STATUS</th>
+              <th style={{ textAlign: 'right' }}>Action</th>
             </tr>
           </thead>
           <tbody>

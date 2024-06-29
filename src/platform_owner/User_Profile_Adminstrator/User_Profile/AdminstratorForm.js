@@ -154,7 +154,7 @@ export const AdminstratorForm = ({ setLoder }) => {
                         <Row>
                             <Col md={2}>
                                 <UploadFile
-                                    FormLabel="Upload Profile"
+                                    FormLabel="Upload"
                                     name="image"
                                     controlId="formProfilePic"
                                     onChange={imageHanlder}
@@ -163,16 +163,16 @@ export const AdminstratorForm = ({ setLoder }) => {
                         </Row>
                         <Row className='mb-2'>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"First Name"} onChange={inputHandler} error={error.first_name} name='first_name' FormPlaceHolder={"Jenny"} />
+                                <InputField FormType={'text'} FormLabel={"First Name"} onChange={inputHandler} error={error.first_name} name='first_name' />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Last Name"} onChange={inputHandler} error={error.last_name} name='last_name' FormPlaceHolder={"Wilson"} />
+                                <InputField FormType={'text'} FormLabel={"Last Name"} onChange={inputHandler} error={error.last_name} name='last_name' />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'email'} FormLabel={"Email"} onChange={inputHandler} error={error.email} name='email' FormPlaceHolder={"example@gmail.com"} />
+                                <InputField FormType={'email'} FormLabel={"Email"} onChange={inputHandler} error={error.email} name='email' />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'tel'} FormLabel={"Phone No"} max='10' onChange={inputHandler} error={error.phone_no} name='phone_no' FormPlaceHolder={"8989898989"} />
+                                <InputField FormType={'tel'} FormLabel={"Phone No"} max='10' onChange={inputHandler} error={error.phone_no} name='phone_no' />
                             </Col>
                             <Col md={4}>
                                 <InputField FormType={'date'}
@@ -198,27 +198,27 @@ export const AdminstratorForm = ({ setLoder }) => {
                                 {/* <Select FormLabel='Position' FormPlaceHolder='Software Employee' /> */}
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Address 1"} onChange={inputHandler} error={error.address_1} name='address_1' FormPlaceHolder={"scheme 24 - Vijay Nagar"} />
+                                <InputField FormType={'text'} FormLabel={"Address 1"} onChange={inputHandler} error={error.address_1} name='address_1' />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Address 2"} onChange={inputHandler} error={error.address_2} name='address_2' FormPlaceHolder={"scheme 24 - Vijay Nagar"} />
+                                <InputField FormType={'text'} FormLabel={"Address 2"} onChange={inputHandler} error={error.address_2} name='address_2'  />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"State"} onChange={inputHandler} error={error.state} name='state' FormPlaceHolder={"Madhya Pradesh"} />
+                                <InputField FormType={'text'} FormLabel={"State"} onChange={inputHandler} error={error.state} name='state'  />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"City"} onChange={inputHandler} error={error.city} name='city' FormPlaceHolder={"Indore"} />
+                                <InputField FormType={'text'} FormLabel={"City"} onChange={inputHandler} error={error.city} name='city' />
                             </Col>
                           
                             <Col md={4}>
-                                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={6} onChange={inputHandler} error={error.zip_code} name='zip_code' FormPlaceHolder={"452001"} />
+                                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={6} onChange={inputHandler} error={error.zip_code} name='zip_code' />
                             </Col>
                          
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Emergency Contact Name"} onChange={inputHandler} error={error.emergency_contact_name} name='emergency_contact_name' FormPlaceHolder={"Contact Name"} />
+                                <InputField FormType={'text'} FormLabel={"Emergency Contact Name"} onChange={inputHandler} error={error.emergency_contact_name} name='emergency_contact_name' />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'tel'} FormLabel={"Emergency Contact Number"} max='10' onChange={inputHandler} error={error.emergency_contact_number} name="emergency_contact_number" FormPlaceHolder={"Contact Number"} />
+                                <InputField FormType={'tel'} FormLabel={"Emergency Contact Number"} max='10' onChange={inputHandler} error={error.emergency_contact_number} name="emergency_contact_number" />
                             </Col>
                             <Col md={4}>
                                 <Select FormLabel='Status' Array={statusArray} FormPlaceHolder='Status' onChange={inputHandler} error={error.status} name='status' />

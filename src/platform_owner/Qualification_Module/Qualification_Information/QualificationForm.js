@@ -80,13 +80,13 @@ export const QualificationForm = ({ setLoder }) => {
                     <Form onSubmit={submitHandler}>
                         <Row>
                             <Col md={6} className='mb-2'>
-                                <InputField FormType={'text'} FormLabel={"Qualification Name"} FormPlaceHolder={"Qualification Name"} name='name' error={error.name} onChange={inputHandler} />
+                                <InputField FormType={'text'} FormLabel={"Name"} FormPlaceHolder={"Enter Qualification Name"} name='name' error={error.name} onChange={inputHandler} />
                             </Col>
                             <Col md={6} className='mb-2'>
-                                <InputField FormType={'text'} FormLabel={"Qualification Type"} FormPlaceHolder={"Enter Qualification Type"} name='type' error={error.type} onChange={inputHandler} />
+                                <InputField FormType={'text'} FormLabel={"Type"} FormPlaceHolder={"Enter Qualification Type"} name='type' error={error.type} onChange={inputHandler} />
                             </Col>
                             <Col md={12}>
-                                <Textareanew FormLabel='Description' name='description' error={error.description} onChange={inputHandler} />
+                                <Textareanew FormLabel='Description' name='description' FormPlaceHolder={"Enter Qualification Description"} error={error.description} onChange={inputHandler} />
                             </Col>
                         </Row>
                         <Row className='mb-2'>

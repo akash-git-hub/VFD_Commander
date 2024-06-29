@@ -34,7 +34,7 @@ export const GearTypeTable = ({ setLoder }) => {
     return (
         <>
             <div className='MainTable'>
-                <Table responsive>
+                <Table responsive className="table table-hover">
                     <thead>
                         <tr>
                             <th>Gear Type</th>

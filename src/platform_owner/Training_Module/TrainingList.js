@@ -45,7 +45,7 @@ export const TrainingList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Training Module"} HeadButton={<SharedButton BtnLabel={"Create Training "} BtnVariant={'primary'} onClick={handleNavigation} />} />
+                            <Headings MainHeading={"Training"} HeadButton={<SharedButton BtnLabel={"Create "} BtnVariant={'primary'} onClick={handleNavigation} />} />
                                 {/* {key == "home" ?
                                     <SearchPanel StartIcon={<IoSearch />} FormPlaceHolder={"Search by Name"} />
                                     :
@@ -59,10 +59,10 @@ export const TrainingList = () => {
                                     onSelect={(k) => setKey(k)}
                                     className="my-4"
                                 >
-                                    <Tab eventKey="home" title="Training List">
+                                    <Tab eventKey="home" title="Training Info">
                                         <ListView  trdata={trdata}/>
                                     </Tab>
-                                    <Tab eventKey="tracking" title="Track Trainee">
+                                    <Tab eventKey="tracking" title="Tracking">
                                         <TrackTraining />
                                     </Tab>
                                 </Tabs>

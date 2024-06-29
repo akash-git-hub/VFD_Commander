@@ -24,13 +24,13 @@ export const Training = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Training Module"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Training"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={"home"}
                                 className="my-4"
                             >
-                                <Tab eventKey="home" title="Create Training">
+                                <Tab eventKey="home" title="Training Info">
                                     <TrainingForm setLoder={setLoder} />
                                 </Tab>
                             </Tabs>

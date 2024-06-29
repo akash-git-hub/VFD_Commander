@@ -12,24 +12,23 @@ export const CreatePlan = () => {
   return (
     <>
      <Loader show={loder} />
-      <div className='CreateSubscription'>
+      <div className='CreateSubscription AccountModulePage'>
         <Container fluid>
           <Row>
             <Col md={3}>
               <Cosidebar />
             </Col>
             <Col md={9}>
-            <Headings MainHeading={"Subscription Plan"} 
-            // SubHeading={"Creating A New Subscription Plan"}
+            <Headings MainHeading={"Subscriptions"} 
              HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
-              {/* <Headings MainHeading={"Subscription Plan"} SubHeading={"Creating A New Subscription Plan"} /> */}
+            
               <Tabs
                 id="controlled-tab-example"
                 activeKey={key}
                 onSelect={(k) => setKey(k)}
                 className="mb-3"
               >
-                <Tab eventKey="home" title="Create a Plan">
+                <Tab eventKey="home" title="Information">
                   <SubscriptionForm setLoder={setLoder} />
                 </Tab>
               </Tabs>

@@ -4,6 +4,7 @@ import { InputField } from '../../components/InputField';
 import { SharedButton } from '../../components/Button';
 import { AddFieldModal } from '../../commonpages/AddFieldModal';
 import { UploadFile } from '../../components/UploadFile';
+import moment from 'moment';
 
 
 export const ProfileForm = ({ usedata }) => {
@@ -165,7 +166,7 @@ export const ProfileForm = ({ usedata }) => {
                             </Col>
                             <Col md={4} className='mb-2'>
                                 <h6>Renewal Date</h6>
-                                <p>{usedata && usedata.renewal_date}</p>
+                                <p>{usedata && moment.unix(usedata.renewal_date).format("MM-DD-YYYY")}</p>
                             </Col>
                             <Col md={4} className='mb-2'>
                                 <h6>Billing Address 1</h6>

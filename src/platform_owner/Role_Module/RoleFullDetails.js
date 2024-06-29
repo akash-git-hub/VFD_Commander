@@ -69,7 +69,7 @@ export default function RoleFullDetails({ setLoder }) {
 
 
     const updateHandler = async () => {
-        if (fdata && !fdata.role) { errorAlert("Please Enter Roll"); return null; }
+        if (fdata && !fdata.role) { errorAlert("Please Enter Role"); return null; }
         setLoder(true);
         const upm_value = moduleList.find((e) => e.value === 'User_Profile_Module').ischek;
         const tm_value = moduleList.find((e) => e.value === 'Training_Module').ischek;

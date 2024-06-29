@@ -12,10 +12,10 @@ export const RoleAdminstratorTable = ({ rolldata, pagination, pageHanlder }) => 
     return (
         <>
             <div className='MainTable'>
-                <Table responsive>
+                <Table responsive className="table table-hover">
                     <thead>
                         <tr>
-                            <th>ROLE NAME</th>
+                            <th>NAME</th>
                             <th>MODULES</th>
                             <th>ACTION</th>
                         </tr>

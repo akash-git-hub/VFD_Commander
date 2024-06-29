@@ -52,10 +52,10 @@ export const Cosidebar = () => {
                         padding: 0
                     }}>
                         <Stack direction='vertical' gap={3}>
-                            <li className={host === "/accountmodule" || host === "/createaccount" ? "active" : ""} style={{
+                            <li className={host === "/accountmodule" || host === "/accountdetail" || host === "/createaccount" ? "active" : ""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<TfiPieChart />} LinkLabel={'Account Module'} LinkPath={'/accountmodule'} />
+                                <LinkSidebar LinkIcon={<TfiPieChart />} LinkLabel={'Accounts'} LinkPath={'/accountmodule'} />
                             </li>
                             <li className={host === "/#" ? "active" : ""} style={{
                                 padding: '10px',

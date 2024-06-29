@@ -52,7 +52,7 @@ export const MyProfile = () => {
                                     onSelect={(k) => setKey(k)}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="home" title="User Profile Module">
+                                    <Tab eventKey="home" title="Information">
                                         <ProfileForm usedata={usedata} />
                                     </Tab>
                                     <Tab eventKey="quali" title="Subscriptions">

@@ -18,11 +18,11 @@ export const QualificationListTable = ({ trdata }) => {
             <div className='TrainingViewList'>
                 <Container>
                     <div className='MainTable'>
-                        <Table responsive>
+                        <Table responsive className="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>QUALIFICATION NAME</th>
-                                    <th>QUALIFICATION TYPE</th>
+                                    <th>NAME</th>
+                                    <th>TYPE</th>
                                     <th>DESCRIPTION</th>
                                     <th>ACTION</th>
                                 </tr>

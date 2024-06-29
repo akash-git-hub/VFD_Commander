@@ -135,13 +135,13 @@ export default function QualificationListDetail() {
                                                 </Row>
                                                 <Row className='mb-2'>
                                                     <Col md={12}>
-                                                        <InputField FormType={'text'} FormLabel={"Qualification Name"} onChange={inputHandler} error={error.trname} value={indata.trname} name='trname' />
+                                                        <InputField FormType={'text'} FormLabel={"Name"} FormPlaceHolder={"Enter Qualification Name"} onChange={inputHandler} error={error.trname} value={indata.trname} name='trname' />
                                                     </Col>
                                                     <Col md={12}>
-                                                        <InputField FormType={'text'} FormLabel={"Qualification Type"} onChange={inputHandler} error={error.type} value={indata.type} name='type' />
+                                                        <InputField FormType={'text'} FormLabel={"Type"} FormPlaceHolder={"Enter Qualification Type"} onChange={inputHandler} error={error.type} value={indata.type} name='type' />
                                                     </Col>
                                                     <Col md={12}>
-                                                        <Textareanew FormType={'text'} rows={4} FormLabel={"Description"} onChange={inputHandler} error={error.description} value={indata.description} name='description' />
+                                                        <Textareanew FormType={'text'} rows={4} FormLabel={"Description"} FormPlaceHolder={"Enter Qualification Description"} onChange={inputHandler} error={error.description} value={indata.description} name='description' />
                                                     </Col>
                                                     {indata && indata.add_field && (indata.add_field).map((e, i) => (
                                                         <Col md={12} key={i}>
@@ -180,11 +180,11 @@ export default function QualificationListDetail() {
                                             </Row>
                                             <Row className='mb-2'>
                                                 <Col md={12}>
-                                                    <h6>Qualification Name</h6>
+                                                    <h6>Name</h6>
                                                     <p>{indata.trname}</p>
                                                 </Col>
                                                 <Col md={12}>
-                                                    <h6>Qualification Type</h6>
+                                                    <h6>Type</h6>
                                                     <p>{indata.type}</p>
                                                 </Col>
                                                 <Col md={12}>

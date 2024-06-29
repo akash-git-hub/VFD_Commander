@@ -11,7 +11,8 @@ export const Loader = ({show=false}) => {
                     <Row style={{
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height:'100vh'
+                        height:'100vh',
+                        zIndex:9999
                     }}>
                         <Col md={2} className='text-center'>
                             <Spinner animation="border" size="lg" />

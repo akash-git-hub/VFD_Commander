@@ -14,13 +14,13 @@ export const UnavailabilityModule = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Unavailability Module"} />
+                            <Headings MainHeading={"Unavailability"} />
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={"home"}
                                 className="my-4"
                             >
-                                <Tab eventKey="home" title="User List">
+                                <Tab eventKey="home" title="Information">
                                     <UnavailabilityTableList />
                                 </Tab>
                             </Tabs>
