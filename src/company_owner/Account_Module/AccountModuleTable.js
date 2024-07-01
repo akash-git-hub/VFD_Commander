@@ -24,7 +24,7 @@ export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) =
     return (
         <>
             <div className='MainTable' >
-                <Table responsive  style={{minHeight:"200px"}} className="table table-hover">
+                <Table responsive  className="table table-hover">
                     <thead>
                         <tr>
                             <th>ACCOUNT NAME</th>

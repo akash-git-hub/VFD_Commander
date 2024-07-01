@@ -9,7 +9,7 @@ export const Plans = ({ planList }) => {
                 <Container>
                     <Row>
                         {planList && planList.length > 0 && planList.map((e,i) => (
-                            <Col md={6} key={i}  className='mb-3'>
+                            <Col md={12} key={i}  className='mb-3'>
                                 <div className='Plans'>
                                     <Stack direction='vertical' gap={2}>
                                         <Stack direction='horizontal' gap={2} style={{
