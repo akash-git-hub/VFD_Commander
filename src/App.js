@@ -36,6 +36,8 @@ import { QualificationDetail } from './platform_owner/Qualification_Module/Quali
 import { RoleListDetail } from './platform_owner/Role_Module/RoleListDetail';
 import GearInfoDetails from './platform_owner/Inventory_Module/Gear_Information/GearInfoDetails';
 import ApparatusInfoDetails from './platform_owner/Inventory_Module/Gear_Information/ApparatusInfoDetails';
+import { Messages } from './platform_owner/Messaging/Messages';
+import { Notification } from './company_owner/Notifications/Notification';
 
 const Mycontext = createContext();
 
@@ -64,6 +66,7 @@ function App() {
               <Route path="/accountdetail" element={<Accountdetails />} />
               <Route path="/createaccount" element={<CreateAccountPage />} />
               <Route path="/editaccount" element={<EditAccount />} />
+              <Route path="/notifications" element={<Notification />} />
               <Route path="/subscriptionplan" element={<CreatePlan />} />
               <Route path="/subscriptionview" element={<ListViewPlan />} />
             </Route>
@@ -88,6 +91,7 @@ function App() {
               <Route path='/TraningListDetail' element={<TraningListDetail />} />
               <Route path='/GearListDetail' element={<GearListDetail />} />
 
+              <Route path="/messages" element={<Messages />} />
               <Route path="/inventorymodulelist" element={<InventoryModuleList />} />
               <Route path="/unavailability" element={<UnavailabilityModule />} />
               <Route path="/userunavailability" element={<UserUnavailabilityDetail />} />
