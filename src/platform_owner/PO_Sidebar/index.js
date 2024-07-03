@@ -57,10 +57,10 @@ export const PoSidebar = () => {
                             }}>
                                 <LinkSidebar LinkIcon={<Image src='./assets/images/Text.svg' />} LinkLabel={'Training'} LinkPath={'/traininglist'} />
                             </li>
-                            <li style={{
+                            <li className={pathname === "/messages" ? 'active' : ""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/Message.svg' />} LinkLabel={'Messaging'} LinkPath={'#'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Message.svg' />} LinkLabel={'Messaging'} LinkPath={'/messages'} />
                             </li>
                             <li className={pathname === "/inventorymodulelist" || pathname === "/apparatusInfoDetails" || pathname === "/createGeareType" || pathname === "/gearinfo" || pathname === "/CreateGear" || pathname === "/CreateApparatus" || pathname === "/GearListDetail" ? 'active' : ""} style={{
                                 padding: '10px'
