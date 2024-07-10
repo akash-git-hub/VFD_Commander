@@ -29,7 +29,7 @@ export const MyPlans = ({ plan = [] }) => {
                                             <h6>{moment.unix(e.end_date).format('MM-DD-YYYY')}</h6>
                                         </Stack>
                                         <Stack direction='horizontal' gap={2}>
-                                            <h4>INR {e.pricing} <sup style={{
+                                            <h4>$ {e.pricing} <sup style={{
                                                 color: 'green'
                                             }}>{e.billing_interval}</sup></h4>
                                         </Stack>

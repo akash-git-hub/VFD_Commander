@@ -106,6 +106,22 @@ export const getAccount_API = async (page) => {
     }
 }
 
+export const unavailableUsers_API = async (page) => {
+    try {
+        const resp = await http.get("/unavailableUsers", { params: page });
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
 export const getAccount_by_id_API = async (data) => {
     try {
         const resp = await http.post("/getAccountByID",data);

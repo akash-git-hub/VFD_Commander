@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
+import {  HashRouter, Route, Routes } from 'react-router-dom';
 import { Login } from './commonpages/Login';
 import { CreateAccountPage } from './company_owner/Account_Module/createAccount/CreateAccountPage';
 import { EditAccount } from './company_owner/Account_Module/editAccount/EditAccount';
@@ -23,7 +23,7 @@ import { QualificationModuleList } from './platform_owner/Qualification_Module/Q
 import { MyProfile } from './platform_owner/My_Profile/MyProfile';
 import ClientAuth from './api_services/ClientAuth';
 import { EditProfileAdminstrator } from './platform_owner/User_Profile_Adminstrator/Edit_Profile/EditProfileAdminstrator';
-import { TrainingDetail } from './platform_owner/Training_Module/TrainingDetail';
+
 import { UserTrainingDetail } from './platform_owner/Training_Module/UserTrainingDetail';
 import { UserUnavailabilityDetail } from './platform_owner/Unavailability_Module/UserUnavailabilityDetail';
 import { GearInformationForm } from './platform_owner/Inventory_Module/Gear_Information/GearInformationForm';
@@ -31,7 +31,6 @@ import { ApparatusInformationForm } from './platform_owner/Inventory_Module/Appa
 import { CreateGareType } from './platform_owner/Inventory_Module/Gear_Information/CreateGareType';
 import TraningListDetail from './platform_owner/Training_Module/TraningListDetail';
 import GearListDetail from './platform_owner/Inventory_Module/Gear_Information/GearListDetail';
-import { QualificationListDetail } from './platform_owner/Qualification_Module/QualificationListDetail';
 import { QualificationDetail } from './platform_owner/Qualification_Module/QualificationDetail';
 import { RoleListDetail } from './platform_owner/Role_Module/RoleListDetail';
 import GearInfoDetails from './platform_owner/Inventory_Module/Gear_Information/GearInfoDetails';

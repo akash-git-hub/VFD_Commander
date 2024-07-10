@@ -234,4 +234,11 @@ a.page-link.currentPage {
   display: none;
 }
 
+.highlighted-date {
+  background-color: #0d8340 !important;
+  /* Use your preferred highlight color */
+  color: white !important;
+  border-radius: 16px;
+}
+
 

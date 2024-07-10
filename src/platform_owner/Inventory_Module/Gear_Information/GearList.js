@@ -46,7 +46,7 @@ export const GearList = ({ setLoder }) => {
                                         <td>{account.gear_item_name}</td>
                                         <td>{account.gearttype_id && account.gearttype_id.name}</td>
                                         <td>{account.recevied_date && moment.unix(account.recevied_date).format('MM-DD-YYYY')}</td>
-                                        <td>{account.item_cost && account.item_cost}</td>
+                                        <td>$ {account.item_cost && account.item_cost}</td>
                                         <td style={{ maxWidth: "300px" }}>{account.description}</td>
                                         <td>     
                                         <Button variant="success" size="sm" className="me-2"

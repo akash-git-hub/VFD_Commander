@@ -7,7 +7,7 @@ const http = axios.create({
     headers: {
         "version": "1.0.0",
         "device_type": "browser",
-        "Timezone": currentTimeZone,
+        "timezone": currentTimeZone,
         "language": "en"
     }
 });

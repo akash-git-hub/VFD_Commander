@@ -232,7 +232,7 @@ export default function ApparatusInfoDetails() {
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
                                                                                 <h6>Cost</h6>
-                                                                                <p>{indata.cost}</p>
+                                                                                <p>$ {indata.cost}</p>
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
                                                                                 <h6>Status</h6>

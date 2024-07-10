@@ -46,7 +46,7 @@ export const ApparatusList = ({ setLoder }) => {
                                         <td>{account.apparatus_type && account.apparatus_type}</td>
                                         <td>{account.service_date && moment.unix(account.service_date).format('MM-DD-YYYY')}</td>
                                         <td>{account.replace_date && moment.unix(account.replace_date).format('MM-DD-YYYY')}</td>
-                                        <td>{account.cost && account.cost}</td>
+                                        <td>$ {account.cost && account.cost}</td>
                                         <td style={{ maxWidth: "300px" }}>{account.description}</td>
                                         <td>     <Button variant="success" size="sm" className="me-2"
                                             onClick={() => handleEditClick(account)}

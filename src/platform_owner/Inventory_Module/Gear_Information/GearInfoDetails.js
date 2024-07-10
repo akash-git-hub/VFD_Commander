@@ -228,7 +228,7 @@ export default function GearInfoDetails() {
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
                                                                                 <h6>Cost</h6>
-                                                                                <p>{indata.item_cost}</p>
+                                                                                <p>$ {indata.item_cost}</p>
                                                                             </Col>
                                                                             <Col md={12} className='mb-2'>
                                                                                 <h6>Description</h6>

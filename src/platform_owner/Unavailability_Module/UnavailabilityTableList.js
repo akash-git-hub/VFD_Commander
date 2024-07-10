@@ -4,19 +4,18 @@ import { TablePagination } from '../../components/TablePagination';
 import { useNavigate } from 'react-router-dom';
 import { SearchPanel } from '../../components/SearchPanel';
 
-const sampleData = [];
-  
 
-export const UnavailabilityTableList = () => {
+export const UnavailabilityTableList = ({ preData = [] }) => {
   const navigate = useNavigate();
 
-  const handleViewClick = () => {
-      navigate('/userunavailability');
+
+  const handleViewClick = (pre) => {
+    navigate('/userunavailability', { state: { data: pre } });
   }
 
   return (
     <>
-      <SearchPanel FormPlaceHolder={"Search by user name"}/>
+      <SearchPanel FormPlaceHolder={"Search by user name"} />
       <div className='MainTable'>
         <Table responsive className="table table-hover">
           <thead>
@@ -27,10 +26,10 @@ export const UnavailabilityTableList = () => {
             </tr>
           </thead>
           <tbody>
-            {sampleData.map((account, index) => (
+            {preData.length > 0 && preData.map((account, index) => (
               <tr key={index}>
-                <td>{account.firstName}</td>
-                <td>{account.lastName}</td>
+                <td>{account.first_name + " " + account.last_name}</td>
+                <td>{account.role_name}</td>
                 <td style={{
                   textAlign: 'right'
                 }}>
@@ -40,7 +39,7 @@ export const UnavailabilityTableList = () => {
                     borderColor: '#ECFDF5',
                     fontWeight: '500'
                   }}
-                    onClick={handleViewClick}
+                    onClick={() => handleViewClick(account)}
                   >View
                   </Button>
                 </td>
