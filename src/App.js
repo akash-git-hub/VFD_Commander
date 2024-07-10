@@ -37,6 +37,10 @@ import GearInfoDetails from './platform_owner/Inventory_Module/Gear_Information/
 import ApparatusInfoDetails from './platform_owner/Inventory_Module/Gear_Information/ApparatusInfoDetails';
 import { Messages } from './platform_owner/Messaging/Messages';
 import { Notification } from './company_owner/Notifications/Notification';
+import { GroupsListing } from './platform_owner/Groups/GroupsListing';
+import { GroupAdd } from './platform_owner/Groups/GroupAdd';
+import { GroupDetail } from './platform_owner/Groups/GroupDetail';
+import { AddMemberGroup } from './platform_owner/Groups/AddMemberGroup';
 
 const Mycontext = createContext();
 
@@ -97,6 +101,10 @@ function App() {
               <Route path="/qualificationlist" element={<QualificationModuleList />} />
               <Route path="/qualificationdetail" element={<QualificationDetail />} />
               <Route path="/myprofile" element={<MyProfile />} />
+              <Route path="/groupslist" element={<GroupsListing />} />
+              <Route path="/groupsadd" element={<GroupAdd />} />
+              <Route path="/groupsdetails" element={<GroupDetail />} />
+              <Route path="/addmember" element={<AddMemberGroup />} />
             </Route>
 
           </Routes>

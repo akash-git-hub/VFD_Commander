@@ -241,4 +241,22 @@ a.page-link.currentPage {
   border-radius: 16px;
 }
 
+.MultiSelected {
+  position: relative !important;
+  width: 100%;
+  background: white;
+  z-index: 999;
+  /* top: 50px !important; */
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px #0000001f;
+  padding: 10px;
+}
 
+.MultiSelectedDrop span {
+  margin: 0px 10px;
+  line-height: 2;
+}
+
+.MultiSelected span {
+  margin: 0px 10px;
+}

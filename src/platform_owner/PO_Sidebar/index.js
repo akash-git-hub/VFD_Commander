@@ -67,6 +67,11 @@ export const PoSidebar = () => {
                             }}>
                                 <LinkSidebar LinkIcon={<Image src='./assets/images/Icon.svg' />} LinkLabel={'Inventory'} LinkPath={'/inventorymodulelist'} />
                             </li>
+                            <li className={ pathname === "/addmember" || pathname === "/groupsdetails" || pathname === "/groupsadd" || pathname === "/groupslist" ? 'active' : ""} style={{
+                                padding: '10px'
+                            }}>
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/Todo.svg' />} LinkLabel={'Group '} LinkPath={'/groupslist'} />
+                            </li>
                             <li className={pathname === "/unavailability" ? 'active' : ""} style={{
                                 padding: '10px'
                             }}>
