@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
+import { Container, Row, Col, Tab, Tabs, Button } from 'react-bootstrap'
 import { PoSidebar } from '../PO_Sidebar'
 import { Headings } from '../../components/Headings'
 import Calendar from 'react-calendar'
@@ -12,7 +12,7 @@ import moment from 'moment'
 export const UserUnavailabilityDetail = () => {
     const state = useLocation().state;
     const [prData, setPrData] = useState();
-    const [shift, setShift] = useState();
+    const [shift, setShift] = useState([]);
     const [selectedDa, setSelectedDa] = useState();
     const abc = [];
 
@@ -41,11 +41,19 @@ export const UserUnavailabilityDetail = () => {
     };
     const onClick = (date) => {
         const formattedDate = moment(date).format("YYYY-MM-DD");
-        const pre = prData.data;
+        let pre = [];
+        if (prData) {
+            pre = prData.data;
+        }
         const resp = pre.filter((e) => moment(e.date).format("YYYY-MM-DD") === formattedDate);
-        console.log("Filtered Response:", resp);
-       
+        setShift(resp);
     }
+
+    useEffect(() => {
+        const currentDateUTC = moment.utc().format('YYYY-MM-DD');
+        onClick(currentDateUTC);
+    }, [prData])
+    const blank = () => { }
     return (
         <>
             <div className='UnavailabilityModule'>
@@ -95,9 +103,33 @@ export const UserUnavailabilityDetail = () => {
                                             <h6 className='mt-4'>Unavailability</h6>
                                             <div className='RoleName'>
                                                 <div className='SetAvailability d-flex'>
-                                                    <CheckBoxButton BtnLabel={"Morning"} BtnClass={'w-100 m-3'} />
-                                                    <CheckBoxButton BtnLabel={"Afternoon"} BtnClass={'w-100 m-3'} />
-                                                    <CheckBoxButton BtnLabel={"Evening"} BtnClass={'w-100 m-3'} />
+                                                    {shift.length > 0 && shift[0].morning === "yes" ?
+                                                        <Button className={"w-100 m-3"} type={"button"} variant={"primary"} size={'md'}>
+                                                            Morning
+                                                        </Button>
+                                                        :
+                                                        <Button className={"w-100 m-3"} type={"button"} variant={"secondary"} size={'md'} disabled >
+                                                            "Morning"
+                                                        </Button>
+                                                    }
+                                                    {shift.length > 0 && shift[0].afternoon === "yes" ?
+                                                        <Button className={"w-100 m-3"} type={"button"} variant={"primary"} size={'md'} >
+                                                            Afternoon
+                                                        </Button>
+                                                        :
+                                                        <Button className={"w-100 m-3"} type={"button"} variant={"secondary"} size={'md'} disabled >
+                                                            Afternoon
+                                                        </Button>
+                                                    }
+                                                    {shift.length > 0 && shift[0].evening === "yes" ?
+                                                        <Button className={"w-100 m-3"} type={"button"} variant={"primary"} size={'md'}  >
+                                                            Evening
+                                                        </Button>
+                                                        :
+                                                        <Button className={"w-100 m-3"} type={"button"} variant={"secondary"} size={'md'} disabled>
+                                                            Evening
+                                                        </Button>
+                                                    }
                                                 </div>
                                             </div>
                                         </Col>

@@ -235,7 +235,7 @@ a.page-link.currentPage {
 }
 
 .highlighted-date {
-  background-color: #0d8340 !important;
+  background-color: #00285d  !important;
   /* Use your preferred highlight color */
   color: white !important;
   border-radius: 16px;

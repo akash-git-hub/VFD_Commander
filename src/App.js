@@ -89,7 +89,6 @@ function App() {
               <Route path="/createGeareType" element={<CreateGareType />} />
               <Route path='/TraningListDetail' element={<TraningListDetail />} />
               <Route path='/GearListDetail' element={<GearListDetail />} />
-
               <Route path="/messages" element={<Messages />} />
               <Route path="/inventorymodulelist" element={<InventoryModuleList />} />
               <Route path="/unavailability" element={<UnavailabilityModule />} />
