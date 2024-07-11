@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { TablePagination } from '../../components/TablePagination';
 import { SearchPanel } from '../../components/SearchPanel';
 import { SharedButton } from '../../components/Button';
+import { RiDeleteBinLine } from 'react-icons/ri';
 
 
 
@@ -45,7 +46,7 @@ export const GroupMemberTable = ({ trdata }) => {
                                         <td>{account.type}</td>
                                         <td>     <Button variant="danger" size="sm" className="me-2"
                                             onClick={() => handleEditClick(account)}
-                                        >Delete
+                                        ><RiDeleteBinLine />
                                         </Button></td>
                                     </tr>
                                 ))}
