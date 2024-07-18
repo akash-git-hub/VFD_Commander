@@ -7,16 +7,18 @@ import { SharedButton } from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { Loader } from '../../components/Loader';
 import { useEffect, useState } from 'react';
-import { getAccount_API, update_actice_inactive_API } from '../../api_services/Apiservices';
+import { getAccount_API, unavailableUsers_API, update_actice_inactive_API } from '../../api_services/Apiservices';
 import Swal from 'sweetalert2';
 import { SearchPanel } from '../../components/SearchPanel';
 import { IoSearch } from 'react-icons/io5';
+import { UnavailabilityTableList } from '../Unavailability_Module/UnavailabilityTableList';
 
 export const AdminstratorProfileList = () => {
     const navigate = useNavigate();
     const [loder, setLoder] = useState(false);
     const [maindata, setMaindata] = useState([]);
     const [pagination, setPagination] = useState()
+    const [key,setKey] = useState('user')
 
     const get_account_list = async (page,key="") => {
         const data = { "page": page, userTypes: 3,"srkey":key }
@@ -91,6 +93,21 @@ export const AdminstratorProfileList = () => {
         const key = e.target.value;
         get_account_list("",key);
     }
+    const [preData,setpreData] = useState([]);
+
+    const getdata = async()=>{
+        setLoder(true);
+        const resp = await unavailableUsers_API();
+        if (resp && resp.success) {
+            setLoder(false);
+            const prefdata = resp.data;
+            setpreData(prefdata);
+        }
+        setLoder(false);
+    }
+    useEffect(()=>{ getdata(); },[])
+
+    const blanck = () =>{}
     return (
         <>
             <Loader show={loder} />
@@ -101,16 +118,24 @@ export const AdminstratorProfileList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"User Profile"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                        {key =="user" ?
+                            <Headings MainHeading={"User Profile Administration"}  HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            :
+                            <Headings MainHeading={"User Profile Administration"} />
+                        }
 
                             <Tabs
                                 id="controlled-tab-example"
-                                activeKey={"home"}
+                                activeKey={key}
+                                onSelect={(k) => setKey(k)}
                                 className="my-4"
                             >
-                                <Tab eventKey="home" title="User Info">
+                                <Tab eventKey="user" title="User Information">
                                     <SearchPanel  StartIcon={<IoSearch />} FormPlaceHolder={"Search by Name"} onChange={searchandler}/>
                                     <AdminstratorTableList pagination={pagination} maindata={maindata} actionHandler={actionHandler} pageHanlder={pageHanlder} />
+                                </Tab>
+                                <Tab eventKey="unavailability" title="Availability">
+                                    <UnavailabilityTableList  preData={preData}/>
                                 </Tab>
                             </Tabs>
                         </Col>

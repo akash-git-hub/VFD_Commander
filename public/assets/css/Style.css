@@ -260,3 +260,7 @@ a.page-link.currentPage {
 .MultiSelected span {
   margin: 0px 10px;
 }
+
+.f-end{
+  float:right !important;
+}

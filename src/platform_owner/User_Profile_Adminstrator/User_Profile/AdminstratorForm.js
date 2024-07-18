@@ -83,6 +83,20 @@ export const AdminstratorForm = ({ setLoder }) => {
     const handleCloseModal = () => setShowModal(false);
 
     const handleSubmit = async (e) => {
+
+           // Email validation
+    if (!indata.email || !/^\S+@\S+\.\S+$/.test(indata.email)) {
+        setError((e) => ({ ...e, "email": "* Valid email is required" }));
+        isValid = 10;
+      }
+  
+      // Mobile number validation (accept only numbers)
+      if (!indata.phone_no || !/^\d+$/.test(indata.phone_no)) {
+        setError((e) => ({ ...e, "phone_no": "* Contact number must contain only digits" }));
+        isValid = 11;
+      }
+
+
         e.preventDefault();
         let isValid = 0;
         if (!indata.first_name) { setError(prev => ({ ...prev, "first_name": "First Name is required" })); isValid = 1; }
@@ -93,7 +107,7 @@ export const AdminstratorForm = ({ setLoder }) => {
         if (!indata.role) { setError(prev => ({ ...prev, "role": "Role is required" })); isValid = 6; }
         if (!indata.position) { setError(prev => ({ ...prev, "position": "Position is required" })); isValid = 7; }
         if (!indata.address_1) { setError(prev => ({ ...prev, "address_1": "Address 1 is required" })); isValid = 8; }
-        if (!indata.address_2) { setError(prev => ({ ...prev, "address_2": "Address 2 is required" })); isValid = 9; }
+        // if (!indata.address_2) { setError(prev => ({ ...prev, "address_2": "Address 2 is required" })); isValid = 9; }
         if (!indata.city) { setError(prev => ({ ...prev, "city": "City is required" })); isValid = 10; }
         if (!indata.state) { setError(prev => ({ ...prev, "state": "State is required" })); isValid = 11; }
         if (!indata.term_date) { setError(prev => ({ ...prev, "term_date": "Term Date is required" })); isValid = 12; }
@@ -103,7 +117,7 @@ export const AdminstratorForm = ({ setLoder }) => {
         if (!indata.emergency_contact_number) { setError(prev => ({ ...prev, "emergency_contact_number": "Emergency Contact Number is required" })); isValid = 16; }
         if (!indata.status) { setError(prev => ({ ...prev, "status": "Status is required" })); isValid = 17; }
         // If all fields are valid, submit the form
-        console.log("---------",isValid);
+    
         if (isValid==0) {
 
             setLoder(true);
@@ -172,7 +186,16 @@ export const AdminstratorForm = ({ setLoder }) => {
                                 <InputField FormType={'email'} FormLabel={"Email"} onChange={inputHandler} error={error.email} name='email' />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'tel'} FormLabel={"Phone No"} max='10' onChange={inputHandler} error={error.phone_no} name='phone_no' />
+                                <InputField FormType={'tel'} FormLabel={"Phone No"} max={10} onChange={inputHandler} error={error.phone_no} name='phone_no' />
+                            </Col>
+                            <Col md={4}>
+                                <InputField FormType={'text'} FormLabel={"Supervisor"} onChange={inputHandler} error={error.supervisor} name='supervisor' FormPlaceHolder={"Enter Supervisor"} />
+                            </Col>                          
+                            <Col md={4}>
+                                <InputField FormType={'text'} FormLabel={"Position"} onChange={inputHandler} error={error.position} name='position' FormPlaceHolder={"Enter Position"} />                             
+                            </Col>
+                            <Col md={4}>
+                                <Select FormLabel='Role' Array={rolelist} FormPlaceHolder='Adminstrator Staff' onChange={inputHandler} error={error.role} name='role' />
                             </Col>
                             <Col md={4}>
                                 <InputField FormType={'date'}
@@ -181,22 +204,12 @@ export const AdminstratorForm = ({ setLoder }) => {
                                     error={error.start_date}
                                   onChange={inputHandler} 
                                 />
-                            </Col>
+                            </Col>                       
                           
                             <Col md={4}>
                                 <InputField FormType={'date'} FormLabel={"Term Date"} onChange={inputHandler} error={error.term_date} name='term_date' FormPlaceHolder={"DD/MM/YYYY"} />
-                            </Col>
-                            <Col md={4}>
-                                <Select FormLabel='Role' Array={rolelist} FormPlaceHolder='Adminstrator Staff' onChange={inputHandler} error={error.role} name='role' />
-                            </Col>
-                            <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Supervisor"} onChange={inputHandler} error={error.supervisor} name='supervisor' FormPlaceHolder={"Enter Supervisor"} />
-                            </Col>
-                          
-                            <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"Position"} onChange={inputHandler} error={error.position} name='position' FormPlaceHolder={"Enter Position"} />
-                                {/* <Select FormLabel='Position' FormPlaceHolder='Software Employee' /> */}
-                            </Col>
+                            </Col>                       
+                           
                             <Col md={4}>
                                 <InputField FormType={'text'} FormLabel={"Address 1"} onChange={inputHandler} error={error.address_1} name='address_1' />
                             </Col>
@@ -204,14 +217,14 @@ export const AdminstratorForm = ({ setLoder }) => {
                                 <InputField FormType={'text'} FormLabel={"Address 2"} onChange={inputHandler} error={error.address_2} name='address_2'  />
                             </Col>
                             <Col md={4}>
-                                <InputField FormType={'text'} FormLabel={"State"} onChange={inputHandler} error={error.state} name='state'  />
-                            </Col>
-                            <Col md={4}>
                                 <InputField FormType={'text'} FormLabel={"City"} onChange={inputHandler} error={error.city} name='city' />
                             </Col>
+                            <Col md={4}>
+                                <InputField FormType={'text'} FormLabel={"State"} onChange={inputHandler} error={error.state} name='state'  />
+                            </Col>                      
                           
                             <Col md={4}>
-                                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={6} onChange={inputHandler} error={error.zip_code} name='zip_code' />
+                                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={5} onChange={inputHandler} error={error.zip_code} name='zip_code' />
                             </Col>
                          
                             <Col md={4}>
@@ -221,7 +234,7 @@ export const AdminstratorForm = ({ setLoder }) => {
                                 <InputField FormType={'tel'} FormLabel={"Emergency Contact Number"} max='10' onChange={inputHandler} error={error.emergency_contact_number} name="emergency_contact_number" />
                             </Col>
                             <Col md={4}>
-                                <Select FormLabel='Status' Array={statusArray} FormPlaceHolder='Status' onChange={inputHandler} error={error.status} name='status' />
+                                <Select FormLabel='Status' Array={statusArray} FormPlaceHolder='Status' value={indata.status} onChange={inputHandler} error={error.status} name='status' />
                             </Col>
                             {fields.map((e, i) => (
                                 <Col md={4} key={i}>

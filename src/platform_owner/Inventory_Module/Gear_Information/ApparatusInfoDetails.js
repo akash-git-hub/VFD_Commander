@@ -66,6 +66,7 @@ export default function ApparatusInfoDetails() {
         let isValid = true;
 
         if (isValid) {
+            
             setLoder(true);
             const finaldata = {
                 "id": indata.id,
@@ -126,6 +127,16 @@ export default function ApparatusInfoDetails() {
         });
     }
 
+    const cancelHandler = () => {
+        Swal.fire({
+            title:"Changes have been made",
+            text: "Are you sure you want to exit with no changes?",
+            icon: "question"
+        }).then((result) => {
+            if (result.isConfirmed) { setIsedit(false); }
+        });
+    }
+
     return (
         <>
             <Loader show={loder} />
@@ -155,8 +166,8 @@ export default function ApparatusInfoDetails() {
                                                                     <Container fluid>
                                                                         <Row style={{ justifyContent: 'end' }}>
                                                                             <Col md={1}>
-                                                                                <Button variant="success" size="sm"
-                                                                                    onClick={() => setIsedit(false)} >Not Update
+                                                                                <Button variant="danger" size="sm"
+                                                                                    onClick={cancelHandler} >Cancel
                                                                                 </Button>
                                                                             </Col>
                                                                         </Row>

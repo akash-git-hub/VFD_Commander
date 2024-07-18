@@ -1,41 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
 import { Headings } from '../../../components/Headings'
-import { EditForm } from './EditForm';
+import { SubscriptionForm } from './SubscriptionForm'
 import { Cosidebar } from '../../CO_Sidebar';
-import { SharedButton } from '../../../components/Button';
-import { useLocation } from 'react-router-dom';
 import { Loader } from '../../../components/Loader';
-import { timeFormateArray, stateList } from '../../../helper/Helper';
-import { getAccount_by_id_API } from '../../../api_services/Apiservices';
+import { SharedButton } from '../../../components/Button';
+import { EditForm } from './EditForm';
+import { useLocation } from 'react-router-dom';
 
-
-export const EditAccount = () => {
-    const [key, setKey] = useState('home');
+export const EditPlan = () => {
+    const [predata, setPredata] = useState();
     const location = useLocation();
-    const [data, setData] = useState();
-    const [loder, setLoder] = useState(false);
 
-    useEffect(() => {
+    useState(() => {
         if (location && location.state && location.state.data) {
-            setData(location.state.data);
+            const data = location.state.data;
+            setPredata(data);
         }
     }, [location])
 
-    const getaccount = async () =>{
-      const resp = await  getAccount_by_id_API();
-    }
+
+
+    const [loder, setLoder] = useState(false)
+    const [key, setKey] = useState('home');
     return (
         <>
             <Loader show={loder} />
-            <div className='CreateAccount AccountModulePage'>
+            <div className='CreateSubscription AccountModulePage'>
                 <Container fluid>
                     <Row>
                         <Col md={3}>
                             <Cosidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Accounts"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Subscriptions"}
+                                HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
 
                             <Tabs
                                 id="controlled-tab-example"
@@ -44,7 +43,7 @@ export const EditAccount = () => {
                                 className="mb-3"
                             >
                                 <Tab eventKey="home" title="Information">
-                                    <EditForm mydata={data} setLoder={setLoder} />
+                                    <EditForm setLoder={setLoder} predata ={predata}/>
                                 </Tab>
                             </Tabs>
                         </Col>

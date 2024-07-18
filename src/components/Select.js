@@ -5,7 +5,7 @@ export default function Select({ FormLabel = "", Array = [], FormPlaceHolder = "
     return (
         <>
             {FormLabel && <Form.Label>{FormLabel}</Form.Label>}
-            <Form.Select aria-label={FormPlaceHolder} defaultValue={value} className={FormLabel ? "" : "mt-2"} name={name} onChange={onChange}>
+            <Form.Select aria-label={FormPlaceHolder} value={value} className={FormLabel ? "" : "mt-2"} name={name} onChange={onChange}>
                 <option value="" disabled> Select </option>
                 {Array.length > 0 &&
                     Array.map((e, i) => (

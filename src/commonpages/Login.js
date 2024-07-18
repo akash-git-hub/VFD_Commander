@@ -63,6 +63,7 @@ export const Login = () => {
             const resp = await login_API(fdata);
             if (resp && resp.success) {
                 const data = resp.data;
+                
                 contaxtHandler(data);
                 setLoder(false);
                 successAlert(resp.message);

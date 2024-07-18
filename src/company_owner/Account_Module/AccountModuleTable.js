@@ -6,13 +6,13 @@ import moment from 'moment';
 
 
 
-export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) => {
+export const AccountModuleTable = ({ setLoder, mydata, pagination, pageHanlder }) => {
     const navigate = useNavigate();
     const [account_data, setAccount_data] = useState([]);
 
-    useEffect(()=>{setAccount_data(mydata);},[mydata])
+    useEffect(() => { setAccount_data(mydata); }, [mydata])
 
-    
+
 
     const handleViewClick = (data) => {
         navigate('/accountdetail', { state: { data } });
@@ -24,29 +24,32 @@ export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) =
     return (
         <>
             <div className='MainTable' >
-                <Table responsive  className="table table-hover">
+                <Table responsive className="table table-hover">
                     <thead>
                         <tr>
                             <th>ACCOUNT NAME</th>
+                            <th>SUBSCRIPTION NAME</th>
+                            <th>Contact Name</th>
                             <th>ACCOUNT ID</th>
                             <th>OWNER ID</th>
                             <th>BILLING DATE</th>
                             <th>LOCATION</th>
-                            <th>SUBSCRIPTION</th>
-                            <th>MOBILE NO</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
                         {account_data.map((account, index) => (
                             <tr key={index}>
-                                <td style={{maxWidth:"99px"}}>{account.accountName}</td>
-                                <td style={{maxWidth:"99px"}}>{account.accountId}</td>
-                                <td style={{maxWidth:"99px"}}>{account.accountOwnerId}</td>
-                                <td style={{maxWidth:"99px"}}>{moment.unix(account.billingDate).format("MM-DD-YYYY")}</td>
-                                <td style={{maxWidth:"99px"}}>{account.location}</td>
-                                <td style={{maxWidth:"99px"}}>$ {account.subscription}</td>
-                                <td style={{maxWidth:"99px"}}>{account.mobileNo}</td>
+                                <td >{account.accountName.length > 55 ?
+                                    `${account.accountName.slice(0, 55)}...` :
+                                    account.accountName
+                                }</td>
+                                <td >{account.subscription}</td>
+                                <td >{account.contact_name}</td>
+                                <td >{account.accountId}</td>
+                                <td >{account.accountOwnerId}</td>
+                                <td style={{ maxWidth: "99px" }}>{moment.unix(account.billingDate).format("MM-DD-YYYY")}</td>
+                                <td style={{ maxWidth: "99px" }}>{account.location}</td>
                                 <td>
                                     <Button variant="info" size="sm" className="me-2" style={{
                                         background: '#ECFDF5',
@@ -54,8 +57,8 @@ export const AccountModuleTable = ({ setLoder,mydata ,pagination,pageHanlder}) =
                                         borderColor: '#ECFDF5',
                                         fontWeight: '500'
                                     }}
-                                        onClick={()=>handleViewClick(account.data)}
-                                    >Detail
+                                        onClick={() => handleViewClick(account.data)}
+                                    >Details
                                     </Button>
                                     {/* <Button variant="warning" size="sm" style={{
                                         background: '#FEF2F2',

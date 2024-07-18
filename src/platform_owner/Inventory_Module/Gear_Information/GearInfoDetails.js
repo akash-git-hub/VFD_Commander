@@ -72,24 +72,40 @@ export default function GearInfoDetails() {
 
     const updateHandler = async (e) => {
         e.preventDefault();
-        setLoder(true);
-        const fadat = {
-            "id": indata.id,
-            'gear_item_name': indata.gear_item_name,
-            "recevied_date": indata.recevied_date,
-            "description": indata.description,
-            "item_cost": indata.item_cost,
-            "gearttype_id": indata.gearttype_id,
-            "add_field": fields
-        }
-        const resp = await updateGear_API(fadat);
-        if (resp && resp.success) {
-            e.target.reset();
-            setFields([]);
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Gear Information has been modified. Save changes?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+
+                setLoder(true);
+                const fadat = {
+                    "id": indata.id,
+                    'gear_item_name': indata.gear_item_name,
+                    "recevied_date": indata.recevied_date,
+                    "description": indata.description,
+                    "item_cost": indata.item_cost,
+                    "gearttype_id": indata.gearttype_id,
+                    "add_field": fields
+                }
+                const resp = await updateGear_API(fadat);
+                if (resp && resp.success) {
+                    e.target.reset();
+                    setFields([]);
+                    setLoder(false);
+                    successAlert(resp.message);
+                    navigate("/inventorymodulelist", { state: { eventKey: "gear" } });
+                }
+                setLoder(false);
+            }
             setLoder(false);
-            successAlert(resp.message);
-            navigate("/inventorymodulelist", { state: { eventKey: "gear" } });
-        }
+        });
         setLoder(false);
     }
 
@@ -126,6 +142,15 @@ export default function GearInfoDetails() {
         });
     }
 
+    const cancelHandler = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Are you sure you want to exit with no changes?",
+            icon: "question"
+        }).then((result) => {
+            if (result.isConfirmed) { setIsedit(false); }
+        });
+    }
     return (
         <>
             <Loader show={loder} />
@@ -156,8 +181,8 @@ export default function GearInfoDetails() {
                                                                         <Container fluid>
                                                                             <Row style={{ justifyContent: 'end' }}>
                                                                                 <Col md={1}>
-                                                                                    <Button variant="success" size="sm"
-                                                                                        onClick={() => setIsedit(false)} >Not Update
+                                                                                    <Button variant="danger" size="sm"
+                                                                                        onClick={cancelHandler} >Cancel
                                                                                     </Button>
                                                                                 </Col>
                                                                             </Row>

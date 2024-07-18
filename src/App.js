@@ -41,6 +41,7 @@ import { GroupsListing } from './platform_owner/Groups/GroupsListing';
 import { GroupAdd } from './platform_owner/Groups/GroupAdd';
 import { GroupDetail } from './platform_owner/Groups/GroupDetail';
 import { AddMemberGroup } from './platform_owner/Groups/AddMemberGroup';
+import { EditPlan } from './company_owner/Subscriptions_Plan/createPlans/EditPlan';
 
 const Mycontext = createContext();
 
@@ -55,15 +56,13 @@ function App() {
     setPdata(JSON.stringify(data))
   }
 
-
   return (
     <>
 
       <HashRouter>
         <Mycontext.Provider value={{ pdata: pdata, contaxtHandler: contaxtHandler }}>
           <Routes>
-            <Route path="/" element={<Login />} />
-            
+            <Route path="/" element={<Login />} />            
             <Route element={<Auth />} >
               <Route path="/accountmodule" element={<Accountmodule />} />
               <Route path="/accountdetail" element={<Accountdetails />} />
@@ -71,6 +70,7 @@ function App() {
               <Route path="/editaccount" element={<EditAccount />} />
               <Route path="/notifications" element={<Notification />} />
               <Route path="/subscriptionplan" element={<CreatePlan />} />
+              <Route path="/editplan" element={<EditPlan />} />
               <Route path="/subscriptionview" element={<ListViewPlan />} />
             </Route>
 

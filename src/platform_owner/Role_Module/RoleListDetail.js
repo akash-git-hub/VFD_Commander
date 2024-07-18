@@ -32,7 +32,7 @@ export const RoleListDetail = () => {
                                     activeKey={'id'}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="id" title="Role Info">
+                                    <Tab eventKey="id" title="Role Information">
                                         <RoleFullDetails setLoder={setLoder} />
                                     </Tab>
                                 </Tabs>

@@ -16,16 +16,22 @@ export const CreateRole = ({ setLoder }) => {
         "Inventory_Module":false,
         "Availability_Module":false,
         "Qualification_Module":false,
-        "Reporting_Module":false
+        "Reporting_Module":false,
+        "Dashboard":false,
+        "Role_Administration":false,
+        "Gear_Administration":false
     });
 
     const moduleList = [
-        { id: 5, name: 'User Profile',value:"User_Profile_Module" },
-        { id: 4, name: 'Training',value:"Training_Module" },
-        { id: 1, name: 'Inventory',value:"Inventory_Module" },
-        { id: 2, name: 'Availability',value:"Availability_Module" },
-        { id: 3, name: 'Qualification',value:"Qualification_Module" }, 
+        { id: 8, name: 'Role Administration',value:"Role_Administration" },
+        { id: 3, name: 'Qualification Administration',value:"Qualification_Module" },
+        { id: 5, name: 'User Profile Administration',value:"User_Profile_Module" },
+        { id: 4, name: 'Training Administration',value:"Training_Module" },
+        { id: 1, name: 'Inventory Administration',value:"Inventory_Module" },
+        { id: 9, name: 'Gear Administration',value:"Gear_Administration" },
+        { id: 2, name: 'Availability',value:"Availability_Module" },   
         { id: 6, name: 'Reporting',value:"Reporting_Module" },
+        { id: 7, name: 'Dashboard',value:"Dashboard" },      
     ]
 
     const createHandler = async () => {
@@ -33,12 +39,15 @@ export const CreateRole = ({ setLoder }) => {
         setLoder(true)
         const datas = {
             "role": fdata.role,
+            "Role_Administration":fdata.Role_Administration,
+            "Qualification_Module":fdata.Qualification_Module,
             "User_Profile_Module": fdata.User_Profile_Module,
             "Training_Module":fdata.Training_Module,
             "Inventory_Module":fdata.Inventory_Module,
-            "Availability_Module":fdata.Availability_Module,
-            "Qualification_Module":fdata.Qualification_Module,
-            "Reporting_Module":fdata.Reporting_Module
+            "Gear_Administration":fdata.Gear_Administration,
+            "Availability_Module":fdata.Availability_Module,           
+            "Reporting_Module":fdata.Reporting_Module,
+            "Dashboard":fdata.Dashboard            
         }
         const resp = await create_rolls(datas);
         if (resp && resp.success) {          

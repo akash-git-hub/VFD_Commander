@@ -23,7 +23,7 @@ export const ProfileAdminstrator = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"User Profile"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"User Profile"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                             <Tabs
                                 id="controlled-tab-example"

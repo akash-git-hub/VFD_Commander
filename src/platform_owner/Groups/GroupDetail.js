@@ -3,7 +3,7 @@ import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { PoSidebar } from '../PO_Sidebar'
 import { Headings } from '../../components/Headings'
 import { SharedButton } from '../../components/Button'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Loader } from '../../components/Loader'
 import { getQualification_API } from '../../api_services/Apiservices'
 import { GroupMemberTable } from './GroupMemberTable'
@@ -11,24 +11,15 @@ import { GroupMemberTable } from './GroupMemberTable'
 
 export const GroupDetail = () => {
     const navigate = useNavigate();
-    const [predata, setPredata] = useState([]);
-    const [trdata, setTrdata] = useState([]);
+    const [predata, setPredata] = useState();
     const [loder, setLoder] = useState(false);
+    const location = useLocation();
 
-    const getdata = async () => {
-        setLoder(true);
-        const resp = await getQualification_API();
-        if (resp && resp.success) {
-            setLoder(false);
-            const fdata = resp.data;
-            setPredata(fdata);
-            setTrdata(resp.data);
+    useEffect(() => {
+        if (location && location.state) {
+            setPredata(location.state.data);
         }
-        setLoder(false);
-    }
-    useEffect(() => { getdata(); }, [])
-
-    
+    }, [location])
 
 
 
@@ -44,16 +35,15 @@ export const GroupDetail = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Group"} />
+                            <Headings MainHeading={"Group"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
-                                    activeKey={key}
-                                    onSelect={(k) => setKey(k)}
+                                    activeKey={"gear"}
                                     className="mb-3"
                                 >
                                     <Tab eventKey="gear" title="Group Info">
-                                        <GroupMemberTable trdata={trdata}/>
+                                        <GroupMemberTable predata={predata} setLoder={setLoder} />
                                     </Tab>
                                 </Tabs>
                             </div>

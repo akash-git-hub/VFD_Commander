@@ -109,6 +109,16 @@ export default function EditedGear() {
         });
     }
 
+    const cancelHandler = () => {
+        Swal.fire({
+            title:"Changes have been made",
+            text: "Are you sure you want to exit with no changes?",
+            icon: "question"
+        }).then((result) => {
+            if (result.isConfirmed) { setIsedit(false); }
+        });
+    }
+
 
     return (
         <>
@@ -136,8 +146,8 @@ export default function EditedGear() {
                                                         <Form onSubmit={handleSubmit}>
                                                             <Row style={{ justifyContent: 'end' }}>
                                                                 <Col md={1}>
-                                                                    <Button variant="success" size="sm"
-                                                                        onClick={() => setIsedit(false)} >Not Update
+                                                                    <Button variant="danger" size="sm"
+                                                                        onClick={cancelHandler} >Cancel
                                                                     </Button>
                                                                 </Col>
                                                             </Row>

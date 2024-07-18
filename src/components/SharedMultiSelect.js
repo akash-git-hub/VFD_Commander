@@ -100,11 +100,11 @@ export const SharedMultiSelect = ({ labelText, options, name, setSkillsdata, id,
         renderMenu={renderMenu}
       />
 
-      {selectedOptions.length > 0 && (
+      {/* {selectedOptions.length > 0 && (
         <button className="btn btn-sm btn-link mt-2" onClick={handleClearAll}>
           X
         </button>
-      )}
+      )} */}
 
     </>
   );

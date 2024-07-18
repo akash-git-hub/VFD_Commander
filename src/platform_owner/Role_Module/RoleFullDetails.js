@@ -27,12 +27,15 @@ export default function RoleFullDetails({ setLoder }) {
     const navigate = useNavigate();
 
     const [moduleList, setModuleList] = useState([
-        { id: 5, name: 'User Profile Module', value: "User_Profile_Module", ischek: false },
+        { id: 5, name: 'User Profile Administration', value: "User_Profile_Module", ischek: false },
         { id: 4, name: 'Training Module', value: "Training_Module", ischek: false },
         { id: 1, name: 'Inventory Module', value: "Inventory_Module", ischek: false },
         { id: 2, name: 'Availability Module', value: "Availability_Module", ischek: false },
-        { id: 3, name: 'Qualification Module', value: "Qualification_Module", ischek: false },
+        { id: 3, name: 'Qualification Administration', value: "Qualification_Module", ischek: false },
         { id: 6, name: 'Reporting Module', value: "Reporting_Module", ischek: false },
+        { id: 7, name: 'Dashboard', value: "Dashboard", ischek: false },
+        { id: 8, name: 'Role Administration', value: "Role_Administration", ischek: false },
+        { id: 9, name: 'Gear Administration', value: "Gear_Administration", ischek: false },
     ])
 
 
@@ -45,21 +48,29 @@ export default function RoleFullDetails({ setLoder }) {
             setFdata({ "id": data._id, "role": data.role, });
             setModuleList(
                 [
-                    { id: 5, name: 'User Profile Module', value: "User_Profile_Module", ischek: data.User_Profile_Module },
-                    { id: 4, name: 'Training Module', value: "Training_Module", ischek: data.Training_Module },
-                    { id: 1, name: 'Inventory Module', value: "Inventory_Module", ischek: data.Inventory_Module },
-                    { id: 2, name: 'Availability Module', value: "Availability_Module", ischek: data.Availability_Module },
-                    { id: 3, name: 'Qualification Module', value: "Qualification_Module", ischek: data.Qualification_Module },
+                    { id: 5, name: 'User Profile Administration', value: "User_Profile_Module", ischek: data.User_Profile_Module },
+                    { id: 4, name: 'Training Administration', value: "Training_Module", ischek: data.Training_Module },
+                    { id: 1, name: 'Inventory Administration', value: "Inventory_Module", ischek: data.Inventory_Module },
+                    { id: 2, name: 'Availability', value: "Availability_Module", ischek: data.Availability_Module },
+                    { id: 3, name: 'Qualification Administration', value: "Qualification_Module", ischek: data.Qualification_Module },
                     { id: 6, name: 'Reporting Module', value: "Reporting_Module", ischek: data.Reporting_Module },
+
+                    { id: 7, name: 'Dashboard', value: "Dashboard", ischek: data.Dashboard },
+                    { id: 8, name: 'Role Administration', value: "Role_Administration", ischek: data.Role_Administration },
+                    { id: 9, name: 'Gear Administration', value: "Gear_Administration", ischek: data.Gear_Administration },
                 ]
             )
             const array = [];
-            if (data && data.User_Profile_Module) { array.push('User_Profile_Module') }
-            if (data && data.Training_Module) { array.push('Training_Module') }
-            if (data && data.Inventory_Module) { array.push('Inventory_Module') }
-            if (data && data.Availability_Module) { array.push('Availability_Module') }
-            if (data && data.Qualification_Module) { array.push('Qualification_Module') }
-            if (data && data.Reporting_Module) { array.push('Reporting_Module') }
+            if (data && data.User_Profile_Module) { array.push('User Profile Administration') }
+            if (data && data.Training_Module) { array.push('Training Administration') }
+            if (data && data.Inventory_Module) { array.push('Inventory Administration') }
+            if (data && data.Availability_Module) { array.push('Availability') }
+            if (data && data.Qualification_Module) { array.push('Qualification Administration') }
+            if (data && data.Reporting_Module) { array.push('Reporting') }
+
+            if (data && data.Dashboard) { array.push('Dashboard') }
+            if (data && data.Role_Administration) { array.push('Role Administration') }
+            if (data && data.Gear_Administration) { array.push('Gear Administration') }
             data.modules = array;
             if (data) { setMaindata(data); }
         }
@@ -70,29 +81,55 @@ export default function RoleFullDetails({ setLoder }) {
 
     const updateHandler = async () => {
         if (fdata && !fdata.role) { errorAlert("Please Enter Role"); return null; }
-        setLoder(true);
-        const upm_value = moduleList.find((e) => e.value === 'User_Profile_Module').ischek;
-        const tm_value = moduleList.find((e) => e.value === 'Training_Module').ischek;
-        const im_value = moduleList.find((e) => e.value === 'Inventory_Module').ischek;
-        const am_value = moduleList.find((e) => e.value === 'Availability_Module').ischek;
-        const qm_value = moduleList.find((e) => e.value === 'Qualification_Module').ischek;
-        const rm_value = moduleList.find((e) => e.value === 'Reporting_Module').ischek;
-        const datas = {
-            "id": fdata.id,
-            "role": fdata.role,
-            "User_Profile_Module": upm_value,
-            "Training_Module": tm_value,
-            "Inventory_Module": im_value,
-            "Availability_Module": am_value,
-            "Qualification_Module": qm_value,
-            "Reporting_Module": rm_value
-        }
-        const resp = await updateRoll_API(datas);
-        if (resp && resp.success) {
-            setLoder(false);
-            successAlert(resp.message);
-            navigate("/roleadminstratorlist");
-        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This Role has been modified. Save changes?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+          }).then( async (result) => {
+            if (result.isConfirmed) {
+                setLoder(true);
+                const upm_value = moduleList.find((e) => e.value === 'User_Profile_Module').ischek;
+                const tm_value = moduleList.find((e) => e.value === 'Training_Module').ischek;
+                const im_value = moduleList.find((e) => e.value === 'Inventory_Module').ischek;
+                const am_value = moduleList.find((e) => e.value === 'Availability_Module').ischek;
+                const qm_value = moduleList.find((e) => e.value === 'Qualification_Module').ischek;
+                const rm_value = moduleList.find((e) => e.value === 'Reporting_Module').ischek;
+
+                const Role_Administration = moduleList.find((e) => e.value === 'Role_Administration').ischek;
+                const Dashboard = moduleList.find((e) => e.value === 'Dashboard').ischek;
+                const Gear_Administration = moduleList.find((e) => e.value === 'Gear_Administration').ischek;
+                const datas = {
+                    "id": fdata.id,
+                    "role": fdata.role,
+                    "User_Profile_Module": upm_value,
+                    "Training_Module": tm_value,
+                    "Inventory_Module": im_value,
+                    "Availability_Module": am_value,
+                    "Qualification_Module": qm_value,
+                    "Reporting_Module": rm_value,
+                    "Role_Administration": Role_Administration,
+                    "Dashboard": Dashboard,
+                    "Gear_Administration": Gear_Administration,
+                }
+                const resp = await updateRoll_API(datas);
+                if (resp && resp.success) {
+                    setLoder(false);
+                    successAlert(resp.message);
+                    navigate("/roleadminstratorlist");
+                }
+            
+            }
+          });
+
+      
+
+
+     
+     
         setLoder(false);
     }
 
@@ -126,6 +163,22 @@ export default function RoleFullDetails({ setLoder }) {
         // 
     }
 
+    const cartClick = () => {
+
+    }
+
+
+    const cancelHandler = () => {
+        Swal.fire({
+            title:"Changes have been made",
+            text: "Are you sure you want to exit with no changes?",
+            icon: "question"
+        }).then((result) => {
+            if (result.isConfirmed) { setIsedit(false); }
+        });
+    }
+
+
 
     return (
         <>
@@ -139,8 +192,8 @@ export default function RoleFullDetails({ setLoder }) {
                                     <Container>
                                         <Row style={{ justifyContent: 'end' }}>
                                             <Col md={1}>
-                                                <Button variant="success" size="sm"
-                                                    onClick={() => setIsedit(false)}>Not Update
+                                                <Button variant="danger" size="sm"
+                                                    onClick={cancelHandler}>Cancel
                                                 </Button>
                                             </Col>
                                         </Row>
@@ -195,7 +248,7 @@ export default function RoleFullDetails({ setLoder }) {
                                                 <Row>
                                                     {maindata && (maindata.modules).map((e, i) => (
                                                         <Col md={3} key={i} >
-                                                            <CheckBoxButton BtnLabel={e} fulldata={e} BtnClass={'checked-btn checked mb-2 color_white'} type={'check'} />
+                                                            <CheckBoxButton BtnLabel={e} fulldata={e} BtnClass={'checked-btn checked mb-2 color_white'} type={'check'} onClick={cartClick} />
                                                         </Col>
                                                     ))}
                                                 </Row>

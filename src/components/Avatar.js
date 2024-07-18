@@ -1,8 +1,12 @@
-import React from 'react'
-import { Image, Stack,  } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Image, Stack, } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-export const Avatar = ({LinkLabel, LinkPath, Description}) => {
+export const Avatar = ({ LinkLabel, LinkPath, Description }) => {
+  const [img ,setImg] = useState();
+  useEffect(()=>{
+    setImg(localStorage.getItem('proimage'));
+  },[localStorage.getItem('proimage')])
     return (
         <>
 
@@ -11,11 +15,11 @@ export const Avatar = ({LinkLabel, LinkPath, Description}) => {
                 color: '#000',
                 fontSize: '18px'
             }}>
-                <Stack direction='horizontal' gap={1}>
-                    <div>
-                        <Image src="assets/images/avatar.png" className='w-75 Avatar_img' roundedCircle />
+                <Stack direction='horizontal' gap={0} style={{padding:'0.2rem'}}>
+                    <div style={{marginRight:"0.2rem"}}>
+                        <Image src={img ? img : "assets/images/avatar.png"} className='w-100 Avatar_img' roundedCircle />
                     </div>
-                    <Stack direction='vertical' gap={0}>
+                    <Stack direction='vertical' gap={0} >
                         <span>
                             {LinkLabel}
                         </span>

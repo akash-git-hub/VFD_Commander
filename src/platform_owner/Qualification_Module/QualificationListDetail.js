@@ -45,7 +45,7 @@ export default function QualificationListDetail() {
             const data = location.state.data;
             console.log(data);
             if (data) {
-                setIndata({ "trname": data.name, "description": data.description, "add_field": data.add_field, "id": data._id,"type":data.type });
+                setIndata({ "trname": data.name, "description": data.description, "add_field": data.add_field, "id": data._id, "type": data.type });
                 setFields(data.add_field);
             }
         }
@@ -59,24 +59,36 @@ export default function QualificationListDetail() {
     }
 
     const handleSubmit = async (e) => {
-
         e.preventDefault();
-        setLoder(true);
-        const fadat = {
-            "id": indata.id,
-            'name': indata.trname,
-            "type":indata.type,
-            "description": indata.description,
-            "add_field": fields
-        }
-        const resp = await updateQualification_API(fadat);
-        if (resp && resp.success) {
-            e.target.reset();
-            setFields([]);
-            setLoder(false);
-            successAlert(resp.message);
-            navigate("/qualificationlist");
-        }
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Qualification has been modified. Save changes?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                setLoder(true);
+                const fadat = {
+                    "id": indata.id,
+                    'name': indata.trname,
+                    "type": indata.type,
+                    "description": indata.description,
+                    "add_field": fields
+                }
+                const resp = await updateQualification_API(fadat);
+                if (resp && resp.success) {
+                    e.target.reset();
+                    setFields([]);
+                    setLoder(false);
+                    successAlert(resp.message);
+                    navigate("/qualificationlist");
+                }
+            }
+        });
         setLoder(false);
     }
 
@@ -94,9 +106,9 @@ export default function QualificationListDetail() {
             if (result.isConfirmed) {
                 const fadat = {
                     "id": indata.id,
-                    "is_delete" :'yes'      
+                    "is_delete": 'yes'
                 }
-                const resp = await updateQualification_API(fadat);            
+                const resp = await updateQualification_API(fadat);
                 if (resp && resp.success) {
                     setLoder(false);
                     Swal.fire({
@@ -113,6 +125,15 @@ export default function QualificationListDetail() {
         });
     }
 
+    const cancelHandler = () => {
+        Swal.fire({
+            title: "Changes have been made",
+            text: "Are you sure you want to exit with no changes?",
+            icon: "question"
+        }).then((result) => {
+            if (result.isConfirmed) { setIsedit(false); }
+        });
+    }
     return (
         <>
             <Loader show={loder} />
@@ -128,8 +149,8 @@ export default function QualificationListDetail() {
                                             <Form onSubmit={handleSubmit}>
                                                 <Row style={{ justifyContent: 'end' }}>
                                                     <Col md={1}>
-                                                        <Button variant="success" size="sm"
-                                                            onClick={() => setIsedit(false)} >Not Update
+                                                        <Button variant="danger" size="sm"
+                                                            onClick={cancelHandler} >Cancel
                                                         </Button>
                                                     </Col>
                                                 </Row>
@@ -168,7 +189,7 @@ export default function QualificationListDetail() {
                                                     <Button variant="success" size="sm"
                                                         onClick={() => setIsedit(true)} style={{
                                                             fontWeight: '500',
-                                                            marginRight:'1rem'
+                                                            marginRight: '1rem'
                                                         }}><TbEdit />
                                                     </Button>
                                                     <Button variant="danger" size="sm"

@@ -31,8 +31,8 @@ export const Accountmodule = () => {
                 accountOwnerId: item.email,
                 billingDate: item.renewal_date,
                 location: `${item.state} ${item.city}`,
-                subscription: item.subscription_amount,
-                mobileNo: item.mobile_no,
+                subscription: item.subscription_id.name,
+                contact_name: item.first_name+" "+item.last_name,
                 status: item.status,
                 data: item
             }));
@@ -50,29 +50,12 @@ export const Accountmodule = () => {
     const searchHanlder = (e) => {
         const key = e.target.value;
         get_account_list("",key);
-        // const filteredData = maindata.filter(item =>
-        //     item._id.toLowerCase().includes(key) ||
-        //     item.account_name.toLowerCase().includes(key) ||
-        //     item.first_name.toLowerCase().includes(key) ||
-        //     item.last_name.toLowerCase().includes(key)
-        // );
-        // const transformedData = filteredData.map(item => ({
-        //     accountName: item.account_name,
-        //     accountId: item._id,
-        //     accountOwnerId: item.email,
-        //     billingDate: item.renewal_date,
-        //     location: `${item.state} ${item.city}`,
-        //     subscription: item.subscription_amount,
-        //     mobileNo: item.mobile_no,
-        //     status: item.status,
-        //     data: item
-        // }));
-        // setAccount_data(transformedData);
     }
 
     const pageHanlder = (page) => {
         get_account_list(page);
     }
+
 
     return (
         <>
@@ -92,7 +75,7 @@ export const Accountmodule = () => {
                                 className="mb-3 mt-3"
                             >
                                 <Tab eventKey="home" 
-                                title="Information"
+                                title="Accounts List"
                                 >
                                     <SearchPanel StartIcon={<IoSearchOutline />} FormPlaceHolder={"Search by first name, last name, or email.."} FormType={"search"} onChange={searchHanlder} />
                                     <AccountModuleTable setLoder={setLoder} mydata={account_data} pagination={pagination} pageHanlder={pageHanlder} />

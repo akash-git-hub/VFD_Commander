@@ -5,30 +5,29 @@ import { Headings } from '../../components/Headings'
 import { SharedButton } from '../../components/Button'
 import { useNavigate } from 'react-router-dom'
 import { Loader } from '../../components/Loader'
-import { getQualification_API } from '../../api_services/Apiservices'
+import { getGroups_API } from '../../api_services/Apiservices'
 import { GroupsListTable } from './GroupsListTable'
 
 
 export const GroupsListing = () => {
     const navigate = useNavigate();
-    const [predata, setPredata] = useState([]);
     const [trdata, setTrdata] = useState([]);
     const [loder, setLoder] = useState(false);
 
     const getdata = async () => {
         setLoder(true);
-        const resp = await getQualification_API();
+        const resp = await getGroups_API();
         if (resp && resp.success) {
             setLoder(false);
             const fdata = resp.data;
-            setPredata(fdata);
-            setTrdata(resp.data);
+            console.log(fdata);
+            setTrdata(fdata);
         }
         setLoder(false);
     }
     useEffect(() => { getdata(); }, [])
 
-    
+
 
 
 
@@ -54,8 +53,8 @@ export const GroupsListing = () => {
                                     onSelect={(k) => setKey(k)}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="gear" title="Group Info">
-                                        <GroupsListTable trdata={trdata}/>
+                                    <Tab eventKey="gear" title="Information">
+                                        <GroupsListTable trdata={trdata} getdata={getdata} setLoder={setLoder} />
                                     </Tab>
                                 </Tabs>
                             </div>

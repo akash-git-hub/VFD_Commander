@@ -75,7 +75,6 @@ export const UserUnavailabilityDetail = () => {
                                             <Calendar tileClassName={tileClassName} onChange={onClick} />
                                         </Col>
                                         <Col md={8}>
-                                            <h6>User Detail</h6>
                                             <div className='RoleName my-3'>
                                                 <Row>
                                                     <Col md={6}>

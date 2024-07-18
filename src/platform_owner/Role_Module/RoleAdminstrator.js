@@ -8,6 +8,8 @@ import { SharedButton } from '../../components/Button';
 
 export const RoleAdminstrator = () => {
     const [loder, setLoder] = useState(false);
+
+    
     return (
         <>
             <Loader show={loder} />

@@ -25,7 +25,7 @@ export const AddMemberGroup = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Groups"} SubHeading={""} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Groups"} SubHeading={""} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
@@ -33,7 +33,7 @@ export const AddMemberGroup = () => {
                                     onSelect={(k) => setKey(k)}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="gear" title="Create Groups">
+                                    <Tab eventKey="gear" title="Information">
                                         <AddMemberForm setLoder={setLoder} />
                                     </Tab>
                                 </Tabs>

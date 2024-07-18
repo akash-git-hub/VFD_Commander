@@ -39,7 +39,7 @@ export const Accountdetails = () => {
                                 onSelect={(k) => setKey(k)}
                                 className="mb-3"
                             >
-                                <Tab eventKey="home" title="Information">
+                                <Tab eventKey="home" title="Accounts List">
                                     <UserDetail data={data} setLoder={setLoder} />
                                 </Tab>
                             </Tabs>

@@ -11,10 +11,12 @@ export const login_API = async (data) => {
                 const urdata = resp.data.data;
                 const myid = resp.data.data._id;
                 const tokwn = resp.data.data.token;
-                localStorage.setItem('userData',JSON.stringify(urdata));
+                const my_image = urdata.image || ""; 
+                localStorage.setItem('proimage',my_image);
+                localStorage.setItem('userData', JSON.stringify(urdata));
                 localStorage.setItem('Authorization', "Bearer " + tokwn);
                 localStorage.setItem('id', myid);
-                localStorage.setItem('type',ur_type);
+                localStorage.setItem('type', ur_type);
             }
             return resp.data;
         }
@@ -30,6 +32,21 @@ export const login_API = async (data) => {
 export const create_plan_api = async (data) => {
     try {
         const resp = await http.post("/createSubscriptionPlan", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const update_plan_api = async (data) => {
+    try {
+        const resp = await http.post("/update_plan", data);
         if (resp) {
             return resp.data;
         }
@@ -106,6 +123,119 @@ export const getAccount_API = async (page) => {
     }
 }
 
+export const getUserByGroup_API = async (grpid) => {
+    try {
+        const resp = await http.post("/getUserByGroup", { data: grpid });
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            // errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+
+export const updateGrpname_API = async (data) => {
+    try {
+        const resp = await http.post("/updateGrpname", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const grpUsersDelete_API = async (data) => {
+    try {
+        const resp = await http.post("/grpUsersDelete", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const getGroups_API = async (page) => {
+    try {
+        const resp = await http.get("/getGroups", { params: page });
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const getUserByGroupId_API = async (data) => {
+    try {
+        const resp = await http.post("/getUserByGroupId", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            // errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const addGroupUser_API = async (data) => {
+    try {
+        const resp = await http.post("/addGroupUser", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const createGroup_API = async (data) => {
+    try {
+        const resp = await http.post("/createGroup", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            // errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
 export const unavailableUsers_API = async (page) => {
     try {
         const resp = await http.get("/unavailableUsers", { params: page });
@@ -124,7 +254,7 @@ export const unavailableUsers_API = async (page) => {
 
 export const getAccount_by_id_API = async (data) => {
     try {
-        const resp = await http.post("/getAccountByID",data);
+        const resp = await http.post("/getAccountByID", data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -235,6 +365,8 @@ export const getRollsAll_API = async () => {
 }
 
 
+
+
 export const createTraning_API = async (data) => {
     try {
         const resp = await http.post("/createTraning", data);
@@ -269,7 +401,7 @@ export const getTraningAll_API = async () => {
 
 export const updateTraning_API = async (data) => {
     try {
-        const resp = await http.post("/updateTraning",data);
+        const resp = await http.post("/updateTraning", data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -319,7 +451,7 @@ export const getGearType_API = async () => {
 
 export const updateGearType_API = async (data) => {
     try {
-        const resp = await http.post("/updateGearType",data);
+        const resp = await http.post("/updateGearType", data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -366,7 +498,7 @@ export const getGear_API = async () => {
 }
 export const updateGear_API = async (data) => {
     try {
-        const resp = await http.post("/updateGear",data);
+        const resp = await http.post("/updateGear", data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -412,7 +544,7 @@ export const getApparatus_API = async () => {
 }
 export const updateApparatus_API = async (data) => {
     try {
-        const resp = await http.post("/updateApparatus",data);
+        const resp = await http.post("/updateApparatus", data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -443,7 +575,7 @@ export const createUserGear_API = async (data) => {
 }
 export const getUserGear_API = async (id) => {
     try {
-        const resp = await http.post("/getUserGear",id);
+        const resp = await http.post("/getUserGear", id);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -458,7 +590,7 @@ export const getUserGear_API = async (id) => {
 }
 export const updateUserGear_API = async (data) => {
     try {
-        const resp = await http.post("/updateUserGear",data);
+        const resp = await http.post("/updateUserGear", data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -474,7 +606,7 @@ export const updateUserGear_API = async (data) => {
 
 export const deleteUserGear_API = async (data) => {
     try {
-        const resp = await http.post("/deleteUserGear",data);
+        const resp = await http.post("/deleteUserGear", data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -491,7 +623,7 @@ export const deleteUserGear_API = async (data) => {
 
 export const getSubscriptonData_API = async (id) => {
     try {
-        const resp = await http.post("/getSubscriptonData",id);
+        const resp = await http.post("/getSubscriptonData", id);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -538,7 +670,7 @@ export const getQualification_API = async () => {
 }
 export const updateQualification_API = async (data) => {
     try {
-        const resp = await http.post("/updateQualification",data);
+        const resp = await http.post("/updateQualification", data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -568,7 +700,7 @@ export const createUserQualification_API = async (data) => {
 }
 export const getUserQualification_API = async (id) => {
     try {
-        const resp = await http.post("/getUserQualifiaction",id);
+        const resp = await http.post("/getUserQualifiaction", id);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -583,9 +715,9 @@ export const getUserQualification_API = async (id) => {
 }
 
 
-export const deleteQualification_API = async (data) =>{
+export const deleteQualification_API = async (data) => {
     try {
-        const resp = await http.post("/deleteQualification",data);
+        const resp = await http.post("/deleteQualification", data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -598,9 +730,9 @@ export const deleteQualification_API = async (data) =>{
     }
 }
 
-export const deleteUserQualification_API = async (data) =>{
+export const deleteUserQualification_API = async (data) => {
     try {
-        const resp = await http.post("/deleteUserQualification",data);
+        const resp = await http.post("/deleteUserQualification", data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }

@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 export const InputField = ({
+    pattern="",
     FormLabel = "",
     FormType = "",
     FormPlaceHolder = "",

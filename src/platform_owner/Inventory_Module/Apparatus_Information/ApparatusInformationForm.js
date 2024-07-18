@@ -90,7 +90,7 @@ export const ApparatusInformationForm = () => {
                                     activeKey={"home"}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="home" title="Apparatus Info">
+                                    <Tab eventKey="home" title="Inventory Info">
                                         <div className='TrainingForm'>
                                             <Container fluid>
                                                 <Form onSubmit={submitHandler}>

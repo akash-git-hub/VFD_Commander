@@ -13,7 +13,7 @@ export const InventoryModuleList = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [loder,setLoder] = useState(false);
-    const [key, setKey] = useState('gear');
+    const [key, setKey] = useState('apparatus');
 
     
 
@@ -51,12 +51,13 @@ export const InventoryModuleList = () => {
                                     onSelect={(k) => setKey(k)}
                                     className="mb-3"
                                 >
+                                       <Tab eventKey="apparatus" title="Inventory Info">
+                                        <ApparatusList setLoder={setLoder} />
+                                    </Tab>
                                     <Tab eventKey="gear" title="Gear Info">
                                         <GearList setLoder={setLoder} />
                                     </Tab>
-                                    <Tab eventKey="apparatus" title="Apparatus Info">
-                                        <ApparatusList setLoder={setLoder} />
-                                    </Tab>
+                                 
                                   
                                 </Tabs>
                             </div>

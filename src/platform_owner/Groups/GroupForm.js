@@ -1,31 +1,50 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Stack, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { InputField } from '../../components/InputField';
 import { Textareanew } from '../../components/Textareanew';
 import { SharedButton } from '../../components/Button';
 import { AddFieldModal } from '../../commonpages/AddFieldModal';
-import { successAlert } from '../../components/Alert';
-import { createQualification_API } from '../../api_services/Apiservices';
+import { errorAlert, successAlert } from '../../components/Alert';
+import { createGroup_API, createQualification_API, getRollsAll_API, getUserByGroup_API } from '../../api_services/Apiservices';
 import { SharedMultiSelect } from '../../components/SharedMultiSelect';
 
 export const GroupForm = ({ setLoder }) => {
-    const [fields, setFields] = useState([]);
-    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
-    const [skillsdata, setSkillsdata] = useState();
-    const [preskillsdata, setPreskillsdata] = useState([]);
+    const [rolesIds, setRolesIds] = useState();
+    const [usersIds, setUsersIds] = useState();
 
     const [indata, setIndata] = useState({ "name": "", "type": "", "description": "" });
     const [error, setError] = useState({ "name": "", "type": "", "description": "" });
 
-    const handleAddField = (title, placeholder) => {
-        setFields([...fields, { title, placeholder }]);
-    };
 
-    const handleShowModal = () => setShowModal(true);
-    const handleCloseModal = () => setShowModal(false);
+    const [rolelist, setRolelist] = useState([]);
+    const [userlist, setUserlist] = useState([]);
 
+    const getrolls = async () => {
+        const resp = await getRollsAll_API();
+        if (resp) {
+            const findata = resp.data;
+            const mydata = findata.map(e => ({ label: e.role, value: e._id }));
+            setRolelist(mydata);
+        }
+    }
+
+    const getUsersByRole = async (data) => {
+        let fdata = [];
+        if (data && data.length > 0) {
+            fdata = data.map((e) => e.value);
+        }
+        const resp = await getUserByGroup_API(fdata);
+        if (resp) {
+            const findata = resp.data;
+            const mydata = findata.map(e => ({ label: e.first_name + " " + e.last_name, value: e._id }));
+            setUserlist(mydata);
+        }
+    }
+
+    useEffect(() => { getUsersByRole(rolesIds); }, [rolesIds]);
+    useEffect(() => { getrolls(); }, []);
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
@@ -33,53 +52,34 @@ export const GroupForm = ({ setLoder }) => {
         setError((pre) => ({ ...pre, [name]: "" }));
     }
 
-    const addNewHandler = (e) => {
-        const { name, value } = e.target;
-        const field = [...fields];
-        const index = field.findIndex((item) => item.title === name);
-        if (index !== -1) {
-            field[index] = {
-                ...field[index],
-                value: value
-            };
-        }
-        setFields(field);
-    }
 
     const submitHandler = async (e) => {
         e.preventDefault();
         let isValid = true;
         if (!indata.name) { setError((pre) => ({ ...pre, "name": "Required" })); isValid = false; }
-        if (!indata.type) { setError((pre) => ({ ...pre, "type": "Required" })); isValid = false; }
-        if (!indata.description) { setError((pre) => ({ ...pre, "description": "Required" })); isValid = false; }
-
+        if (usersIds.length <= 0) { errorAlert("Users are required"); return false; }
+        let myusersIds = [];
+        if (usersIds && usersIds.length > 0) {
+            myusersIds = usersIds.map((e) => ({ value: e.value }));
+        }
         if (isValid) {
             const fdata = {
-                "name": indata.name,
-                "type": indata.type,
-                "description": indata.description,
-                "add_field": fields
+                "grpname": indata.name,
+                "usersId": myusersIds,
             }
-            const resp = await createQualification_API(fdata);
+            const resp = await createGroup_API(fdata);
             if (resp && resp.success) {
                 e.target.reset();
                 setIndata([]);
-                setFields([]);
-                setLoder(false);
+                setRolesIds();
                 successAlert(resp.message);
-                navigate("/qualificationlist");
+                navigate("/groupslist");
             }
         }
         setLoder(false);
     }
 
-    const options = [
-        { label: 'Admin', value: 'admin' },
-        { label: 'User', value: 'user' },
-        { label: 'Manager', value: 'manager' },
-        { label: 'Developer', value: 'developer' },
-        { label: 'Designer', value: 'designer' }
-    ];
+
 
 
     return (
@@ -94,28 +94,18 @@ export const GroupForm = ({ setLoder }) => {
                             <Col md={4} className='mb-2'>
                                 <SharedMultiSelect
                                     labelText="Select Role"
-                                    setSkillsdata={setSkillsdata}
+                                    setSkillsdata={setRolesIds}
                                     name="skills"
-                                    options={preskillsdata}
+                                    options={rolelist}
                                 />
                             </Col>
                             <Col md={4} className='mb-2'>
                                 <SharedMultiSelect
                                     labelText="Select User"
-                                    setSkillsdata={setSkillsdata}
+                                    setSkillsdata={setUsersIds}
                                     name="skills"
-                                    options={preskillsdata}
+                                    options={userlist}
                                 />
-                            </Col>
-                        </Row>
-                        <Row className='mb-2'>
-                            {fields.map((e, i) => (
-                                <Col md={4} key={i}>
-                                    <InputField FormType={'text'} FormLabel={e.title} onChange={addNewHandler} name={e.title} FormPlaceHolder={e.placeholder} />
-                                </Col>
-                            ))}
-                            <Col md={4}>
-                                <SharedButton type={'button'} BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
                             </Col>
                         </Row>
                         <Row>
@@ -126,7 +116,6 @@ export const GroupForm = ({ setLoder }) => {
                     </Form>
                 </Container>
             </div>
-            <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />
         </>
     )
 }

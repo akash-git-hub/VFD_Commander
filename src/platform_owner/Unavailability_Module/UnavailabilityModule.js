@@ -16,7 +16,6 @@ export const UnavailabilityModule = () => {
         if (resp && resp.success) {
             setLoder(false);
             const prefdata = resp.data;
-            console.log("=============------------------",prefdata);
             setpreData(prefdata);
         }
         setLoder(false);

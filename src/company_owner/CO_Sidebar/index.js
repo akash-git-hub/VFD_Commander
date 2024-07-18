@@ -68,7 +68,7 @@ export const Cosidebar = () => {
 
                                 }}>14</Badge>
                             </li>
-                            <li className={host === "/subscriptionview" || host === "/subscriptionplan"? "active" : ""} style={{
+                            <li className={host === "/subscriptionview" || host==="/editplan" || host === "/subscriptionplan"? "active" : ""} style={{
                                 padding: '10px'
                             }}>
                                 <LinkSidebar LinkIcon={<FiAward />} LinkLabel={'Subscriptions'} LinkPath={'/subscriptionview'} />

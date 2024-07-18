@@ -4,7 +4,7 @@ import { InputField } from '../../../components/InputField';
 import { SharedButton } from '../../../components/Button';
 import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 import Select from '../../../components/Select';
-import { TimezoneList, timeFormateArray } from '../../../helper/Helper';
+import { TimezoneList, stateList, timeFormateArray } from '../../../helper/Helper';
 import { SelectDropdown } from '../../../components/SelectDropdown';
 import { create_modal_account_api, getSubscriptionPlan_api } from '../../../api_services/Apiservices';
 import { errorAlert, successAlert } from '../../../components/Alert';
@@ -21,7 +21,8 @@ export const CreateForm = ({ setLoder }) => {
   const [fullplandata, setFullplandata] = useState([]);
   const [timeFormate, setTimeFormate] = useState([{ 'label': '12-Hours', "value": 'hh:mm:ss A' }, { 'label': '24-Hours', "value": 'HH:mm:ss' }]);
 
- 
+
+  const [statusop, setStatusop] = useState([{ "name": "Active", "value": "Active" }, { "name": "Inactive", "value": "Inactive" }]);
   const navigate = useNavigate();
 
   const [indata, setIndata] = useState(
@@ -30,9 +31,13 @@ export const CreateForm = ({ setLoder }) => {
       "renewal_date": "", "subscription_amount": "", "subscription_name": "",
       "email": "", "contact_number": "", "zip_code": "", "state": "",
       "city": "", "billing_addres2": "", "billing_address": "", "account_name": "",
-      "first_name": "", "last_name": "",
+      "first_name": "", "last_name": "", "status": ""
     }
   );
+
+
+ 
+
 
 
 
@@ -49,7 +54,7 @@ export const CreateForm = ({ setLoder }) => {
       "renewal_date": "", "subscription_amount": "", "subscription_name": "",
       "email": "", "contact_number": "", "zip_code": "", "state": "",
       "city": "", "billing_addres2": "", "billing_address": "", "account_name": "",
-      "first_name": "", "last_name": "",
+      "first_name": "", "last_name": "", "status": ""
     }
   );
 
@@ -104,6 +109,8 @@ export const CreateForm = ({ setLoder }) => {
     } else { setPlanList([]); setLoder(false); }
     setLoder(false);
   }
+
+
   useEffect(() => {
     const tzList = TimezoneList();
     const array = [];
@@ -119,21 +126,58 @@ export const CreateForm = ({ setLoder }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     let isValid = 1;
-    if (!indata.email) { setError((e) => ({ ...e, "email": "* Email is required" })); isValid = 2; }
+
+    const st_name = stateList.find((e) => e.value === indata.state);
+    let state_name = "";
+    if (st_name) {
+      state_name = st_name.name;
+    }
+
+
+    // Email validation
+    if (!indata.email || !/^\S+@\S+\.\S+$/.test(indata.email)) {
+      setError((e) => ({ ...e, "email": "* Valid email is required" }));
+      isValid = 10;
+    }
+
+    // Mobile number validation (accept only numbers)
+    if (!indata.contact_number || !/^\d+$/.test(indata.contact_number)) {
+      setError((e) => ({ ...e, "contact_number": "* Contact number must contain only digits" }));
+      isValid = 11;
+    }
+
+    // Zip Code number validation (accept only numbers)
+    if (!indata.zip_code || !/^\d+$/.test(indata.zip_code)) {
+      setError((e) => ({ ...e, "zip_code": "* Zip-code number must contain only digits" }));
+      isValid = 11;
+    }
+
+
+
     if (!indata.account_name) { setError((e) => ({ ...e, "account_name": "* Account name is required" })); isValid = 2; }
     if (!indata.first_name) { setError((e) => ({ ...e, "first_name": "* First name is required" })); isValid = 2; }
-    if (!indata.last_name) { setError((e) => ({ ...e, "last_name": "* Last name is required" })); isValid = 2; }
-    if (!indata.time_formate) { setError((e) => ({ ...e, "time_formate": "* Time format is required" })); isValid = 2; }
-    if (!indata.incentive_information) { setError((e) => ({ ...e, "incentive_information": "* Incentive information is required" })); isValid = 2; }
-    if (!indata.renewal_date) { setError((e) => ({ ...e, "renewal_date": "* Renewal date is required" })); isValid = 2; }
-    if (!indata.subscription_amount) { setError((e) => ({ ...e, "subscription_amount": "* Subscription amount is required" })); isValid = 2; }
-    if (!indata.subscription_name) { setError((e) => ({ ...e, "subscription_name": "* Subscription name is required" })); isValid = 2; }
+    if (!indata.email) { setError((e) => ({ ...e, "email": "* Email is required" })); isValid = 2; }
     if (!indata.contact_number) { setError((e) => ({ ...e, "contact_number": "* Contact number is required" })); isValid = 2; }
-    if (!indata.zip_code) { setError((e) => ({ ...e, "zip_code": "* ZIP code is required" })); isValid = 2; }
-    if (!indata.state) { setError((e) => ({ ...e, "state": "* State is required" })); isValid = 2; }
-    if (!indata.city) { setError((e) => ({ ...e, "city": "* City is required" })); isValid = 2; }
-    if (!indata.billing_addres2) { setError((e) => ({ ...e, "billing_addres2": "* Billing address line 2 is required" })); isValid = 2; }
+    // if (!indata.subscription_amount) { setError((e) => ({ ...e, "subscription_amount": "* Subscription amount is required" })); isValid = 2; }
+    if (!indata.subscription_name) { setError((e) => ({ ...e, "subscription_name": "* Subscription name is required" })); isValid = 2; }
     if (!indata.billing_address) { setError((e) => ({ ...e, "billing_address": "* Billing address line 1 is required" })); isValid = 2; }
+    if (!indata.city) { setError((e) => ({ ...e, "city": "* City is required" })); isValid = 2; }
+    if (!indata.state) { setError((e) => ({ ...e, "state": "* State is required" })); isValid = 2; }
+    if (!indata.zip_code) { setError((e) => ({ ...e, "zip_code": "* ZIP code is required" })); isValid = 2; }
+    if (!indata.renewal_date) { setError((e) => ({ ...e, "renewal_date": "* Renewal date is required" })); isValid = 2; }
+
+    // if (!indata.last_name) { setError((e) => ({ ...e, "last_name": "* Last name is required" })); isValid = 2; }
+    if (!indata.time_formate) { setError((e) => ({ ...e, "time_formate": "* Time format is required" })); isValid = 2; }
+    if (!indata.time_zone) { setError((e) => ({ ...e, "time_zone": "* Time Zone is required" })); isValid = 2; }
+    if (!indata.incentive_information) { setError((e) => ({ ...e, "incentive_information": "* Incentive information is required" })); isValid = 2; }
+
+    if (!indata.status) { setError((e) => ({ ...e, "status": "* Status is required" })); isValid = 2; }
+
+
+
+    // state_code
+
+
 
     if (isValid === 1) {
       setLoder(true);
@@ -143,7 +187,7 @@ export const CreateForm = ({ setLoder }) => {
       formData.append('email', indata.email);
       formData.append('create_by_id', "super_admin");
       formData.append('first_name', indata.first_name);
-      formData.append('last_name', indata.last_name);
+      formData.append('last_name', "");
       formData.append('account_name', indata.account_name);
       formData.append('subscription_id', indata.subscription_name);
       formData.append('mobile_no', indata.contact_number);
@@ -153,8 +197,11 @@ export const CreateForm = ({ setLoder }) => {
       formData.append('renewal_date', indata.renewal_date);
       formData.append('subscription_amount', indata.subscription_amount);
       formData.append('zip_code', indata.zip_code);
-      formData.append('state', indata.state);
+      formData.append('state', state_name);
+      formData.append('state_code', indata.state);
       formData.append('city', indata.city);
+      formData.append('status', indata.status);
+    
       formData.append('billing_address', indata.billing_address);
       formData.append('billing_addres2', indata.billing_addres2);
       formData.append('add_field', JSON.stringify(fields));
@@ -182,26 +229,16 @@ export const CreateForm = ({ setLoder }) => {
                 <InputField FormType={'text'} FormLabel={"Account Name"} name="account_name" error={error.account_name} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"First Name"}  name="first_name" error={error.first_name} onChange={onChangeHandler} />
+                <InputField FormType={'text'} FormLabel={"Contact Name"} name="first_name" error={error.first_name} onChange={onChangeHandler} />
               </Col>
-              <Col md={4}>
+              {/* <Col md={4}>
                 <InputField FormType={'text'} FormLabel={"Last Name"} name='last_name' error={error.last_name} onChange={onChangeHandler} />
-              </Col>
-            </Row>
-            <Row className='mb-2'>
+              </Col> */}
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Email"} name='email' error={error.email} onChange={onChangeHandler} />
+                <InputField FormType={'email'} FormLabel={"Email"} name='email' error={error.email} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'tel'} FormLabel={"Mobile No"} max={10} name='contact_number' error={error.contact_number} onChange={onChangeHandler} />
-              </Col>
-              <Col md={4}>
-                <Select Array={planList} name="subscription_name" FormLabel={"Subscription Name"} error={error.subscription_name} value={indata.subscription_name} onChange={onChangeHandler} />
-              </Col>
-            </Row>
-            <Row className='mb-2'>
-              <Col md={4}>
-                <InputField FormType={'number'} FormLabel={"Subscription Amount"} value={indata.subscription_amount} error={error.subscription_amount} name='subscription_amount' onChange={onChangeHandler} readOnly="true" />
+                <InputField FormType={'tel'} FormPlaceHolder={"XXX-XXX-XXXX"} FormLabel={"Mobile No"} pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" max={10} name='contact_number' error={error.contact_number} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
                 <InputField FormType={'text'} FormLabel={"Billing Address 1"} name="billing_address" error={error.billing_address} onChange={onChangeHandler} />
@@ -209,41 +246,46 @@ export const CreateForm = ({ setLoder }) => {
               <Col md={4}>
                 <InputField FormType={'text'} FormLabel={"Billing Address 2"} name='billing_addres2' error={error.billing_addres2} onChange={onChangeHandler} />
               </Col>
-            </Row>
-            <Row className='mb-2'>
-              <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"State"} name='state' error={error.state} onChange={onChangeHandler} />
-              </Col>
               <Col md={4}>
                 <InputField FormType={'text'} FormLabel={"City"} name='city' error={error.city} onChange={onChangeHandler} />
               </Col>
+              {/* <Col md={4}>
+                <InputField FormType={'text'} FormLabel={"State"} name='state' error={error.state} onChange={onChangeHandler} />
+              </Col> */}
+
               <Col md={4}>
-                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={6} name='zip_code' error={error.zip_code} onChange={onChangeHandler} />
+                <Select Array={stateList} name="state" FormLabel={"State"} error={error.state} value={indata.state} onChange={onChangeHandler} />
               </Col>
-            </Row>
-            <Row className='mb-2'>
+
+              <Col md={4}>
+                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={5} name='zip_code' error={error.zip_code} onChange={onChangeHandler} />
+              </Col>
+              <Col md={4}>
+                <Select Array={planList} name="subscription_name" FormLabel={"Subscription Name"} error={error.subscription_name} value={indata.subscription_name} onChange={onChangeHandler} />
+              </Col>
+              <Col md={4}>
+                <InputField FormType={'number'} FormLabel={"Subscription Amount"} value={indata.subscription_amount} error={error.subscription_amount} name='subscription_amount' onChange={onChangeHandler} readOnly={true} />
+              </Col>
+
               <Col md={4}>
                 <InputField FormType={'date'}
                   FormLabel={"Renewal Date"}
                   name='renewal_date'
                   error={error.renewal_date}
-                  onChange={onChangeHandler} 
-                  />
+                  onChange={onChangeHandler}
+                />
               </Col>
               <Col md={4}>
                 <InputField FormType={'text'} FormLabel={"Incentive Information"} name='incentive_information' onChange={onChangeHandler} error={error.incentive_information} />
               </Col>
               <Col md={4}>
-              <Select Array={timezones} name="time_zone" FormLabel={"Time Zone"} error={error.time_zone} value={indata.time_zone} onChange={onChangeHandler} />
-{/*               
-                <Timezoneselectdropdown Array={timezones} FormLabel="Time Zone" error={error.time_zone} name="time_zone" onChange={(e) => onSelectHandler(e)} /> */}
-                {/* <Select  /> */}
+                <Select Array={timezones} name="time_zone" FormLabel={"Time Zone"} error={error.time_zone} value={indata.time_zone} onChange={onChangeHandler} />
               </Col>
-            </Row>
-            <Row className='mb-2'>
               <Col md={4}>
-              <Select Array={timeFormateArray} name="time_formate" FormLabel={"Time Display"} error={error.time_formate} value={indata.time_formate} onChange={onChangeHandler} />
-                {/* <Timeformatdropdown arraydata={timeFormate} FormLabel="Time Display" name="time_formate" error={error.time_formate} onChange={(e) => onSelectHandler(e)} /> */}
+                <Select Array={timeFormateArray} name="time_formate" FormLabel={"Time Display"} error={error.time_formate} value={indata.time_formate} onChange={onChangeHandler} />
+              </Col>
+              <Col md={4}>
+                <Select Array={statusop} name="status" FormLabel={"Status"} error={error.status} value={indata.status} onChange={onChangeHandler} />
               </Col>
               {fields.map((e, i) => (
                 <Col md={4} key={i}>

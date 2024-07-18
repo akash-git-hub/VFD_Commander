@@ -5,7 +5,7 @@ import { SharedButton } from '../../../components/Button';
 import { AddFieldModal } from '../../../commonpages/AddFieldModal';
 
 import { UploadFile } from '../../../components/UploadFile';
-import { deleteUserGear_API, deleteUserQualification_API, getRollsAll_API,  update_modal_account_api } from '../../../api_services/Apiservices';
+import { deleteUserGear_API, deleteUserQualification_API, getRollsAll_API, update_modal_account_api } from '../../../api_services/Apiservices';
 import { errorAlert, successAlert } from '../../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import { TbEdit } from "react-icons/tb";
@@ -142,42 +142,57 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
         // If all fields are valid, submit the form
         if (isValid) {
 
-            setLoder(true);
+            Swal.fire({
+                title: "Are you sure?",
+                text: "User Information has been modified. Save changes?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
 
-            const formData = new FormData();
-            formData.append('checkUserType', 2);
-            formData.append('id', indata.id);
-            formData.append('create_by_id', localStorage.getItem('id'));
-            formData.append('first_name', indata.first_name);
-            formData.append('last_name', indata.last_name);
-            formData.append('start_date', indata.start_date);
-            formData.append('email', indata.email);
-            formData.append('supervisor', indata.supervisor);
-            formData.append('role', indata.role);
-            formData.append('position', indata.position);
-            formData.append('billing_address', indata.address_1);
-            formData.append('billing_addres2', indata.address_2);
-            formData.append('city', indata.city);
-            formData.append('state', indata.state);
-            formData.append('zip_code', indata.zip_code);
-            formData.append('term_date', indata.term_date);
-            formData.append('image', indata.image);
-            formData.append('mobile_no', indata.phone_no);
-            formData.append('emergency_contact_name', indata.emergency_contact_name);
-            formData.append('emergency_contact_number', indata.emergency_contact_number);
-            formData.append('status', indata.status);
-            formData.append('add_field', fields);
+                    setLoder(true);
 
-            const resp = await update_modal_account_api(formData);
-            if (resp && resp.success) {
-                e.target.reset();
-                setFields([]);
-                setLoder(false);
-                successAlert(resp.message);
-                navigate("/adminstratorprofilelist");
-            }
+                    const formData = new FormData();
+                    formData.append('checkUserType', 2);
+                    formData.append('id', indata.id);
+                    formData.append('create_by_id', localStorage.getItem('id'));
+                    formData.append('first_name', indata.first_name);
+                    formData.append('last_name', indata.last_name);
+                    formData.append('start_date', indata.start_date);
+                    formData.append('email', indata.email);
+                    formData.append('supervisor', indata.supervisor);
+                    formData.append('role', indata.role);
+                    formData.append('position', indata.position);
+                    formData.append('billing_address', indata.address_1);
+                    formData.append('billing_addres2', indata.address_2);
+                    formData.append('city', indata.city);
+                    formData.append('state', indata.state);
+                    formData.append('zip_code', indata.zip_code);
+                    formData.append('term_date', indata.term_date);
+                    formData.append('image', indata.image);
+                    formData.append('mobile_no', indata.phone_no);
+                    formData.append('emergency_contact_name', indata.emergency_contact_name);
+                    formData.append('emergency_contact_number', indata.emergency_contact_number);
+                    formData.append('status', indata.status);
+                    formData.append('add_field', JSON.stringify(fields));
+
+                    const resp = await update_modal_account_api(formData);
+                    if (resp && resp.success) {
+                        e.target.reset();
+                        setFields([]);
+                        setLoder(false);
+                        successAlert(resp.message);
+                        navigate("/adminstratorprofilelist");
+                    }
+                    setLoder(false);
+                }
+            });
             setLoder(false);
         }
+        setLoder(false);
     };
 
 
@@ -246,7 +261,7 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
     }
 
 
-    
+
     const deleteUserQualificationHandler = (id) => {
         if (!id) { errorAlert("Something wrong"); return; }
         Swal.fire({
@@ -260,7 +275,7 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const fadat = { "id": id, }
-                console.log("----------",id);
+                console.log("----------", id);
                 const resp = await deleteUserQualification_API(fadat);
                 if (resp && resp.success) {
                     setLoder(false);
@@ -278,7 +293,15 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
         });
     }
 
-
+    const cancelHandler = () => {
+        Swal.fire({
+            title: "Changes have been made",
+            text: "Are you sure you want to exit with no changes?",
+            icon: "question"
+        }).then((result) => {
+            if (result.isConfirmed) { setIsedit(false); }
+        });
+    }
 
     return (
         <>
@@ -306,10 +329,10 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                         </Row>
                                     </Col>
                                     <Col md={1}>
-                                        <Button variant="success" size="sm"
-                                            onClick={() => setIsedit(false)} style={{
+                                        <Button variant="danger" size="sm"
+                                            onClick={cancelHandler} style={{
                                                 fontWeight: '500'
-                                            }}>Not Update
+                                            }}>Cancel
                                         </Button>
                                     </Col>
                                 </Row>
@@ -427,18 +450,6 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                     <p>{indata.phone_no}</p>
                                 </Col>
                                 <Col md={4}>
-                                    <h6>Start Date</h6>
-                                    <p>{moment.unix(indata.start_date).format("MM-DD-YYYY")}</p>
-                                </Col>
-                                <Col md={4}>
-                                    <h6>Term Date</h6>
-                                    <p>{moment.unix(indata.term_date).format('MM-DD-YYYY')}</p>
-                                </Col>
-                                <Col md={4}>
-                                    <h6>Role</h6>
-                                    <p>{indata.role}</p>
-                                </Col>
-                                <Col md={4}>
                                     <h6>Supervisor</h6>
                                     <p>{indata.supervisor}</p>
                                 </Col>
@@ -446,6 +457,19 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                     <h6>Position</h6>
                                     <p>{indata.position}</p>
                                 </Col>
+                                <Col md={4}>
+                                    <h6>Role</h6>
+                                    <p>{indata.role}</p>
+                                </Col>
+                                <Col md={4}>
+                                    <h6>Start Date</h6>
+                                    <p>{moment.unix(indata.start_date).format("MM-DD-YYYY")}</p>
+                                </Col>
+                                <Col md={4}>
+                                    <h6>Term Date</h6>
+                                    <p>{moment.unix(indata.term_date).format('MM-DD-YYYY')}</p>
+                                </Col>                             
+                              
                                 <Col md={4}>
                                     <h6>Address 1</h6>
                                     <p>{indata.address_1}</p>
@@ -455,13 +479,14 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                     <p>{indata.address_2}</p>
                                 </Col>
                                 <Col md={4}>
-                                    <h6>State</h6>
-                                    <p>{indata.state}</p>
-                                </Col>
-                                <Col md={4}>
                                     <h6>City</h6>
                                     <p>{indata.city}</p>
                                 </Col>
+                                <Col md={4}>
+                                    <h6>State</h6>
+                                    <p>{indata.state}</p>
+                                </Col>
+                             
                                 <Col md={4}>
                                     <h6>Zip Code</h6>
                                     <p>{indata.zip_code}</p>
@@ -505,7 +530,7 @@ export const EditAdminstratorForm = ({ setLoder, pre, grdata, quadata }) => {
                                                 <Col md={3}>
                                                     <h6>Replacement Date</h6>
                                                     <p>{moment.unix(e.replacement_date).format("MM-DD-YYYY")}</p>
-                                                </Col>                                            
+                                                </Col>
 
                                                 {e.add_field && e.add_field.map((inField, idx) => ( // Added 'idx' for unique keys
                                                     <Col md={3} key={idx}> {/* Added key prop for each column */}
