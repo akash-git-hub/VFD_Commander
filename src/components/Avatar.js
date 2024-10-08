@@ -15,9 +15,9 @@ export const Avatar = ({ LinkLabel, LinkPath, Description }) => {
                 color: '#000',
                 fontSize: '18px'
             }}>
-                <Stack direction='horizontal' gap={0} style={{padding:'0.2rem'}}>
+                <Stack direction='horizontal' gap={2} style={{padding:'0.2rem'}}>
                     <div style={{marginRight:"0.2rem"}}>
-                        <Image src={img ? img : "assets/images/avatar.png"} className='w-100 Avatar_img' roundedCircle />
+                        <Image src={img ? img : "assets/images/avatar.png"} className='Avatar_img' style={{width:'50px',height:'50px'}} roundedCircle />
                     </div>
                     <Stack direction='vertical' gap={0} >
                         <span>

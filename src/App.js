@@ -42,6 +42,11 @@ import { GroupAdd } from './platform_owner/Groups/GroupAdd';
 import { GroupDetail } from './platform_owner/Groups/GroupDetail';
 import { AddMemberGroup } from './platform_owner/Groups/AddMemberGroup';
 import { EditPlan } from './company_owner/Subscriptions_Plan/createPlans/EditPlan';
+import { Dashboard } from './platform_owner/dashboard/Dashboard';
+import { UpcomingEvent } from './platform_owner/dashboard/UpcomingEventDetails';
+import { ApparatusStatus } from './platform_owner/dashboard/ApparatusStatusDetails';
+import { PendingQualification } from './platform_owner/dashboard/PendingQualificationDetails';
+import { UnavailableStaffToday } from './platform_owner/dashboard/UnavailableStaffTodayDetails';
 
 const Mycontext = createContext();
 
@@ -76,6 +81,7 @@ function App() {
 
             {/* Clinet Code */}
             <Route element={<ClientAuth />} >
+               <Route path="/dashboard" element={<Dashboard/>} />
               <Route path="/roleadminstrator" element={<RoleAdminstrator />} />
               <Route path="/roleadminstratorlist" element={<RoleList />} />
               <Route path="/rolelistdetail" element={<RoleListDetail />} />
@@ -105,8 +111,11 @@ function App() {
               <Route path="/groupsadd" element={<GroupAdd />} />
               <Route path="/groupsdetails" element={<GroupDetail />} />
               <Route path="/addmember" element={<AddMemberGroup />} />
+              <Route path="/unavailableStaffDetails" element={<UnavailableStaffToday />} />
+              <Route path="/upcomingEventDetails" element={<UpcomingEvent/>}/>
+              <Route path="/apparatusStatusDetails" element={<ApparatusStatus/>}/>
+              <Route path="/pendingQualificationDetails" element={<PendingQualification/>}/>
             </Route>
-
           </Routes>
         </Mycontext.Provider>
       </HashRouter>

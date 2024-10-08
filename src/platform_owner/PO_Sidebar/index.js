@@ -34,10 +34,10 @@ export const PoSidebar = ({ img = "" }) => {
                         padding: 0
                     }}>
                         <Stack direction='vertical' gap={3}>
-                            <li className={pathname === "#" ? 'active' : ""} style={{
+                            <li className={pathname === "/dashboard" ? 'active' : ""} style={{
                                 padding: '10px'
                             }}>
-                                <LinkSidebar LinkIcon={<Image src='./assets/images/dashboard_new.svg' />} LinkLabel={'Dashboard'} LinkPath={'#'} />
+                                <LinkSidebar LinkIcon={<Image src='./assets/images/dashboard_new.svg' />} LinkLabel={'Dashboard'} LinkPath={'/dashboard'} />
                             </li>
                             <li className={pathname === "/roleadminstratorlist" || pathname == "/rolelistdetail" || pathname === "/roleadminstrator" || pathname === "/qualificationlist" || pathname === "/qualification" || pathname === "/qualificationdetail" ? 'active' : ""} style={{
                                 padding: '10px'
@@ -99,9 +99,9 @@ export const PoSidebar = ({ img = "" }) => {
                         listStyle: 'none',
                         padding: 0
                     }}>
-                        <Stack direction='vertical' gap={3}>
+                        <Stack direction='vertical' gap={3} >
                             <li className={'active'} style={{ padding: '0px 0.2rem', border: '1px', borderRadius: "5px" }} onClick={() => navigate('/myprofile')} >
-                                <Avatar img={img} LinkLabel={mydata && mydata.account_name} Description={mydata && mydata.email} />
+                                <Avatar img={img} LinkLabel={mydata && mydata.account_name} Description={mydata && mydata.email}  />
                             </li>
                             <li>
                                 <SharedButton BtnLabel={"Logout"} onClick={logoutClientHandler} BtnVariant={"light"} startIcon={<CgLogOut />} BtnClass={"w-100"} style={{ background: '#e7eaee' }} />

@@ -229,6 +229,9 @@ a.page-link.currentPage {
 .AccountModulePage{
   padding-top: 10px !important;
 }
+.dashboard{
+  padding-top: 10px !important;
+}
 
 ::-webkit-scrollbar {
   display: none;
@@ -263,4 +266,17 @@ a.page-link.currentPage {
 
 .f-end{
   float:right !important;
+}
+
+.text-darkdanger{
+   color:#ff0000;
+}
+.text-darksuccess{
+  color:#155724;;
+}
+.bg-lightsuccess{
+  background-color:#8bec70;
+}
+.bg-lightdanger{
+  background-color:#f08d8d;
 }

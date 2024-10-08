@@ -56,6 +56,7 @@ export const RoleList = () => {
         }
         setLoder(false);
     }
+    
     useEffect(() => { getdata(); }, [])
 
     useEffect(() => { getrolls(); }, []);
