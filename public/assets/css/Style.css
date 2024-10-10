@@ -34,6 +34,8 @@ h1, h2, h3, h4, h5, h6{
   border-radius: 10px;
   margin: 10px 0px;
   border: 1px solid #e6e6e6;
+  max-height: 350px;
+  overflow-y: scroll;
 }
 
 .table > :not(caption) > * > * {
@@ -45,8 +47,12 @@ h1, h2, h3, h4, h5, h6{
 }
 
 table.table th {
-  /* font-weight: 400; */
-  font-weight: bold;
+ 
+  
+    position: sticky;
+    top: 0;
+    z-index: 10; /* Ensure the header is above the scrolling content */
+  font-weight: bold; /* font-weight: 400; */
   font-size: 15px;
   color: black;
   text-transform: uppercase;
@@ -365,4 +371,20 @@ th {
 }
 .info h6{
  margin-bottom: 0!important;
+}
+
+.text-darkdanger{
+  color:#ff0000;
+}
+.text-darksuccess{
+ color:#155724;;
+}
+.bg-lightsuccess{
+ background-color:#8bec70;
+}
+.bg-lightdanger{
+ background-color:#f08d8d;
+}
+.unavailable-staff-box{
+  
 }

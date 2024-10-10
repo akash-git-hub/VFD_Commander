@@ -61,8 +61,8 @@ export const PoSidebar = ({ img = "" }) => {
                     {mydata && mydata.isGuest === false ?
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             <Stack direction='vertical' gap={3}>
-                                <li className={pathname === "#" ? 'active' : ""} style={{ padding: '10px' }}>
-                                    <LinkSidebar LinkIcon={<Image src='./assets/images/dashboard_new.svg' />} LinkLabel={'Dashboard'} LinkPath={'#'} />
+                                <li className={pathname === "/dashboard" ? 'active' : ""} style={{ padding: '10px' }}>
+                                    <LinkSidebar LinkIcon={<Image src='./assets/images/dashboard_new.svg' />} LinkLabel={'Dashboard'} LinkPath={'/dashboard'} />
                                 </li>
                                 <li className={pathname === "/roleadminstratorlist" || pathname == "/rolelistdetail" || pathname === "/roleadminstrator" || pathname === "/qualificationlist" || pathname === "/qualification" || pathname === "/qualificationdetail" ? 'active' : ""} style={{
                                     padding: '10px'

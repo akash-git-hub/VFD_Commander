@@ -49,7 +49,8 @@ import MyGroupDetails from './platform_owner/Groups/MyGroupDetails';
 import { AssignGroup } from './platform_owner/Groups/AssignGroup';
 import { Support } from './commonpages/Support';
 import Access_account from './platform_owner/User_Profile_Adminstrator/Access_account';
-import { MyGuestProfile } from './platform_owner/My_Profile/MyGuestProfile';
+import { MyGuestProfile } from './platform_owner/My_Profile/MyGuestProfile'; 
+import { Dashboard } from './platform_owner/dashboard/Dashboard';
 
 
 const Mycontext = createContext();
@@ -88,6 +89,7 @@ function App() {
 
             {/* Clinet Code */}
             <Route element={<ClientAuth />} >
+              <Route path="/dashboard" element={<Dashboard/>} />
               <Route path="/roleadminstrator" element={<RoleAdminstrator />} />
               <Route path="/roleadminstratorlist" element={<RoleList />} />
               <Route path="/rolelistdetail" element={<RoleListDetail />} />

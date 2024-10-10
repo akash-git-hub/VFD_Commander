@@ -164,7 +164,7 @@ export const TrackTraining = ({ setLoder, tableData, dateChange, setIsDetails, i
 
                             <div className='MainTable'>
                                 <Table responsive className="table table-hover">
-                                    <thead>
+                                    <thead >
                                         <tr>
                                             <th>Event Type</th>
                                             <th>Event Name</th>
