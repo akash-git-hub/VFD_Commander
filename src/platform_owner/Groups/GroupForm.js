@@ -1,50 +1,63 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Stack, Form } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { InputField } from '../../components/InputField';
-import { Textareanew } from '../../components/Textareanew';
 import { SharedButton } from '../../components/Button';
-import { AddFieldModal } from '../../commonpages/AddFieldModal';
 import { errorAlert, successAlert } from '../../components/Alert';
-import { createGroup_API, createQualification_API, getRollsAll_API, getUserByGroup_API } from '../../api_services/Apiservices';
+import { createGroup_API, getAccount_API, getApparatus_API, getGear_API, getRollsAll_API, getUserByGroup_API } from '../../api_services/Apiservices';
 import { SharedMultiSelect } from '../../components/SharedMultiSelect';
+import { statusArrayEdit } from '../../helper/Helper';
+import Select from '../../components/Select';
 
 export const GroupForm = ({ setLoder }) => {
     const navigate = useNavigate();
-    const [rolesIds, setRolesIds] = useState();
-    const [usersIds, setUsersIds] = useState();
+    const [inventoryIDS, setInventoryIDS] = useState();
+    const [gearIDS, setGearIDS] = useState([]);
+    const [usersIds, setUsersIds] = useState([]);
 
-    const [indata, setIndata] = useState({ "name": "", "type": "", "description": "" });
-    const [error, setError] = useState({ "name": "", "type": "", "description": "" });
+    const [indata, setIndata] = useState({ "name": "", "group_status": "", "type": "", "description": "" });
+    const [error, setError] = useState({ "name": "", "type": "", "users": "", "gears": "", "group_status": "", "description": "" });
 
 
     const [rolelist, setRolelist] = useState([]);
     const [userlist, setUserlist] = useState([]);
 
-    const getrolls = async () => {
-        const resp = await getRollsAll_API();
-        if (resp) {
+
+    const [gear, setGear] = useState([]);
+
+
+    const getGear = async () => {
+        setLoder(true);
+        const resp = await getGear_API();
+        if (resp && resp.success) {
+            setLoder(false);
             const findata = resp.data;
-            const mydata = findata.map(e => ({ label: e.role, value: e._id }));
-            setRolelist(mydata);
+            const mydata = findata.map(e => ({ label: e.gear_item_name, value: e._id }));
+            setGear(mydata);
         }
+        setLoder(false);
     }
 
-    const getUsersByRole = async (data) => {
-        let fdata = [];
-        if (data && data.length > 0) {
-            fdata = data.map((e) => e.value);
-        }
-        const resp = await getUserByGroup_API(fdata);
+    useEffect(() => {
+        if (usersIds && usersIds.length > 0) { setError((pre) => ({ ...pre, 'users': "" })); }
+        if (gearIDS && gearIDS.length > 0) { setError((pre) => ({ ...pre, 'gears': "" })); }
+    }, [gearIDS, usersIds])
+
+    const get_users_list = async (page, key = "") => {
+        const data = { "page": page, userTypes: 3, "srkey": key }
+        const resp = await getAccount_API(data);
         if (resp) {
+            setLoder(false);
+            const data = resp.data;
             const findata = resp.data;
             const mydata = findata.map(e => ({ label: e.first_name + " " + e.last_name, value: e._id }));
             setUserlist(mydata);
         }
+        setLoder(false);
     }
 
-    useEffect(() => { getUsersByRole(rolesIds); }, [rolesIds]);
-    useEffect(() => { getrolls(); }, []);
+
+    useEffect(() => { getGear(); get_users_list(); }, []);
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
@@ -56,22 +69,23 @@ export const GroupForm = ({ setLoder }) => {
     const submitHandler = async (e) => {
         e.preventDefault();
         let isValid = true;
-        if (!indata.name) { setError((pre) => ({ ...pre, "name": "Required" })); isValid = false; }
-        if (usersIds.length <= 0) { errorAlert("Users are required"); return false; }
-        let myusersIds = [];
-        if (usersIds && usersIds.length > 0) {
-            myusersIds = usersIds.map((e) => ({ value: e.value }));
-        }
+        const { name, group_status } = indata;
+        if (!name) { setError((pre) => ({ ...pre, "name": "Required" })); isValid = false; }
+        if (!group_status) { setError((pre) => ({ ...pre, "group_status": "Required" })) }
+        if (gearIDS.length <= 0) { setError((pre) => ({ ...pre, "gears": "Required" })); isValid = false; }
+
+        
         if (isValid) {
             const fdata = {
-                "grpname": indata.name,
-                "usersId": myusersIds,
+                "grpname": name,
+                "gear": gearIDS,
+                "group_status": group_status
             }
             const resp = await createGroup_API(fdata);
             if (resp && resp.success) {
                 e.target.reset();
                 setIndata([]);
-                setRolesIds();
+                setInventoryIDS();
                 successAlert(resp.message);
                 navigate("/groupslist");
             }
@@ -80,36 +94,31 @@ export const GroupForm = ({ setLoder }) => {
     }
 
 
-
-
     return (
         <>
             <div className='TrainingForm'>
                 <Container fluid>
                     <Form onSubmit={submitHandler}>
-                        <Row>
-                            <Col md={4} className='mb-2'>
-                                <InputField FormType={'text'} FormLabel={"Group Name"} FormPlaceHolder={"Enter Group Name"} name='name' error={error.name} onChange={inputHandler} />
+                        <Row className='mb-3'>
+                            <Col md={12} className='mb-2'>
+                                <InputField required={true} FormType={'text'} FormLabel={"Group Name"} FormPlaceHolder={"Enter Group Name"} name='name' error={error.name} onChange={inputHandler} />
                             </Col>
-                            <Col md={4} className='mb-2'>
+                            <Col md={6} className='mb-2'>
                                 <SharedMultiSelect
-                                    labelText="Select Role"
-                                    setSkillsdata={setRolesIds}
-                                    name="skills"
-                                    options={rolelist}
+                                    isRequire={true}
+                                    labelText="Select Gear"
+                                    setSkillsdata={setGearIDS}
+                                    name="gears"
+                                    options={gear}
+                                    error={error.gears}
                                 />
                             </Col>
-                            <Col md={4} className='mb-2'>
-                                <SharedMultiSelect
-                                    labelText="Select User"
-                                    setSkillsdata={setUsersIds}
-                                    name="skills"
-                                    options={userlist}
-                                />
+                            <Col md={6} className='mb-3'>
+                                <Select required={true} FormLabel='Group Status' Array={statusArrayEdit} onChange={inputHandler} error={error.group_status} value={indata.group_status} name='group_status' />
                             </Col>
                         </Row>
                         <Row>
-                            <Col md={4}>
+                            <Col md={4} className='mt-4'>
                                 <SharedButton type={'submit'} BtnLabel={"Create"} BtnVariant={'primary'} BtnClass={"w-100"} />
                             </Col>
                         </Row>

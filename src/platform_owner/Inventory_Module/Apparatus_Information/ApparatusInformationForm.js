@@ -83,38 +83,38 @@ export const ApparatusInformationForm = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Inventory"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Gear and Apparatus Administration"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
                                     activeKey={"home"}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="home" title="Inventory Info">
+                                    <Tab eventKey="home" title="Inventory Information">
                                         <div className='TrainingForm'>
                                             <Container fluid>
                                                 <Form onSubmit={submitHandler}>
-                                                    <Row className='mb-2'>
+                                                    <Row>
                                                         <Col md={6}>
-                                                            <InputField FormType={'text'} FormLabel={"Name"} FormPlaceHolder={"Enter Apparatus Name"} name='name' error={error.name} onChange={inputHandler} />
+                                                            <InputField required={true} FormType={'text'} FormLabel={"Name"} name='name' error={error.name} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={6}>
-                                                            <InputField FormType={'text'} FormLabel={"Type"} FormPlaceHolder={"Enter Apparatus Type"} name='apparatus_type' error={error.apparatus_type} onChange={inputHandler} />
+                                                            <InputField required={true} FormType={'text'} FormLabel={"Type"} name='apparatus_type' error={error.apparatus_type} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={6}>
-                                                            <InputField FormType={'date'} FormLabel={"Service Date"} FormPlaceHolder={"Select Service Date"} name='srdate' error={error.srdate} onChange={inputHandler} />
+                                                            <InputField required={true} FormType={'date'} FormLabel={"Service Date"} name='srdate' error={error.srdate} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={6}>
-                                                            <InputField FormType={'date'} FormLabel={"Replacement Date"} FormPlaceHolder={"Select Replacement Date"} name='rpdate' error={error.rpdate} onChange={inputHandler} />
+                                                            <InputField required={true} FormType={'date'} FormLabel={"Replacement Date"} name='rpdate' error={error.rpdate} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={6}>
-                                                            <InputField FormType={'text'} FormLabel={"Cost"} FormPlaceHolder={"Enter Item Cost"} name='cost' error={error.cost} onChange={inputHandler} />
+                                                            <InputField required={true} FormType={'text'} FormLabel={"Cost"} name='cost' error={error.cost} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={6}>
-                                                            <Select FormLabel='Status' FormPlaceHolder='Status' Array={statusArray} name='status' error={error.status} onChange={inputHandler} />
+                                                            <Select required={true} FormLabel='Status' Array={statusArray} name='status' value={indata.status} error={error.status} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={12}>
-                                                            <Textareanew FormType={'text'} FormLabel={"Description"} FormPlaceHolder={"Enter Apparatus Description"} error={error.description} name='description' onChange={inputHandler} />
+                                                            <Textareanew required={true} FormType={'text'} FormLabel={"Description"} error={error.description} name='description' onChange={inputHandler} />
                                                         </Col>
                                                         {/* {fields.map((field, index) => (
                                                         <Col md={6} key={index}>
@@ -131,6 +131,9 @@ export const ApparatusInformationForm = () => {
                                                         </Col>
                                                     </Row>
                                                 </Form>
+                                                <Row className='mt-3'>
+                                                    <span className='error'>Note: Fields marked with an asterisk (*) are mandatory and must be filled out before submitting the form .</span>
+                                                </Row>
                                             </Container>
                                         </div>
                                         <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />

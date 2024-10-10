@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Container, Form, Row, Tab, Tabs } from 'react-bootstrap';
-import { Headings } from '../../components/Headings';
+import { Button, Col, Container,  Row, } from 'react-bootstrap';
 import { InputField } from '../../components/InputField';
-import { Textareanew } from '../../components/Textareanew';
 import { SharedButton } from '../../components/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Loader } from '../../components/Loader';
-import { PoSidebar } from '../PO_Sidebar';
 import { errorAlert, successAlert } from '../../components/Alert';
-import { deleteRoll_API, updateRoll_API, updateTraning_API } from '../../api_services/Apiservices';
-import { RiDeleteBinLine } from "react-icons/ri";
+import { deleteRoll_API, updateRoll_API } from '../../api_services/Apiservices';
 import { TbEdit } from "react-icons/tb";
-import { CreateRole } from './CreateRole';
 import { CheckBoxButton } from '../../components/CheckBoxButton';
 import { NewCheckBoxButton } from '../../components/NewCheckBoxButton';
 import Swal from 'sweetalert2';
@@ -20,22 +14,21 @@ import Swal from 'sweetalert2';
 
 export default function RoleFullDetails({ setLoder }) {
     const [isedit, setIsedit] = useState(false);
-    const [isdelete, setIsdelete] = useState(false);
-
     const [maindata, setMaindata] = useState();
     const location = useLocation();
     const navigate = useNavigate();
 
     const [moduleList, setModuleList] = useState([
-        { id: 5, name: 'User Profile Administration', value: "User_Profile_Module", ischek: false },
-        { id: 4, name: 'Training Module', value: "Training_Module", ischek: false },
-        { id: 1, name: 'Inventory Module', value: "Inventory_Module", ischek: false },
-        { id: 2, name: 'Availability Module', value: "Availability_Module", ischek: false },
-        { id: 3, name: 'Qualification Administration', value: "Qualification_Module", ischek: false },
-        { id: 6, name: 'Reporting Module', value: "Reporting_Module", ischek: false },
-        { id: 7, name: 'Dashboard', value: "Dashboard", ischek: false },
         { id: 8, name: 'Role Administration', value: "Role_Administration", ischek: false },
+        { id: 3, name: 'Qualification Administration', value: "Qualification_Module", ischek: false },
+        { id: 5, name: 'User Profile Administration', value: "User_Profile_Module", ischek: false },
+        { id: 4, name: 'Event Administration', value: "Training_Module", ischek: false },
+        { id: 1, name: 'Inventory Administration', value: "Inventory_Module", ischek: false },
         { id: 9, name: 'Gear Administration', value: "Gear_Administration", ischek: false },
+        { id: 2, name: 'Availability', value: "Availability_Module", ischek: false },      
+        { id: 6, name: 'Reporting', value: "Reporting_Module", ischek: false },
+        { id: 7, name: 'Dashboard', value: "Dashboard", ischek: false },     
+        
     ])
 
 
@@ -48,35 +41,32 @@ export default function RoleFullDetails({ setLoder }) {
             setFdata({ "id": data._id, "role": data.role, });
             setModuleList(
                 [
-                    { id: 5, name: 'User Profile Administration', value: "User_Profile_Module", ischek: data.User_Profile_Module },
-                    { id: 4, name: 'Training Administration', value: "Training_Module", ischek: data.Training_Module },
-                    { id: 1, name: 'Inventory Administration', value: "Inventory_Module", ischek: data.Inventory_Module },
-                    { id: 2, name: 'Availability', value: "Availability_Module", ischek: data.Availability_Module },
-                    { id: 3, name: 'Qualification Administration', value: "Qualification_Module", ischek: data.Qualification_Module },
-                    { id: 6, name: 'Reporting Module', value: "Reporting_Module", ischek: data.Reporting_Module },
-
-                    { id: 7, name: 'Dashboard', value: "Dashboard", ischek: data.Dashboard },
                     { id: 8, name: 'Role Administration', value: "Role_Administration", ischek: data.Role_Administration },
+                    { id: 3, name: 'Qualification Administration', value: "Qualification_Module", ischek: data.Qualification_Module },
+                    { id: 5, name: 'User Profile Administration', value: "User_Profile_Module", ischek: data.User_Profile_Module },
+                    { id: 4, name: 'Event Administration', value: "Training_Module", ischek: data.Training_Module },
+                    { id: 1, name: 'Inventory Administration', value: "Inventory_Module", ischek: data.Inventory_Module },
                     { id: 9, name: 'Gear Administration', value: "Gear_Administration", ischek: data.Gear_Administration },
+                    { id: 2, name: 'Availability', value: "Availability_Module", ischek: data.Availability_Module },                  
+                    { id: 6, name: 'Reporting', value: "Reporting_Module", ischek: data.Reporting_Module },
+                    { id: 7, name: 'Dashboard', value: "Dashboard", ischek: data.Dashboard },                 
                 ]
             )
             const array = [];
-            if (data && data.User_Profile_Module) { array.push('User Profile Administration') }
-            if (data && data.Training_Module) { array.push('Training Administration') }
-            if (data && data.Inventory_Module) { array.push('Inventory Administration') }
-            if (data && data.Availability_Module) { array.push('Availability') }
-            if (data && data.Qualification_Module) { array.push('Qualification Administration') }
-            if (data && data.Reporting_Module) { array.push('Reporting') }
-
-            if (data && data.Dashboard) { array.push('Dashboard') }
             if (data && data.Role_Administration) { array.push('Role Administration') }
+            if (data && data.Qualification_Module) { array.push('Qualification Administration') }
+            if (data && data.User_Profile_Module) { array.push('User Profile Administration') }
+            if (data && data.Training_Module) { array.push('Event Administration') }
+            if (data && data.Inventory_Module) { array.push('Inventory Administration') }
             if (data && data.Gear_Administration) { array.push('Gear Administration') }
+            if (data && data.Availability_Module) { array.push('Availability') }          
+            if (data && data.Reporting_Module) { array.push('Reporting') }
+            if (data && data.Dashboard) { array.push('Dashboard') }         
+          
             data.modules = array;
             if (data) { setMaindata(data); }
         }
     }, [location])
-
-
 
 
     const updateHandler = async () => {
@@ -92,16 +82,16 @@ export default function RoleFullDetails({ setLoder }) {
           }).then( async (result) => {
             if (result.isConfirmed) {
                 setLoder(true);
+                const Role_Administration = moduleList.find((e) => e.value === 'Role_Administration').ischek;
+                const qm_value = moduleList.find((e) => e.value === 'Qualification_Module').ischek;
                 const upm_value = moduleList.find((e) => e.value === 'User_Profile_Module').ischek;
                 const tm_value = moduleList.find((e) => e.value === 'Training_Module').ischek;
                 const im_value = moduleList.find((e) => e.value === 'Inventory_Module').ischek;
-                const am_value = moduleList.find((e) => e.value === 'Availability_Module').ischek;
-                const qm_value = moduleList.find((e) => e.value === 'Qualification_Module').ischek;
-                const rm_value = moduleList.find((e) => e.value === 'Reporting_Module').ischek;
-
-                const Role_Administration = moduleList.find((e) => e.value === 'Role_Administration').ischek;
-                const Dashboard = moduleList.find((e) => e.value === 'Dashboard').ischek;
                 const Gear_Administration = moduleList.find((e) => e.value === 'Gear_Administration').ischek;
+                const am_value = moduleList.find((e) => e.value === 'Availability_Module').ischek;             
+                const rm_value = moduleList.find((e) => e.value === 'Reporting_Module').ischek;             
+                const Dashboard = moduleList.find((e) => e.value === 'Dashboard').ischek;
+              
                 const datas = {
                     "id": fdata.id,
                     "role": fdata.role,
@@ -199,7 +189,7 @@ export default function RoleFullDetails({ setLoder }) {
                                         </Row>
                                         <Row>
                                             <Col md={4}>
-                                                <InputField FormLabel='Role Name' FormPlaceHolder='Enter Role Name' value={fdata.role} onChange={(e) => setFdata((pre) => ({ ...pre, 'role': e.target.value }))} />
+                                                <InputField required={true} FormLabel='Role Name' FormPlaceHolder='Enter Role Name' value={fdata.role} onChange={(e) => setFdata((pre) => ({ ...pre, 'role': e.target.value }))} />
                                             </Col>
                                         </Row>
                                         <Row className='mt-3'>
@@ -216,6 +206,9 @@ export default function RoleFullDetails({ setLoder }) {
                                                 <SharedButton BtnLabel={'Update'} type={'button'} onClick={updateHandler} BtnVariant={'primary'} BtnClass={'w-100'} />
                                             </Col>
                                         </Row>
+                                        <Row className='mt-3'>
+                                                <span className='error'>Note: Fields marked with an asterisk (*) are mandatory and must be filled out before submitting the form .</span>
+                                            </Row>
                                     </Container>
                                 </div>
                                 :
@@ -228,11 +221,6 @@ export default function RoleFullDetails({ setLoder }) {
                                                         fontWeight: '500',
                                                         marginRight: '1rem'
                                                     }}><TbEdit />
-                                                </Button>
-                                                <Button variant="danger" size="sm"
-                                                    onClick={() => deleteHandler(maindata._id)} style={{
-                                                        fontWeight: '500'
-                                                    }}><RiDeleteBinLine />
                                                 </Button>
                                             </Col>
                                         </Row>
@@ -261,6 +249,7 @@ export default function RoleFullDetails({ setLoder }) {
 
                         </Col>
                     </Row>
+                    
                 </Container>
             </div>
 

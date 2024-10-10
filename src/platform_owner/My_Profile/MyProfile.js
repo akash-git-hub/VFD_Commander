@@ -37,18 +37,18 @@ export const MyProfile = () => {
 
             if (resp && resp.success) {
                 const data = resp.data;
-                if(data.image){
-                    const img = data.image || "";
-                    localStorage.setItem('proimage',img);
+                if (data.image) {
+                    const img = data?.image;
+                    localStorage.setItem('proimage', img);
                 }
-             
+
                 setUsedata(data);
             }
         }
     }
 
 
-    useEffect(() => { getplan();getmydata(); }, [])
+    useEffect(() => { getplan(); getmydata(); }, [])
 
     return (
         <>
@@ -57,10 +57,10 @@ export const MyProfile = () => {
                 <Container fluid>
                     <Row>
                         <Col md={3}>
-                            <PoSidebar img={usedata && usedata.image}/>
+                            <PoSidebar img={usedata && usedata.image} />
                         </Col>
                         <Col md={9}>
-                        <Headings MainHeading={"My Profile"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"My Profile"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             {/* <Headings MainHeading={"My Profile"} HeadButton={
                                 <SharedButton BtnLabel={"Back"} BtnVariant={'primary'} onClick={() => window.history.back()} style={{
                                     background: '#FEF2F2',
@@ -76,7 +76,7 @@ export const MyProfile = () => {
                                     className="mb-3"
                                 >
                                     <Tab eventKey="home" title="Information">
-                                        <ProfileForm usedata={usedata} setLoder={setLoder} getmydata={getmydata}/>
+                                        <ProfileForm usedata={usedata} setLoder={setLoder} getmydata={getmydata} />
                                     </Tab>
                                     <Tab eventKey="quali" title="Subscriptions">
                                         <MyPlans plan={plan} />

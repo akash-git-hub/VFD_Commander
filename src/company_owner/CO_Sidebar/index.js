@@ -57,21 +57,22 @@ export const Cosidebar = () => {
                             }}>
                                 <LinkSidebar LinkIcon={<TfiPieChart />} LinkLabel={'Accounts'} LinkPath={'/accountmodule'} />
                             </li>
+                         
+                            <li className={host === "/subscriptionview" || host==="/editplan" || host === "/subscriptionplan"? "active" : ""} style={{
+                                padding: '10px'
+                            }}>
+                                <LinkSidebar LinkIcon={<FiAward />} LinkLabel={'Subscriptions'} LinkPath={'/subscriptionview'} />
+                            </li>
                             <li className={host === "/notifications" ? "active" : ""} style={{
                                 padding: '10px',
                                 position: 'relative'
                             }}>
-                                <LinkSidebar LinkIcon={<SlBell />} LinkLabel={'Notifications'} LinkPath={'/notifications'} />  <Badge bg="secondary" style={{
+                                <LinkSidebar LinkIcon={<SlBell />} LinkLabel={'Notifications'} LinkPath={'#'} />  <Badge bg="secondary" style={{
                                     position: 'absolute',
                                     top: '2vh',
                                     right: '5vh'
 
                                 }}>14</Badge>
-                            </li>
-                            <li className={host === "/subscriptionview" || host==="/editplan" || host === "/subscriptionplan"? "active" : ""} style={{
-                                padding: '10px'
-                            }}>
-                                <LinkSidebar LinkIcon={<FiAward />} LinkLabel={'Subscriptions'} LinkPath={'/subscriptionview'} />
                             </li>
                         </Stack>
                     </ul>

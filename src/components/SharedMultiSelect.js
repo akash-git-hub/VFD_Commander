@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 
 
-export const SharedMultiSelect = ({ labelText, options, name, setSkillsdata, id, value, error }) => {
+export const SharedMultiSelect = ({ labelText, options, name, setSkillsdata, id, value, error,isRequire =false }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
 
   useEffect(() => {
@@ -83,7 +83,7 @@ export const SharedMultiSelect = ({ labelText, options, name, setSkillsdata, id,
 
   return (
     <>
-      <label className="form-label inputLable">{labelText}</label>
+      <label className="form-label inputLable">{labelText} {isRequire ? <small className="error">*</small> :""}</label>
 
       <Typeahead
         id="my-typeahead-id"
@@ -99,6 +99,7 @@ export const SharedMultiSelect = ({ labelText, options, name, setSkillsdata, id,
         }}
         renderMenu={renderMenu}
       />
+      <small className="error">{error}</small>
 
       {/* {selectedOptions.length > 0 && (
         <button className="btn btn-sm btn-link mt-2" onClick={handleClearAll}>

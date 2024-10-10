@@ -22,12 +22,12 @@ export const GearInformationForm = () => {
     const [key, setKey] = useState('home')
 
     const location = useLocation();
-    useEffect(()=>{
-        if(location && location.state && location.state.eventKey){
+    useEffect(() => {
+        if (location && location.state && location.state.eventKey) {
             setKey(location.state.eventKey)
         }
 
-    },[location])
+    }, [location])
 
     const [indata, setIndata] = useState({ "gear_type": "", "gear_item_name": "", "recevied_date": "", "item_cost": "", "description": "" });
     const [error, setError] = useState({ "gear_type": "", "gear_item_name": "", "recevied_date": "", "item_cost": "", "description": "" });
@@ -105,9 +105,9 @@ export const GearInformationForm = () => {
                         </Col>
                         <Col md={9}>
                             {key === "geartype" ?
-                                < Headings MainHeading={"Inventory"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/createGeareType")} BtnLabel={"Create Gear Type"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                                < Headings MainHeading={"Gear and Apparatus Administration"} HeadButton={<SharedButton onClick={() => handleCreateAccount("/createGeareType")} BtnLabel={"Create Gear Type"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                                 :
-                                <Headings MainHeading={"Inventory"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                                <Headings MainHeading={"Gear and Apparatus Administration"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             }
                             <div className='my-md-4'>
                                 <Tabs
@@ -121,22 +121,21 @@ export const GearInformationForm = () => {
                                             <Container fluid>
                                                 <Form onSubmit={submitHandler}>
                                                     <Row className='mb-2'>
-                                                    <Col md={6}>
-                                                            <InputField FormType={'text'} FormLabel={"Gear Name"} FormPlaceHolder={"Gear Item Name"} name='gear_item_name' error={error.gear_item_name} onChange={inputHandler} />
+                                                        <Col md={6}>
+                                                            <InputField required={true} FormType={'text'} FormLabel={"Gear Name"} name='gear_item_name' error={error.gear_item_name} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={6}>
-                                                            <Select FormLabel='Gear Type' Array={grtype} onChange={inputHandler} error={error.gear_type} name='gear_type' />
-
-                                                        </Col>                                                    
+                                                            <Select required={true} FormLabel='Gear Type' Array={grtype} onChange={inputHandler} error={error.gear_type} value={indata.gear_type} name='gear_type' />
+                                                        </Col>
 
                                                         <Col md={6}>
-                                                            <InputField FormType={'date'} FormLabel={"Date Received"} FormPlaceHolder={"Date Received"} onChange={inputHandler} name='recevied_date' error={error.recevied_date} />
+                                                            <InputField required={true} FormType={'date'} FormLabel={"Date Received"} onChange={inputHandler} name='recevied_date' error={error.recevied_date} />
                                                         </Col>
                                                         <Col md={6}>
-                                                            <InputField FormType={'number'} FormLabel={"Item Cost"} FormPlaceHolder={"Item Cost"} onChange={inputHandler} name='item_cost' error={error.item_cost} />
+                                                            <InputField required={true} FormType={'number'} min={0} FormLabel={"Item Cost"} onChange={inputHandler} name='item_cost' error={error.item_cost} />
                                                         </Col>
                                                         <Col md={12}>
-                                                            <Textareanew FormType={'text'} FormLabel={"Gear Item Description"} rows={4} FormPlaceHolder={"Gear Item Description"} onChange={inputHandler} name="description" error={error.description} />
+                                                            <Textareanew required={true} FormType={'text'} FormLabel={"Gear Item Description"} rows={3} onChange={inputHandler} name="description" error={error.description} />
                                                         </Col>
                                                         {/* {fields.map((field, index) => (
                                                         <Col md={6} key={index}>
@@ -154,6 +153,9 @@ export const GearInformationForm = () => {
                                                         </Col>
                                                     </Row>
                                                 </Form>
+                                                <Row className='mt-3'>
+                                                    <span className='error'>Note: Fields marked with an asterisk (*) are mandatory and must be filled out before submitting the form .</span>
+                                                </Row>
                                             </Container>
                                         </div>
                                         <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />

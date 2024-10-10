@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { Cosidebar } from '../CO_Sidebar';
 import { Loader } from '../../components/Loader';
 import { getAccount_API } from '../../api_services/Apiservices';
+import { sortAccountName } from '../../helper/Helper';
 
 export const Accountmodule = () => {
     const navigate = useNavigate();
@@ -19,8 +20,8 @@ export const Accountmodule = () => {
     const [pagination, setPagination] = useState()
 
 
-    const get_account_list = async (page,key) => {
-        const resp = await getAccount_API({ "page": page,"srkey":key });
+    const get_account_list = async (page, key) => {
+        const resp = await getAccount_API({ "page": page, "srkey": key });
         if (resp) {
             const data = resp.data;
             setMaindata(data);
@@ -32,11 +33,12 @@ export const Accountmodule = () => {
                 billingDate: item.renewal_date,
                 location: `${item.state} ${item.city}`,
                 subscription: item.subscription_id.name,
-                contact_name: item.first_name+" "+item.last_name,
+                contact_name: item.first_name + " " + item.last_name,
                 status: item.status,
                 data: item
             }));
-            setAccount_data(transformedData);
+            const sortData = sortAccountName(transformedData, true);
+            setAccount_data(sortData);
         }
     }
 
@@ -49,7 +51,7 @@ export const Accountmodule = () => {
 
     const searchHanlder = (e) => {
         const key = e.target.value;
-        get_account_list("",key);
+        get_account_list("", key);
     }
 
     const pageHanlder = (page) => {
@@ -67,15 +69,15 @@ export const Accountmodule = () => {
                             <Cosidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Accounts"}  HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Accounts"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={key}
                                 onSelect={(k) => setKey(k)}
                                 className="mb-3 mt-3"
                             >
-                                <Tab eventKey="home" 
-                                title="Accounts List"
+                                <Tab eventKey="home"
+                                    title="Accounts List"
                                 >
                                     <SearchPanel StartIcon={<IoSearchOutline />} FormPlaceHolder={"Search by first name, last name, or email.."} FormType={"search"} onChange={searchHanlder} />
                                     <AccountModuleTable setLoder={setLoder} mydata={account_data} pagination={pagination} pageHanlder={pageHanlder} />

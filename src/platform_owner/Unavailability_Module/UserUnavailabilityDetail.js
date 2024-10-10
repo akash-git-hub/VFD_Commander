@@ -19,7 +19,7 @@ export const UserUnavailabilityDetail = () => {
     useEffect(() => {
         if (prData && prData.data.length > 0) {
             prData.data.map((e) => {
-                abc.push(new Date(moment(e.date).format('ddd MMM D YYYY HH:mm:ss')));
+                abc.push(new Date(moment(e.date).format('DD MMM YYYY')));
             })
             setSelectedDa(abc);
         } else {
@@ -28,7 +28,6 @@ export const UserUnavailabilityDetail = () => {
     }, [prData])
 
     useEffect(() => { if (state) { setPrData(state.data); } }, [state])
-
 
     const tileClassName = ({ date }) => {
         const formattedDate = date.toISOString().slice(0, 10);
@@ -39,21 +38,22 @@ export const UserUnavailabilityDetail = () => {
         }
         return null;
     };
+
     const onClick = (date) => {
-        const formattedDate = moment(date).format("YYYY-MM-DD");
+        const formattedDate = date.toISOString().slice(0, 10);
         let pre = [];
         if (prData) {
             pre = prData.data;
         }
-        const resp = pre.filter((e) => moment(e.date).format("YYYY-MM-DD") === formattedDate);
+        const resp = pre.filter((e) =>new Date(moment(e.date).format('DD MMM YYYY')).toISOString().slice(0, 10) === formattedDate);
         setShift(resp);
     }
 
-    useEffect(() => {
-        const currentDateUTC = moment.utc().format('YYYY-MM-DD');
-        onClick(currentDateUTC);
-    }, [prData])
-    const blank = () => { }
+    // useEffect(() => {
+    //     const currentDateUTC = new Date(moment().format('DD MMM YYYY'));
+    //     onClick(currentDateUTC);
+    // }, [prData])
+    // const blank = () => { }
     return (
         <>
             <div className='UnavailabilityModule'>

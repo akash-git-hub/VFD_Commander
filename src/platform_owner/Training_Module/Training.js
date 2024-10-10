@@ -11,9 +11,7 @@ import { useState } from 'react';
 export const Training = () => {
     const navigate = useNavigate();
     const [loder, setLoder] = useState(false);
-    const handleCreateAccount = () => {
-        navigate('/traininglist');
-    }
+   
     return (
         <>
             <Loader show={loder} />
@@ -24,13 +22,13 @@ export const Training = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Training"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Event Administration"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={"home"}
                                 className="my-4"
                             >
-                                <Tab eventKey="home" title="Training Info">
+                                <Tab eventKey="home" title="Event Information">
                                     <TrainingForm setLoder={setLoder} />
                                 </Tab>
                             </Tabs>

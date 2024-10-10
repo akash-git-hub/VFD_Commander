@@ -47,7 +47,6 @@ export const GroupMemberTable = ({ predata, setLoder }) => {
                     }).then(async (result) => {
                         if (result.isConfirmed) {
                             navigate("/groupslist");
-                            // getdata();
                         }
                     })
                 }
@@ -68,9 +67,7 @@ export const GroupMemberTable = ({ predata, setLoder }) => {
     }
 
     useEffect(() => {
-        if (predata) {
-            getUsersByRole(predata._id);
-        }
+        if (predata) { getUsersByRole(predata._id); }
     }, [predata])
 
     return (
@@ -104,7 +101,7 @@ export const GroupMemberTable = ({ predata, setLoder }) => {
                     <div className='MainTable'>
                         <Table responsive className="table table-hover">
                             <thead>
-                                <tr className='text-center'>
+                                <tr>
                                     <th>USER NAME</th>
                                     <th>ROLE NAME</th>
                                     <th>ACTION</th>
@@ -112,7 +109,7 @@ export const GroupMemberTable = ({ predata, setLoder }) => {
                             </thead>
                             <tbody>
                                 {predata && predata.groupusers.map((e, index) => (
-                                    <tr key={index} className='text-center'>
+                                    <tr key={index}>
                                         <td>{e.userId && e.userId.first_name + " "} {e.userId && e.userId.last_name}</td>
                                         <td>{e.userId && e.userId && e.userId.role && e.userId.role.role}</td>
                                         <td>     <Button variant="danger" size="sm" className="me-2"

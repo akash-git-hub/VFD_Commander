@@ -9,6 +9,7 @@ import { errorAlert, successAlert } from '../../../components/Alert';
 import { Textarea } from '../../../components/Textarea';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import InputWithDollar from '../../../components/Inputwithdoller';
 
 export const EditForm = ({ setLoder, predata }) => {
     const [fields, setFields] = useState([]);
@@ -18,8 +19,7 @@ export const EditForm = ({ setLoder, predata }) => {
 
     const navigate = useNavigate();
 
-    const setPreData = (data) => {
-        console.log(data);
+    const setPreData = (data) => {       
 
         if (data && data.add_new) {
             setFields(data.add_new);
@@ -60,6 +60,16 @@ export const EditForm = ({ setLoder, predata }) => {
         e.preventDefault();
 
         let isValid = 1;
+
+        if (!/^\d+$/.test(indata.license_fee_amount)) {
+            setError((e) => ({ ...e, "license_fee_amount": "* License fee amount must contain only digits" }));
+            isValid = 9;
+        }
+
+        if (!/^\d+$/.test(indata.price)) {
+            setError((e) => ({ ...e, "price": "* Recurring fee amount must contain only digits" }));
+            isValid = 9;
+        }
         if (!indata.billing_interval) {
             setError((pre) => ({ ...pre, "billing_interval": "Billing interval is required" }));
             isValid = 2;
@@ -73,10 +83,7 @@ export const EditForm = ({ setLoder, predata }) => {
             setError((pre) => ({ ...pre, "license_fee_amount": "License Fee Amount is required" }));
             isValid = 2;
         }
-        if (!indata.end_date) {
-            setError((pre) => ({ ...pre, "end_date": "End date is required" }));
-            isValid = 2;
-        }
+        
         if (!indata.start_date) {
             setError((pre) => ({ ...pre, "start_date": "Start date is required" }));
             isValid = 2;
@@ -86,11 +93,11 @@ export const EditForm = ({ setLoder, predata }) => {
             isValid = 2;
         }
         if (!indata.display_name) {
-            setError((pre) => ({ ...pre, "display_name": "Display Name is required" }));
+            setError((pre) => ({ ...pre, "display_name": "Display name is required" }));
             isValid = 2;
         }
         if (!indata.price) {
-            setError((pre) => ({ ...pre, "price": "Price is required" }));
+            setError((pre) => ({ ...pre, "price": "Recurring fee amount is required" }));
             isValid = 2;
         }
         if (!indata.plan_name) {
@@ -102,13 +109,15 @@ export const EditForm = ({ setLoder, predata }) => {
             isValid = 2;
         }
 
-        if (moment.unix(indata.end_date).isSame(moment.unix(indata.start_date), 'day')) {
-            errorAlert("Start Date and End Date are the same");
-            return;
-        }
-        if (moment.unix(indata.end_date).isBefore(moment.unix(indata.start_date), 'day')) {
-            errorAlert("End Date should be greater than Start Date");
-            return;
+        if (indata.end_date) {
+            if (moment.unix(indata.end_date).isSame(moment.unix(indata.start_date), 'day')) {
+                errorAlert("Start Date and End Date are the same");
+                return;
+            }
+            if (moment.unix(indata.end_date).isBefore(moment.unix(indata.start_date), 'day')) {
+                errorAlert("End Date should be greater than Start Date");
+                return;
+            }
         }
 
 
@@ -125,7 +134,7 @@ export const EditForm = ({ setLoder, predata }) => {
                 if (result.isConfirmed) {
                     setLoder(true);
                     const fdata = {
-                        "id":indata.id,
+                        "id": indata.id,
                         "name": indata.plan_name,
                         "description": indata.discription,
                         "pricing": indata.price,
@@ -172,7 +181,7 @@ export const EditForm = ({ setLoder, predata }) => {
             <div className='SubscriptionForm'>
                 <Container className='p-3'>
                     <Row style={{ justifyContent: 'end' }}>
-                        <Col md={1}>
+                        <Col md={2} style={{textAlign:"end"}}>
                             <Button variant="danger" size="sm"
                                 onClick={cancelHandler}
                             >Cancel
@@ -182,22 +191,22 @@ export const EditForm = ({ setLoder, predata }) => {
                     <Form onSubmit={submitHandler}>
                         <Row className='mb-2'>
                             <Col md={6}>
-                                <InputField FormType={'text'} FormLabel={"Plan Name"} name='plan_name' value={indata.plan_name} error={error.plan_name} onChange={inHandler} FormPlaceHolder={"Enter Plan Name"} />
+                                <InputField FormType={'text'} required={true} FormLabel={"Plan Name"} name='plan_name' value={indata.plan_name} error={error.plan_name} onChange={inHandler} />
                             </Col>
                             <Col md={6}>
-                                <InputField FormType={'text'} FormLabel={"Display Name"} name='display_name' value={indata.display_name} error={error.display_name} onChange={inHandler} FormPlaceHolder={"Enter Display Name"} />
+                                <InputField FormType={'text'} required={true} FormLabel={"Display Name"} name='display_name' value={indata.display_name} error={error.display_name} onChange={inHandler} />
                             </Col>
                             <Col md={6}>
-                                <InputField FormType={'number'} min={0} FormLabel={"License Fee Amount"} value={indata.license_fee_amount} name='license_fee_amount' error={error.license_fee_amount} onChange={inHandler} FormPlaceHolder={"Enter License Fee Amount"} />
+                                <InputWithDollar formType={'number'} star={true} min={0} formLabel={"License Fee Amount"} value={indata.license_fee_amount} name='license_fee_amount' error={error.license_fee_amount} onChange={inHandler} />
                             </Col>
                             <Col md={6}>
-                                <InputField FormType={'number'} min={0} FormLabel={"Recurring Fee Amount"} value={indata.price} name='price' error={error.price} onChange={inHandler} FormPlaceHolder={"Enter Amount"} />
+                                <InputWithDollar formType={'number'} star={true} min={0} formLabel={"Recurring Fee Amount"} value={indata.price} name='price' error={error.price} onChange={inHandler} />
                             </Col>
                             <Col md={6}>
-                                <InputField FormType={'number'} FormLabel={"Duration"} value={indata.duration} name='duration' error={error.duration} onChange={inHandler} />
+                                <InputField FormType={'number'} required={true} min={0} FormLabel={"Duration"} value={indata.duration} name='duration' error={error.duration} onChange={inHandler} />
                             </Col>
                             <Col md={6}>
-                                <Form.Label>Billing Interval</Form.Label>
+                                <Form.Label>Billing Interval <small className='error'>*</small></Form.Label>
                                 <Form.Select aria-label="Default select example" name='billing_interval' value={indata.billing_interval} onChange={inHandler} >
                                     <option value='' disabled>select</option>
                                     <option value="Annual">Annual</option>
@@ -206,14 +215,14 @@ export const EditForm = ({ setLoder, predata }) => {
                                 <small className='error'>{error.billing_interval}</small>
                             </Col>
                             <Col md={6}>
-                                <InputField FormType={'date'} FormLabel={"Start Date"} value={indata.start_date} name='start_date' error={error.start_date}
-                                    onChange={inHandler} FormPlaceHolder={"DD/MM/YYYY"} />
+                                <InputField FormType={'date'} required={true} FormLabel={"Start Date"} value={indata.start_date} name='start_date' error={error.start_date}
+                                    onChange={inHandler} />
                             </Col>
                             <Col md={6}>
-                                <InputField FormType={'date'} min={indata.start_date} FormLabel={"End Date"} value={indata.end_date} name='end_date' error={error.end_date} onChange={inHandler} FormPlaceHolder={"DD/MM/YYYY"} />
+                                <InputField FormType={'date'} min={indata.start_date} FormLabel={"End Date"} value={indata.end_date} name='end_date' error={error.end_date} onChange={inHandler} />
                             </Col>
                             <Col md={6}>
-                                <Form.Label>Status</Form.Label>
+                                <Form.Label>Status <small className='error'>*</small></Form.Label>
                                 <Form.Select aria-label="Default select example" name='status' value={indata.status} onChange={inHandler} >
                                     <option value='' disabled>select</option>
                                     <option value="Active">Active</option>
@@ -230,20 +239,22 @@ export const EditForm = ({ setLoder, predata }) => {
 
                         <Row>
                             <Col md={12}>
-                                <InputField isTextArea={true} FormType={'textarea'} FormLabel={"Description"} value={indata.discription} name='discription' error={error.discription} onChange={inHandler} FormPlaceHolder={"Description"} />
+                                <InputField isTextArea={true} required={true} FormType={'textarea'} FormLabel={"Description"} value={indata.discription} name='discription' error={error.discription} onChange={inHandler} />
                             </Col>
                         </Row>
 
-                        <Row className='mb-2 mt-5'>
+                        <Row className='mb-2 mt-3'>
                             <Col md={6}>
                                 <SharedButton type="submit" BtnLabel={"Update"} BtnVariant={'primary'} BtnClass={"w-100"} />
                             </Col>
                         </Row>
                     </Form>
+                    <Row className='mt-3'>
+                        <span className='error'>Note: Fields marked with an asterisk (*) are mandatory and must be filled out before submitting the form .</span>
+                    </Row>
                 </Container>
             </div>
             <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />
-            {/* <AddFieldModal show={showModal} setShowModal={setShowModal} fields={fields} setFields={setFields} /> */}
         </>
     )
 }

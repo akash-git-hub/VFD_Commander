@@ -47,7 +47,7 @@ export const QualificationModuleList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Qualifications"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Qualification Administration"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
@@ -55,7 +55,7 @@ export const QualificationModuleList = () => {
                                     onSelect={(k) => setKey(k)}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="gear" title="Qualifications Info">
+                                    <Tab eventKey="gear" title="Qualifications Information">
                                         {/* <QualificationList predata={predata} /> */}
                                         <QualificationListTable trdata={trdata}/>
                                     </Tab>

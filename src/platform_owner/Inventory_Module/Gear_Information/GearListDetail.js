@@ -25,7 +25,7 @@ export default function GearListDetail() {
     const navigate = useNavigate();
 
     const addNewHandler = (e) => {
-        const { name, value } = e.target;     
+        const { name, value } = e.target;
         const myfield = [...fields];
         const index = myfield.findIndex((item) => item.title === name);
         if (index !== -1) {
@@ -58,6 +58,12 @@ export default function GearListDetail() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let isValid = true;
+        if (!indata.trname) { setError(prev => ({ ...prev, "trname": "Required" })); isValid = false; }
+        if (!indata.description) { setError(prev => ({ ...prev, "description": "Required" })); isValid = false; }
+
+        if (!isValid) { return; }
+
         setLoder(true);
         const fadat = {
             "id": indata.id,
@@ -65,7 +71,7 @@ export default function GearListDetail() {
             "description": indata.description,
             "add_field": fields
         }
-        const resp = await  updateGearType_API(fadat);
+        const resp = await updateGearType_API(fadat);
         if (resp && resp.success) {
             e.target.reset();
             setFields([]);
@@ -91,9 +97,9 @@ export default function GearListDetail() {
             if (result.isConfirmed) {
                 const fadat = {
                     "id": indata.id,
-                    "is_delete" :'yes'      
+                    "is_delete": 'yes'
                 }
-                const resp = await updateGearType_API(fadat);            
+                const resp = await updateGearType_API(fadat);
                 if (resp && resp.success) {
                     setLoder(false);
                     Swal.fire({
@@ -112,7 +118,7 @@ export default function GearListDetail() {
 
     const cancelHandler = () => {
         Swal.fire({
-            title:"Changes have been made",
+            title: "Changes have been made",
             text: "Are you sure you want to exit with no changes?",
             icon: "question"
         }).then((result) => {
@@ -141,21 +147,22 @@ export default function GearListDetail() {
                                             <>
                                                 <div className='CreateAccountForm'>
                                                     <Container>
+                                                        <Row style={{ justifyContent: 'end' }}>
+                                                            <Col md={2} style={{textAlign:'end'}} >
+                                                                <Button variant="danger" size="sm"
+                                                                    onClick={cancelHandler} >Cancel
+                                                                </Button>
+                                                            </Col>
+                                                        </Row>
 
                                                         <Form onSubmit={handleSubmit}>
-                                                            <Row style={{ justifyContent: 'end' }}>
-                                                                <Col md={1}>
-                                                                    <Button variant="danger" size="sm"
-                                                                        onClick={cancelHandler} >Cancel
-                                                                    </Button>
-                                                                </Col>
-                                                            </Row>
+
                                                             <Row className='mb-2'>
                                                                 <Col md={12}>
-                                                                    <InputField FormType={'text'} FormLabel={"Gear Type Name"} onChange={inputHandler} error={error.trname} value={indata.trname} name='trname' />
+                                                                    <InputField required={true} FormType={'text'} FormLabel={"Gear Type Name"} onChange={inputHandler} error={error.trname} value={indata.trname} name='trname' />
                                                                 </Col>
                                                                 <Col md={12}>
-                                                                    <Textareanew FormType={'text'} rows={4} FormLabel={"Description"} onChange={inputHandler} error={error.description} value={indata.description} name='description' />
+                                                                    <Textareanew required={true} FormType={'text'} rows={4} FormLabel={"Description"} onChange={inputHandler} error={error.description} value={indata.description} name='description' />
                                                                 </Col>
                                                                 {indata && indata.add_field && (indata.add_field).map((e, i) => (
                                                                     <Col md={12} key={i}>
@@ -169,6 +176,9 @@ export default function GearListDetail() {
                                                                 </Col>
                                                             </Row>
                                                         </Form>
+                                                        <Row className='mt-3'>
+                                                            <span className='error'>Note: Fields marked with an asterisk (*) are mandatory and must be filled out before submitting the form .</span>
+                                                        </Row>
                                                     </Container>
                                                 </div>
                                             </>
@@ -177,7 +187,7 @@ export default function GearListDetail() {
                                             <>
                                                 <div className='CreateAccountForm UseDetailPages'>
                                                     <Container>
-                                                    <Row style={{ justifyContent: 'end' }}>
+                                                        <Row style={{ justifyContent: 'end' }}>
                                                             <Col md={2} style={{ textAlign: "center" }}>
                                                                 <Button variant="success" size="sm"
                                                                     onClick={() => setIsedit(true)} style={{
@@ -191,7 +201,7 @@ export default function GearListDetail() {
                                                                     }}><RiDeleteBinLine />
                                                                 </Button>
                                                             </Col>
-                                                        </Row>  
+                                                        </Row>
                                                         <Row className='mb-2'>
                                                             <Col md={12}>
                                                                 <h6>Gear Type Name</h6>

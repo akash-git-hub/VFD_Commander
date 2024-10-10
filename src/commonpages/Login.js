@@ -1,14 +1,15 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Row, Col, Stack, Form } from 'react-bootstrap'
 import { InputField } from '../components/InputField'
 import { Checkbox } from '../components/Checkbox'
 import { SharedButton } from '../components/Button'
 import { Loader } from '../components/Loader'
 import { emailPattern } from '../helper/Helper'
-import { login_API } from '../api_services/Apiservices'
-import { successAlert } from '../components/Alert'
-import { useNavigate } from 'react-router-dom'
+import { account_Access_API, login_API } from '../api_services/Apiservices'
+import { errorAlert, successAlert } from '../components/Alert'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Mycontext } from '../App'
+import CryptoJS from 'crypto-js';
 
 
 export const Login = () => {
@@ -17,6 +18,10 @@ export const Login = () => {
     const [error, setError] = useState({ "email": "", "password": "" });
     const navigate = useNavigate();
     const [loder, setLoder] = useState(false);
+
+    const location = useLocation();
+    const queryParams = new URLSearchParams(window.location.search);
+    const encryptedId = queryParams.get('key');
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
@@ -63,7 +68,7 @@ export const Login = () => {
             const resp = await login_API(fdata);
             if (resp && resp.success) {
                 const data = resp.data;
-                
+
                 contaxtHandler(data);
                 setLoder(false);
                 successAlert(resp.message);
@@ -78,6 +83,37 @@ export const Login = () => {
         }
 
     }
+
+
+    const accessHandler = async (key) => {
+        if (!key) { errorAlert('Invalid access key'); return; }
+        // Decrypt the ID
+        const secretKey = 'admin@gmail.com'; // Use the same secret key
+        const bytes = CryptoJS.AES.decrypt(key, secretKey);
+        const decryptedId = bytes.toString(CryptoJS.enc.Utf8);
+        setLoder(true);
+        const fdata = { "key": decryptedId, }
+        const resp = await account_Access_API(fdata);
+        if (resp && resp.success) {
+            const data = resp.data;
+            contaxtHandler(data);
+            setLoder(false);
+            successAlert(resp.message);
+            const type = data.user_type_id;
+            if (parseInt(type) === 1) {
+                navigate('/accountmodule', { replace: true });
+            } else if (parseInt(type) === 2) {
+                navigate('/roleadminstratorlist', { replace: true });
+                // navigate('/roleadminstratorlist ', { replace: true });
+            }
+        }
+        setLoder(false);
+    }
+    // useEffect(() => {
+    //     if (encryptedId) {
+    //         accessHandler(encryptedId);
+    //     }
+    // }, [encryptedId])
     return (
         <>
             <Loader show={loder} />

@@ -11,6 +11,8 @@ import { errorAlert, successAlert } from '../../../components/Alert';
 // import { Timezoneselectdropdown } from '../../../components/Timezoneselectdropdown';
 import { Timeformatdropdown } from '../../../components/Timeformatdropdown';
 import { useNavigate } from 'react-router-dom';
+import InputWithDollar from '../../../components/Inputwithdoller';
+import moment from 'moment';
 
 
 export const CreateForm = ({ setLoder }) => {
@@ -36,7 +38,7 @@ export const CreateForm = ({ setLoder }) => {
   );
 
 
- 
+
 
 
 
@@ -142,8 +144,20 @@ export const CreateForm = ({ setLoder }) => {
 
     // Mobile number validation (accept only numbers)
     if (!indata.contact_number || !/^\d+$/.test(indata.contact_number)) {
-      setError((e) => ({ ...e, "contact_number": "* Contact number must contain only digits" }));
+      setError((e) => ({ ...e, "contact_number": "* Contact Number Must be Numeric and Contain 10 Digits" }));
       isValid = 11;
+    }
+
+    if (indata && indata.contact_number) {
+      const phoneNoStr = indata.contact_number.toString();
+      // Check if the length is exactly 10 digits
+      if (phoneNoStr.length !== 10 || isNaN(Number(phoneNoStr))) {
+        setError((e) => ({
+          ...e,
+          contact_number: "* Contact Number Must be Numeric and Contain 10 Digits"
+        }));
+        isValid = 11; // or any appropriate invalid state value
+      }
     }
 
     // Zip Code number validation (accept only numbers)
@@ -152,37 +166,35 @@ export const CreateForm = ({ setLoder }) => {
       isValid = 11;
     }
 
-
+    if (indata && indata.zip_code) {
+      const z_code = indata.zip_code.toString();
+      // Check if the length is exactly 10 digits
+      if (z_code.length !== 5 || isNaN(Number(z_code))) {
+        setError((e) => ({
+          ...e,
+          zip_code: "* ZIP code must contain 5 digits"
+        }));
+        isValid = 11; // or any appropriate invalid state value
+      }
+    }
 
     if (!indata.account_name) { setError((e) => ({ ...e, "account_name": "* Account name is required" })); isValid = 2; }
-    if (!indata.first_name) { setError((e) => ({ ...e, "first_name": "* First name is required" })); isValid = 2; }
-    if (!indata.email) { setError((e) => ({ ...e, "email": "* Email is required" })); isValid = 2; }
-    if (!indata.contact_number) { setError((e) => ({ ...e, "contact_number": "* Contact number is required" })); isValid = 2; }
-    // if (!indata.subscription_amount) { setError((e) => ({ ...e, "subscription_amount": "* Subscription amount is required" })); isValid = 2; }
+    if (!indata.first_name) { setError((e) => ({ ...e, "first_name": "* Contact Name is required" })); isValid = 2; }
+    if (!indata.email) { setError((e) => ({ ...e, "email": "* Contact Email is required" })); isValid = 2; }
+    if (!indata.contact_number) { setError((e) => ({ ...e, "contact_number": "* Contact Number Must be Numeric and Contain 10 Digits" })); isValid = 2; }
     if (!indata.subscription_name) { setError((e) => ({ ...e, "subscription_name": "* Subscription name is required" })); isValid = 2; }
     if (!indata.billing_address) { setError((e) => ({ ...e, "billing_address": "* Billing address line 1 is required" })); isValid = 2; }
     if (!indata.city) { setError((e) => ({ ...e, "city": "* City is required" })); isValid = 2; }
     if (!indata.state) { setError((e) => ({ ...e, "state": "* State is required" })); isValid = 2; }
     if (!indata.zip_code) { setError((e) => ({ ...e, "zip_code": "* ZIP code is required" })); isValid = 2; }
     if (!indata.renewal_date) { setError((e) => ({ ...e, "renewal_date": "* Renewal date is required" })); isValid = 2; }
-
-    // if (!indata.last_name) { setError((e) => ({ ...e, "last_name": "* Last name is required" })); isValid = 2; }
     if (!indata.time_formate) { setError((e) => ({ ...e, "time_formate": "* Time format is required" })); isValid = 2; }
-    if (!indata.time_zone) { setError((e) => ({ ...e, "time_zone": "* Time Zone is required" })); isValid = 2; }
-    if (!indata.incentive_information) { setError((e) => ({ ...e, "incentive_information": "* Incentive information is required" })); isValid = 2; }
-
+    // if (!indata.time_zone) { setError((e) => ({ ...e, "time_zone": "* Time Zone is required" })); isValid = 2; }
     if (!indata.status) { setError((e) => ({ ...e, "status": "* Status is required" })); isValid = 2; }
-
-
-
-    // state_code
-
-
 
     if (isValid === 1) {
       setLoder(true);
       const formData = new FormData();
-
       formData.append('checkUserType', 1);
       formData.append('email', indata.email);
       formData.append('create_by_id', "super_admin");
@@ -191,9 +203,10 @@ export const CreateForm = ({ setLoder }) => {
       formData.append('account_name', indata.account_name);
       formData.append('subscription_id', indata.subscription_name);
       formData.append('mobile_no', indata.contact_number);
-      formData.append('time_zone', indata.time_zone);
+      // formData.append('time_zone', indata.time_zone);
       formData.append('time_formate', indata.time_formate);
       formData.append('incentive_information', indata.incentive_information);
+      formData.append("account_start_date", moment().unix());
       formData.append('renewal_date', indata.renewal_date);
       formData.append('subscription_amount', indata.subscription_amount);
       formData.append('zip_code', indata.zip_code);
@@ -201,11 +214,9 @@ export const CreateForm = ({ setLoder }) => {
       formData.append('state_code', indata.state);
       formData.append('city', indata.city);
       formData.append('status', indata.status);
-    
       formData.append('billing_address', indata.billing_address);
       formData.append('billing_addres2', indata.billing_addres2);
       formData.append('add_field', JSON.stringify(fields));
-
       const resp = await create_modal_account_api(formData);
       if (resp && resp.success) {
         e.target.reset();
@@ -226,66 +237,49 @@ export const CreateForm = ({ setLoder }) => {
           <Form onSubmit={submitHandler}>
             <Row className='mb-2'>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Account Name"} name="account_name" error={error.account_name} onChange={onChangeHandler} />
+                <InputField FormType={'text'} required={true} FormLabel={"Account Name"} name="account_name" error={error.account_name} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Contact Name"} name="first_name" error={error.first_name} onChange={onChangeHandler} />
-              </Col>
-              {/* <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Last Name"} name='last_name' error={error.last_name} onChange={onChangeHandler} />
-              </Col> */}
-              <Col md={4}>
-                <InputField FormType={'email'} FormLabel={"Email"} name='email' error={error.email} onChange={onChangeHandler} />
+                <InputField FormType={'text'} required={true} FormLabel={"Contact Name"} name="first_name" error={error.first_name} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'tel'} FormPlaceHolder={"XXX-XXX-XXXX"} FormLabel={"Mobile No"} pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" max={10} name='contact_number' error={error.contact_number} onChange={onChangeHandler} />
+                <InputField FormType={'email'} required={true} FormLabel={"Contact Email"} name='email' error={error.email} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"Billing Address 1"} name="billing_address" error={error.billing_address} onChange={onChangeHandler} />
+                <InputField FormType={'tel'} required={true} FormLabel={"Contact Mobile No"} pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" max={10} name='contact_number' error={error.contact_number} onChange={onChangeHandler} />
+              </Col>
+              <Col md={4}>
+                <Select Array={planList} required={true} name="subscription_name" FormLabel={"Subscription Name"} error={error.subscription_name} value={indata.subscription_name} onChange={onChangeHandler} />
+              </Col>
+              <Col md={4}>
+                <InputWithDollar formType={'number'} formLabel={"Subscription Amount"} value={indata.subscription_amount} error={error.subscription_amount} name='subscription_amount' onChange={onChangeHandler} readOnly={true} />
+              </Col>
+              <Col md={4}>
+                <InputField FormType={'text'} required={true} FormLabel={"Billing Address 1"} name="billing_address" error={error.billing_address} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
                 <InputField FormType={'text'} FormLabel={"Billing Address 2"} name='billing_addres2' error={error.billing_addres2} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"City"} name='city' error={error.city} onChange={onChangeHandler} />
-              </Col>
-              {/* <Col md={4}>
-                <InputField FormType={'text'} FormLabel={"State"} name='state' error={error.state} onChange={onChangeHandler} />
-              </Col> */}
-
-              <Col md={4}>
-                <Select Array={stateList} name="state" FormLabel={"State"} error={error.state} value={indata.state} onChange={onChangeHandler} />
-              </Col>
-
-              <Col md={4}>
-                <InputField FormType={'tel'} FormLabel={"Zip Code"} max={5} name='zip_code' error={error.zip_code} onChange={onChangeHandler} />
+                <InputField FormType={'text'} required={true} FormLabel={"City"} name='city' error={error.city} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <Select Array={planList} name="subscription_name" FormLabel={"Subscription Name"} error={error.subscription_name} value={indata.subscription_name} onChange={onChangeHandler} />
+                <Select Array={stateList} name="state" required={true} FormLabel={"State"} error={error.state} value={indata.state} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <InputField FormType={'number'} FormLabel={"Subscription Amount"} value={indata.subscription_amount} error={error.subscription_amount} name='subscription_amount' onChange={onChangeHandler} readOnly={true} />
+                <InputField FormType={'tel'} required={true} FormLabel={"Zip Code"} max={5} name='zip_code' error={error.zip_code} onChange={onChangeHandler} />
               </Col>
-
               <Col md={4}>
-                <InputField FormType={'date'}
-                  FormLabel={"Renewal Date"}
-                  name='renewal_date'
-                  error={error.renewal_date}
-                  onChange={onChangeHandler}
-                />
+                <InputField FormType={'date'} required={true} FormLabel={"Renewal Date"} name='renewal_date' error={error.renewal_date} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
                 <InputField FormType={'text'} FormLabel={"Incentive Information"} name='incentive_information' onChange={onChangeHandler} error={error.incentive_information} />
               </Col>
               <Col md={4}>
-                <Select Array={timezones} name="time_zone" FormLabel={"Time Zone"} error={error.time_zone} value={indata.time_zone} onChange={onChangeHandler} />
+                <Select Array={timeFormateArray} name="time_formate" required={true} FormLabel={"Time Display"} error={error.time_formate} value={indata.time_formate} onChange={onChangeHandler} />
               </Col>
               <Col md={4}>
-                <Select Array={timeFormateArray} name="time_formate" FormLabel={"Time Display"} error={error.time_formate} value={indata.time_formate} onChange={onChangeHandler} />
-              </Col>
-              <Col md={4}>
-                <Select Array={statusop} name="status" FormLabel={"Status"} error={error.status} value={indata.status} onChange={onChangeHandler} />
+                <Select Array={statusop} name="status" required={true} FormLabel={"Status"} error={error.status} value={indata.status} onChange={onChangeHandler} />
               </Col>
               {fields.map((e, i) => (
                 <Col md={4} key={i}>
@@ -303,6 +297,9 @@ export const CreateForm = ({ setLoder }) => {
               </Col>
             </Row>
           </Form>
+          <Row className='mt-3'>
+            <span className='error'>Note: Fields marked with an asterisk (*) are mandatory and must be filled out before submitting the form .</span>
+          </Row>
         </Container>
       </div>
       <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />

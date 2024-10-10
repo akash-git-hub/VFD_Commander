@@ -6,13 +6,23 @@ import { update_actice_inactive_API } from '../../api_services/Apiservices';
 import { SearchPanel } from '../../components/SearchPanel';
 import { IoSearch } from 'react-icons/io5';
 import moment from 'moment';
+import { FaSortAlphaDownAlt, FaSortAlphaUp } from 'react-icons/fa';
 
 
-export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler,pageHanlder }) => {
+export const AdminstratorTableList = ({ pagination,
+   maindata = [],
+   actionHandler,
+   pageHanlder,
+   sortNameHandler,
+   orderFirstName,
+   orderLastName
+   }) => {
   const navigate = useNavigate();
 
 
   const handleEditClick = (mydata) => { navigate('/editprofileadminstrator', { state: { data: mydata } }); };
+
+  
 
   return (
     <>
@@ -20,15 +30,29 @@ export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler
         <Table responsive className='table table-hover'>
           <thead>
             <tr>
-              <th>FIRST NAME</th>
-              <th>LAST NAME</th>
+              <th onClick={()=>sortNameHandler('fname')} style={{ cursor: "pointer" }}>
+              {orderFirstName ?
+               <span> <FaSortAlphaUp style={{ color: "#198754" }} /> </span> 
+               :
+               <span> <FaSortAlphaDownAlt style={{ color: "#198754" }} /> </span>
+               }
+               FIRST NAME
+              </th>
+              <th onClick={()=>sortNameHandler('lname')} style={{ cursor: "pointer" }}>
+              {orderLastName ?
+               <span> <FaSortAlphaUp style={{ color: "#198754" }} /> </span> 
+               :
+               <span> <FaSortAlphaDownAlt style={{ color: "#198754" }} /> </span>
+               }
+                LAST NAME</th>
               <th>EMAIL</th>
               <th>MOBILE NO</th>
               <th>ROLE</th>
-              <th>START DATE</th>
-              <th>TERM DATE</th>
-              <th>SUPERVISOR</th>
               <th>POSITION</th>
+              <th>START DATE</th>
+              <th>STATUS</th>
+              {/* <th>SUPERVISOR</th> */}
+
               <th style={{ textAlign: "center" }}>ACTION</th>
             </tr>
           </thead>
@@ -40,12 +64,13 @@ export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler
                 <td>{account.email}</td>
                 <td>{account.mobile_no}</td>
                 <td>{account.role}</td>
-                <td>{moment.unix(account.start_date).format("MM-DD-YYYY")}</td>
-                <td>{moment.unix(account.term_date).format('MM-DD-YYYY')}</td>
-                <td>{account.supervisor}</td>
                 <td>{account.position}</td>
+                <td>{moment.unix(account.start_date).format("MM-DD-YYYY")}</td>
+                {/* <td>{moment.unix(account.term_date).format('MM-DD-YYYY')}</td>
+                <td>{account.supervisor}</td> */}
+
                 <td>
-                  {/* {account.status === "Active" ?
+                  {account.status === "Active" ?
                     <Button variant="info" size="sm" className="me-2" style={{
                       background: '#ECFDF5',
                       color: '#064E3B',
@@ -67,7 +92,9 @@ export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler
                       onClick={() => actionHandler(account.id, 'Active')}
                     >Inactive
                     </Button>
-                  } */}
+                  }
+                </td>
+                <td>
                   <Button variant="success" size="sm" className="me-2"
                     onClick={() => handleEditClick(account.full_data)}
                   >Detail
@@ -77,7 +104,7 @@ export const AdminstratorTableList = ({ pagination, maindata = [], actionHandler
             ))}
           </tbody>
         </Table>
-        <TablePagination pagination={pagination} pageHanlder={pageHanlder}/>
+        <TablePagination pagination={pagination} pageHanlder={pageHanlder} />
       </div>
     </>
   )

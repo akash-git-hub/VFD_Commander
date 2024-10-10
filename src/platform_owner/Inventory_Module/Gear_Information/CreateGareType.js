@@ -50,7 +50,7 @@ export const CreateGareType = ({ }) => {
         e.preventDefault();
         let isValid = true;
         if (!indata.type_name) { setError(prev => ({ ...prev, "type_name": "Required" })); isValid = false; }
-        if (!indata.description) { setError(prev => ({ ...prev, "description": "Required" })); isValid = false; }     
+        if (!indata.description) { setError(prev => ({ ...prev, "description": "Required" })); isValid = false; }
 
         if (isValid) {
             setLoder(true);
@@ -59,9 +59,9 @@ export const CreateGareType = ({ }) => {
                 description: indata.description,
                 add_field: fields
             }
-            const resp = await createGearType_API(final);    
+            const resp = await createGearType_API(final);
             if (resp && resp.success) {
-                e.target.reset();             
+                e.target.reset();
                 setIndata([]);
                 setFields([]);
                 setLoder(false);
@@ -85,7 +85,7 @@ export const CreateGareType = ({ }) => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Inventory"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Gear and Apparatus Administration"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
@@ -98,10 +98,10 @@ export const CreateGareType = ({ }) => {
                                                 <Form onSubmit={submitHandler}>
                                                     <Row className='mb-2'>
                                                         <Col md={12}>
-                                                            <InputField FormType={'text'} FormLabel={"Gear Type"} FormPlaceHolder={"Enter Gear Type Name"} name='type_name' error={error.type_name} value={indata.type_name} onChange={inputHandler} />
+                                                            <InputField required={true} FormType={'text'} FormLabel={"Gear Type"} FormPlaceHolder={"Enter Gear Type Name"} name='type_name' error={error.type_name} value={indata.type_name} onChange={inputHandler} />
                                                         </Col>
                                                         <Col md={12}>
-                                                            <Textareanew FormType={'text'} FormLabel={"Description"} FormPlaceHolder={"Description"} name="description" error={error.description} value={indata.description} onChange={inputHandler} />
+                                                            <Textareanew required={true} FormType={'text'} FormLabel={"Description"} FormPlaceHolder={"Description"} name="description" error={error.description} value={indata.description} onChange={inputHandler} />
                                                         </Col>
                                                     </Row>
                                                     <Row className='mb-2'>
@@ -114,12 +114,15 @@ export const CreateGareType = ({ }) => {
                                                             <SharedButton type={"button"} BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
                                                         </Col> */}
                                                     </Row>
-                                                    <Row className='mt-4'>
+                                                    <Row className='mt-3'>
                                                         <Col md={6}>
                                                             <SharedButton type={'submit'} BtnLabel={"Create"} BtnVariant={'primary'} BtnClass={"w-100"} />
                                                         </Col>
                                                     </Row>
                                                 </Form>
+                                                <Row className='mt-3'>
+                                                    <span className='error'>Note: Fields marked with an asterisk (*) are mandatory and must be filled out before submitting the form .</span>
+                                                </Row>
                                             </Container>
                                         </div>
                                         <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />

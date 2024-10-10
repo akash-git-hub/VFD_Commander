@@ -7,29 +7,48 @@ import { SharedButton } from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { Loader } from '../../components/Loader';
 import { useEffect, useState } from 'react';
-import { getAccount_API, unavailableUsers_API, update_actice_inactive_API } from '../../api_services/Apiservices';
+import { getAccount_API, getPosition_API, unavailableUsers_API, update_actice_inactive_API } from '../../api_services/Apiservices';
 import Swal from 'sweetalert2';
 import { SearchPanel } from '../../components/SearchPanel';
 import { IoSearch } from 'react-icons/io5';
 import { UnavailabilityTableList } from '../Unavailability_Module/UnavailabilityTableList';
+import { PosiotinForm } from './PosiotinForm';
+import { sortEventName } from '../../helper/Helper';
 
 export const AdminstratorProfileList = () => {
     const navigate = useNavigate();
     const [loder, setLoder] = useState(false);
     const [maindata, setMaindata] = useState([]);
     const [pagination, setPagination] = useState()
-    const [key,setKey] = useState('user')
+    const [key, setKey] = useState('user');
+    const [preData, setpreData] = useState([]);
+    const [positionOp, setPositionOp] = useState([]);
+    const [orderFirstName, setOrderFirstName] = useState(true);
+    const [orderLastName, setOrderLastName] = useState(true);
 
-    const get_account_list = async (page,key="") => {
-        const data = { "page": page, userTypes: 3,"srkey":key }
-     
+    const get_account_list = async (
+        page,
+        key = "",
+        sortBy = "No",
+        order = false,
+    ) => {
+        const data = {
+            "page": page,
+            userTypes: 3,
+            'srkey': key,
+            'sortBy': sortBy,
+            'order': order,
+        }
+        setLoder(true);
+
         const resp = await getAccount_API(data);
         if (resp) {
             const data = resp.data;
             setLoder(false);
 
-            let filterddata = data.map((e) => ({
+            let filterData = data.map((e) => ({
                 id: e._id,
+                name: e.first_name + " " + e.last_name,
                 first_name: e.first_name,
                 last_name: e.last_name,
                 email: e.email,
@@ -42,7 +61,8 @@ export const AdminstratorProfileList = () => {
                 status: e.status,
                 full_data: e
             }))
-            setMaindata(filterddata);
+            const sortData = sortEventName(filterData, true);
+            setMaindata(sortData);
             setPagination(resp.pagination);
         }
         setLoder(false);
@@ -51,6 +71,7 @@ export const AdminstratorProfileList = () => {
     useEffect(() => { get_account_list(); }, [])
 
     const actionHandler = (id, status) => {
+        return false;
         // Initial language status (example)
         let languageStatus = status; // Assume 'active' as defaultata
         const fdata = { 'id': id, 'status': status };
@@ -89,13 +110,13 @@ export const AdminstratorProfileList = () => {
         navigate('/profileadminstrator');
     }
 
-    const searchandler = (e)=>{
+    const searchandler = (e) => {
         const key = e.target.value;
-        get_account_list("",key);
+        get_account_list("", key);
     }
-    const [preData,setpreData] = useState([]);
 
-    const getdata = async()=>{
+
+    const getdata = async () => {
         setLoder(true);
         const resp = await unavailableUsers_API();
         if (resp && resp.success) {
@@ -105,9 +126,36 @@ export const AdminstratorProfileList = () => {
         }
         setLoder(false);
     }
-    useEffect(()=>{ getdata(); },[])
+    useEffect(() => { getdata(); }, [])
 
-    const blanck = () =>{}
+
+
+    const getposition = async () => {
+        const resp = await getPosition_API();
+        if (resp) {
+            const findata = resp.data;
+            const mydata = findata.map(e => ({ name: e.name, value: e._id }));
+            setPositionOp(mydata);
+        }
+    }
+
+    useEffect(() => {
+        getposition();
+    }, [])
+
+    const sortNameHandler = (data) => {
+        if (data === "fname") {
+            setOrderFirstName(!orderFirstName);
+            let data = !orderFirstName;
+            get_account_list("", "", "fname", data);
+        } else if (data === "lname") {
+            setOrderLastName(!orderLastName);
+            let data = !orderLastName;
+            get_account_list("", "", "lname", data);
+        }
+
+    }
+
     return (
         <>
             <Loader show={loder} />
@@ -118,11 +166,11 @@ export const AdminstratorProfileList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                        {key =="user" ?
-                            <Headings MainHeading={"User Profile Administration"}  HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
-                            :
-                            <Headings MainHeading={"User Profile Administration"} />
-                        }
+                            {key == "user" ?
+                                <Headings MainHeading={"User Profile Administration"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                                :
+                                <Headings MainHeading={"User Profile Administration"} />
+                            }
 
                             <Tabs
                                 id="controlled-tab-example"
@@ -131,12 +179,24 @@ export const AdminstratorProfileList = () => {
                                 className="my-4"
                             >
                                 <Tab eventKey="user" title="User Information">
-                                    <SearchPanel  StartIcon={<IoSearch />} FormPlaceHolder={"Search by Name"} onChange={searchandler}/>
-                                    <AdminstratorTableList pagination={pagination} maindata={maindata} actionHandler={actionHandler} pageHanlder={pageHanlder} />
+                                    <SearchPanel StartIcon={<IoSearch />} FormPlaceHolder={"Search by Name"} onChange={searchandler} />
+                                    <AdminstratorTableList
+                                        pagination={pagination}
+                                        maindata={maindata}
+                                        actionHandler={actionHandler}
+                                        pageHanlder={pageHanlder}
+                                        sortNameHandler={sortNameHandler}
+                                        orderFirstName={orderFirstName}
+                                        orderLastName={orderLastName}
+                                    />
                                 </Tab>
                                 <Tab eventKey="unavailability" title="Availability">
-                                    <UnavailabilityTableList  preData={preData}/>
+                                    <UnavailabilityTableList preData={preData} />
                                 </Tab>
+                                <Tab eventKey="position" title="Position Information">
+                                    <PosiotinForm setLoder={setLoder} positionOp={positionOp} getposition={getposition} />
+                                </Tab>
+
                             </Tabs>
                         </Col>
                     </Row>

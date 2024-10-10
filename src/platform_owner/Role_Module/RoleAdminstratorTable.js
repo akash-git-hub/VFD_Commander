@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { TablePagination } from '../../components/TablePagination';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const RoleAdminstratorTable = ({ rolldata, pagination, pageHanlder }) => {
     const navigate = useNavigate();

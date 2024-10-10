@@ -18,6 +18,7 @@ export const InputField = ({
     max = '',
     min = "",
     required = false,
+    disabled=false,
 }) => {
     const [startDate, setStartDate] = useState();
 
@@ -57,8 +58,15 @@ export const InputField = ({
                         dateFormat="MM/dd/yyyy"
                         className="form-control"
                         placeholderText={"select date"}
+                        readOnly={disabled}
                     />
-                    : ""
+                    : 
+                    <DatePicker
+                        selected={startDate}                        
+                        dateFormat="MM/dd/yyyy"
+                        className="form-control"
+                        placeholderText={"select date"}                        
+                    />
             ) : (
                 <Form.Control
                     as={isTextArea ? 'textarea' : 'input'}

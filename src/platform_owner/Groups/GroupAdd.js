@@ -10,9 +10,7 @@ export const GroupAdd = () => {
     const navigate = useNavigate();
     const [loder,setLoder] = useState(false);
     const [key, setKey] = useState('gear');
-    const handleCreateAccount = () => {
-        navigate('/addmember');
-    }
+    
 
     return (
         <>
@@ -24,7 +22,7 @@ export const GroupAdd = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Groups"} SubHeading={""} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Gear and Apparatus Administration"} SubHeading={""} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"

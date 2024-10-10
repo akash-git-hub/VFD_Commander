@@ -6,51 +6,78 @@ import { Textareanew } from '../../components/Textareanew';
 import { SharedButton } from '../../components/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Loader } from '../../components/Loader';
-import { PoSidebar } from '../PO_Sidebar';
 import { errorAlert, successAlert } from '../../components/Alert';
-import { updateQualification_API, updateTraning_API } from '../../api_services/Apiservices';
+import { getAddNewField_API, updateQualification_API } from '../../api_services/Apiservices';
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TbEdit } from "react-icons/tb";
 import Swal from 'sweetalert2';
+import Select from '../../components/Select';
+import { statusOP } from '../../helper/Helper';
 
 
 
-export default function QualificationListDetail() {
-    const [indata, setIndata] = useState({ "trname": '', "description": "" });
-    const [error, setError] = useState({ "trname": '', "description": "" })
+export default function QualificationListDetail({ qtypeop, setLoder }) {
+    const [indata, setIndata] = useState({ "trname": '', "description": "", "type_id": "", "type": "", "status": "", "add_field": "" });
+    const [error, setError] = useState({ "trname": '', "description": "", "type_id": "", "type": "", "status": "", "add_field": "" })
     const [isedit, setIsedit] = useState(false);
     const [isdelete, setIsdelete] = useState(false);
-    const [loder, setLoder] = useState(false);
     const location = useLocation();
     const [fields, setFields] = useState([]);
     const navigate = useNavigate();
+    const [newAddField, setNewAddField] = useState([]);
 
-    const addNewHandler = (e) => {
-        const { name, value } = e.target;
-        const myfield = [...fields];
-        const index = myfield.findIndex((item) => item.title === name);
-        if (index !== -1) {
-            myfield[index] = {
-                ...myfield[index],
-                value: value
-            };
+    const addNewHandler = (e, i) => {
+        const { value } = e.target;
+        let data = [...fields];
+        if (i >= 0 && i < data.length) {
+            data[i] = { ...data[i], value: value };
+            setFields(data);
         }
-        setFields(myfield);
     }
 
+
+    const newFieldData = async () => {
+        const resp = await getAddNewField_API("GearApparatus");
+        if (resp && resp.success) {
+            let finData = resp.data;
+            finData = finData.map((e) => ({ id: e._id, title: e.formLabel, type: e.formType, options: e.OptionArray, value: '' }));
+            setNewAddField(finData);
+        }
+    }
+
+    useEffect(() => { newFieldData(); }, []);
+
+    const setHandler = (data) => {
+        if (data) {
+            const { name, description, add_field, _id, type_id, type, status } = data;
+
+            let check = add_field.filter(cr => newAddField.some(newItem => newItem.id === cr.id));
+            const check1 = newAddField.filter(cr => !add_field.some(newItem => newItem.id === cr.id));
+            let customFiled = [];
+            if (check1.length > 0) { customFiled = check.concat(check1); } else { customFiled = check; }
+
+            setIndata({
+                "trname": name,
+                "description": description,
+                "add_field": add_field,
+                "id": _id,
+                "type_id": type_id,
+                "type": type,
+                "status": status,
+                "add_field": customFiled
+            });
+            setFields(customFiled);
+        }
+
+    }
 
 
     useEffect(() => {
         if (location && location.state && location.state.data) {
             const data = location.state.data;
-            console.log(data);
-            if (data) {
-                setIndata({ "trname": data.name, "description": data.description, "add_field": data.add_field, "id": data._id, "type": data.type });
-                setFields(data.add_field);
-            }
+            setHandler(data);
         }
-    }, [location])
-
+    }, [location, newAddField])
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
@@ -60,6 +87,15 @@ export default function QualificationListDetail() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let isValid = true;
+        if (!indata.trname) { setError((pre) => ({ ...pre, "trname": "Required" })); isValid = false; }
+        if (!indata.type_id) { setError((pre) => ({ ...pre, "type_id": "Required" })); isValid = false; }
+        if (!indata.status) { setError((pre) => ({ ...pre, "status": "Required" })); isValid = false; }
+        if (!indata.description) { setError((pre) => ({ ...pre, "description": "Required" })); isValid = false; }
+        if (isValid === false) { return }
+
+        let type = qtypeop.find((e) => e.value === indata.type_id);
+        if (type) { type = type.name }
 
         Swal.fire({
             title: "Are you sure?",
@@ -75,7 +111,9 @@ export default function QualificationListDetail() {
                 const fadat = {
                     "id": indata.id,
                     'name': indata.trname,
-                    "type": indata.type,
+                    "type": type,
+                    "type_id": indata.type_id,
+                    "status": indata.status,
                     "description": indata.description,
                     "add_field": fields
                 }
@@ -136,7 +174,6 @@ export default function QualificationListDetail() {
     }
     return (
         <>
-            <Loader show={loder} />
             <div className='RoleAdminstrator'>
                 <Container fluid>
                     <Row>
@@ -145,37 +182,48 @@ export default function QualificationListDetail() {
                                 <>
                                     <div className='CreateAccountForm'>
                                         <Container>
-
+                                            <Row style={{ justifyContent: 'end' }}>
+                                                <Col md={2} style={{ textAlign: "end" }}>
+                                                    <Button variant="danger" size="sm"
+                                                        onClick={cancelHandler} >Cancel
+                                                    </Button>
+                                                </Col>
+                                            </Row>
                                             <Form onSubmit={handleSubmit}>
-                                                <Row style={{ justifyContent: 'end' }}>
-                                                    <Col md={1}>
-                                                        <Button variant="danger" size="sm"
-                                                            onClick={cancelHandler} >Cancel
-                                                        </Button>
-                                                    </Col>
-                                                </Row>
+
                                                 <Row className='mb-2'>
-                                                    <Col md={12}>
-                                                        <InputField FormType={'text'} FormLabel={"Name"} FormPlaceHolder={"Enter Qualification Name"} onChange={inputHandler} error={error.trname} value={indata.trname} name='trname' />
+                                                    <Col md={6} className="mb-3">
+                                                        <InputField FormType={'text'} required={true} FormLabel={"Name"} FormPlaceHolder={"Enter Qualification Name"} onChange={inputHandler} error={error.trname} value={indata.trname} name='trname' />
                                                     </Col>
-                                                    <Col md={12}>
-                                                        <InputField FormType={'text'} FormLabel={"Type"} FormPlaceHolder={"Enter Qualification Type"} onChange={inputHandler} error={error.type} value={indata.type} name='type' />
+                                                    <Col md={6} className="mb-3">
+                                                        <Select FormLabel='Type' required={true} Array={qtypeop} value={indata.type_id} onChange={inputHandler} error={error.type_id} name='type_id' />
                                                     </Col>
-                                                    <Col md={12}>
-                                                        <Textareanew FormType={'text'} rows={4} FormLabel={"Description"} FormPlaceHolder={"Enter Qualification Description"} onChange={inputHandler} error={error.description} value={indata.description} name='description' />
+                                                    <Col md={6} className="mb-3">
+                                                        <Select Array={statusOP} name="status" required={true} FormLabel={"Status"} error={error.status} value={indata.status} onChange={inputHandler} />
                                                     </Col>
-                                                    {indata && indata.add_field && (indata.add_field).map((e, i) => (
-                                                        <Col md={12} key={i}>
-                                                            <InputField FormType={'text'} FormLabel={e.title} value={e.value} name={e.title} onChange={addNewHandler} FormPlaceHolder={e.placeholder} />
+                                                    <Col md={12} className='mb-3'>
+                                                        <Textareanew required={true} FormType={'text'} rows={2} FormLabel={"Description"} FormPlaceHolder={"Enter Qualification Description"} onChange={inputHandler} error={error.description} value={indata.description} name='description' />
+                                                    </Col>
+                                                    {fields && fields.map((e, i) => (
+                                                        <Col md={6} key={i} className='mb-3'>
+                                                            {e.type == "text" ?
+                                                                <InputField FormType={'text'} FormLabel={e.title} value={e.value} onChange={(e) => addNewHandler(e, i)} name={e.title} />
+                                                                :
+                                                                <Select FormLabel={e.title} Array={e.options} value={e.value} onChange={(e) => addNewHandler(e, i)} name={e.title} />
+                                                            }
                                                         </Col>
                                                     ))}
+                                                    
                                                 </Row>
                                                 <Row className='mb-2'>
-                                                    <Col md={4}>
+                                                    <Col md={6}>
                                                         <SharedButton type={'submit'} BtnLabel={"Update"} BtnVariant={'primary'} BtnClass={"w-100"} />
                                                     </Col>
                                                 </Row>
                                             </Form>
+                                            <Row className='mt-3'>
+                                                <span className='error'>Note: Fields marked with an asterisk (*) are mandatory and must be filled out before submitting the form .</span>
+                                            </Row>
                                         </Container>
                                     </div>
                                 </>
@@ -200,25 +248,37 @@ export default function QualificationListDetail() {
                                                 </Col>
                                             </Row>
                                             <Row className='mb-2'>
-                                                <Col md={12}>
+                                                <Col md={6} className="mb-3">
                                                     <h6>Name</h6>
                                                     <p>{indata.trname}</p>
                                                 </Col>
-                                                <Col md={12}>
+                                                <Col md={6} className="mb-3">
                                                     <h6>Type</h6>
                                                     <p>{indata.type}</p>
                                                 </Col>
-                                                <Col md={12}>
+                                                <Col md={6} className="mb-3">
+                                                    <h6>Status</h6>
+                                                    <p>{indata.status}</p>
+                                                </Col>
+                                                <Col md={12} className='mb-3'>
                                                     <h6>Description</h6>
                                                     <p>{indata.description}</p>
                                                 </Col>
                                                 {indata && indata.add_field && indata.add_field.map((e, i) => (
-                                                    <Col md={12} key={i}>
-                                                        <h6>{e.title}</h6>
-                                                        <p>{e.value}</p>
+                                                    <Col md={6} className="mb-3" key={i}>
+                                                        {e.type === "text" ?
+                                                            <> <h6>{e.title}</h6> <p>{e.value}</p> </>
+                                                            :
+                                                            <> <h6>{e.title}</h6>
+                                                                <p>
+                                                                    {e.options && e.value
+                                                                        ? e.options.find((d) => d.value === e.value)?.name || "No match"
+                                                                        : "No options"}
+                                                                </p>
+                                                            </>
+                                                        }
                                                     </Col>
-
-                                                ))}
+                                                ))}                                                
                                             </Row>
 
                                         </Container>

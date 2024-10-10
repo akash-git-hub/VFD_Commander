@@ -11,6 +11,8 @@ import { GroupsListTable } from './GroupsListTable'
 
 export const GroupsListing = () => {
     const navigate = useNavigate();
+    const [key, setKey] = useState('gear');
+    
     const [trdata, setTrdata] = useState([]);
     const [loder, setLoder] = useState(false);
 
@@ -19,8 +21,7 @@ export const GroupsListing = () => {
         const resp = await getGroups_API();
         if (resp && resp.success) {
             setLoder(false);
-            const fdata = resp.data;
-            console.log(fdata);
+            const fdata = resp.data;            
             setTrdata(fdata);
         }
         setLoder(false);
@@ -28,13 +29,8 @@ export const GroupsListing = () => {
     useEffect(() => { getdata(); }, [])
 
 
-
-
-
-    const [key, setKey] = useState('gear');
-    const handleCreateAccount = () => {
-        navigate('/groupsadd');
-    }
+    
+   
     return (
         <>
             <Loader show={loder} />
@@ -45,7 +41,7 @@ export const GroupsListing = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Group"} HeadButton={<SharedButton onClick={handleCreateAccount} BtnLabel={"Create Group"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Gear and Apparatus Administration"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
@@ -53,7 +49,7 @@ export const GroupsListing = () => {
                                     onSelect={(k) => setKey(k)}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="gear" title="Information">
+                                    <Tab eventKey="gear" title="Group Information">
                                         <GroupsListTable trdata={trdata} getdata={getdata} setLoder={setLoder} />
                                     </Tab>
                                 </Tabs>

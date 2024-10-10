@@ -8,23 +8,27 @@ import { createUserGear_API, getGear_API } from '../../../api_services/Apiservic
 import { successAlert } from '../../../components/Alert';
 import { UserGearTable } from './UserGearTable';
 
-export const EditGearForm = ({ pre, setLoder, setKey, getgr,grdata }) => {
+export const EditGearForm = ({ pre, setLoder, setKey, getgr, grdata, refreshHandler }) => {
     const [fields, setFields] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [maindata, setMaindata] = useState();
     const [grtype, setGrtype] = useState([]);
+    const [grOption,setGrOption] = useState([]);
 
-    const getdata = async () => {
-        setLoder(true);
+    const getdata = async () => {        
         const resp = await getGear_API();
         if (resp && resp.success) {
             setLoder(false);
-            const prefdata = resp.data;
+            let prefdata = resp.data;
+            const op = prefdata.map((e) => ({ "name": e.gear_item_name, "value": e._id }));
+            setGrOption(op);
+            prefdata = prefdata.filter(pre => !grdata.some(option => option.gear_id && option.gear_id._id === pre._id));        
             const fdata = prefdata.map((e) => ({ "name": e.gear_item_name, "value": e._id }));
             setGrtype(fdata);
         }
         setLoder(false);
     }
+
 
     const addNewHandler = (e) => {
         const { name, value } = e.target;
@@ -42,7 +46,7 @@ export const EditGearForm = ({ pre, setLoder, setKey, getgr,grdata }) => {
     useEffect(() => {
         setMaindata(pre);
         getdata();
-    }, [pre])
+    }, [pre,grdata])
 
     const handleAddField = (title, placeholder) => {
         setFields([...fields, { title, placeholder }]);
@@ -63,8 +67,6 @@ export const EditGearForm = ({ pre, setLoder, setKey, getgr,grdata }) => {
         e.preventDefault();
         let isValid = true;
         if (!indata.gear_id) { setError((prev) => ({ ...prev, "gear_id": "Required" })); isValid = false; }
-        if (!indata.replacement_date) { setError((prev) => ({ ...prev, "replacement_date": "Required" })); isValid = false; }
-        if (!indata.issue_date) { setError((prev) => ({ ...prev, "issue_date": "Required" })); isValid = false; }
 
         if (isValid) {
             setLoder(true);
@@ -98,7 +100,7 @@ export const EditGearForm = ({ pre, setLoder, setKey, getgr,grdata }) => {
                     <Form onSubmit={submitHandler}>
                         <Row className='mb-2'>
                             <Col md={4}>
-                                <Select FormLabel='Gear Type' FormPlaceHolder='Gear Type' Array={grtype} name='gear_id' error={error.gear_id} onChange={inputHandler} />
+                                <Select required={true} FormLabel='Gear Name' Array={grtype} value={indata.gear_id} name='gear_id' error={error.gear_id} onChange={inputHandler} />
                             </Col>
                             <Col md={4}>
                                 <InputField FormType={'date'} FormLabel={"Issue Date"} FormPlaceHolder={"Issue Date"} name='issue_date' error={error.issue_date} onChange={inputHandler} />
@@ -106,7 +108,6 @@ export const EditGearForm = ({ pre, setLoder, setKey, getgr,grdata }) => {
                             <Col md={4}>
                                 <InputField FormType={'date'} FormLabel={"Replacement Date"} FormPlaceHolder={"Replacement Date"} name='replacement_date' error={error.replacement_date} onChange={inputHandler} />
                             </Col>
-
                         </Row>
                         <Row className='mb-2'>
                             {fields.map((e, i) => (
@@ -115,7 +116,7 @@ export const EditGearForm = ({ pre, setLoder, setKey, getgr,grdata }) => {
                                 </Col>
                             ))}
                             <Col md={4}>
-                                <SharedButton type={'button'} BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} />
+                                {/* <SharedButton type={'button'} BtnLabel={"Add Field"} BtnVariant={'outline-dark'} BtnClass={"w-100 AddFieldBtn"} onClick={handleShowModal} /> */}
                             </Col>
                         </Row>
                         <Row className='mb-2 mt-3'>
@@ -124,8 +125,11 @@ export const EditGearForm = ({ pre, setLoder, setKey, getgr,grdata }) => {
                             </Col>
                         </Row>
                     </Form>
-                    <Row className='mt-5'><hr /></Row>                    
-                    <UserGearTable grdata={grdata} />
+                    <Row className='mt-3'>
+                        <span className='error'>Note: Fields marked with an asterisk (*) are mandatory and must be filled out before submitting the form .</span>
+                    </Row>
+                    <Row className='mt-5'><hr /></Row>
+                    <UserGearTable grdata={grdata} grOption={grOption} setLoder={setLoder} refreshHandler={refreshHandler}/>
                 </Container>
             </div>
             <AddFieldModal show={showModal} handleClose={handleCloseModal} handleAddField={handleAddField} />

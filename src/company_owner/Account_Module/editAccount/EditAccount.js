@@ -22,8 +22,8 @@ export const EditAccount = () => {
         }
     }, [location])
 
-    const getaccount = async () =>{
-      const resp = await  getAccount_by_id_API();
+    const getaccount = async () => {
+        const resp = await getAccount_by_id_API();
     }
     return (
         <>

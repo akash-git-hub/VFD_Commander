@@ -6,7 +6,7 @@ import { Headings } from '../../components/Headings'
 import { SharedButton } from '../../components/Button'
 import { useNavigate } from 'react-router-dom'
 import { Loader } from '../../components/Loader'
-import { getQualification_API } from '../../api_services/Apiservices'
+import { getQtype_API, getQualification_API } from '../../api_services/Apiservices'
 import QualificationListDetail from './QualificationListDetail'
 
 
@@ -29,10 +29,27 @@ export const QualificationDetail = () => {
         }
         setLoder(false);
     }
+
+
     useEffect(() => { getdata(); }, [])
+    
     const handleCreateAccount = () => {
         navigate('/qualification');
     }
+
+
+    const [qtypeop, setQtypeop] = useState([]);
+    const gettypes = async () => {
+        const resp = await getQtype_API();
+        if (resp) {
+            let findata = resp.data;
+            findata = findata.filter((e) => e.status === "Active");
+            const mydata = findata.map(e => ({ name: e.name, value: e._id }));
+            setQtypeop(mydata);
+        }
+    }
+
+    useEffect(() => { gettypes(); }, [])
     return (
         <>
             <Loader show={loder} />
@@ -43,7 +60,7 @@ export const QualificationDetail = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Qualifications"} HeadButton={<SharedButton onClick={()=>window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Qualification Administration"} HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
                             <div className='my-md-4'>
                                 <Tabs
                                     id="controlled-tab-example"
@@ -51,8 +68,8 @@ export const QualificationDetail = () => {
                                     onSelect={(k) => setKey(k)}
                                     className="mb-3"
                                 >
-                                    <Tab eventKey="gear" title="Qualification Info">
-                                        <QualificationListDetail predata={predata} />
+                                    <Tab eventKey="gear" title="Qualification Information">
+                                        <QualificationListDetail predata={predata} qtypeop={qtypeop} setLoder={setLoder}/>
                                     </Tab>
                                 </Tabs>
                             </div>

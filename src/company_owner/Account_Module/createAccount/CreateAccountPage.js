@@ -22,7 +22,6 @@ export const CreateAccountPage = () => {
                         <Col md={9}>
                             <Headings MainHeading={"Account"}
                                 HeadButton={<SharedButton onClick={() => window.history.back()} BtnLabel={"Back"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
-
                             <Tabs
                                 id="controlled-tab-example"
                                 activeKey={"home"}

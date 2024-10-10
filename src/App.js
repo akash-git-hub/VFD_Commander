@@ -1,5 +1,5 @@
 import './App.css';
-import {  HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import { Login } from './commonpages/Login';
 import { CreateAccountPage } from './company_owner/Account_Module/createAccount/CreateAccountPage';
 import { EditAccount } from './company_owner/Account_Module/editAccount/EditAccount';
@@ -42,6 +42,15 @@ import { GroupAdd } from './platform_owner/Groups/GroupAdd';
 import { GroupDetail } from './platform_owner/Groups/GroupDetail';
 import { AddMemberGroup } from './platform_owner/Groups/AddMemberGroup';
 import { EditPlan } from './company_owner/Subscriptions_Plan/createPlans/EditPlan';
+import { CreateGearAndApparatusForm } from './platform_owner/Inventory_Module/Gear_Information/CreateGearAndApparatusForm';
+import { AddFieldModalNew } from './commonpages/AddFieldModalNew';
+import GroupDetails from './platform_owner/Groups/MyGroupDetails';
+import MyGroupDetails from './platform_owner/Groups/MyGroupDetails';
+import { AssignGroup } from './platform_owner/Groups/AssignGroup';
+import { Support } from './commonpages/Support';
+import Access_account from './platform_owner/User_Profile_Adminstrator/Access_account';
+import { MyGuestProfile } from './platform_owner/My_Profile/MyGuestProfile';
+
 
 const Mycontext = createContext();
 
@@ -59,10 +68,13 @@ function App() {
   return (
     <>
 
-      <HashRouter>
+      {/* <HashRouter> */}
+      <BrowserRouter>
         <Mycontext.Provider value={{ pdata: pdata, contaxtHandler: contaxtHandler }}>
           <Routes>
-            <Route path="/" element={<Login />} />            
+            <Route path="/" element={<Login />} />
+            <Route path="/account_access" element={<Access_account />} />
+            <Route path="/addfield" element={<AddFieldModalNew />} />
             <Route element={<Auth />} >
               <Route path="/accountmodule" element={<Accountmodule />} />
               <Route path="/accountdetail" element={<Accountdetails />} />
@@ -86,8 +98,9 @@ function App() {
               <Route path="/traininglist" element={<TrainingList />} />
               <Route path="/usertrainingdetail" element={<UserTrainingDetail />} />
               <Route path="/inventorymodule" element={<InventoryModule />} />
-              <Route path="/CreateGear" element={<GearInformationForm/>} />
-              <Route path="/gearinfo" element={<GearInfoDetails/>} />
+              <Route path="/CreateGear" element={<GearInformationForm />} />
+              <Route path='/cgaForm' element={<CreateGearAndApparatusForm />} />
+              <Route path="/gearinfo" element={<GearInfoDetails />} />
               <Route path="/apparatusInfoDetails" element={<ApparatusInfoDetails />} />
               <Route path="/CreateApparatus" element={<ApparatusInformationForm />} />
               <Route path="/createGeareType" element={<CreateGareType />} />
@@ -95,21 +108,26 @@ function App() {
               <Route path='/GearListDetail' element={<GearListDetail />} />
               <Route path="/messages" element={<Messages />} />
               <Route path="/inventorymodulelist" element={<InventoryModuleList />} />
+              <Route path='/groupDetails' element={<GroupDetails />} />
               <Route path="/unavailability" element={<UnavailabilityModule />} />
               <Route path="/userunavailability" element={<UserUnavailabilityDetail />} />
               <Route path="/qualification" element={<QualificationAdminstrator />} />
               <Route path="/qualificationlist" element={<QualificationModuleList />} />
               <Route path="/qualificationdetail" element={<QualificationDetail />} />
               <Route path="/myprofile" element={<MyProfile />} />
+              <Route path='/my_guest_profile' element={<MyGuestProfile />} />
               <Route path="/groupslist" element={<GroupsListing />} />
               <Route path="/groupsadd" element={<GroupAdd />} />
-              <Route path="/groupsdetails" element={<GroupDetail />} />
+              <Route path='/assignGroupForm' element={<AssignGroup />} />
+              <Route path="/groupsdetails" element={<MyGroupDetails />} />
               <Route path="/addmember" element={<AddMemberGroup />} />
+              <Route path='/support' element={<Support />} />
             </Route>
 
           </Routes>
         </Mycontext.Provider>
-      </HashRouter>
+        </BrowserRouter>
+      {/* </HashRouter> */}
 
     </>
   );

@@ -3,21 +3,22 @@ import { PoSidebar } from '../PO_Sidebar'
 import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap'
 import { Headings } from '../../components/Headings'
 import { SharedButton } from '../../components/Button';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { RoleAdminstratorTable } from './RoleAdminstratorTable';
 import { useEffect, useState } from 'react';
 import { getQualification_API, getRolls_API } from '../../api_services/Apiservices';
 import { QualificationListTable } from '../Qualification_Module/Qualification_Information/QualificationListTable';
 import { Loader } from '../../components/Loader';
+import { sortEventName } from '../../helper/Helper';
 
 export const RoleList = () => {
     const navigate = useNavigate();
     const [rolldata, setRolldata] = useState([]);
     const [pagination, setPagination] = useState();
-    const [predata, setPredata] = useState([]);
     const [trdata, setTrdata] = useState([]);
     const [loder, setLoder] = useState(false);
     const [key, setKey] = useState('role');
+    const location = useLocation();
 
     const getrolls = async (page = 1) => {
         const resp = await getRolls_API({ "page": page });
@@ -31,18 +32,26 @@ export const RoleList = () => {
                 if (e.Role_Administration) { modules.push('Role Administration'); }
                 if (e.Qualification_Module) { modules.push('Qualification Administration'); }
                 if (e.User_Profile_Module) { modules.push('User Profile Module'); }
-                if (e.Training_Module) { modules.push('Training Administration'); }
+                if (e.Training_Module) { modules.push('Event Administration'); }
                 if (e.Inventory_Module) { modules.push('Inventory Administration'); }
                 if (e.Gear_Administration) { modules.push('Gear Administration'); }
-                if (e.Availability_Module) { modules.push('Availability'); }              
-                if (e.Reporting_Module) { modules.push('Reporting'); }             
-                if (e.Dashboard) { modules.push('Dashboard'); }             
+                if (e.Availability_Module) { modules.push('Availability'); }
+                if (e.Reporting_Module) { modules.push('Reporting'); }
+                if (e.Dashboard) { modules.push('Dashboard'); }
                 const modulesString = modules.join(', ');
                 mydata.push({ name: e.role, modules: modulesString, fulldata: e });
             });
-            setRolldata(mydata);
+            const sortData = sortEventName(mydata, true);
+            setRolldata(sortData);
         }
     }
+
+    useEffect(() => {
+        if (location && location.state && location.state.key) {
+            setKey(location.state.key);
+        }
+
+    }, [location])
 
 
     const getdata = async () => {
@@ -51,7 +60,6 @@ export const RoleList = () => {
         if (resp && resp.success) {
             setLoder(false);
             const fdata = resp.data;
-            setPredata(fdata);
             setTrdata(resp.data);
         }
         setLoder(false);
@@ -73,7 +81,7 @@ export const RoleList = () => {
                             <PoSidebar />
                         </Col>
                         <Col md={9}>
-                            <Headings MainHeading={"Role and Qualifications Administration"} HeadButton={<SharedButton onClick={()=>handleCreateAccount(key)} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
+                            <Headings MainHeading={"Role and Qualifications Administration"} HeadButton={<SharedButton onClick={() => handleCreateAccount(key)} BtnLabel={"Create"} BtnVariant={'primary'} style={{ background: '#00285D' }} />} />
 
                             <div className='my-md-4'>
                                 <Tabs

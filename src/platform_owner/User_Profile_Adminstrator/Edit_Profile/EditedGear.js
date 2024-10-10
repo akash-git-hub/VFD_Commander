@@ -142,15 +142,15 @@ export default function EditedGear() {
                                             <>
                                                 <div className='CreateAccountForm'>
                                                     <Container>
-
-                                                        <Form onSubmit={handleSubmit}>
-                                                            <Row style={{ justifyContent: 'end' }}>
-                                                                <Col md={1}>
+                                                    <Row style={{ justifyContent: 'end' }}>
+                                                                <Col md={2} style={{textAlign:"end"}}>
                                                                     <Button variant="danger" size="sm"
                                                                         onClick={cancelHandler} >Cancel
                                                                     </Button>
                                                                 </Col>
                                                             </Row>
+                                                        <Form onSubmit={handleSubmit}>
+                                                            
                                                             <Row className='mb-2'>
                                                                 <Col md={12}>
                                                                     <InputField FormType={'text'} FormLabel={"Gear Name"} onChange={inputHandler} error={error.trname} value={indata.trname} name='trname' />

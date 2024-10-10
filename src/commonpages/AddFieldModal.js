@@ -22,7 +22,7 @@ export const AddFieldModal = ({ show, handleClose, handleAddField }) => {
             <Modal.Body>
                 <Form>
                     <Form.Group className="mb-3">
-                        <Form.Label>Field Title</Form.Label>
+                        <Form.Label>Field Name</Form.Label>
                         <Form.Control
                             type="text"
                             value={fieldTitle}

@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { InputField } from '../../components/InputField'
 import { CheckBoxButton } from '../../components/CheckBoxButton'
@@ -12,26 +12,26 @@ export const CreateRole = ({ setLoder }) => {
     const [fdata, setFdata] = useState({
         "role": "",
         "User_Profile_Module": false,
-        "Training_Module":false,
-        "Inventory_Module":false,
-        "Availability_Module":false,
-        "Qualification_Module":false,
-        "Reporting_Module":false,
-        "Dashboard":false,
-        "Role_Administration":false,
-        "Gear_Administration":false
+        "Training_Module": false,
+        "Inventory_Module": false,
+        "Availability_Module": false,
+        "Qualification_Module": false,
+        "Reporting_Module": false,
+        "Dashboard": false,
+        "Role_Administration": false,
+        "Gear_Administration": false
     });
 
     const moduleList = [
-        { id: 8, name: 'Role Administration',value:"Role_Administration" },
-        { id: 3, name: 'Qualification Administration',value:"Qualification_Module" },
-        { id: 5, name: 'User Profile Administration',value:"User_Profile_Module" },
-        { id: 4, name: 'Training Administration',value:"Training_Module" },
-        { id: 1, name: 'Inventory Administration',value:"Inventory_Module" },
-        { id: 9, name: 'Gear Administration',value:"Gear_Administration" },
-        { id: 2, name: 'Availability',value:"Availability_Module" },   
-        { id: 6, name: 'Reporting',value:"Reporting_Module" },
-        { id: 7, name: 'Dashboard',value:"Dashboard" },      
+        { id: 8, name: 'Role Administration', value: "Role_Administration" },
+        { id: 3, name: 'Qualification Administration', value: "Qualification_Module" },
+        { id: 5, name: 'User Profile Administration', value: "User_Profile_Module" },
+        { id: 4, name: 'Event Administration', value: "Training_Module" },
+        { id: 1, name: 'Inventory Administration', value: "Inventory_Module" },
+        { id: 9, name: 'Gear Administration', value: "Gear_Administration" },
+        { id: 2, name: 'Availability', value: "Availability_Module" },
+        { id: 6, name: 'Reporting', value: "Reporting_Module" },
+        { id: 7, name: 'Dashboard', value: "Dashboard" },
     ]
 
     const createHandler = async () => {
@@ -39,21 +39,21 @@ export const CreateRole = ({ setLoder }) => {
         setLoder(true)
         const datas = {
             "role": fdata.role,
-            "Role_Administration":fdata.Role_Administration,
-            "Qualification_Module":fdata.Qualification_Module,
+            "Role_Administration": fdata.Role_Administration,
+            "Qualification_Module": fdata.Qualification_Module,
             "User_Profile_Module": fdata.User_Profile_Module,
-            "Training_Module":fdata.Training_Module,
-            "Inventory_Module":fdata.Inventory_Module,
-            "Gear_Administration":fdata.Gear_Administration,
-            "Availability_Module":fdata.Availability_Module,           
-            "Reporting_Module":fdata.Reporting_Module,
-            "Dashboard":fdata.Dashboard            
+            "Training_Module": fdata.Training_Module,
+            "Inventory_Module": fdata.Inventory_Module,
+            "Gear_Administration": fdata.Gear_Administration,
+            "Availability_Module": fdata.Availability_Module,
+            "Reporting_Module": fdata.Reporting_Module,
+            "Dashboard": fdata.Dashboard
         }
         const resp = await create_rolls(datas);
-        if (resp && resp.success) {          
+        if (resp && resp.success) {
             setLoder(false);
             successAlert(resp.message);
-            navigate("/roleadminstratorlist");            
+            navigate("/roleadminstratorlist");
         }
         setLoder(false);
     }
@@ -61,7 +61,7 @@ export const CreateRole = ({ setLoder }) => {
     const checkedHandler = (data) => {
         const name = data.data.value;
         const isChecked = data.isChecked;
-        setFdata((pre) => ({ ...pre, [name]: isChecked}));      
+        setFdata((pre) => ({ ...pre, [name]: isChecked }));
     }
     return (
         <>
@@ -69,7 +69,7 @@ export const CreateRole = ({ setLoder }) => {
                 <Container>
                     <Row>
                         <Col md={4}>
-                            <InputField FormLabel='Role Name' FormPlaceHolder='Enter Role Name' value={fdata.roll} onChange={(e) => setFdata((pre) => ({ ...pre, 'role': e.target.value }))} />
+                            <InputField required={true} FormLabel='Role Name' FormPlaceHolder='Enter Role Name' value={fdata.roll} onChange={(e) => setFdata((pre) => ({ ...pre, 'role': e.target.value }))} />
                         </Col>
                     </Row>
                     <h6>Select Module</h6>
@@ -86,6 +86,9 @@ export const CreateRole = ({ setLoder }) => {
                         <Col md={4}>
                             <SharedButton BtnLabel={'Create'} type={'button'} onClick={createHandler} BtnVariant={'primary'} BtnClass={'w-100'} />
                         </Col>
+                    </Row>
+                    <Row className='mt-3'>
+                        <span className='error'>Note: Fields marked with an asterisk (*) are mandatory and must be filled out before submitting the form .</span>
                     </Row>
                 </Container>
             </div>

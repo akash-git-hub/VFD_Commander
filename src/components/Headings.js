@@ -1,7 +1,7 @@
 import React from 'react'
 import { Stack } from 'react-bootstrap'
 
-export const Headings = ({ MainHeading, SubHeading, HeadButton }) => {
+export const Headings = ({ MainHeading, SubHeading, HeadButton, HeadButton2 }) => {
     return (
         <>
             <Stack className='pt-md-1 px-1' direction='horizontal' gap={2} style={{
@@ -15,6 +15,9 @@ export const Headings = ({ MainHeading, SubHeading, HeadButton }) => {
                 </Stack>
                 <Stack direction='horizontal' gap={0}>
                     {HeadButton}
+                </Stack>
+                <Stack direction='horizontal' gap={0}>
+                    {HeadButton2}
                 </Stack>
             </Stack>
         </>

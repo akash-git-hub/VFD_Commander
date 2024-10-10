@@ -11,8 +11,35 @@ export const login_API = async (data) => {
                 const urdata = resp.data.data;
                 const myid = resp.data.data._id;
                 const tokwn = resp.data.data.token;
-                const my_image = urdata.image || ""; 
-                localStorage.setItem('proimage',my_image);
+                const my_image = urdata.image || "";
+                localStorage.setItem('proimage', my_image);
+                localStorage.setItem('userData', JSON.stringify(urdata));
+                localStorage.setItem('Authorization', "Bearer " + tokwn);
+                localStorage.setItem('id', myid);
+                localStorage.setItem('type', ur_type);
+            }
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const account_Access_API = async (data) => {
+    try {
+        const resp = await http.post("/access_account", data);
+        if (resp) {
+            if (resp && resp.data && resp.data.data) {
+                const ur_type = resp.data.data.user_type_id;
+                const urdata = resp.data.data;
+                const myid = resp.data.data._id;
+                const tokwn = resp.data.data.token;
+                const my_image = urdata.image || "";
+                localStorage.setItem('proimage', my_image);
                 localStorage.setItem('userData', JSON.stringify(urdata));
                 localStorage.setItem('Authorization', "Bearer " + tokwn);
                 localStorage.setItem('id', myid);
@@ -106,8 +133,152 @@ export const update_actice_inactive_API = async (data) => {
     }
 }
 
+export const createPosition_API = async (data) => {
+    try {
+        const resp = await http.post("/createPosition", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
 
-export const getAccount_API = async (page) => {
+export const getPosition_API = async () => {
+    try {
+        const resp = await http.get("/getPosition");
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const getEventType_API = async () => {
+    try {
+        const resp = await http.get("/getEventType");
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+
+export const updatePosition_API = async (data) => {
+    try {
+        const resp = await http.post("/updatePosition", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+
+export const createQtype_API = async (data) => {
+    try {
+        const resp = await http.post("/createQtype", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const sendMessage_API = async (data) => {
+    try {
+        const resp = await http.post("/sendMessage", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+
+export const getQtype_API = async () => {
+    try {
+        const resp = await http.get("/getQtype");
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const getMessage_API = async () => {
+    try {
+        const resp = await http.get("/getMessage");
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            // errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+
+export const updateQtype_API = async (data = "") => {
+    try {
+        const resp = await http.post("/updateQtype", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const getAccount_API = async (page = "") => {
     try {
         const resp = await http.get("/getAccount", { params: page });
         if (resp && resp.data && resp.data.success) {
@@ -123,6 +294,73 @@ export const getAccount_API = async (page) => {
     }
 }
 
+export const getSupervisor_API = async () => {
+    try {
+        const resp = await http.get("/getSupervisor");
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            // errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+
+export const gearUsersList_API = async (id = '') => {
+    try {
+        const resp = await http.get(`/gearUsersList?id=${id}`);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            // errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const getAllUsers_API = async () => {
+    try {
+        const resp = await http.get("/getAllUsers");
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        console.log(error.response);
+    }
+}
+
+export const getAttendees_API = async (id = "", order = "") => {
+    try {
+        const resp = await http.get(`/getAttendees?id=${id}&order=${order}`);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export const getUserAccountById_API = async (id = "") => {
+    try {
+        const resp = await http.get(`/getUserAccountById?myId=${id}`);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const getUserByGroup_API = async (grpid) => {
     try {
         const resp = await http.post("/getUserByGroup", { data: grpid });
@@ -132,6 +370,87 @@ export const getUserByGroup_API = async (grpid) => {
     } catch (error) {
         if (error && error.response && error.response.data && error.response.data.message) {
             // errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const addUsersEvent_API = async (data) => {
+    try {
+        const resp = await http.post("/addUsersEvent", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const updateEventStatus_API = async (data) => {
+    try {
+        const resp = await http.post("/updateEventStatus", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+
+export const multiUpdateEventStatus_API = async (data) => {
+    try {
+        const resp = await http.post("/multiUpdateEventStatus", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+
+export const deleteEventUsers_API = async (data) => {
+    try {
+        const resp = await http.post("/deleteEventUsers", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const resetPassword_API = async (data) => {
+    try {
+        const resp = await http.post("/resetPassword", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
         } else {
             errorAlert(error.response);
         }
@@ -152,7 +471,21 @@ export const updateGrpname_API = async (data) => {
         } else {
             errorAlert(error.response);
         }
+    }
+}
 
+export const groupUpdate_API = async (data) => {
+    try {
+        const resp = await http.post("/updateGroup", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
     }
 }
 
@@ -172,10 +505,12 @@ export const grpUsersDelete_API = async (data) => {
     }
 }
 
-export const getGroups_API = async (page) => {
+export const getGroups_API = async (page = "") => {
     try {
         const resp = await http.get("/getGroups", { params: page });
+        
         if (resp && resp.data && resp.data.success) {
+            console.log(resp.data);
             return resp.data;
         }
     } catch (error) {
@@ -225,6 +560,28 @@ export const createGroup_API = async (data) => {
         const resp = await http.post("/createGroup", data);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
+        } else {
+            console.log(resp.data);
+            errorAlert(resp.data.message);
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            // errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const assignGroupUser_API = async (data) => {
+    try {
+        const resp = await http.post("/assignGroupUser", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        } else {
+            console.log(resp.data);
+            errorAlert(resp.data.message);
         }
     } catch (error) {
         if (error && error.response && error.response.data && error.response.data.message) {
@@ -244,7 +601,7 @@ export const unavailableUsers_API = async (page) => {
         }
     } catch (error) {
         if (error && error.response && error.response.data && error.response.data.message) {
-            errorAlert(error.response.data.message);
+            // errorAlert(error.response.data.message);
         } else {
             errorAlert(error.response);
         }
@@ -399,6 +756,56 @@ export const getTraningAll_API = async () => {
     }
 }
 
+export const getTraningById_API = async (data) => {
+    try {
+        const resp = await http.get("/getTraningByID", { params: data });
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const getTrainingByUserID_API = async (id = "") => {
+    try {
+        const resp = await http.get(`/getTraningByUserID?id=${id}`);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+
+
+export const getAllTrane_API = async () => {
+    try {
+        const resp = await http.get(`/getAllTrane`);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
 export const updateTraning_API = async (data) => {
     try {
         const resp = await http.post("/updateTraning", data);
@@ -432,10 +839,40 @@ export const createGearType_API = async (data) => {
     }
 }
 
+export const createGearAndApparatusType_API = async (data) => {
+    try {
+        const resp = await http.post("/createGearAndApparatusType", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
 
 export const getGearType_API = async () => {
     try {
         const resp = await http.get("/getGearType");
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const getGearAndApparatusType_API = async () => {
+    try {
+        const resp = await http.get("/getGearAndApparatusType");
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -465,6 +902,21 @@ export const updateGearType_API = async (data) => {
     }
 }
 
+export const updateGearAndApparatusType_API = async (data) => {
+    try {
+        const resp = await http.post("/updateGearAndApparatusType", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
 
 
 export const createGear_API = async (data) => {
@@ -481,9 +933,9 @@ export const createGear_API = async (data) => {
         }
     }
 }
-export const getGear_API = async () => {
+export const getGear_API = async (order = "") => {
     try {
-        const resp = await http.get("/getGear");
+        const resp = await http.get(`/getGear?order=${order}`);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -496,6 +948,54 @@ export const getGear_API = async () => {
 
     }
 }
+
+export const getGearById_API = async (id = "") => {
+    try {
+        const resp = await http.get(`/getGearById?id=${id}`);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const getUserGearByGearId_API = async (id = "") => {
+    try {
+        const resp = await http.get(`/getUserGearByGearId?id=${id}`);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+export const getApparatusById_API = async (id = "") => {
+    try {
+        const resp = await http.get(`/getApparatusById?id=${id}`);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
 export const updateGear_API = async (data) => {
     try {
         const resp = await http.post("/updateGear", data);
@@ -527,9 +1027,103 @@ export const createApparatus_API = async (data) => {
         }
     }
 }
-export const getApparatus_API = async () => {
+
+export const AddNewTrackingInformation_API = async (data) => {
     try {
-        const resp = await http.get("/getApparatus");
+        const resp = await http.post("/newTrackingInformation", data);
+        if (resp) {
+            console.log(resp);
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+
+export const addNewFieldAPI = async (data) => {
+    try {
+        const resp = await http.post("/addNewField_API", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const addNewDropdownValue_API = async (data) => {
+    try {
+        const resp = await http.post("/addNewDropdownValue", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+
+export const deleteCustom_API = async (data) => {
+    try {
+        const resp = await http.post("/deleteCustom", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const updateOneCustom_API = async (data) => {
+    try {
+        const resp = await http.post("/updateOneCustom", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const dropdownUpdate_API = async (data) => {
+    try {
+        const resp = await http.post("/dropdownUpdate", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const getApparatus_API = async (data = "") => {
+    try {
+        const resp = await http.get(`/getApparatus?order=${data}`);
         if (resp && resp.data && resp.data.success) {
             return resp.data;
         }
@@ -539,9 +1133,40 @@ export const getApparatus_API = async () => {
         } else {
             errorAlert(error.response);
         }
-
     }
 }
+
+
+export const getTrackingInformation_API = async (data = "") => {
+    try {
+        const resp = await http.get(`/getTrackingInformation?AP_Id=${data}`);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+export const getAddNewField_API = async (data = "") => {
+    try {
+        const resp = await http.get(`/getAddNewField?formName=${data}`);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
 export const updateApparatus_API = async (data) => {
     try {
         const resp = await http.post("/updateApparatus", data);
@@ -573,6 +1198,23 @@ export const createUserGear_API = async (data) => {
         }
     }
 }
+
+export const createMultiUserGear_API = async (data) => {
+    try {
+        const resp = await http.post("/createMultiUserGear", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
+
 export const getUserGear_API = async (id) => {
     try {
         const resp = await http.post("/getUserGear", id);
@@ -603,6 +1245,40 @@ export const updateUserGear_API = async (data) => {
 
     }
 }
+
+export const multiUpdateUserGear_API = async (data) => {
+    try {
+        const resp = await http.post("/multiUpdateUserGear", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
+
+export const multiUpdateUserQualification_API = async (data) => {
+    try {
+        const resp = await http.post("/multiUpdateUserQualification", data);
+        if (resp && resp.data && resp.data.success) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+
+    }
+}
+
 
 export const deleteUserGear_API = async (data) => {
     try {
@@ -698,6 +1374,22 @@ export const createUserQualification_API = async (data) => {
         }
     }
 }
+
+export const updateUserQualifiaction_API = async (data) => {
+    try {
+        const resp = await http.post("/updateUserQualifiaction", data);
+        if (resp) {
+            return resp.data;
+        }
+    } catch (error) {
+        if (error && error.response && error.response.data && error.response.data.message) {
+            errorAlert(error.response.data.message);
+        } else {
+            errorAlert(error.response);
+        }
+    }
+}
+
 export const getUserQualification_API = async (id) => {
     try {
         const resp = await http.post("/getUserQualifiaction", id);
